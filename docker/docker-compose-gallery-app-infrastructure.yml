@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+
+  # PostgreSQL
+  gallery-app-postgresql:
+    image: gallery-app-infrastructure-postgresql
+    container_name: gallery-app-postgresql
+    restart: always
+
+    ports:
+      - 127.0.0.1:5434:5432 # Do not need it in Prod
+
+    environment:
+      POSTGRES_PASSWORD: F879Li3h6kWgGaMjtGjOjpBJ1jLQdX
+
+    volumes:
+      - gallery_app_postgresql_data:/var/lib/postgresql/data
+
+    networks:
+      - gallery-app-net
+
+  # Adminer
+  gallery-app-adminer:
+    image: adminer
+    container_name: gallery-app-adminer
+    restart: always
+
+    ports:
+      - 127.0.0.1:9083:8080
+
+    networks:
+      - gallery-app-net
+
+volumes:
+
+  # Taghairm postgresql database storage
+  gallery_app_postgresql_data:
+
+networks:
+  gallery-app-net:
+    driver: bridge
+    external: true
