@@ -1,35 +1,35 @@
-# OpenArtspaceGallery
-Opensource gallery
+# OpenArtspaceGallery :)
 
+# 1).Build and run on Docker
 
-# Docker
-
-1) Create virtual network
-
+# Create virtual network
+```
 docker network create -d bridge gallery-app-net
+```
+# Create PostgreSQL image
 
-2) Create PostgreSQL image
-
+```
 docker build -f dockerfile-gallery-app-postgresql -t gallery-app-infrastructure-postgresql .
+```
+# Run infrastructure container:
 
-3) Run infrastructure container
-
-// This step is not working
-Test:
+# Test
+```
 docker-compose -f docker-compose-gallery-app-infrastructure.yml up
+```
 
-Run:
+# Run
+```
 docker-compose -f docker-compose-gallery-app-infrastructure.yml up -d
+```
 
---
+# 2). Stop containers
 
-Stop containers
-
-1) List containers:
-
+# List containers:
+```
 docker container ls
-
-2) Stop container:
-
+```
+# Stop container:
+```
 docker-compose -f docker-compose-infrastructure-gallery-app.yml down
-
+```
