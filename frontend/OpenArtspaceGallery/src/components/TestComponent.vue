@@ -3,5 +3,7 @@
 </script>
 
 <template>
-  <h1>Привет, мир!</h1>
+  <div class="test-background-color">
+    Привет, мир!
+  </div>
 </template>
