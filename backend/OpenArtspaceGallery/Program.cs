@@ -7,6 +7,26 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddControllers(); //регистрирует все, что необходимо для разработки веб-API. Услуги включают поддержку контроллеров, привязку модели, API Explorer, авторизацию, CORS, проверки, сопоставление форматтера и т. д. 
 
+#region CORS
+// CORS
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy
+    (
+        policy =>
+        {
+            policy
+                .WithOrigins
+                (
+                    "http://localhost:5173"
+                )
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        }
+    );
+});
+#endregion
+
 builder.Services.AddEndpointsApiExplorer();
 
 var app = builder.Build();

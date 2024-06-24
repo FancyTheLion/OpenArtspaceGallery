@@ -11,4 +11,12 @@ body {
 .test-background-color-n-super-mega-gigachad {
   background-color: hsl(117, 100%, 62%);
 }
+.centered {
+  text-align: center;
+}
+/* Loading symbol image */
+.loading-symbol-image {
+  width: 1rem;
+  height: 1rem;
+}
 /*# sourceMappingURL=gallery.css.map */

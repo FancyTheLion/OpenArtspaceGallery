@@ -9,8 +9,8 @@ namespace OpenArtspaceGallery.Controllers;
 public class WebsiteInfoController : ControllerBase
 {
     [HttpGet]
-    [Route("api/GetVersionBackend")]
-    public async Task<ActionResult<VersionBackendResponse>> GetVersionBackend()
+    [Route("api/GetBackendVersion")]
+    public async Task<ActionResult<VersionBackendResponse>> GetBackendVersion()
     {
         return new VersionBackendResponse(new VersionBackendDto("Version 0.0.1"));
     }
