@@ -60,7 +60,7 @@ async function GetSourcesLink()
 
         <div>
           Фронтенд: Version 0.0.1
-          
+
         </div>
 
       </div>
