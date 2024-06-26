@@ -1,13 +1,15 @@
+using System.Text.Json.Serialization;
 using OpenArtspaceGallery.Models.API.DTOs;
 
 namespace OpenArtspaceGallery.Models.API.Responses;
 
 public class VersionBackendResponse
 {
-    public VersionBackendDto VersionBack { get; set; } 
+    [JsonPropertyName("backendVersion")]
+    public VersionBackendDto BackendVersion { get; set; } 
 
-    public VersionBackendResponse(VersionBackendDto versionBack)
+    public VersionBackendResponse(VersionBackendDto backendVersion)
     {
-        VersionBack = versionBack;
+        BackendVersion = backendVersion;
     }
 }
