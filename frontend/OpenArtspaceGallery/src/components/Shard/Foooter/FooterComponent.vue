@@ -4,6 +4,7 @@ import {WebClientSendGetRequest} from "../../../ts/RequestToBackend.ts";
 
 const isLoading = ref(true)
 const backendVersion = ref(null)
+const sourcesLink = ref<string>("")
 
 onMounted(async () =>
 {
@@ -13,6 +14,8 @@ onMounted(async () =>
 async function OnLoad()
 {
   backendVersion.value = await GetBackendVersion()
+
+  sourcesLink.value = await GetSourcesLink()
 
   isLoading.value = false
 }
@@ -24,6 +27,13 @@ async function GetBackendVersion()
       .backendVersion
 }
 
+async function GetSourcesLink()
+{
+  return (await (await WebClientSendGetRequest("/api/GetSourcesLink")).json())
+      .sourcesLink
+      .sourcesLink
+}
+
 </script>
 
 <template>
@@ -32,8 +42,28 @@ async function GetBackendVersion()
 
   <div v-if="!isLoading">
 
-    <div class="test-background-color-n-super-mega-gigachad">
-      {{ backendVersion }}
+    <div class="flex-container-info">
+
+      <div class="info-version">
+
+        <div>
+          <a :href="sourcesLink" title="Лицензировано под AGPLv3 или более поздней версией">Исходный код</a>
+        </div>
+
+        <div class="license">
+          <img src="/Images/AGPLv3_Logo.webp" alt="AGPLv3 logo" />
+        </div>
+
+        <div>
+          Бэкенд: {{ backendVersion }}
+        </div>
+
+        <div>
+          Фронтенд: Version 0.0.1
+        </div>
+
+      </div>
+
     </div>
 
   </div>

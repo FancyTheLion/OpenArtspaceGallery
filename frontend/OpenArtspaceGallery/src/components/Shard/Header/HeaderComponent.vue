@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div class="test-background-color-n-super">
+  <div class="header">
     Тут будет заголовок
   </div>
 </template>

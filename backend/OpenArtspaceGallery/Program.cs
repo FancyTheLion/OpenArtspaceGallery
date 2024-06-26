@@ -1,9 +1,13 @@
+using OpenArtspaceGallery.Models.API.SiteInfoSettings;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.Configure<SiteInfoSettings>(builder.Configuration.GetSection(nameof(SiteInfoSettings)));
 
 builder.Services.AddControllers(); //регистрирует все, что необходимо для разработки веб-API. Услуги включают поддержку контроллеров, привязку модели, API Explorer, авторизацию, CORS, проверки, сопоставление форматтера и т. д. 
 

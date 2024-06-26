@@ -1,28 +1,30 @@
-@page-background-color-1: hsl(217, 100%, 62%);
-@page-background-color-2: hsl(417, 100%, 62%);
-@page-background-color-3: hsl(117, 100%, 62%);
+@page-background-color: #3C84FF;
+@color-text-info: #CDE0FF;
 
 @loading-symbol-size: 1.0rem;
 
-body {
-  background-color: @page-background-color-1;
+@text-info: .9rem;
 
-  color: @page-background-color-1;
+body {
+  background-color: @page-background-color;
+
+  color: @page-background-color;
 }
 
 .test-background-color {
-  background-color: @page-background-color-1;
+  background-color: @page-background-color;
 }
 
-.test-background-color-n-super {
-  background-color: @page-background-color-2;
-}
-
-.test-background-color-n-super-mega-gigachad {
-  background-color: @page-background-color-3;
+.header {
+  color: @color-text-info;
 }
 
 .centered {
+  justify-content: center;
+  align-items: center;
+}
+
+.text-centered {
   text-align: center;
 }
 
@@ -30,4 +32,21 @@ body {
 .loading-symbol-image {
   width: @loading-symbol-size;
   height: @loading-symbol-size;
+}
+
+.info-version {
+  color: @color-text-info;
+  font-size: @text-info;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  margin-bottom: .5rem;
+}
+
+.flex-container-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
