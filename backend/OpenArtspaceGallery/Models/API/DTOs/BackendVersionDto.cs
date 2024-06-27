@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace OpenArtspaceGallery.Models.API.DTOs;
 
-public class VersionBackendDto
+public class BackendVersionDto
 {
     /// <summary>
     ///  Backend version
@@ -10,7 +10,7 @@ public class VersionBackendDto
     [JsonPropertyName("backendVersion")]
     public string Version { get; private set; }
     
-    public VersionBackendDto(string version)
+    public BackendVersionDto(string version)
     {
         Version = version;
     }

@@ -3,12 +3,12 @@ using OpenArtspaceGallery.Models.API.DTOs;
 
 namespace OpenArtspaceGallery.Models.API.Responses;
 
-public class VersionBackendResponse
+public class BackendVersionResponse
 {
     [JsonPropertyName("backendVersion")]
-    public VersionBackendDto BackendVersion { get; set; } 
+    public BackendVersionDto BackendVersion { get; set; } 
 
-    public VersionBackendResponse(VersionBackendDto backendVersion)
+    public BackendVersionResponse(BackendVersionDto backendVersion)
     {
         BackendVersion = backendVersion;
     }

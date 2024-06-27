@@ -1,38 +1,37 @@
 <script setup lang="ts">
-import {onMounted, ref} from 'vue'
-import {WebClientSendGetRequest} from "../../../ts/RequestToBackend.ts";
+  import {onMounted, ref} from 'vue'
+  import {WebClientSendGetRequest} from "../../../ts/RequestToBackend.ts";
 
-const isLoading = ref(true)
-const backendVersion = ref(null)
-const sourcesLink = ref<string>("")
+  const isLoading = ref<boolean>(true)
+  const backendVersion = ref<string>("")
+  const sourcesLink = ref<string>("")
 
-onMounted(async () =>
-{
-  await OnLoad();
-})
+  onMounted(async () =>
+  {
+    await OnLoad();
+  })
 
-async function OnLoad()
-{
-  backendVersion.value = await GetBackendVersion()
+  async function OnLoad()
+  {
+    backendVersion.value = await GetBackendVersion()
+    sourcesLink.value = await GetSourcesLink()
 
-  sourcesLink.value = await GetSourcesLink()
+    isLoading.value = false
+  }
 
-  isLoading.value = false
-}
+  async function GetBackendVersion()
+  {
+    return (await (await WebClientSendGetRequest("/SiteInfo/GetBackendVersion")).json())
+        .backendVersion
+        .backendVersion
+  }
 
-async function GetBackendVersion()
-{
-  return (await (await WebClientSendGetRequest("/api/GetBackendVersion")).json())
-      .backendVersion
-      .backendVersion
-}
-
-async function GetSourcesLink()
-{
-  return (await (await WebClientSendGetRequest("/api/GetSourcesLink")).json())
-      .sourcesLink
-      .sourcesLink
-}
+  async function GetSourcesLink()
+  {
+    return (await (await WebClientSendGetRequest("/SiteInfo/GetSourcesLink")).json())
+        .sourcesLink
+        .sourcesLink
+  }
 
 </script>
 
@@ -47,7 +46,7 @@ async function GetSourcesLink()
       <div class="info-version">
 
         <div>
-          <a :href="sourcesLink" title="Лицензировано под AGPLv3 или более поздней версией">Исходный код</a>
+          <a :href="sourcesLink" title="Лицензировано под AGPLv3 или более поздней версией">Исходные коды</a>
         </div>
 
         <div class="license">
@@ -55,11 +54,11 @@ async function GetSourcesLink()
         </div>
 
         <div>
-          Бэкенд: {{ backendVersion }}
+          Версия бэкенда: {{ backendVersion }}
         </div>
 
         <div>
-          Фронтенд: Version 0.0.1
+          Версия фронтенда: 0.0.1
 
         </div>
 

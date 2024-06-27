@@ -1,4 +1,4 @@
-using OpenArtspaceGallery.Models.API.SiteInfoSettings;
+using OpenArtspaceGallery.Models.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,11 +7,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.Configure<SiteInfoSettings>(builder.Configuration.GetSection(nameof(SiteInfoSettings)));
+#region Settings
+
+    builder.Services.Configure<SiteInfoSettings>(builder.Configuration.GetSection(nameof(SiteInfoSettings)));
+
+#endregion
 
 builder.Services.AddControllers(); //регистрирует все, что необходимо для разработки веб-API. Услуги включают поддержку контроллеров, привязку модели, API Explorer, авторизацию, CORS, проверки, сопоставление форматтера и т. д. 
 
 #region CORS
+
 // CORS
 builder.Services.AddCors(options =>
 {
@@ -22,13 +27,14 @@ builder.Services.AddCors(options =>
             policy
                 .WithOrigins
                 (
-                    "http://localhost:5173"
+                    "http://localhost:5173" // TODO: Move to settings
                 )
                 .AllowAnyHeader()
                 .AllowAnyMethod();
         }
     );
 });
+
 #endregion
 
 builder.Services.AddEndpointsApiExplorer();

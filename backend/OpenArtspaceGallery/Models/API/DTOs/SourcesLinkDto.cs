@@ -2,16 +2,16 @@ using System.Text.Json.Serialization;
 
 namespace OpenArtspaceGallery.Models.API.DTOs;
 
-public class SiteInfoSettingsDto
+public class SourcesLinkDto
 {
     /// <summary>
     ///  Backend version
     /// </summary>
     [JsonPropertyName("sourcesLink")]
-    public string SourcesLink { get; private set; }
+    public string SourcesSourcesLink { get; private set; }
     
-    public SiteInfoSettingsDto(string linkSourceCode)
+    public SourcesLinkDto(string sourcesLink)
     {
-        SourcesLink = linkSourceCode;
+        SourcesSourcesLink = sourcesLink;
     }
 }

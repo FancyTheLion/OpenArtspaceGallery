@@ -3,16 +3,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using OpenArtspaceGallery.Models.API.DTOs;
 using OpenArtspaceGallery.Models.API.Responses;
-using OpenArtspaceGallery.Models.API.SiteInfoSettings;
+using OpenArtspaceGallery.Models.Settings;
 
 namespace OpenArtspaceGallery.Controllers;
 
 [ApiController]
-public class WebsiteInfoController : ControllerBase
+public class SiteInfoController : ControllerBase
 {
     private readonly SiteInfoSettings _siteInfoSettings;
 
-    public WebsiteInfoController
+    public SiteInfoController
     (
         IOptions<SiteInfoSettings> siteInfoSettings
     )
@@ -21,20 +21,20 @@ public class WebsiteInfoController : ControllerBase
     }
 
     [HttpGet]
-    [Route("api/GetBackendVersion")]
-    public async Task<ActionResult<VersionBackendResponse>> GetBackendVersion()
+    [Route("api/SiteInfo/GetBackendVersion")]
+    public async Task<ActionResult<BackendVersionResponse>> GetBackendVersion()
     {
-        return new VersionBackendResponse(new VersionBackendDto("Version 0.0.1"));
+        return new BackendVersionResponse(new BackendVersionDto("0.0.1"));
     }
     
     /// <summary>
     /// Get link to source code
     /// </summary>
-    [Route("api/GetSourcesLink")]
+    [Route("api/SiteInfo/GetSourcesLink")]
     [HttpGet]
-    public async Task<ActionResult<SiteInfoSettingsResponse>> GeSourcesLink()
+    public async Task<ActionResult<SourcesLinkResponse>> GeSourcesLink()
     {
-        return Ok(new SiteInfoSettingsResponse(new SiteInfoSettingsDto(_siteInfoSettings.SourcesUrl)));
+        return Ok(new SourcesLinkResponse(new SourcesLinkDto(_siteInfoSettings.SourcesUrl)));
     }
 }
 
