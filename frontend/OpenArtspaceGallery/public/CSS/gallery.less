@@ -1,33 +1,24 @@
-/* Colors */
-@page-background-color: hsl(218, 100%, 62%);
+@import(less) "public/Shared/common.less";
 
-/* Text colors */
-@main-text-color: hsl(217, 100%, 90%);
-
-@loading-symbol-size: 1.0rem;
-
-@text-info: 0.9rem;
-
-/* Margins */
-@margin-normal: 0.5rem;
-
-/* Paddings */
-
+/* Body pages */
 body {
   background-color: @page-background-color;
 
   color: @page-background-color;
 }
 
+/* Header */
 .header {
   color: @main-text-color;
 }
 
+/* Centered item */
 .centered {
   justify-content: center;
   align-items: center;
 }
 
+/* Text centered */
 .text-centered {
   text-align: center;
 }
@@ -38,6 +29,7 @@ body {
   height: @loading-symbol-size;
 }
 
+/* Info version */
 .info-version {
   color: @main-text-color;
   font-size: @text-info;
@@ -48,6 +40,7 @@ body {
   margin-bottom: @margin-normal;
 }
 
+/* Flex container info */
 .flex-container-info {
   display: flex;
   flex-direction: column;

@@ -5,7 +5,7 @@ namespace OpenArtspaceGallery.Models.API.DTOs;
 public class SourcesLinkDto
 {
     /// <summary>
-    ///  Backend version
+    ///  Source code link
     /// </summary>
     [JsonPropertyName("sourcesLink")]
     public string SourcesSourcesLink { get; private set; }

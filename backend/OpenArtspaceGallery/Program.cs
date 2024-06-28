@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using OpenArtspaceGallery.DAO.Contexts;
 using OpenArtspaceGallery.Models.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,12 +12,19 @@ builder.Services.AddSwaggerGen();
 #region Settings
 
     builder.Services.Configure<SiteInfoSettings>(builder.Configuration.GetSection(nameof(SiteInfoSettings)));
+    builder.Services.Configure<CorsSettings>(builder.Configuration.GetSection(nameof(CorsSettings)));
 
 #endregion
 
-builder.Services.AddControllers(); //регистрирует все, что необходимо для разработки веб-API. Услуги включают поддержку контроллеров, привязку модели, API Explorer, авторизацию, CORS, проверки, сопоставление форматтера и т. д. 
+builder.Services.AddControllers(); 
 
 #region CORS
+
+var corsSettings = builder
+                       .Configuration
+                       .GetSection(nameof(CorsSettings))
+                       .Get<CorsSettings>()
+                   ?? throw new ArgumentException("Please set up CORS settings in appsettings.json!");
 
 // CORS
 builder.Services.AddCors(options =>
@@ -27,13 +36,27 @@ builder.Services.AddCors(options =>
             policy
                 .WithOrigins
                 (
-                    "http://localhost:5173" // TODO: Move to settings
+                    corsSettings.AllowedDomains.ToArray()
                 )
                 .AllowAnyHeader()
                 .AllowAnyMethod();
         }
     );
 });
+
+#endregion
+
+#region  DB Contexts
+
+// Main
+builder.Services.AddDbContext<MainDbContext>
+(
+    options
+        =>
+        options.UseNpgsql(builder.Configuration.GetConnectionString("MainConnection"),
+          o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)),
+          ServiceLifetime.Transient
+);
 
 #endregion
 

@@ -50,7 +50,7 @@
         </div>
 
         <div class="license">
-          <img src="/Images/AGPLv3_Logo.webp" alt="AGPLv3 logo" />
+          <img src="/images/AGPLv3_Logo.webp" alt="AGPLv3 logo" />
         </div>
 
         <div>
