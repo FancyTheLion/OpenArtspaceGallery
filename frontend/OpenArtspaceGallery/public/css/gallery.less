@@ -1,4 +1,5 @@
-@import(less) "public/Shared/common.less";
+@import "shared/common.less";
+@import "shared/footer/footer.less";
 
 /* Body pages */
 body {
@@ -27,23 +28,4 @@ body {
 .loading-symbol-image {
   width: @loading-symbol-size;
   height: @loading-symbol-size;
-}
-
-/* Info version */
-.info-version {
-  color: @main-text-color;
-  font-size: @text-info;
-  text-align: center;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  margin-bottom: @margin-normal;
-}
-
-/* Flex container info */
-.flex-container-info {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }

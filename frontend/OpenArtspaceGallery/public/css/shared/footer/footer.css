@@ -1,0 +1,26 @@
+/* Colors */
+/* Text colors */
+/* Loading symbol size */
+/* Text size */
+/* Margins */
+/* End margins */
+/* Paddings */
+/* End paddings */
+/* Info version */
+.footer-version-info {
+  color: hsl(217, 100%, 90%);
+  font-size: 0.9rem;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+/* Flex container info */
+.footer-version-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+/*# sourceMappingURL=footer.css.map */

@@ -4,6 +4,6 @@
 
 <template>
   <div class="centered">
-    <img class="loading-symbol-image" src="/images/loading.webp" alt="Load animation" />
+    <img class="loading-symbol-image" src="/images/loading.webp" alt="Loading animation" />
   </div>
 </template>

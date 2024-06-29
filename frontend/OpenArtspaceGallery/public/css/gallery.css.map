@@ -1,0 +1,1 @@
+{"version":3,"sources":["shared/footer/footer.less","gallery.less"],"names":[],"mappings":";;;;;;;;;AAGA;EACE,0BAAA;EACA,iBAAA;EACA,kBAAA;EACA,kBAAA;EACA,SAAA;EACA,WAAA;EACA,qBAAA;;;AAIF;EACE,aAAA;EACA,sBAAA;EACA,uBAAA;EACA,mBAAA;;;ACdF;EACE,qCAAA;EAEA,0BAAA;;;AAIF;EACE,0BAAA;;;AAIF;EACE,uBAAA;EACA,mBAAA;;;AAIF;EACE,kBAAA;;;AAIF;EACE,WAAA;EACA,YAAA","file":"gallery.css"}

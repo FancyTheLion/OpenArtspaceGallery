@@ -41,17 +41,15 @@
 
   <div v-if="!isLoading">
 
-    <div class="flex-container-info">
+    <div class="footer-version-container">
 
-      <div class="info-version">
+      <div class="footer-version-info">
 
         <div>
           <a :href="sourcesLink" title="Лицензировано под AGPLv3 или более поздней версией">Исходные коды</a>
         </div>
 
-        <div class="license">
-          <img src="/images/AGPLv3_Logo.webp" alt="AGPLv3 logo" />
-        </div>
+        <img src="/images/AGPLv3_Logo.webp" alt="AGPLv3 logo" />
 
         <div>
           Версия бэкенда: {{ backendVersion }}
@@ -59,7 +57,6 @@
 
         <div>
           Версия фронтенда: 0.0.1
-
         </div>
 
       </div>

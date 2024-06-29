@@ -24,7 +24,7 @@ var corsSettings = builder
                        .Configuration
                        .GetSection(nameof(CorsSettings))
                        .Get<CorsSettings>()
-                   ?? throw new ArgumentException("Please set up CORS settings in appsettings.json!");
+                   ?? throw new ArgumentException("Please set up CORS settings in appsettings.json");
 
 // CORS
 builder.Services.AddCors(options =>
