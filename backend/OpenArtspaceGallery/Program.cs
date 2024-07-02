@@ -1,8 +1,23 @@
 using Microsoft.EntityFrameworkCore;
+using OpenArtspaceGallery.DAO.Abstract;
 using OpenArtspaceGallery.DAO.Contexts;
+using OpenArtspaceGallery.DAO.Implementation;
 using OpenArtspaceGallery.Models.Settings;
+using OpenArtspaceGallery.Services.Abstract;
+using OpenArtspaceGallery.Services.Implementation;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// DI
+#region DI
+    #region Scoped
+                
+    builder.Services.AddScoped<IAlbumsService, AlbumsService>();
+    builder.Services.AddScoped<IAlbumsDao, AlbumsDao>();
+
+    #endregion
+            
+#endregion
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

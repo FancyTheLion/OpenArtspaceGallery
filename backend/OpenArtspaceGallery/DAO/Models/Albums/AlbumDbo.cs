@@ -1,4 +1,6 @@
 using System.ComponentModel.DataAnnotations;
+using OpenArtspaceGallery.Models;
+using OpenArtspaceGallery.Models.API.DTOs;
 
 namespace OpenArtspaceGallery.DAO.Models.Albums;
 
@@ -11,7 +13,7 @@ public class AlbumDbo
     public Guid Id { get; set; }
     
     /// <summary>
-    /// Album Name
+    /// Parent album
     /// </summary>
     public AlbumDbo? Parent { get; set; }
     
@@ -24,4 +26,15 @@ public class AlbumDbo
     /// Album data create
     /// </summary>
     public DateTime CreateDate { get; set; }
+
+    public Album ToModel()
+    {
+        return new Album
+        (
+            Id,
+            Parent?.Id,
+            Name,
+            CreateDate
+        );
+    }
 }
