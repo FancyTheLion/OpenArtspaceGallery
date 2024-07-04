@@ -6,6 +6,20 @@
 /* End margins */
 /* Paddings */
 /* End paddings */
+/* Centered item */
+.centered {
+  justify-content: center;
+  align-items: center;
+}
+/* Text centered */
+.text-centered {
+  text-align: center;
+}
+/* Loading symbol image */
+.loading-symbol-image {
+  width: 1rem;
+  height: 1rem;
+}
 /* Info version */
 .footer-version-info {
   color: hsl(217, 100%, 90%);

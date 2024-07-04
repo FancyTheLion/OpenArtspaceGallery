@@ -25,22 +25,22 @@ public class AlbumDto
     public string Name { get; private set; }
 
     /// <summary>
-    /// Album data create
+    /// Album creation time
     /// </summary>
-    [JsonPropertyName("createData")]
-    public DateTime CreateDate { get; private set; }
+    [JsonPropertyName("creationTime")]
+    public DateTime CreationTime { get; private set; }
 
     public AlbumDto
     (
         Guid id,
         Guid? parent, 
         string name,
-        DateTime createDate
+        DateTime creationTime
     )
     {
         Id = id;
         Parent = parent;
         Name = name;
-        CreateDate = createDate;
+        CreationTime = creationTime;
     }
 }

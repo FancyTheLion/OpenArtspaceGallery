@@ -20,4 +20,7 @@
   width: 1rem;
   height: 1rem;
 }
-/*# sourceMappingURL=common.css.map */
+.header-bottom-line {
+  border-bottom-style: solid;
+}
+/*# sourceMappingURL=header.css.map */

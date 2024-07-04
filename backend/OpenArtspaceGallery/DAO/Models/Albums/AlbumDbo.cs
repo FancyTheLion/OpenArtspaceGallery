@@ -23,9 +23,9 @@ public class AlbumDbo
     public string Name { get; set; }
 
     /// <summary>
-    /// Album data create
+    /// Album creation time
     /// </summary>
-    public DateTime CreateDate { get; set; }
+    public DateTime CreationTime { get; set; }
 
     public Album ToModel()
     {
@@ -34,7 +34,7 @@ public class AlbumDbo
             Id,
             Parent?.Id,
             Name,
-            CreateDate
+            CreationTime
         );
     }
 }

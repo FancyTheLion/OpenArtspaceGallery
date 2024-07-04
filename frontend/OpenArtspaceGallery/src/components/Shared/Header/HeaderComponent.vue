@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div class="header">
+  <div class="header-bottom-line">
     Тут будет заголовок
   </div>
 </template>

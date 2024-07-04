@@ -1,1 +1,1 @@
-{"version":3,"sources":[],"names":[],"mappings":"","file":"common.css"}
+{"version":3,"sources":["common.less"],"names":[],"mappings":";;;;;;;;;AAwBA;EACE,uBAAA;EACA,mBAAA;;;AAIF;EACE,kBAAA;;;AAIF;EACE,WAAA;EACA,YAAA","file":"common.css"}

@@ -20,22 +20,22 @@ public class Album
     public string Name { get; private set; }
 
     /// <summary>
-    /// Album data create
+    /// Album creation time
     /// </summary>
-    public DateTime CreateDate { get; private set; }
+    public DateTime CreationTime { get; private set; }
 
     public Album
     (
         Guid id,
         Guid? parent, 
         string name,
-        DateTime createDate
+        DateTime creationTime
     )
     {
         Id = id;
         Parent = parent;
         Name = name;
-        CreateDate = createDate;
+        CreationTime = creationTime;
     }
 
     public AlbumDto ToDto()
@@ -45,7 +45,7 @@ public class Album
             Id,
             Parent,
             Name,
-            CreateDate
+            CreationTime
         );
     }
 }
