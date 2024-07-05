@@ -1,0 +1,18 @@
+@import "../common.less";
+
+.albums-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  flex-wrap: wrap;
+  gap: @gap-normal;
+}
+
+.album-container {
+  border: @border-width-thick @border-type-common @light-green-frame;
+  border-radius: @border-width-thick;
+  width: 15rem;
+  height: 15rem;
+
+  padding: @padding-normal;
+}

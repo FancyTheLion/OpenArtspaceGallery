@@ -1,14 +1,18 @@
 /* Colors */
 @page-background-color: hsl(218, 100%, 62%);
+@light-green-frame: hsl(117, 100%, 60%);
 
 /* Text colors */
-@main-text-color: hsl(217, 100%, 90%);
+@text-color-not-important: hsl(0, 0%, 56%);
+@text-color-not-important-hovered-link: hsl(219, 39%, 59%);
 
 /* Loading symbol size */
 @loading-symbol-size: 1.0rem;
 
 /* Text size */
-@text-info: 0.9rem;
+@text-size-smaller: 0.9rem;
+
+
 
 /* Margins */
 
@@ -16,10 +20,33 @@
 
 /* End margins */
 
+
+
 /* Paddings */
 
+@padding-normal: 0.5rem;
 
 /* End paddings */
+
+
+
+/* Borders */
+
+@border-type-common: solid;
+
+@border-width-thick: 0.3rem;
+
+
+/* End borders */
+
+
+/* Gaps */
+
+@gap-normal: 0.5rem;
+
+/* End gaps */
+
+
 
 /* Centered item */
 .centered {
@@ -36,4 +63,14 @@
 .loading-symbol-image {
   width: @loading-symbol-size;
   height: @loading-symbol-size;
+}
+
+.link-not-important {
+  color: @text-color-not-important;
+  font-size: @text-size-smaller;
+}
+
+.link-not-important:hover {
+  color: @text-color-not-important-hovered-link;
+  font-size: @text-size-smaller;
 }

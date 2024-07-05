@@ -32,4 +32,18 @@
   color: hsl(219, 39%, 59%);
   font-size: 0.9rem;
 }
-/*# sourceMappingURL=home.css.map */
+.albums-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.album-container {
+  border: 0.3rem solid hsl(117, 100%, 60%);
+  border-radius: 0.3rem;
+  width: 15rem;
+  height: 15rem;
+  padding: 0.5rem;
+}
+/*# sourceMappingURL=album.css.map */

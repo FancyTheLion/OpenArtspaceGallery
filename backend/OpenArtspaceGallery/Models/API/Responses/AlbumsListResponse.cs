@@ -11,7 +11,7 @@ public class AlbumsListResponse
     /// <summary>
     /// Album list
     /// </summary>
-    [JsonPropertyName("Albums")]
+    [JsonPropertyName("albums")]
     public IReadOnlyCollection<AlbumDto> Albums { get; private set; }
 
     public AlbumsListResponse

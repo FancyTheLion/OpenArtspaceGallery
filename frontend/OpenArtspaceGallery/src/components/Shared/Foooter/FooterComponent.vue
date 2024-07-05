@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import {onMounted, ref} from 'vue'
-  import {WebClientSendGetRequest} from "../../../ts/RequestToBackend.ts";
+  import {WebClientSendGetRequest} from "../../../ts/libWebClient.ts";
+  import LoadingSymbol from "../../LoadingSymbolComponent.vue";
 
   const isLoading = ref<boolean>(true)
   const backendVersion = ref<string>("")
@@ -37,32 +38,30 @@
 
 <template>
 
-  <LoadingSymbol v-if="isLoading" />
+  <div class="footer-container">
+    <LoadingSymbol v-if="isLoading" />
 
-  <div v-if="!isLoading">
+    <div v-if="!isLoading">
 
-    <div class="footer-version-container">
-
-      <div class="footer-version-info">
+      <div class="footer-version-container">
 
         <div>
-          <a :href="sourcesLink" title="Лицензировано под AGPLv3 или более поздней версией">Исходные коды</a>
+          <a class="link-not-important" :href="sourcesLink" title="Лицензировано под AGPLv3 или более поздней версией">Исходные коды</a>
         </div>
 
         <img src="/images/AGPLv3_Logo.webp" alt="AGPLv3 logo" />
 
-        <div>
+        <div class="footer-version-info">
           Версия бэкенда: {{ backendVersion }}
         </div>
 
-        <div>
+        <div class="footer-version-info">
           Версия фронтенда: 0.0.1
         </div>
 
       </div>
 
     </div>
-
   </div>
 
 </template>

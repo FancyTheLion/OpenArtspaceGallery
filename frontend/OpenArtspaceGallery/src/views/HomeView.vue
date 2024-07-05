@@ -8,7 +8,7 @@
 
     <HeaderComponent/>
 
-    <HomeComponent/>
+    <HomeComponent />
 
     <FooterComponent/>
 

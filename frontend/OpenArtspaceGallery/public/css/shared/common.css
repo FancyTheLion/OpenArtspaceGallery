@@ -6,6 +6,10 @@
 /* End margins */
 /* Paddings */
 /* End paddings */
+/* Borders */
+/* End borders */
+/* Gaps */
+/* End gaps */
 /* Centered item */
 .centered {
   justify-content: center;
@@ -19,5 +23,13 @@
 .loading-symbol-image {
   width: 1rem;
   height: 1rem;
+}
+.link-not-important {
+  color: hsl(0, 0%, 56%);
+  font-size: 0.9rem;
+}
+.link-not-important:hover {
+  color: hsl(219, 39%, 59%);
+  font-size: 0.9rem;
 }
 /*# sourceMappingURL=common.css.map */
