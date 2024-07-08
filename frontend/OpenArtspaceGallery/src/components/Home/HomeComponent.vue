@@ -24,7 +24,7 @@
   {
     return (await (await WebClientSendGetRequest("/Albums/TopLevel")).json())
         .albums
-/*        .sort(function(a: Album, b: Album) { return a.creationTime.localeCompare(b.creationTime) })*/
+        .sort(function(a: Album, b: Album) { return a.creationTime > b.creationTime })
   }
 
 </script>

@@ -4,6 +4,6 @@
 
 <template>
   <div class="header-container">
-    Тут будет заголовок
+    Open ArtSpace Gallery
   </div>
 </template>

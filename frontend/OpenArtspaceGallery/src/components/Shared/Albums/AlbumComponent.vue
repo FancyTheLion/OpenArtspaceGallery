@@ -2,8 +2,9 @@
 
   import {PropType, ref} from "vue";
   import {Album} from "../../../ts/Albums/libAlbums.ts";
-/*  import moment = require("moment");*/
+  import moment from "moment";
 
+  const albumCreationTime = ref<String>("")
 
   const props = defineProps({
     info: {
@@ -12,12 +13,7 @@
     }
   })
 
-/*
-  let time = ref<Number>() // TODO: String?????
-
-  time = moment(props.info.creationTime).format('DD.MM.YYYY HH:mm:ss')
-
-*/
+  albumCreationTime.value = moment(props.info?.creationTime).format('DD.MM.YYYY HH:mm:ss');
 
 </script>
 
@@ -26,7 +22,7 @@
   <div class="album-container">
 
     <div>Name: {{ props.info.name }}</div>
-    <div>Creation Time: {{ props.info.creationTime }}</div>
+    <div>Creation Time: {{ albumCreationTime }}</div>
 
   </div>
 
