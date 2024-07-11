@@ -1,6 +1,5 @@
 /* Colors */
 /* Text colors */
-/* Loading symbol size */
 /* Text size */
 /* Margins */
 /* End margins */
@@ -10,19 +9,23 @@
 /* End borders */
 /* Gaps */
 /* End gaps */
+/* Mixins */
+/* Centered flex (vertically and horizontally) */
+.mixin-flex-vertically-and-horizontally-centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* End of mixins */
 /* Centered item */
-.centered {
+.flex-vertically-and-horizontally-centered {
+  display: flex;
   justify-content: center;
   align-items: center;
 }
 /* Text centered */
 .text-centered {
   text-align: center;
-}
-/* Loading symbol image */
-.loading-symbol-image {
-  width: 1rem;
-  height: 1rem;
 }
 .link-not-important {
   color: hsl(0, 0%, 56%);
@@ -49,10 +52,13 @@
   font-size: 0.9rem;
   text-align: center;
 }
+/* Container with header */
 .header-container {
   border-bottom-style: solid;
   margin-bottom: 0.5rem;
+  padding-bottom: 0.2rem;
 }
+/* Container with albums */
 .albums-container {
   display: flex;
   flex-direction: row;
@@ -60,11 +66,48 @@
   flex-wrap: wrap;
   gap: 0.5rem;
 }
+/* Container with one album */
 .album-container {
-  border: 0.3rem solid hsl(117, 100%, 60%);
-  border-radius: 0.3rem;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 0;
+  border: 0.3rem solid hsl(221, 47%, 43%);
+  border-radius: 0.5rem;
   width: 15rem;
   height: 15rem;
+}
+/* Album upper part (for photos) */
+.album-upper-part {
+  flex: 100%;
   padding: 0.5rem;
+}
+/* Album square lower part */
+.album-lower-part {
+  background: hsl(240, 100%, 27%);
+  height: min-content;
+  padding: 0.5rem;
+}
+/* Text with album name */
+.album-name {
+  color: hsl(0, 0%, 100%);
+  text-align: center;
+  font-weight: bold;
+}
+/* Album creation date */
+.album-creation-date {
+  color: hsl(0, 0%, 100%);
+  font-size: 0.8rem;
+}
+/* Link to full album on hover */
+.album-link-full {
+  color: hsl(240, 100%, 50%);
+  text-decoration: none;
+}
+/* Loading symbol size */
+/* Loading symbol image */
+.loading-symbol-image {
+  width: 1rem;
+  height: 1rem;
 }
 /*# sourceMappingURL=gallery.css.map */

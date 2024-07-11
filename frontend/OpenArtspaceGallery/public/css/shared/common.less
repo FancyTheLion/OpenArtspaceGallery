@@ -1,16 +1,12 @@
 /* Colors */
-@light-green-frame: hsl(117, 100%, 60%);
 
 /* Text colors */
-@text-color-not-important: hsl(0, 0%, 56%);
-@text-color-not-important-hovered-link: hsl(219, 39%, 59%);
-
-/* Loading symbol size */
-@loading-symbol-size: 1.0rem;
+@color-text-not-important: hsl(0, 0%, 56%);
+@color-text-not-important-hovered-link: hsl(219, 39%, 59%);
+@color-album-text: hsl(0, 0%, 100%);
 
 /* Text size */
 @text-size-smaller: 0.9rem;
-
 
 
 /* Margins */
@@ -20,13 +16,12 @@
 /* End margins */
 
 
-
 /* Paddings */
 
+@padding-small: 0.2rem;
 @padding-normal: 0.5rem;
 
 /* End paddings */
-
 
 
 /* Borders */
@@ -35,8 +30,7 @@
 
 @border-width-thick: 0.3rem;
 
-@vertical-album-border: 15rem;
-@horizontal-album-border: 15rem;
+@border-radius-normal: 0.5rem;
 
 /* End borders */
 
@@ -47,12 +41,21 @@
 
 /* End gaps */
 
+/* Mixins */
 
+/* Centered flex (vertically and horizontally) */
+.mixin-flex-vertically-and-horizontally-centered {
+  display: flex;
 
-/* Centered item */
-.centered {
   justify-content: center;
   align-items: center;
+}
+
+/* End of mixins */
+
+/* Centered item */
+.flex-vertically-and-horizontally-centered {
+  .mixin-flex-vertically-and-horizontally-centered();
 }
 
 /* Text centered */
@@ -60,18 +63,12 @@
   text-align: center;
 }
 
-/* Loading symbol image */
-.loading-symbol-image {
-  width: @loading-symbol-size;
-  height: @loading-symbol-size;
-}
-
 .link-not-important {
-  color: @text-color-not-important;
+  color: @color-text-not-important;
   font-size: @text-size-smaller;
 }
 
 .link-not-important:hover {
-  color: @text-color-not-important-hovered-link;
+  color: @color-text-not-important-hovered-link;
   font-size: @text-size-smaller;
 }

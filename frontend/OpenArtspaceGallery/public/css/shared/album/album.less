@@ -1,5 +1,17 @@
 @import "../common.less";
 
+@color-album-container-border: hsl(221, 47%, 43%);
+@color-album-link-hover: hsl(240, 100%, 50%);
+@color-album-link-visited: hsl(240, 100%, 50%);
+@color-album-link-active: hsl(120, 100%, 25%);
+@color-album-info-background: hsl(240, 100%, 27%);
+
+@album-container-width: 15rem;
+@album-container-height: 15rem;
+
+@album-font-size: 0.8rem;
+
+/* Container with albums */
 .albums-container {
   display: flex;
   flex-direction: row;
@@ -8,11 +20,54 @@
   gap: @gap-normal;
 }
 
+/* Container with one album */
 .album-container {
-  border: @border-width-thick @border-type-common @light-green-frame;
-  border-radius: @border-width-thick;
-  width: @vertical-album-border;
-  height: @horizontal-album-border;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 0;
+
+  border: @border-width-thick @border-type-common @color-album-container-border;
+  border-radius: @border-radius-normal;
+  width: @album-container-width;
+  height: @album-container-height;
+}
+
+/* Album upper part (for photos) */
+.album-upper-part {
+  flex: 100%;
+  padding: @padding-normal;
+}
+
+/* Album square lower part */
+.album-lower-part {
+  background: @color-album-info-background;
+
+  height: min-content;
 
   padding: @padding-normal;
 }
+
+/* Text with album name */
+.album-name {
+  color: @color-album-text;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Album creation date */
+.album-creation-date {
+  color: @color-album-text;
+
+  font-size: @album-font-size;
+}
+
+/* Link to full album on hover */
+.album-link-full {
+  color: @color-album-link-hover;
+
+  text-decoration: none;
+}
+
+
+

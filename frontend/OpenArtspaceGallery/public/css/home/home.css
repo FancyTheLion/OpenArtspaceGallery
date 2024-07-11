@@ -1,6 +1,5 @@
 /* Colors */
 /* Text colors */
-/* Loading symbol size */
 /* Text size */
 /* Margins */
 /* End margins */
@@ -10,19 +9,23 @@
 /* End borders */
 /* Gaps */
 /* End gaps */
+/* Mixins */
+/* Centered flex (vertically and horizontally) */
+.mixin-flex-vertically-and-horizontally-centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* End of mixins */
 /* Centered item */
-.centered {
+.flex-vertically-and-horizontally-centered {
+  display: flex;
   justify-content: center;
   align-items: center;
 }
 /* Text centered */
 .text-centered {
   text-align: center;
-}
-/* Loading symbol image */
-.loading-symbol-image {
-  width: 1rem;
-  height: 1rem;
 }
 .link-not-important {
   color: hsl(0, 0%, 56%);

@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import {onMounted, ref} from 'vue'
   import {WebClientSendGetRequest} from "../../../ts/libWebClient.ts";
-  import LoadingSymbol from "../../LoadingSymbolComponent.vue";
+  import LoadingSymbol from "../LoadingSymbolComponent.vue";
 
   const isLoading = ref<boolean>(true)
   const backendVersion = ref<string>("")
@@ -46,7 +46,7 @@
       <div class="footer-version-container">
 
         <div>
-          <a class="link-not-important" :href="sourcesLink" title="Лицензировано под AGPLv3 или более поздней версией">Исходные коды</a>
+          <a class="link-not-important" :href="sourcesLink" title="Исходные коды приложения">Исходные коды</a>
         </div>
 
         <img src="/images/AGPLv3_Logo.webp" alt="AGPLv3 logo" />
