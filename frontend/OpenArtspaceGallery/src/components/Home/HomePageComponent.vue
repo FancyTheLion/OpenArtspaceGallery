@@ -4,6 +4,6 @@
 
 <template>
 
-  <AlbumsListComponent :parentAlbumId="undefined" />
+  <AlbumsListComponent :currentAlbumId="undefined" />
 
 </template>

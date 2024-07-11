@@ -4,14 +4,14 @@
   import AlbumPageComponent from "../components/Albums/AlbumPageComponent.vue";
 
   const props = defineProps({
-    parentAlbumId: String
+    currentAlbumId: String
   })
 </script>
 
 <template>
   <HeaderComponent/>
 
-  <AlbumPageComponent :parentAlbumId="props.parentAlbumId" />
+  <AlbumPageComponent :currentAlbumId="props.currentAlbumId" />
 
   <FooterComponent/>
 </template>

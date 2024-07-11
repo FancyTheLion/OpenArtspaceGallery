@@ -12,7 +12,7 @@ const routes = [
 
     // Album contents
     {
-        path: "/albums/:parentAlbumId?",
+        path: "/albums/:currentAlbumId?",
         name: "albumContent",
         component: AlbumContentView,
         props: true

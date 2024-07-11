@@ -2,7 +2,7 @@
   import AlbumsListComponent from "../Shared/Albums/AlbumsListComponent.vue";
 
   const props = defineProps({
-    parentAlbumId: String
+    currentAlbumId: String
   })
 
 
@@ -11,6 +11,6 @@
 
 <template>
 
-  <AlbumsListComponent :parentAlbumId="props.parentAlbumId"/>
+  <AlbumsListComponent :currentAlbumId="props.currentAlbumId"/>
 
 </template>

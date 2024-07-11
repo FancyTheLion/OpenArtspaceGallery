@@ -5,7 +5,7 @@
   import {WebClientSendGetRequest} from "../../../ts/libWebClient.ts";
 
   const props = defineProps({
-    parentAlbumId: String
+    currentAlbumId: String
   })
 
   const isLoading = ref<boolean>(true)
@@ -18,16 +18,16 @@
 
   async function OnLoad()
   {
-    albums.value = await GetAlbumsList(props.parentAlbumId)
+    albums.value = await GetAlbumsList(props.currentAlbumId)
 
     isLoading.value = false
   }
 
-  async function GetAlbumsList(parentAlbumId: String | undefined)
+  async function GetAlbumsList(currentAlbumId: String | undefined)
   {
     let albumsList: Album[]
 
-    if (parentAlbumId === undefined)
+    if (currentAlbumId === undefined)
     {
       // Showing root album's children
       albumsList = (await (await WebClientSendGetRequest("/Albums/TopLevel")).json())
@@ -37,7 +37,7 @@
     else
     {
       // Showing given album children
-      albumsList = (await (await WebClientSendGetRequest("/Albums/ChildrenOf/" + parentAlbumId)).json())
+      albumsList = (await (await WebClientSendGetRequest("/Albums/ChildrenOf/" + currentAlbumId)).json())
           .albums
           .map(DecodeAlbumDto)
     }
@@ -51,9 +51,9 @@
 
   <div v-if="!isLoading">
 
-    <a :href="'/albums/' + props.parentAlbumId">
+    <a :href="'/albums/' + props.currentAlbumId">
 
-      <div v-if="props.parentAlbumId !== undefined">
+      <div v-if="props.currentAlbumId !== undefined">
         Ссылка на родительский альбом
       </div>
 
