@@ -8,7 +8,10 @@ public class BackendVersionResponse
     [JsonPropertyName("backendVersion")]
     public BackendVersionDto BackendVersion { get; set; } 
 
-    public BackendVersionResponse(BackendVersionDto backendVersion)
+    public BackendVersionResponse
+    (
+        BackendVersionDto backendVersion
+    )
     {
         BackendVersion = backendVersion;
     }

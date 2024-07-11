@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div class="header">
-    Тут будет заголовок
+  <div class="header-container">
+    Open ArtSpace Gallery
   </div>
 </template>

@@ -1,0 +1,74 @@
+/* Colors */
+
+/* Text colors */
+@color-text-not-important: hsl(0, 0%, 56%);
+@color-text-not-important-hovered-link: hsl(219, 39%, 59%);
+@color-album-text: hsl(0, 0%, 100%);
+
+/* Text size */
+@text-size-smaller: 0.9rem;
+
+
+/* Margins */
+
+@margin-normal: 0.5rem;
+
+/* End margins */
+
+
+/* Paddings */
+
+@padding-small: 0.2rem;
+@padding-normal: 0.5rem;
+
+/* End paddings */
+
+
+/* Borders */
+
+@border-type-common: solid;
+
+@border-width-thick: 0.3rem;
+
+@border-radius-normal: 0.5rem;
+
+/* End borders */
+
+
+/* Gaps */
+
+@gap-normal: 0.5rem;
+
+/* End gaps */
+
+/* Mixins */
+
+/* Centered flex (vertically and horizontally) */
+.mixin-flex-vertically-and-horizontally-centered {
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+}
+
+/* End of mixins */
+
+/* Centered item */
+.flex-vertically-and-horizontally-centered {
+  .mixin-flex-vertically-and-horizontally-centered();
+}
+
+/* Text centered */
+.text-centered {
+  text-align: center;
+}
+
+.link-not-important {
+  color: @color-text-not-important;
+  font-size: @text-size-smaller;
+}
+
+.link-not-important:hover {
+  color: @color-text-not-important-hovered-link;
+  font-size: @text-size-smaller;
+}

@@ -1,4 +1,4 @@
-import "../public/CSS/gallery.less"
+import "../public/css/gallery.less"
 
 import { createApp } from 'vue'
 import App from './App.vue'

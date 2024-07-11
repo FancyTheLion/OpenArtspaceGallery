@@ -20,6 +20,9 @@ public class SiteInfoController : ControllerBase
         _siteInfoSettings = siteInfoSettings.Value;
     }
 
+    /// <summary>
+    /// Send backend version to frontend
+    /// </summary>
     [HttpGet]
     [Route("api/SiteInfo/GetBackendVersion")]
     public async Task<ActionResult<BackendVersionResponse>> GetBackendVersion()
