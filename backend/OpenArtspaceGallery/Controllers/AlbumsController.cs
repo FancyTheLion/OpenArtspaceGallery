@@ -1,3 +1,4 @@
+using System.Xml.Schema;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using OpenArtspaceGallery.Models;
@@ -41,5 +42,17 @@ public class AlbumsController
         return  new AlbumsListResponse((await _albumsService.GetChildrenAsync(albumId))
             .Select(a => a.ToDto())
             .ToList());
+    }
+
+    [HttpGet]
+    [Route("api/Albums/Hierarchy/{albumId}")]
+    public async Task<ActionResult<AlbumHierarchyResponse>> GetListAlbumsInHierarchy(Guid albumId)
+    {
+        return new AlbumHierarchyResponse
+            (
+                (await _albumsService.GetAlbumsHierarchyAsync(albumId))
+                .Select(ah => ah.ToDto())
+                .ToList()
+            );
     }
 }

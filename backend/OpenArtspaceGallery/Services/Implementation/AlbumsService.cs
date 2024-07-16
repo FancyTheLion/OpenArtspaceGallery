@@ -24,4 +24,11 @@ public class AlbumsService : IAlbumsService
             .Select(a => a.ToModel())
             .ToList();
     }
+
+    public async Task<IReadOnlyCollection<AlbumInHierarchy>> GetAlbumsHierarchyAsync(Guid albumId)
+    {
+        return (await _albumsDao.GetAlbumsHierarchyAsync(albumId))
+            .Select(ah => ah.ToAlbumInHierarchyModel())
+            .ToList();
+    } 
 }

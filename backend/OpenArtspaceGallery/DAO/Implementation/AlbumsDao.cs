@@ -27,4 +27,28 @@ public class AlbumsDao : IAlbumsDao
             .Where(a => a.Parent.Id == parentAlbumId)
             .ToListAsync();
     }
+
+    public async Task<IReadOnlyCollection<AlbumDbo>> GetAlbumsHierarchyAsync(Guid albumId)
+    {
+        var result = new List<AlbumDbo>();
+
+        AlbumDbo album = await _dbContext
+            .Albums
+            .Include(a => a.Parent)
+            .SingleAsync(a => a.Id == albumId);
+        
+        while (album.Parent?.Id != null)
+        {
+            album = await _dbContext
+                .Albums
+                .Include(a => a.Parent)
+                .SingleAsync(a => a.Id == album.Parent.Id);
+            
+            result.Add(album);
+        }
+
+        result.Reverse();
+        
+        return result;
+    }
 }
