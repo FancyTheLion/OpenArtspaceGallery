@@ -8,7 +8,8 @@ using OpenArtspaceGallery.Services.Abstract;
 
 namespace OpenArtspaceGallery.Controllers;
 
-public class AlbumsController
+[ApiController]
+public class AlbumsController : ControllerBase
 {
     private readonly IAlbumsService _albumsService;
         
@@ -37,8 +38,13 @@ public class AlbumsController
     /// </summary>
     [HttpGet]
     [Route("api/Albums/ChildrenOf/{albumId}")]
-    public async Task<ActionResult<AlbumsListResponse>> GetChildrenAlbumsListAsync(Guid? albumId)
+    public async Task<ActionResult<AlbumsListResponse>> GetChildrenAlbumsListAsync(Guid albumId)
     {
+        if (!await _albumsService.IsAlbumExistsAsync(albumId))
+        {
+            return NotFound();
+        }
+        
         return  new AlbumsListResponse((await _albumsService.GetChildrenAsync(albumId))
             .Select(a => a.ToDto())
             .ToList());
@@ -48,6 +54,11 @@ public class AlbumsController
     [Route("api/Albums/Hierarchy/{albumId}")]
     public async Task<ActionResult<AlbumHierarchyResponse>> GetListAlbumsInHierarchy(Guid albumId)
     {
+        if (!await _albumsService.IsAlbumExistsAsync(albumId))
+        {
+            return NotFound();
+        }
+        
         return new AlbumHierarchyResponse
             (
                 (await _albumsService.GetAlbumsHierarchyAsync(albumId))

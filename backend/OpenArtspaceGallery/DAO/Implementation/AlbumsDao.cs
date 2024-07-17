@@ -51,4 +51,11 @@ public class AlbumsDao : IAlbumsDao
         
         return result;
     }
+
+    public async Task<bool> IsAlbumExistsAsync(Guid albumId)
+    {
+        return await _dbContext
+            .Albums
+            .AnyAsync(a => a.Id == albumId);
+    }
 }

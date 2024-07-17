@@ -18,6 +18,11 @@ public class AlbumsService : IAlbumsService
         _albumsDao = albumsDao;
     }
 
+    public async Task<bool> IsAlbumExistsAsync(Guid albumId)
+    {
+        return await _albumsDao.IsAlbumExistsAsync(albumId);
+    }
+
     public async Task<IReadOnlyCollection<Album>> GetChildrenAsync(Guid? parentAlbumId)
     {
         return (await _albumsDao.GetChildrenAsync(parentAlbumId))

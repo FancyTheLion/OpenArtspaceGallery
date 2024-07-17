@@ -16,4 +16,9 @@ public interface IAlbumsDao
     /// Getting the album hierarchy
     /// </summary>
     Task<IReadOnlyCollection<AlbumDbo>> GetAlbumsHierarchyAsync(Guid albumId);
+    
+    /// <summary>
+    /// Does album exists?
+    /// </summary>
+    Task<bool> IsAlbumExistsAsync(Guid albumId);
 }

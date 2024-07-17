@@ -5,6 +5,11 @@ namespace OpenArtspaceGallery.Services.Abstract;
 public interface IAlbumsService
 {
     /// <summary>
+    /// Does album exists?
+    /// </summary>
+    Task<bool> IsAlbumExistsAsync(Guid albumId);
+    
+    /// <summary>
     /// Get a list of child albums
     /// </summary>
     Task<IReadOnlyCollection<Album>> GetChildrenAsync(Guid? parentAlbumId);
