@@ -1,0 +1,38 @@
+/* Colors */
+/* Text colors */
+/* Text size */
+/* Margins */
+/* End margins */
+/* Paddings */
+/* End paddings */
+/* Borders */
+/* End borders */
+/* Gaps */
+/* End gaps */
+/* Mixins */
+/* Centered flex (vertically and horizontally) */
+.mixin-flex-vertically-and-horizontally-centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* End of mixins */
+/* Centered item */
+.flex-vertically-and-horizontally-centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* Text centered */
+.text-centered {
+  text-align: center;
+}
+.link-not-important {
+  color: hsl(0, 0%, 56%);
+  font-size: 0.9rem;
+}
+.link-not-important:hover {
+  color: hsl(219, 39%, 59%);
+  font-size: 0.9rem;
+}
+/*# sourceMappingURL=albumsHierarchy.css.map */

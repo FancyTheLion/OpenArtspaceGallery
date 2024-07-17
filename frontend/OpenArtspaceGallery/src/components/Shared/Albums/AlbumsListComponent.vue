@@ -1,11 +1,15 @@
 <script setup lang="ts">
   import AlbumComponent from "./AlbumComponent.vue";
-  import {onMounted, ref} from "vue";
+  import {onMounted, PropType, ref} from "vue";
   import {Album, DecodeAlbumDto } from "../../../ts/Albums/libAlbums.ts";
   import {WebClientSendGetRequest} from "../../../ts/libWebClient.ts";
+  import AlbumsHierarchyComponent from "../../Albums/AlbumsHierarchyComponent.vue";
 
   const props = defineProps({
-    currentAlbumId: String
+    currentAlbumId: {
+      type: String as PropType<string | null>,
+      required: false
+    }
   })
 
   const isLoading = ref<boolean>(true)
@@ -23,11 +27,11 @@
     isLoading.value = false
   }
 
-  async function GetAlbumsList(currentAlbumId: String | undefined)
+  async function GetAlbumsList(currentAlbumId: String | undefined | null)
   {
     let albumsList: Album[]
 
-    if (currentAlbumId === undefined)
+    if (currentAlbumId === undefined || currentAlbumId === null)
     {
       // Showing root album's children
       albumsList = (await (await WebClientSendGetRequest("/Albums/TopLevel")).json())
@@ -51,13 +55,7 @@
 
   <div v-if="!isLoading">
 
-    <a :href="'/albums/' + props.currentAlbumId">
-
-      <div v-if="props.currentAlbumId !== undefined">
-        Ссылка на родительский альбом
-      </div>
-
-    </a>
+    <AlbumsHierarchyComponent :albumId="props.currentAlbumId"/>
 
     <div
         v-if="albums.length === 0">

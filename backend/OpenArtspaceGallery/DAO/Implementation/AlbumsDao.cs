@@ -30,12 +30,15 @@ public class AlbumsDao : IAlbumsDao
 
     public async Task<IReadOnlyCollection<AlbumDbo>> GetAlbumsHierarchyAsync(Guid albumId)
     {
+        // TODO: Rewrite me, inoptimal
         var result = new List<AlbumDbo>();
 
         AlbumDbo album = await _dbContext
             .Albums
             .Include(a => a.Parent)
             .SingleAsync(a => a.Id == albumId);
+        
+        result.Add(album);
         
         while (album.Parent?.Id != null)
         {
