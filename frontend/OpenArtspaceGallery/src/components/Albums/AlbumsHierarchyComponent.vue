@@ -40,15 +40,15 @@ import {WebClientSendGetRequest} from "../../ts/libWebClient.ts";
 
   <div v-if="!isLoading">
 
-    <div class="panel-navigation" v-if="props.albumId === null || props.albumId === undefined">
+    <div class="albums-hierarchy-container" v-if="props.albumId === null || props.albumId === undefined">
       <!-- For case when ID is not provided -->
       Home
     </div>
 
-    <div class="panel-navigation" v-else>
+    <div class="albums-hierarchy-container" v-else>
 
       <!-- For case when ID is provided -->
-      <a class="panel-navigation-album-link" href="/" title="Back to home page">
+      <a class="albums-hierarchy-album-link" href="/" title="Back to home page">
         Home
       </a>
 
@@ -57,21 +57,21 @@ import {WebClientSendGetRequest} from "../../ts/libWebClient.ts";
 
         <span v-for="album in albumsHierarchy" :key="album.id">
 
-           <span class="panel-navigation" v-if="album.id !== albumsHierarchy[albumsHierarchy.length - 1].id">
+           <span class="albums-hierarchy-container" v-if="album.id !== albumsHierarchy[albumsHierarchy.length - 1].id">
 
              <span>
 
-               <a class="panel-navigation-album-link" :href="'/albums/' + album.id" :title="'Go to album ' + album.name">
+               <a class="albums-hierarchy-album-link" :href="'/albums/' + album.id" :title="'Go to album ' + album.name">
                  {{ album.name }}
                </a>
 
-           &gt;&gt;
+               &gt;&gt;
 
              </span>
 
           </span>
 
-          <span class="panel-navigation-last-album" v-else>
+          <span class="albums-hierarchy-current-album" v-else>
             {{ album.name }}
           </span>
 

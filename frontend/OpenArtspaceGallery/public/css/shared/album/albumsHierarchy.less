@@ -1,27 +1,25 @@
 @import "../common.less";
 
-@color-link-panel-navigation: black;
-
-@text-style: bold;
+@albums-hierarchy-links-color: black;
 
 /* Album navigation panel */
-.panel-navigation {
+.albums-hierarchy-container {
   padding-bottom: @padding-small;
   font-size: @text-size-smaller;
 }
 
 /* Last album in navigation panel */
-.panel-navigation-last-album {
+.albums-hierarchy-current-album {
   font-size: @text-size-medium;
-  font-weight: @text-style;
+  font-weight: bold;
 }
 
-.panel-navigation-album-link {
-  color: @color-link-panel-navigation;
+.albums-hierarchy-album-link {
+  color: @albums-hierarchy-links-color;
   text-decoration: none;
 }
 
-.panel-navigation-album-link:hover {
-  color: @color-link-panel-navigation;
+.albums-hierarchy-album-link:hover {
+  color: @albums-hierarchy-links-color;
   text-decoration: underline;
 }

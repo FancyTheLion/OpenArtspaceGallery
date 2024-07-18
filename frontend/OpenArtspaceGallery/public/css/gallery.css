@@ -111,20 +111,20 @@
   height: 1rem;
 }
 /* Album navigation panel */
-.panel-navigation {
+.albums-hierarchy-container {
   padding-bottom: 0.2rem;
   font-size: 1.2rem;
 }
 /* Last album in navigation panel */
-.panel-navigation-last-album {
+.albums-hierarchy-current-album {
   font-size: 1.5rem;
   font-weight: bold;
 }
-.panel-navigation-album-link {
+.albums-hierarchy-album-link {
   color: black;
   text-decoration: none;
 }
-.panel-navigation-album-link:hover {
+.albums-hierarchy-album-link:hover {
   color: black;
   text-decoration: underline;
 }
