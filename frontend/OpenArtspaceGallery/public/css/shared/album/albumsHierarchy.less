@@ -1,0 +1,25 @@
+@import "../common.less";
+
+@albums-hierarchy-links-color: black;
+
+/* Album navigation panel */
+.albums-hierarchy-container {
+  padding-bottom: @padding-small;
+  font-size: @text-size-smaller;
+}
+
+/* Last album in navigation panel */
+.albums-hierarchy-current-album {
+  font-size: @text-size-medium;
+  font-weight: bold;
+}
+
+.albums-hierarchy-album-link {
+  color: @albums-hierarchy-links-color;
+  text-decoration: none;
+}
+
+.albums-hierarchy-album-link:hover {
+  color: @albums-hierarchy-links-color;
+  text-decoration: underline;
+}

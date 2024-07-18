@@ -5,8 +5,6 @@
     currentAlbumId: String
   })
 
-
-
 </script>
 
 <template>

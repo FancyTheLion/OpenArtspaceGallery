@@ -37,4 +37,13 @@ public class AlbumDbo
             CreationTime
         );
     }
+
+    public AlbumInHierarchy ToAlbumInHierarchyModel()
+    {
+        return new AlbumInHierarchy
+        (
+            Id,
+            Name
+        );
+    }
 }

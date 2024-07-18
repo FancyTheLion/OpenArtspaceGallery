@@ -11,4 +11,14 @@ public interface IAlbumsDao
     /// Get albums by parent Id
     /// </summary>
     Task<IReadOnlyCollection<AlbumDbo>> GetChildrenAsync(Guid? parentAlbumId);
+
+    /// <summary>
+    /// Getting the album hierarchy
+    /// </summary>
+    Task<IReadOnlyCollection<AlbumDbo>> GetAlbumsHierarchyAsync(Guid albumId);
+    
+    /// <summary>
+    /// Does album exists?
+    /// </summary>
+    Task<bool> IsAlbumExistsAsync(Guid albumId);
 }
