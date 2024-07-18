@@ -1,2 +1,27 @@
 @import "../common.less";
 
+@color-link-panel-navigation: black;
+
+@text-style: bold;
+
+/* Album navigation panel */
+.panel-navigation {
+  padding-bottom: @padding-small;
+  font-size: @text-size-smaller;
+}
+
+/* Last album in navigation panel */
+.panel-navigation-last-album {
+  font-size: @text-size-medium;
+  font-weight: @text-style;
+}
+
+.panel-navigation-album-link {
+  color: @color-link-panel-navigation;
+  text-decoration: none;
+}
+
+.panel-navigation-album-link:hover {
+  color: @color-link-panel-navigation;
+  text-decoration: underline;
+}

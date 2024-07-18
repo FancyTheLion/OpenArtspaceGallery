@@ -6,11 +6,13 @@
 @color-album-text: hsl(0, 0%, 100%);
 
 /* Text size */
-@text-size-smaller: 0.9rem;
-
+@text-size-smallest: 0.9rem;
+@text-size-smaller: 1.2rem;
+@text-size-medium: 1.5rem;
 
 /* Margins */
 
+@margin-small: 0.2rem;
 @margin-normal: 0.5rem;
 
 /* End margins */
@@ -34,7 +36,6 @@
 
 /* End borders */
 
-
 /* Gaps */
 
 @gap-normal: 0.5rem;
@@ -51,12 +52,12 @@
   align-items: center;
 }
 
-/* End of mixins */
-
 /* Centered item */
 .flex-vertically-and-horizontally-centered {
   .mixin-flex-vertically-and-horizontally-centered();
 }
+
+/* End of mixins */
 
 /* Text centered */
 .text-centered {
@@ -65,10 +66,10 @@
 
 .link-not-important {
   color: @color-text-not-important;
-  font-size: @text-size-smaller;
+  font-size: @text-size-smallest;
 }
 
 .link-not-important:hover {
   color: @color-text-not-important-hovered-link;
-  font-size: @text-size-smaller;
+  font-size: @text-size-smallest;
 }

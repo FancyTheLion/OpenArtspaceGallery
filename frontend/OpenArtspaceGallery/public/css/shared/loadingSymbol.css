@@ -16,13 +16,13 @@
   justify-content: center;
   align-items: center;
 }
-/* End of mixins */
 /* Centered item */
 .flex-vertically-and-horizontally-centered {
   display: flex;
   justify-content: center;
   align-items: center;
 }
+/* End of mixins */
 /* Text centered */
 .text-centered {
   text-align: center;

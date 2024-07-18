@@ -16,13 +16,13 @@
   justify-content: center;
   align-items: center;
 }
-/* End of mixins */
 /* Centered item */
 .flex-vertically-and-horizontally-centered {
   display: flex;
   justify-content: center;
   align-items: center;
 }
+/* End of mixins */
 /* Text centered */
 .text-centered {
   text-align: center;
@@ -55,7 +55,7 @@
 /* Container with header */
 .header-container {
   border-bottom-style: solid;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.2rem;
   padding-bottom: 0.2rem;
 }
 /* Container with albums */
@@ -109,5 +109,23 @@
 .loading-symbol-image {
   width: 1rem;
   height: 1rem;
+}
+/* Album navigation panel */
+.panel-navigation {
+  padding-bottom: 0.2rem;
+  font-size: 1.2rem;
+}
+/* Last album in navigation panel */
+.panel-navigation-last-album {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.panel-navigation-album-link {
+  color: black;
+  text-decoration: none;
+}
+.panel-navigation-album-link:hover {
+  color: black;
+  text-decoration: underline;
 }
 /*# sourceMappingURL=gallery.css.map */

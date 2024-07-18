@@ -16,13 +16,13 @@
   justify-content: center;
   align-items: center;
 }
-/* End of mixins */
 /* Centered item */
 .flex-vertically-and-horizontally-centered {
   display: flex;
   justify-content: center;
   align-items: center;
 }
+/* End of mixins */
 /* Text centered */
 .text-centered {
   text-align: center;
@@ -34,5 +34,23 @@
 .link-not-important:hover {
   color: hsl(219, 39%, 59%);
   font-size: 0.9rem;
+}
+/* Album navigation panel */
+.panel-navigation {
+  padding-bottom: 0.2rem;
+  font-size: 1.2rem;
+}
+/* Last album in navigation panel */
+.panel-navigation-last-album {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.panel-navigation-album-link {
+  color: black;
+  text-decoration: none;
+}
+.panel-navigation-album-link:hover {
+  color: black;
+  text-decoration: underline;
 }
 /*# sourceMappingURL=albumsHierarchy.css.map */
