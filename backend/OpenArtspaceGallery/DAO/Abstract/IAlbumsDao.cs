@@ -21,4 +21,9 @@ public interface IAlbumsDao
     /// Does album exists?
     /// </summary>
     Task<bool> IsAlbumExistsAsync(Guid albumId);
+
+    /// <summary>
+    /// Add new album to the database
+    /// </summary>
+    Task<AlbumDbo> CreateNewAlbumAsync(AlbumDbo albumToInsert);
 }

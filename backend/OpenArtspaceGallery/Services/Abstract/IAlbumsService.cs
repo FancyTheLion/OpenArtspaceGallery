@@ -18,4 +18,9 @@ public interface IAlbumsService
     /// Getting the album hierarchy
     /// </summary>
     Task<IReadOnlyCollection<AlbumInHierarchy>> GetAlbumsHierarchyAsync(Guid albumId);
+
+    /// <summary>
+    /// Create a new album
+    /// </summary>
+    Task<Album> CreateNewAlbumAsync(NewAlbum newAlbum);
 }

@@ -1,4 +1,5 @@
 using OpenArtspaceGallery.DAO.Abstract;
+using OpenArtspaceGallery.DAO.Models.Albums;
 using OpenArtspaceGallery.Models;
 using OpenArtspaceGallery.Models.API.DTOs;
 using OpenArtspaceGallery.Models.API.Responses;
@@ -35,5 +36,18 @@ public class AlbumsService : IAlbumsService
         return (await _albumsDao.GetAlbumsHierarchyAsync(albumId))
             .Select(ah => ah.ToAlbumInHierarchyModel())
             .ToList();
-    } 
+    }
+
+    public async Task<Album> CreateNewAlbumAsync(NewAlbum newAlbum)
+    {
+        var albumToInsert = new AlbumDbo()
+        {
+            Id = Guid.Empty,
+            Name = newAlbum.Name,
+            Parent = newAlbum.ParentAlbumId.HasValue ? new AlbumDbo() { Id = newAlbum.ParentAlbumId.Value } : null,
+            CreationTime = DateTime.UtcNow
+        };
+
+        return (await _albumsDao.CreateNewAlbumAsync(albumToInsert)).ToModel();
+    }
 }

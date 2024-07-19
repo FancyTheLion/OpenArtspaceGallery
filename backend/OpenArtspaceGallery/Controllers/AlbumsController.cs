@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using OpenArtspaceGallery.Models;
 using OpenArtspaceGallery.Models.API.DTOs;
+using OpenArtspaceGallery.Models.API.Requests;
 using OpenArtspaceGallery.Models.API.Responses;
 using OpenArtspaceGallery.Services.Abstract;
 
@@ -65,5 +66,15 @@ public class AlbumsController : ControllerBase
                 .Select(ah => ah.ToDto())
                 .ToList()
             );
+    }
+
+    [HttpPost]
+    [Route("api/Albums/New")]
+    public async Task<ActionResult<NewAlbumResponse>> AddAlbumAsync(NewAlbumRequest request)
+    {
+        return new NewAlbumResponse
+        (
+            (await _albumsService.CreateNewAlbumAsync(request.AlbumToAdd.ToModel())).ToDto()
+        );
     }
 }
