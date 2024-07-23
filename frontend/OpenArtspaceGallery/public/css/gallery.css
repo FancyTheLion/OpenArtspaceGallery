@@ -1,3 +1,21 @@
+/* Album navigation panel */
+.albums-hierarchy-container {
+  padding-bottom: 0.2rem;
+  font-size: 1.2rem;
+}
+/* Last albums in navigation panel */
+.albums-hierarchy-current-album {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.albums-hierarchy-album-link {
+  color: black;
+  text-decoration: none;
+}
+.albums-hierarchy-album-link:hover {
+  color: black;
+  text-decoration: underline;
+}
 /* Colors */
 /* Text colors */
 /* Text size */
@@ -58,15 +76,18 @@
   margin-bottom: 0.2rem;
   padding-bottom: 0.2rem;
 }
-/* Container with albums */
-.albums-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: left;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+/* Loading symbol size */
+/* Loading symbol image */
+.loading-symbol-image {
+  width: 1rem;
+  height: 1rem;
 }
-/* Container with one album */
+/* Link to full albums on hover */
+.album-link-full {
+  color: hsl(240, 100%, 50%);
+  text-decoration: none;
+}
+/* Container with one albums */
 .album-container {
   display: flex;
   flex-direction: column;
@@ -88,7 +109,7 @@
   height: min-content;
   padding: 0.5rem;
 }
-/* Text with album name */
+/* Text with albums name */
 .album-name {
   color: hsl(0, 0%, 100%);
   text-align: center;
@@ -99,33 +120,71 @@
   color: hsl(0, 0%, 100%);
   font-size: 0.8rem;
 }
-/* Link to full album on hover */
-.album-link-full {
-  color: hsl(240, 100%, 50%);
-  text-decoration: none;
+/* Container with albums */
+.albums-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
-/* Loading symbol size */
-/* Loading symbol image */
-.loading-symbol-image {
-  width: 1rem;
-  height: 1rem;
+.new-album-button {
+  border: 0.3rem solid hsl(219, 67%, 66%);
+  border-radius: 0.5rem;
+  width: 10rem;
+  height: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
-/* Album navigation panel */
-.albums-hierarchy-container {
-  padding-bottom: 0.2rem;
-  font-size: 1.2rem;
+/* New album bottom image */
+.new-album-button-image {
+  width: 4rem;
+  height: 4rem;
 }
-/* Last album in navigation panel */
-.albums-hierarchy-current-album {
-  font-size: 1.5rem;
-  font-weight: bold;
+.new-album-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.albums-hierarchy-album-link {
-  color: black;
-  text-decoration: none;
+/* Container with one albums */
+.new-album-add-new-album-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 0;
+  border: 0.3rem solid greenyellow;
+  border-radius: 0.5rem;
+  width: 15rem;
+  height: 15rem;
+  background-color: white;
 }
-.albums-hierarchy-album-link:hover {
-  color: black;
-  text-decoration: underline;
+.popup-lower-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  background: hsla(0, 0%, 10%, 0.8);
+}
+.popup-upper-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2000;
+}
+/* Popup itself */
+.popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow-y: auto;
 }
 /*# sourceMappingURL=gallery.css.map */

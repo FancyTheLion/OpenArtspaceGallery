@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {onMounted, PropType, ref} from "vue";
-import LoadingSymbolComponent from "../Shared/LoadingSymbolComponent.vue";
+import LoadingSymbolComponent from "../Shared/LoadyngSymbol/LoadingSymbolComponent.vue";
 import {AlbumHierarchy, DecodeAlbumHierarchyDto} from "../../ts/Albums/libAlbums.ts";
 import {WebClientSendGetRequest} from "../../ts/libWebClient.ts";
 
@@ -61,7 +61,7 @@ import {WebClientSendGetRequest} from "../../ts/libWebClient.ts";
 
              <span>
 
-               <a class="albums-hierarchy-album-link" :href="'/albums/' + album.id" :title="'Go to album ' + album.name">
+               <a class="albums-hierarchy-album-link" :href="'/albums/' + album.id" :title="'Go to albums ' + album.name">
                  {{ album.name }}
                </a>
 

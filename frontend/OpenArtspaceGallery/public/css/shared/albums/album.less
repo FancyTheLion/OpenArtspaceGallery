@@ -1,9 +1,7 @@
 @import "../common.less";
 
-@color-album-container-border: hsl(221, 47%, 43%);
 @color-album-link-hover: hsl(240, 100%, 50%);
-@color-album-link-visited: hsl(240, 100%, 50%);
-@color-album-link-active: hsl(120, 100%, 25%);
+@color-album-container-border: hsl(221, 47%, 43%);
 @color-album-info-background: hsl(240, 100%, 27%);
 
 @album-container-width: 15rem;
@@ -11,16 +9,14 @@
 
 @album-font-size: 0.8rem;
 
-/* Container with albums */
-.albums-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: left;
-  flex-wrap: wrap;
-  gap: @gap-normal;
+/* Link to full albums on hover */
+.album-link-full {
+  color: @color-album-link-hover;
+
+  text-decoration: none;
 }
 
-/* Container with one album */
+/* Container with one albums */
 .album-container {
   display: flex;
   flex-direction: column;
@@ -48,7 +44,7 @@
   padding: @padding-normal;
 }
 
-/* Text with album name */
+/* Text with albums name */
 .album-name {
   color: @color-album-text;
   text-align: center;
@@ -61,13 +57,3 @@
 
   font-size: @album-font-size;
 }
-
-/* Link to full album on hover */
-.album-link-full {
-  color: @color-album-link-hover;
-
-  text-decoration: none;
-}
-
-
-

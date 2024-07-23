@@ -4,6 +4,7 @@
   import {Album, DecodeAlbumDto } from "../../../ts/Albums/libAlbums.ts";
   import {WebClientSendGetRequest} from "../../../ts/libWebClient.ts";
   import AlbumsHierarchyComponent from "../../Albums/AlbumsHierarchyComponent.vue";
+  import NewAlbumComponent from "./NewAlbumComponent.vue";
 
   const props = defineProps({
     currentAlbumId: {
@@ -33,14 +34,14 @@
 
     if (currentAlbumId === undefined || currentAlbumId === null)
     {
-      // Showing root album's children
+      // Showing root albums's children
       albumsList = (await (await WebClientSendGetRequest("/Albums/TopLevel")).json())
           .albums
           .map(DecodeAlbumDto)
     }
     else
     {
-      // Showing given album children
+      // Showing given albums children
       albumsList = (await (await WebClientSendGetRequest("/Albums/ChildrenOf/" + currentAlbumId)).json())
           .albums
           .map(DecodeAlbumDto)
@@ -69,7 +70,11 @@
           :key="album.id"
           :info="album" />
 
+      <NewAlbumComponent/>
+
     </div>
+
+
 
   </div>
 

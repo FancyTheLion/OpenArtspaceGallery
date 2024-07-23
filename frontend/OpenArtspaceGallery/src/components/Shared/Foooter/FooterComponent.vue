@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import {onMounted, ref} from 'vue'
   import {WebClientSendGetRequest} from "../../../ts/libWebClient.ts";
-  import LoadingSymbol from "../LoadingSymbolComponent.vue";
+  import LoadingSymbol from "../LoadyngSymbol/LoadingSymbolComponent.vue";
 
   const isLoading = ref<boolean>(true)
   const backendVersion = ref<string>("")

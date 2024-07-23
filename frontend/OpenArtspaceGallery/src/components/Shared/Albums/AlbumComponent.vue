@@ -23,7 +23,7 @@
         Я - верхняя часть
       </div>
 
-      <!-- Lower part for album name and so on -->
+      <!-- Lower part for albums name and so on -->
       <div class="album-lower-part">
 
         <div class="album-name">{{ props.info.name }}</div>

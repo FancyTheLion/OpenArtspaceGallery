@@ -43,42 +43,4 @@
   flex-wrap: wrap;
   gap: 0.5rem;
 }
-/* Container with one album */
-.album-container {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  gap: 0;
-  border: 0.3rem solid hsl(221, 47%, 43%);
-  border-radius: 0.5rem;
-  width: 15rem;
-  height: 15rem;
-}
-/* Album upper part (for photos) */
-.album-upper-part {
-  flex: 100%;
-  padding: 0.5rem;
-}
-/* Album square lower part */
-.album-lower-part {
-  background: hsl(240, 100%, 27%);
-  height: min-content;
-  padding: 0.5rem;
-}
-/* Text with album name */
-.album-name {
-  color: hsl(0, 0%, 100%);
-  text-align: center;
-  font-weight: bold;
-}
-/* Album creation date */
-.album-creation-date {
-  color: hsl(0, 0%, 100%);
-  font-size: 0.8rem;
-}
-/* Link to full album on hover */
-.album-link-full {
-  color: hsl(240, 100%, 50%);
-  text-decoration: none;
-}
-/*# sourceMappingURL=album.css.map */
+/*# sourceMappingURL=albumList.css.map */

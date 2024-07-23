@@ -1,4 +1,4 @@
-/* Public album type */
+/* Public albums type */
 export type Album =
 {
     id: string;
@@ -7,7 +7,7 @@ export type Album =
     creationTime: Date;
 }
 
-/* Private album DTO */
+/* Private albums DTO */
 type AlbumDto =
 {
     id: string;
@@ -27,14 +27,14 @@ export function DecodeAlbumDto(dto: AlbumDto) : Album
     };
 }
 
-/* Public album hierarchy type */
+/* Public albums hierarchy type */
 export type AlbumHierarchy =
     {
         id: string;
         name: string;
     }
 
-/* Private album hierarchy DTO */
+/* Private albums hierarchy DTO */
 type AlbumHierarchyDto =
     {
         id: string;

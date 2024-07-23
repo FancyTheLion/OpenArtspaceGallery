@@ -1,0 +1,72 @@
+@import "../common.less";
+
+@new-album-color-bottom: hsl(219, 67%, 66%);
+
+@new-album-image-size: 4.0rem;
+
+@new-album-buttom-width: 10rem;
+@new-album-buttom-height: 10rem;
+
+@album-container-width: 15rem;
+@album-container-height: 15rem;
+
+.new-album-button {
+  border: @border-width-thick @border-type-common @new-album-color-bottom;
+  border-radius: @border-radius-normal;
+  width: @new-album-buttom-width;
+  height: @new-album-buttom-height;
+  .mixin-flex-vertically-and-horizontally-centered();
+  cursor: pointer;
+}
+
+/* New album bottom image */
+.new-album-button-image {
+  width: @new-album-image-size;
+  height: @new-album-image-size;
+}
+
+.new-album-button-container {
+  .mixin-flex-vertically-and-horizontally-centered();
+}
+
+/* Container with one albums */
+.new-album-add-new-album-form {
+  .mixin-flex-vertically-and-horizontally-centered();
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 0;
+
+  border: @border-width-thick @border-type-common greenyellow;
+  border-radius: @border-radius-normal;
+  width: @album-container-width;
+  height: @album-container-height;
+  background-color: white;
+}
+
+.popup-lower-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  background: hsla(0, 0%, 10%, 0.8);
+}
+
+.popup-upper-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2000;
+}
+
+/* Popup itself */
+.popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow-y: auto;
+}
