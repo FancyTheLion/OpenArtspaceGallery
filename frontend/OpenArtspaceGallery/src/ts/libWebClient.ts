@@ -17,12 +17,13 @@ async function WebClientSendGetRequest
 async function WebClientSendPostRequest
 (
     relativeUrl: string,
-    request: string
+    request: object
 )
 {
     const response = await fetch(apiBaseUrl + relativeUrl, {
         method: 'POST',
-        body: JSON.stringify(request)
+        body: JSON.stringify(request),
+        headers: { "Content-Type": "application/json" }
     })
 
     return response

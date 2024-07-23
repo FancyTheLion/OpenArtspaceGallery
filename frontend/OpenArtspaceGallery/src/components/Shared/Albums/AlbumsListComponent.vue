@@ -70,7 +70,7 @@
           :key="album.id"
           :info="album" />
 
-      <NewAlbumComponent/>
+      <NewAlbumComponent :currentAlbumId="props.currentAlbumId"/>
 
     </div>
 
