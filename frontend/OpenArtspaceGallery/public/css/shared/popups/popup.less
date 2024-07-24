@@ -1,0 +1,39 @@
+@import "../common";
+
+@popup-lower-background-color: hsla(0, 0%, 10%, 0.8);;
+
+@popup-centering-the-form-horizontally-lower: 100vw;
+@popup-centering-the-form-horizontally-upper: 100vw;
+@popup-centering-the-form-vertically-lower: 100vh;
+@popup-centering-the-form-vertically-upper: 100vh;
+
+@popup-zIndex-lower: 1000;
+@popup-zIndex-upper: 2000;
+
+.popup-lower-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: @popup-centering-the-form-horizontally-lower;
+  height: @popup-centering-the-form-vertically-lower;
+  z-index: @popup-zIndex-lower;
+  background: @popup-lower-background-color;
+}
+
+.popup-upper-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: @popup-centering-the-form-horizontally-upper;
+  height: @popup-centering-the-form-vertically-upper;
+  z-index: @popup-zIndex-upper;
+}
+
+/* Popup itsef */
+.popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow-y: auto;
+}

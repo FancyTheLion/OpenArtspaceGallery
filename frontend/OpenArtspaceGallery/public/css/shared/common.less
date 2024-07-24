@@ -4,6 +4,7 @@
 @color-text-not-important: hsl(0, 0%, 56%);
 @color-text-not-important-hovered-link: hsl(219, 39%, 59%);
 @color-album-text: hsl(0, 0%, 100%);
+@alert-color: hsl(0, 75%, 47%);
 
 /* Text size */
 @text-size-smallest: 0.9rem;
@@ -33,6 +34,8 @@
 @border-width-thick: 0.3rem;
 
 @border-radius-normal: 0.5rem;
+
+@border-alert: 0.2rem;
 
 /* End borders */
 
@@ -72,4 +75,13 @@
 .link-not-important:hover {
   color: @color-text-not-important-hovered-link;
   font-size: @text-size-smallest;
+}
+
+.form-invalid-field {
+  border: @alert-color @border-type-common @border-alert;
+  border-radius: @border-width-thick;
+}
+
+.form-valid-field {
+
 }

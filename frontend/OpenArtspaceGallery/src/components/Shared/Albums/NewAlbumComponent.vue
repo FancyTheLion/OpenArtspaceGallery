@@ -24,6 +24,8 @@ const props = defineProps({
     }
   }
 
+  const emit = defineEmits(["newAlbumCreated"])
+
   const isNewAlbumPopupVisible = ref<boolean>(false)
 
   const newAlbumFormValidator = useVuelidate(newAlbumFormRules, newAlbumFormData)
@@ -45,7 +47,14 @@ const props = defineProps({
 
   async function HideNewAlbumPopup()
   {
+    ClearInputField()
+
     isNewAlbumPopupVisible.value = false
+  }
+
+  async function ClearInputField()
+  {
+    newAlbumFormData.name = "";
   }
 
   async function SendAlbumToBackend()
@@ -60,14 +69,14 @@ const props = defineProps({
         }
     )
 
-    if (response.status === 200)
+    if (!response.ok)
     {
-      await HideNewAlbumPopup()
+      alert("An error happened. Try again later.")
+      return
     }
-    else
-    {
-      alert("Не удалось создать альбом")
-    }
+
+    await HideNewAlbumPopup()
+    emit("newAlbumCreated", props.currentAlbumId)
   }
 
 </script>
@@ -97,8 +106,8 @@ const props = defineProps({
 
         <div class="new-album-add-new-album-form">
 
-          <div>
-            Название альбома:
+          <div class="test1">
+            Album name:
           </div>
 
           <div>
@@ -108,16 +117,21 @@ const props = defineProps({
                 v-model="newAlbumFormData.name"/>
           </div>
 
-          <div>
-            <button @click="async() => await HideNewAlbumPopup()">
-              Отмена
+          <div class="new-album-form-button-container">
+
+            <button
+              class="test3"
+              type="button"
+              @click="async() => await HideNewAlbumPopup()">
+              Cancel
             </button>
 
             <button
-            type="button"
-            :disabled="newAlbumFormValidator.$errors.length > 0"
-            @click="async() => await SendAlbumToBackend()">
-              Загрузить
+              class="new-album-form-buttons"
+              type="button"
+              :disabled="newAlbumFormValidator.$errors.length > 0"
+              @click="async() => await SendAlbumToBackend()">
+              Download
             </button>
 
           </div>

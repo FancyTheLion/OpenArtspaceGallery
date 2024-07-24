@@ -46,17 +46,17 @@
       <div class="footer-version-container">
 
         <div>
-          <a class="link-not-important" :href="sourcesLink" title="Исходные коды приложения">Исходные коды</a>
+          <a class="link-not-important" :href="sourcesLink" title="Application sources link">Sources link</a>
         </div>
 
         <img src="/images/AGPLv3_Logo.webp" alt="AGPLv3 logo" />
 
         <div class="footer-version-info">
-          Версия бэкенда: {{ backendVersion }}
+          Backend version: {{ backendVersion }}
         </div>
 
         <div class="footer-version-info">
-          Версия фронтенда: 0.0.1
+          Frontend version: 0.0.1
         </div>
 
       </div>

@@ -7,8 +7,8 @@
 @new-album-buttom-width: 10rem;
 @new-album-buttom-height: 10rem;
 
-@album-container-width: 15rem;
-@album-container-height: 15rem;
+@new-album-form-container-width: 15rem;
+@new-album-form-container-height: 10rem;
 
 .new-album-button {
   border: @border-width-thick @border-type-common @new-album-color-bottom;
@@ -36,46 +36,18 @@
   flex-wrap: nowrap;
   gap: 0;
 
-  border: @border-width-thick @border-type-common greenyellow;
+  border: @border-width-thick @border-type-common aqua;
   border-radius: @border-radius-normal;
-  width: @album-container-width;
-  height: @album-container-height;
+  width: @new-album-form-container-width;
+  height: @new-album-form-container-height;
   background-color: white;
 }
 
-.popup-lower-layer {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 1000;
-  background: hsla(0, 0%, 10%, 0.8);
+.new-album-form-button-container {
+  padding: 0.2rem;
 }
 
-.popup-upper-layer {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 2000;
-}
-
-/* Popup itsef */
-.popup {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  overflow-y: auto;
-}
-
-.new-album-invalid-field {
-  border: hsl(0, 75%, 47%) solid 0.2rem;
-  border-radius: 0.3rem;
-}
-
-.new-album-valid-field {
-
+/* For function buttons in a form */
+.new-album-form-buttons {
+  margin: 0.2rem;
 }

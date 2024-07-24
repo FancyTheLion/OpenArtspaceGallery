@@ -50,6 +50,16 @@
     return albumsList
         .sort(function(a: Album, b: Album) { return a.creationTime.getTime() - b.creationTime.getTime() })
   }
+
+  async function OnNewAlbumAdded()
+  {
+    isLoading.value = true
+
+    albums.value = await GetAlbumsList(props.currentAlbumId)
+
+    isLoading.value = false
+  }
+
 </script>
 
 <template>
@@ -60,7 +70,7 @@
 
     <div
         v-if="albums.length === 0">
-      Альбомов нет
+      No albums
     </div>
 
     <div class="albums-container">
@@ -70,11 +80,11 @@
           :key="album.id"
           :info="album" />
 
-      <NewAlbumComponent :currentAlbumId="props.currentAlbumId"/>
+      <NewAlbumComponent
+          :currentAlbumId="props.currentAlbumId"
+          @newAlbumCreated="async () => await OnNewAlbumAdded()"/>
 
     </div>
-
-
 
   </div>
 

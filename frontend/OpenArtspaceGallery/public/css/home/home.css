@@ -35,4 +35,8 @@
   color: hsl(219, 39%, 59%);
   font-size: 0.9rem;
 }
+.form-invalid-field {
+  border: hsl(0, 75%, 47%) solid 0.2rem;
+  border-radius: 0.3rem;
+}
 /*# sourceMappingURL=home.css.map */

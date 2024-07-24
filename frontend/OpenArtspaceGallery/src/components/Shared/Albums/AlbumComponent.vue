@@ -20,7 +20,7 @@
 
       <!-- Upper part for photos -->
       <div class="album-upper-part">
-        Я - верхняя часть
+        Top part
       </div>
 
       <!-- Lower part for albums name and so on -->

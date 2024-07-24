@@ -39,42 +39,29 @@
   border: hsl(0, 75%, 47%) solid 0.2rem;
   border-radius: 0.3rem;
 }
-/* Link to full albums on hover */
-.album-link-full {
-  color: hsl(240, 100%, 50%);
-  text-decoration: none;
+.popup-lower-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  background: hsla(0, 0%, 10%, 0.8);
 }
-/* Container with one albums */
-.album-container {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  gap: 0;
-  border: 0.3rem solid hsl(221, 47%, 43%);
-  border-radius: 0.5rem;
-  width: 15rem;
-  height: 15rem;
+.popup-upper-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2000;
 }
-/* Album upper part (for photos) */
-.album-upper-part {
-  flex: 100%;
-  padding: 0.5rem;
+/* Popup itsef */
+.popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow-y: auto;
 }
-/* Album square lower part */
-.album-lower-part {
-  background: hsl(240, 100%, 27%);
-  height: min-content;
-  padding: 0.5rem;
-}
-/* Text with albums name */
-.album-name {
-  color: hsl(0, 0%, 100%);
-  text-align: center;
-  font-weight: bold;
-}
-/* Album creation date */
-.album-creation-date {
-  color: hsl(0, 0%, 100%);
-  font-size: 0.8rem;
-}
-/*# sourceMappingURL=album.css.map */
+/*# sourceMappingURL=popup.css.map */
