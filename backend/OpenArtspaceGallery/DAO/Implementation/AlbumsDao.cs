@@ -76,4 +76,24 @@ public class AlbumsDao : IAlbumsDao
 
         return albumToInsert;
     }
+
+    public async Task DeleteAlbumAsync(Guid albumToInsert)
+    {
+        var album = await _dbContext
+            .Albums
+            .SingleAsync(f => f.Id == albumToInsert);
+
+        _dbContext.Remove(album);
+
+        await _dbContext.SaveChangesAsync();
+    }
+
+    public async Task<IReadOnlyCollection<Guid>> GetChildrenAlbumbsGuidsAsync(Guid albumId)
+    {
+        return await _dbContext
+            .Albums
+            .Where(a => a.Parent.Id == albumId)
+            .Select(a => a.Id)
+            .ToListAsync();
+    }
 }

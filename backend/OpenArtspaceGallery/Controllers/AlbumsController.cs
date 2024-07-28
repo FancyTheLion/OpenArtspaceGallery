@@ -77,4 +77,18 @@ public class AlbumsController : ControllerBase
             (await _albumsService.CreateNewAlbumAsync(request.AlbumToAdd.ToModel())).ToDto()
         );
     }
+
+    [HttpDelete]
+    [Route("api/Albums/{albumId}")]
+    public async Task<ActionResult> DeleteAlbumAsync(Guid albumId)
+    {
+        if (!await _albumsService.IsAlbumExistsAsync(albumId))
+        {
+            return NotFound();
+        }
+
+        await _albumsService.DeleteAlbumAsync(albumId);
+        
+        return Ok();
+    }
 }

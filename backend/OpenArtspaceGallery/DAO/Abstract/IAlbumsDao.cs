@@ -26,4 +26,14 @@ public interface IAlbumsDao
     /// Add new album to the database
     /// </summary>
     Task<AlbumDbo> CreateNewAlbumAsync(AlbumDbo albumToInsert);
+    
+    /// <summary>
+    /// Delete album from database
+    /// </summary>
+    Task DeleteAlbumAsync(Guid albumToInsert);
+    
+    /// <summary>
+    /// Get albums id by parent Id
+    /// </summary>
+    Task<IReadOnlyCollection<Guid>> GetChildrenAlbumbsGuidsAsync(Guid albumId);
 }

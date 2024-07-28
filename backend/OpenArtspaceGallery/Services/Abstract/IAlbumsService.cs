@@ -23,4 +23,9 @@ public interface IAlbumsService
     /// Create a new album
     /// </summary>
     Task<Album> CreateNewAlbumAsync(NewAlbum newAlbum);
+    
+    /// <summary>
+    /// Delete album
+    /// </summary>
+    Task DeleteAlbumAsync (Guid albumId);
 }

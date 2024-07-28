@@ -50,4 +50,16 @@ public class AlbumsService : IAlbumsService
 
         return (await _albumsDao.CreateNewAlbumAsync(albumToInsert)).ToModel();
     }
+
+    public async Task DeleteAlbumAsync(Guid albumId)
+    {
+        var albumChildrenIdList = await _albumsDao.GetChildrenAlbumbsGuidsAsync(albumId);
+
+        foreach (var childId in albumChildrenIdList)
+        {
+            await DeleteAlbumAsync(childId);
+        }
+        
+        await _albumsDao.DeleteAlbumAsync(albumId);
+    }
 }
