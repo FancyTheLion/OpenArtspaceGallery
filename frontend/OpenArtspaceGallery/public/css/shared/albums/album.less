@@ -18,15 +18,49 @@
 
 /* Container with one albums */
 .album-container {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  gap: 0;
+  position: relative;
 
   border: @border-width-thick @border-type-common @color-album-container-border;
   border-radius: @border-radius-normal;
   width: @album-container-width;
   height: @album-container-height;
+}
+
+/* Album content layer */
+.album-content-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  z-index: 1000;
+
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 0;
+
+  width: 100%;
+  height: 100%;
+}
+
+/* Album toolbar layer */
+.album-toolbar-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  z-index: 1050;
+
+  width: 100%;
+  height: 5rem; /* TODO: Set me and put to variable */
+
+  background: hsla(231, 100%, 50%, 0.7);
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: end;
+  gap: 1rem;
 }
 
 /* Album upper part (for photos) */
