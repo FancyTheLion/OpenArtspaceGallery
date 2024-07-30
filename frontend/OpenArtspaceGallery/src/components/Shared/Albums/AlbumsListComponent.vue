@@ -51,7 +51,7 @@
         .sort(function(a: Album, b: Album) { return a.creationTime.getTime() - b.creationTime.getTime() })
   }
 
-  async function OnNewAlbumAdded()
+  async function RefreshAlbulList()
   {
     isLoading.value = true
 
@@ -59,6 +59,17 @@
 
     isLoading.value = false
   }
+
+  async function OnAlbumAdded()
+  {
+    await RefreshAlbulList()
+  }
+
+  async function OnAlbumDeleted()
+  {
+    await RefreshAlbulList()
+  }
+
 
 </script>
 
@@ -78,11 +89,12 @@
       <AlbumComponent
           v-for="album in albums"
           :key="album.id"
-          :info="album" />
+          :info="album"
+          @albumDeleted="async () => await OnAlbumDeleted()"/>
 
       <NewAlbumComponent
           :currentAlbumId="props.currentAlbumId"
-          @newAlbumCreated="async () => await OnNewAlbumAdded()"/>
+          @newAlbumCreated="async () => await OnAlbumAdded()"/>
 
     </div>
 

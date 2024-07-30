@@ -1,7 +1,8 @@
 <script setup lang="ts">
-  import { PropType } from "vue";
+import {PropType, ref} from "vue";
   import {Album} from "../../../ts/Albums/libAlbums.ts";
   import moment from "moment";
+import {WebClientSendDeletRequest} from "../../../ts/libWebClient.ts";
 
   const props = defineProps({
     info: {
@@ -10,36 +11,81 @@
     }
   })
 
+  const IsButtonsToolbarVisible = ref<boolean>(false)
+
+ const emit = defineEmits(["albumDeleted"])
+
+
+  async function ShowAlbumToolbar()
+  {
+    IsButtonsToolbarVisible.value = true
+  }
+
+  async function HideAlbumToolbar()
+  {
+    IsButtonsToolbarVisible.value = false
+  }
+
+  async function DeleteAlbumAsync()
+  {
+    const request = await WebClientSendDeletRequest("/Albums/"  + props.info.id,
+        {
+          "albumId": props.info.id
+        })
+
+    if (!request.ok)
+    {
+      alert("An error happened. Try again later.")
+      return
+    }
+
+    emit("albumDeleted", props.info?.id)
+  }
 </script>
 
 <template>
 
-  <div class="album-container">
+  <div class="album-container"
+       @mouseover="async () => await ShowAlbumToolbar()"
+       @mouseout="async () => await HideAlbumToolbar()">
 
     <!-- Lower layer, album content -->
     <div class="album-content-layer">
 
         <div class="album-upper-part">
+
           <a class="album-link-full" :href="'/albums/' + props.info.id">
             Top part
           </a>
+
         </div>
 
         <div class="album-lower-part">
+
           <a class="album-link-full" :href="'/albums/' + props.info.id">
             <div class="album-name">{{ props.info.name }}</div>
             <div class="album-creation-date">{{ moment(props.info?.creationTime).format("DD.MM.YYYY HH:mm:ss") }}</div>
           </a>
+
         </div>
 
     </div>
 
     <!-- Upper layer, toolbar -->
-    <div class="album-toolbar-layer">
-      <div>K1</div>
-      <div>K2</div>
-      <div>K3</div>
+    <div>
+
+      <div class="album-toolbar-layer" v-if="IsButtonsToolbarVisible">
+
+        <img
+            class="album-delete-button"
+            src="/public/images/close.webp"
+            @click="async () => await DeleteAlbumAsync()">
+
+      </div>
+
     </div>
+
+
 
   </div>
 

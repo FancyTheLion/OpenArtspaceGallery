@@ -29,8 +29,24 @@ async function WebClientSendPostRequest
     return response
 }
 
+async function WebClientSendDeletRequest
+(
+    relativeUrl: string,
+    request: object
+)
+{
+    const response = await fetch(apiBaseUrl + relativeUrl, {
+        method: 'DELETE',
+        body: JSON.stringify(request),
+        headers: { "Content-Type": "application/json" }
+    })
+
+    return response
+}
+
 export
 {
     WebClientSendGetRequest,
-    WebClientSendPostRequest
+    WebClientSendPostRequest,
+    WebClientSendDeletRequest
 }

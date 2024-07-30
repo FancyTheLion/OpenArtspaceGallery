@@ -144,9 +144,8 @@
   left: 0;
   z-index: 1050;
   width: 100%;
-  height: 5rem;
-  /* TODO: Set me and put to variable */
-  background: hsla(231, 100%, 50%, 0.7);
+  height: 3rem;
+  background: hsla(231, 100%, 50%, 0.5);
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -174,6 +173,15 @@
 .album-creation-date {
   color: hsl(0, 0%, 100%);
   font-size: 0.8rem;
+}
+.album-delete-button {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 1rem;
+  position: absolute;
+  right: 0.5rem;
+  top: 0.5rem;
+  cursor: pointer;
 }
 /* Container with albums */
 .albums-container {
