@@ -52,7 +52,7 @@
       <div class="popup">
 
         <div class="popup-delete-album">
-          {{props.title}} Deleting an album <!-- TODO: понять чем заполнять -->
+          {{props.title}} Deleting an album
           {{props.text}}
 
           <button
