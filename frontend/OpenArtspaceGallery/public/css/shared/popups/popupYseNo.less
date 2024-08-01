@@ -1,0 +1,18 @@
+@import "../common";
+
+@new-album-form-container-width: 15rem;
+@new-album-form-container-height: 10rem;
+
+/* TODO: отредактировать*/
+.popup-delete-album {
+  .mixin-flex-vertically-and-horizontally-centered();
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 0;
+
+  border: @border-width-thick @border-type-common aqua;
+  border-radius: @border-radius-normal;
+  width: @new-album-form-container-width;
+  height: @new-album-form-container-height;
+  background-color: white;
+}

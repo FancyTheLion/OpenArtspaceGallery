@@ -70,7 +70,6 @@
     await RefreshAlbulList()
   }
 
-
 </script>
 
 <template>

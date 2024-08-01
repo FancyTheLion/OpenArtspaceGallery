@@ -1,0 +1,56 @@
+/* Colors */
+/* Text colors */
+/* Text size */
+/* Margins */
+/* End margins */
+/* Paddings */
+/* End paddings */
+/* Borders */
+/* End borders */
+/* Gaps */
+/* End gaps */
+/* Mixins */
+/* Centered flex (vertically and horizontally) */
+.mixin-flex-vertically-and-horizontally-centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* Centered item */
+.flex-vertically-and-horizontally-centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* End of mixins */
+/* Text centered */
+.text-centered {
+  text-align: center;
+}
+.link-not-important {
+  color: hsl(0, 0%, 56%);
+  font-size: 0.9rem;
+}
+.link-not-important:hover {
+  color: hsl(219, 39%, 59%);
+  font-size: 0.9rem;
+}
+.form-invalid-field {
+  border: hsl(0, 75%, 47%) solid 0.2rem;
+  border-radius: 0.3rem;
+}
+/* TODO: отредактировать*/
+.popup-delete-album {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 0;
+  border: 0.3rem solid aqua;
+  border-radius: 0.5rem;
+  width: 15rem;
+  height: 10rem;
+  background-color: white;
+}
+/*# sourceMappingURL=popupYseNo.css.map */

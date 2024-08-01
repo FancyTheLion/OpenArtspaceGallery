@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import {PropType, ref} from "vue";
+  import {PropType, ref} from "vue";
   import {Album} from "../../../ts/Albums/libAlbums.ts";
   import moment from "moment";
-import {WebClientSendDeletRequest} from "../../../ts/libWebClient.ts";
+  import {WebClientSendDeletRequest} from "../../../ts/libWebClient.ts";
+  import PopupYesNo from "../Popups/PopupYesNo.vue";
 
   const props = defineProps({
     info: {
@@ -12,8 +13,9 @@ import {WebClientSendDeletRequest} from "../../../ts/libWebClient.ts";
   })
 
   const IsButtonsToolbarVisible = ref<boolean>(false)
+  const deleteAlbumPopup = ref(null)
 
- const emit = defineEmits(["albumDeleted"])
+  const emit = defineEmits(["albumDeleted"])
 
 
   async function ShowAlbumToolbar()
@@ -24,6 +26,11 @@ import {WebClientSendDeletRequest} from "../../../ts/libWebClient.ts";
   async function HideAlbumToolbar()
   {
     IsButtonsToolbarVisible.value = false
+  }
+
+  async function ShowAlbumDeletionConfirmationAsync()
+  {
+    await deleteAlbumPopup.value.Show()
   }
 
   async function DeleteAlbumAsync()
@@ -41,6 +48,7 @@ import {WebClientSendDeletRequest} from "../../../ts/libWebClient.ts";
 
     emit("albumDeleted", props.info?.id)
   }
+
 </script>
 
 <template>
@@ -79,35 +87,16 @@ import {WebClientSendDeletRequest} from "../../../ts/libWebClient.ts";
         <img
             class="album-delete-button"
             src="/public/images/close.webp"
-            @click="async () => await DeleteAlbumAsync()">
+            @click="async () => await ShowAlbumDeletionConfirmationAsync()">
 
       </div>
 
     </div>
-
-
 
   </div>
 
-<!--  <a class="album-link-full" :href="'/albums/' + props.info.id">
-
-    <div class="album-container">
-
-      &lt;!&ndash; Upper part for photos &ndash;&gt;
-      <div class="album-upper-part">
-        Top part
-      </div>
-
-      &lt;!&ndash; Lower part for albums name and so on &ndash;&gt;
-      <div class="album-lower-part">
-
-        <div class="album-name">{{ props.info.name }}</div>
-        <div class="album-creation-date">{{ moment(props.info?.creationTime).format("DD.MM.YYYY HH:mm:ss") }}</div>
-
-      </div>
-
-    </div>
-
-  </a>-->
+  <PopupYesNo
+      ref="deleteAlbumPopup"
+      @yesPressed="async () => await DeleteAlbumAsync()"/>
 
 </template>

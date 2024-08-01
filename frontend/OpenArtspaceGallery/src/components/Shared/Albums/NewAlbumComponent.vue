@@ -106,7 +106,7 @@ const props = defineProps({
 
         <div class="new-album-add-new-album-form">
 
-          <div class="test1">
+          <div>
             Album name:
           </div>
 

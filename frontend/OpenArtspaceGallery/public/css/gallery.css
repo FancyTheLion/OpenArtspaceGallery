@@ -111,6 +111,20 @@
   transform: translate(-50%, -50%);
   overflow-y: auto;
 }
+/* TODO: отредактировать*/
+.popup-delete-album {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 0;
+  border: 0.3rem solid aqua;
+  border-radius: 0.5rem;
+  width: 15rem;
+  height: 10rem;
+  background-color: white;
+}
 /* Link to full albums on hover */
 .album-link-full {
   color: hsl(240, 100%, 50%);
