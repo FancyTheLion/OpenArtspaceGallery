@@ -72,6 +72,16 @@ public class AlbumsController : ControllerBase
     [Route("api/Albums/New")]
     public async Task<ActionResult<NewAlbumResponse>> AddAlbumAsync(NewAlbumRequest request)
     {
+        if (request == null)
+        {
+            return BadRequest("Add album request mustn't be null!");
+        }
+
+        if (request.AlbumToAdd == null)
+        {
+            return BadRequest("when adding an album, information about the album must not be null.");
+        }
+        
         return new NewAlbumResponse
         (
             (await _albumsService.CreateNewAlbumAsync(request.AlbumToAdd.ToModel())).ToDto()
@@ -88,6 +98,32 @@ public class AlbumsController : ControllerBase
         }
 
         await _albumsService.DeleteAlbumAsync(albumId);
+        
+        return Ok();
+    }
+
+    [HttpPost]
+    [Route("api/Albums/{albumId}/Rename")]
+    public async Task<ActionResult> RenameAlbumAsync(Guid albumId, RenameAlbumRequest request)
+    {
+        if (request == null)
+        {
+            return BadRequest("Rename album request mustn't be null!");
+        }
+
+        if (request.RenameAlbumInfo == null)
+        {
+            return BadRequest("Rename albumm _name_ must not be null.");
+        }
+
+        try
+        {
+            await _albumsService.RenameAlbumAsync(albumId, request.RenameAlbumInfo.NewName);
+        }
+        catch (ArgumentException exception)
+        {
+            return BadRequest(exception.Message);
+        }
         
         return Ok();
     }

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http.HttpResults;
 using OpenArtspaceGallery.DAO.Abstract;
 using OpenArtspaceGallery.DAO.Models.Albums;
 using OpenArtspaceGallery.Models;
@@ -61,5 +62,15 @@ public class AlbumsService : IAlbumsService
         }
         
         await _albumsDao.DeleteAlbumAsync(albumId);
+    }
+
+    public async Task RenameAlbumAsync(Guid albumId, string newName)
+    {
+        if (string.IsNullOrWhiteSpace(newName))
+        {
+            throw new ArgumentException("The new name cannot be empty.", nameof(newName));
+        }
+        
+        await _albumsDao.RenameAlbumAsync(albumId, newName);
     }
 }

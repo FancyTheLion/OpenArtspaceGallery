@@ -28,4 +28,9 @@ public interface IAlbumsService
     /// Delete album
     /// </summary>
     Task DeleteAlbumAsync (Guid albumId);
+
+    /// <summary>
+    /// Rename albom
+    /// </summary>
+    public Task RenameAlbumAsync(Guid albumId, string newName);
 }

@@ -36,4 +36,9 @@ public interface IAlbumsDao
     /// Get albums id by parent Id
     /// </summary>
     Task<IReadOnlyCollection<Guid>> GetChildrenAlbumbsGuidsAsync(Guid albumId);
+    
+    /// <summary>
+    /// Delete album
+    /// </summary>
+    Task RenameAlbumAsync(Guid albumId, string newName);
 }

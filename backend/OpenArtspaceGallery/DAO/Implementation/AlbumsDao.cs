@@ -96,4 +96,20 @@ public class AlbumsDao : IAlbumsDao
             .Select(a => a.Id)
             .ToListAsync();
     }
+
+    public async Task RenameAlbumAsync(Guid albumId, string newName)
+    {
+        if (string.IsNullOrWhiteSpace(newName))
+        {
+            throw new ArgumentException("The new name cannot be empty.", nameof(newName));
+        }
+        
+        var album = await _dbContext
+            .Albums
+            .SingleAsync(n => n.Id == albumId);
+        
+        album.Name = newName;
+        
+        await _dbContext.SaveChangesAsync();
+    }
 }
