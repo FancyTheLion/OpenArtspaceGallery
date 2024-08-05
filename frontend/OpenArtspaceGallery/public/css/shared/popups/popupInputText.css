@@ -39,7 +39,7 @@
   border: hsl(0, 75%, 47%) solid 0.2rem;
   border-radius: 0.3rem;
 }
-.popup-delete-album {
+.popup-input-box {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -48,8 +48,8 @@
   gap: 0;
   border: 0.3rem solid aqua;
   border-radius: 0.5rem;
-  width: 15rem;
+  width: 18rem;
   height: 10rem;
   background-color: white;
 }
-/*# sourceMappingURL=popupYseNo.css.map */
+/*# sourceMappingURL=popupInputText.css.map */

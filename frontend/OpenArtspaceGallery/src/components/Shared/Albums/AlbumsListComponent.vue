@@ -70,6 +70,10 @@
     await RefreshAlbulList()
   }
 
+  async function OnAlbumRenamed()
+  {
+    await RefreshAlbulList()
+  }
 </script>
 
 <template>
@@ -89,7 +93,8 @@
           v-for="album in albums"
           :key="album.id"
           :info="album"
-          @albumDeleted="async () => await OnAlbumDeleted()"/>
+          @albumDeleted="async () => await OnAlbumDeleted()"
+          @albumRenamed="async () => await OnAlbumRenamed()"/>
 
       <NewAlbumComponent
           :currentAlbumId="props.currentAlbumId"

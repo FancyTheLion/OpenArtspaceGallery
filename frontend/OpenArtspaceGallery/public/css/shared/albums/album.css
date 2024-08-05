@@ -106,9 +106,13 @@
   width: 2rem;
   height: 2rem;
   border-radius: 1rem;
-  position: absolute;
+  /*position: absolute; todo: верни меня! */
   right: 0.5rem;
   top: 0.5rem;
   cursor: pointer;
+}
+.album-rename-button {
+  /* Todo: я костыль настрой меня(я занимаю слишком много времени и не хочу мешать обучению C#-рпу) */
+  margin-right: 4rem;
 }
 /*# sourceMappingURL=album.css.map */

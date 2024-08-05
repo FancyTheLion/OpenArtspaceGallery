@@ -1,9 +1,9 @@
 @import "../common";
 
-@confirmation-window-width: 15rem;
-@confirmation-window-height: 10rem;
+@input-box-popup-width: 18rem;
+@input-box-popup-height: 10rem;
 
-.popup-delete-album {
+.popup-input-box {
   .mixin-flex-vertically-and-horizontally-centered();
   flex-direction: column;
   flex-wrap: nowrap;
@@ -11,8 +11,11 @@
 
   border: @border-width-thick @border-type-common aqua;
   border-radius: @border-radius-normal;
-  width: @confirmation-window-width;
-  height: @confirmation-window-height;
+  width: @input-box-popup-width;
+  height: @input-box-popup-height;
   background-color: white;
 }
 
+.popup-input-title {
+
+}

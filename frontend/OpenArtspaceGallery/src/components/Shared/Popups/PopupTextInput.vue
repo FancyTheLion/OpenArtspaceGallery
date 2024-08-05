@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import {ref} from "vue";
+import { reactive, ref} from "vue";
 
   defineExpose({
     Show: ShowPopup
@@ -15,27 +15,38 @@
       type: String,
       default: "",
       required: true
-    }
+    },
+    defaultValue: {
+      type: String,
+      default: "",
+      required: true
+  }
   })
 
   const isDisplayed = ref<boolean>(false)
 
   const emit = defineEmits([ "noPressed", "yesPressed" ])
 
+  const valueFormData = reactive({
+        value: ""
+  })
+
   async function OnNoPressed()
   {
-    emit('noPressed')
+    emit("noPressed")
 
     await HidePopup()
   }
 
   async function OnYesPressed()
   {
-    emit('yesPressed')
+    emit("yesPressed", valueFormData.value)
   }
 
   async function ShowPopup()
   {
+    valueFormData.value = props.defaultValue
+
     isDisplayed.value = true
   }
 
@@ -52,11 +63,13 @@
 
     <div class="popup-lower-layer"></div>
 
-      <div class="popup-upper-layer">
+    <div class="popup-upper-layer">
 
-        <div class="popup">
+      <div class="popup">
 
-          <div class="popup-delete-album">
+        <div class="popup-rename-album">
+
+          <div>
 
             <div>
               {{props.title}}
@@ -66,21 +79,26 @@
               {{props.text}}
             </div>
 
-            <button
-              @click ="async () => await OnYesPressed()">
-              Yes
-            </button>
-
-            <button
-              @click="async () => await OnNoPressed()">
-              No
-            </button>
+            <input
+                v-model="valueFormData.value">
 
           </div>
+
+        <button
+            @click ="async () => await OnYesPressed()">
+        Yes
+        </button>
+
+        <button
+            @click="async () => await OnNoPressed()">
+        No
+        </button>
 
         </div>
 
       </div>
+
+    </div>
 
   </div>
 
