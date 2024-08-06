@@ -113,7 +113,7 @@ public class AlbumsController : ControllerBase
 
         if (request.RenameAlbumInfo == null)
         {
-            return BadRequest("Rename albumm _name_ must not be null.");
+            return BadRequest("Rename album name must not be null.");
         }
 
         try

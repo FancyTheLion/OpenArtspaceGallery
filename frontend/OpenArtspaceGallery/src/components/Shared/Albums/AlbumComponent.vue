@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import {PropType, ref} from "vue";
+  import {PropType, ref} from "vue";
   import {Album} from "../../../ts/Albums/libAlbums.ts";
   import moment from "moment";
-import {WebClientSendDeletRequest, WebClientSendPostRequest} from "../../../ts/libWebClient.ts";
+  import {WebClientSendDeletRequest, WebClientSendPostRequest} from "../../../ts/libWebClient.ts";
   import PopupYesNo from "../Popups/PopupYesNo.vue";
   import PopupTextInput from "../Popups/PopupTextInput.vue";
 
@@ -13,30 +13,43 @@ import {WebClientSendDeletRequest, WebClientSendPostRequest} from "../../../ts/l
     }
   })
 
-  const IsButtonsToolbarVisible = ref<boolean>(false)
-  const deleteAlbumPopup = ref(null)
-  const albumRenamed = ref(null)
-
   const emit = defineEmits(["albumDeleted", "albumRenamed"])
 
-  async function ShowAlbumToolbar()
+  const isButtonsToolbarVisible = ref<boolean>(false)
+
+  const deleteAlbumPopupRef = ref<InstanceType<typeof PopupYesNo>>()
+  const renameAlbumPopupRef = ref<InstanceType<typeof PopupTextInput>>()
+
+  function ShowAlbumToolbar()
   {
-    IsButtonsToolbarVisible.value = true
+    isButtonsToolbarVisible.value = true
   }
 
-  async function HideAlbumToolbar()
+  function HideAlbumToolbar()
   {
-    IsButtonsToolbarVisible.value = false
+    isButtonsToolbarVisible.value = false
   }
 
   async function ShowAlbumDeletionConfirmationAsync()
   {
-    await deleteAlbumPopup.value.Show()
+    if (deleteAlbumPopupRef.value === undefined)
+    {
+      alert("Bug in code! Variable deleteAlbumPopupRef is not initialized!")
+      return
+    }
+
+    await deleteAlbumPopupRef.value!.Show()
   }
 
   async function ShowAlbumRenameConfirmationAsync()
   {
-    await albumRenamed.value.Show()
+    if (renameAlbumPopupRef.value === undefined)
+    {
+      alert("Bug in code! Variable renameAlbumPopupRef is not initialized!")
+      return
+    }
+
+    await renameAlbumPopupRef.value!.Show()
   }
 
   async function DeleteAlbumAsync()
@@ -78,51 +91,48 @@ import {WebClientSendDeletRequest, WebClientSendPostRequest} from "../../../ts/l
 <template>
 
   <div class="album-container"
-       @mouseover="async () => await ShowAlbumToolbar()"
-       @mouseout="async () => await HideAlbumToolbar()">
+       @mouseenter="ShowAlbumToolbar()"
+       @mouseleave="HideAlbumToolbar()">
 
     <!-- Lower layer, album content -->
-    <div class="album-content-layer">
+    <a class="album-link-full" :href="'/albums/' + props.info.id">
 
-        <div class="album-upper-part">
+      <div class="album-content-layer">
 
-          <a class="album-link-full" :href="'/albums/' + props.info.id">
-            Top part
-          </a>
+          <div class="album-upper-part">
+              Photos will be here
+          </div>
 
-        </div>
+          <div class="album-lower-part">
 
-        <div class="album-lower-part">
+              <div class="album-name">
+                {{ props.info.name }}
+              </div>
 
-          <a class="album-link-full" :href="'/albums/' + props.info.id">
+              <div class="album-creation-date">
+                {{ moment(props.info?.creationTime).format("DD.MM.YYYY HH:mm:ss") }}
+              </div>
 
-            <div class="album-name">{{ props.info.name }}</div>
-            <div class="album-creation-date">{{ moment(props.info?.creationTime).format("DD.MM.YYYY HH:mm:ss") }}</div>
+          </div>
 
-          </a>
+      </div>
 
-        </div>
-
-    </div>
+    </a>
 
     <!-- Upper layer, toolbar -->
-    <div>
+    <div class="album-toolbar-layer" v-if="isButtonsToolbarVisible">
 
-      <div class="album-toolbar-layer" v-if="IsButtonsToolbarVisible">
+      <div class="album-toolbar">
 
         <img
-            class="album-delete-button"
-            src="/public/images/close.webp"
-            @click="async () => await ShowAlbumDeletionConfirmationAsync()">
+            class="album-toolbar-rename-button"
+            src="/images/rename.webp"
+            @click="async () => await ShowAlbumRenameConfirmationAsync()" />
 
-        <div class="album-rename-button">
-
-          <img
-              class="album-delete-button"
-              src="/public/images/renameButton.webp"
-              @click="async () => await ShowAlbumRenameConfirmationAsync()">
-
-        </div>
+        <img
+            class="album-toolbar-delete-button"
+            src="/public/images/delete.webp"
+            @click="async () => await ShowAlbumDeletionConfirmationAsync()" />
 
       </div>
 
@@ -130,18 +140,18 @@ import {WebClientSendDeletRequest, WebClientSendPostRequest} from "../../../ts/l
 
   </div>
 
+
   <PopupYesNo
-      title="Deleting Album"
+      title="Confirmation"
       text="Are you sure you want to delete the album?"
-      ref="deleteAlbumPopup"
-      @yesPressed="async () => await DeleteAlbumAsync()"/>
+      ref="deleteAlbumPopupRef"
+      @yes="async () => await DeleteAlbumAsync()" />
 
   <PopupTextInput
       title="Rename album"
-      text="Are you sure you want to rename the album?"
+      text="Please provide the new album name:"
       :defaultValue="props.info.name"
-      ref="albumRenamed"
-      @yesPressed="async (nn) => await RenameAlbumAsync(nn)"
-  />
+      ref="renameAlbumPopupRef"
+      @ok="async (nn) => await RenameAlbumAsync(nn)" />
 
 </template>

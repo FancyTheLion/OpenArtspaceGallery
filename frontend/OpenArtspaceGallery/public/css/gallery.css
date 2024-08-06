@@ -111,7 +111,7 @@
   transform: translate(-50%, -50%);
   overflow-y: auto;
 }
-.popup-delete-album {
+.popup-yes-no-content {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -124,7 +124,7 @@
   height: 10rem;
   background-color: white;
 }
-.popup-input-box {
+.popup-text-input-content {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -137,9 +137,12 @@
   height: 10rem;
   background-color: white;
 }
+/* Album container settings */
+/* Album creation date */
+/* Delete album button */
+/* Rename album button */
 /* Link to full albums on hover */
 .album-link-full {
-  color: hsl(240, 100%, 50%);
   text-decoration: none;
 }
 /* Container with one albums */
@@ -163,21 +166,6 @@
   width: 100%;
   height: 100%;
 }
-/* Album toolbar layer */
-.album-toolbar-layer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1050;
-  width: 100%;
-  height: 3rem;
-  background: hsla(231, 100%, 50%, 0.5);
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: end;
-  gap: 1rem;
-}
 /* Album upper part (for photos) */
 .album-upper-part {
   flex: 100%;
@@ -200,18 +188,41 @@
   color: hsl(0, 0%, 100%);
   font-size: 0.8rem;
 }
-.album-delete-button {
+/* Album toolbar layer */
+.album-toolbar-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1050;
+  width: 100%;
+  height: 3rem;
+  background: hsla(231, 100%, 50%, 0.5);
+}
+/* Album toolbar */
+.album-toolbar {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: end;
+  align-items: center;
+  gap: 0.5rem;
+  height: 100%;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+/* Album toolbar - delete button */
+.album-toolbar-delete-button {
   width: 2rem;
   height: 2rem;
   border-radius: 1rem;
-  /*position: absolute; todo: верни меня! */
-  right: 0.5rem;
-  top: 0.5rem;
   cursor: pointer;
 }
-.album-rename-button {
-  /* Todo: я костыль настрой меня(я занимаю слишком много времени и не хочу мешать обучению C#-рпу) */
-  margin-right: 4rem;
+/* Album toolbar - rename button */
+.album-toolbar-rename-button {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 1rem;
+  cursor: pointer;
 }
 /* Container with albums */
 .albums-container {

@@ -20,18 +20,18 @@
 
   const isDisplayed = ref<boolean>(false)
 
-  const emit = defineEmits([ "noPressed", "yesPressed" ])
+  const emit = defineEmits([ "no", "yes" ])
 
-  async function OnNoPressed()
+  async function OnNo()
   {
-    emit('noPressed')
-
     await HidePopup()
+
+    emit("no")
   }
 
-  async function OnYesPressed()
+  async function OnYes()
   {
-    emit('yesPressed')
+    emit("yes")
   }
 
   async function ShowPopup()
@@ -56,7 +56,7 @@
 
         <div class="popup">
 
-          <div class="popup-delete-album">
+          <div class="popup-yes-no-content">
 
             <div>
               {{props.title}}
@@ -67,12 +67,12 @@
             </div>
 
             <button
-              @click ="async () => await OnYesPressed()">
+              @click ="async () => await OnYes()">
               Yes
             </button>
 
             <button
-              @click="async () => await OnNoPressed()">
+              @click="async () => await OnNo()">
               No
             </button>
 

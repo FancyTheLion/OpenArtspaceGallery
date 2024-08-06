@@ -25,22 +25,22 @@ import { reactive, ref} from "vue";
 
   const isDisplayed = ref<boolean>(false)
 
-  const emit = defineEmits([ "noPressed", "yesPressed" ])
+  const emit = defineEmits([ "cancel", "ok" ])
 
   const valueFormData = reactive({
         value: ""
   })
 
-  async function OnNoPressed()
+  async function OnOk()
   {
-    emit("noPressed")
-
     await HidePopup()
+
+    emit("cancel")
   }
 
-  async function OnYesPressed()
+  async function OnCancel()
   {
-    emit("yesPressed", valueFormData.value)
+    emit("ok", valueFormData.value)
   }
 
   async function ShowPopup()
@@ -67,7 +67,7 @@ import { reactive, ref} from "vue";
 
       <div class="popup">
 
-        <div class="popup-rename-album">
+        <div class="popup-text-input-content">
 
           <div>
 
@@ -85,13 +85,13 @@ import { reactive, ref} from "vue";
           </div>
 
         <button
-            @click ="async () => await OnYesPressed()">
-        Yes
+            @click ="async () => await OnOk()">
+          Ok
         </button>
 
         <button
-            @click="async () => await OnNoPressed()">
-        No
+            @click="async () => await OnCancel()">
+          Cancel
         </button>
 
         </div>

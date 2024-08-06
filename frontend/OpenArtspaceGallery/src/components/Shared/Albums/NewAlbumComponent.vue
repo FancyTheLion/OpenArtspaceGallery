@@ -57,7 +57,7 @@ const props = defineProps({
     newAlbumFormData.name = "";
   }
 
-  async function SendAlbumToBackend()
+  async function CreateAlbum()
   {
     const response = await WebClientSendPostRequest(
       "/Albums/New",
@@ -130,8 +130,8 @@ const props = defineProps({
               class="new-album-form-buttons"
               type="button"
               :disabled="newAlbumFormValidator.$errors.length > 0"
-              @click="async() => await SendAlbumToBackend()">
-              Download
+              @click="async() => await CreateAlbum()">
+              Create
             </button>
 
           </div>

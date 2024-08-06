@@ -5,6 +5,7 @@
   import {WebClientSendGetRequest} from "../../../ts/libWebClient.ts";
   import AlbumsHierarchyComponent from "../../Albums/AlbumsHierarchyComponent.vue";
   import NewAlbumComponent from "./NewAlbumComponent.vue";
+  import LoadingSymbolComponent from "../LoadyngSymbol/LoadingSymbolComponent.vue";
 
   const props = defineProps({
     currentAlbumId: {
@@ -51,7 +52,7 @@
         .sort(function(a: Album, b: Album) { return a.creationTime.getTime() - b.creationTime.getTime() })
   }
 
-  async function RefreshAlbulList()
+  async function RefreshAlbumsList()
   {
     isLoading.value = true
 
@@ -62,28 +63,29 @@
 
   async function OnAlbumAdded()
   {
-    await RefreshAlbulList()
+    await RefreshAlbumsList()
   }
 
   async function OnAlbumDeleted()
   {
-    await RefreshAlbulList()
+    await RefreshAlbumsList()
   }
 
   async function OnAlbumRenamed()
   {
-    await RefreshAlbulList()
+    await RefreshAlbumsList()
   }
 </script>
 
 <template>
 
+  <LoadingSymbolComponent v-if="isLoading" />
+
   <div v-if="!isLoading">
 
     <AlbumsHierarchyComponent :albumId="props.currentAlbumId"/>
 
-    <div
-        v-if="albums.length === 0">
+    <div v-if="albums.length === 0">
       No albums
     </div>
 

@@ -39,7 +39,7 @@
   border: hsl(0, 75%, 47%) solid 0.2rem;
   border-radius: 0.3rem;
 }
-.popup-delete-album {
+.popup-yes-no-content {
   display: flex;
   justify-content: center;
   align-items: center;

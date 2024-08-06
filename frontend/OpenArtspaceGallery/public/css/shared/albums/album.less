@@ -4,18 +4,23 @@
 @color-album-container-border: hsl(221, 47%, 43%);
 @color-album-info-background: hsl(240, 100%, 27%);
 
+/* Album container settings */
 @album-container-width: 15rem;
 @album-container-height: 15rem;
 
-@album-delete-button-positioning: 0.5rem;
-@album-delete-button-size: 2rem;
+/* Album creation date */
+@album-creation-date-font-size: 0.8rem;
 
-@album-font-size: 0.8rem;
+/* Delete album button */
+@album-delete-button-size: 2rem;
+@album-delete-button-radius: 1rem;
+
+/* Rename album button */
+@album-rename-button-size: 2rem;
+@album-rename-button-radius: 1rem;
 
 /* Link to full albums on hover */
 .album-link-full {
-  color: @color-album-link-hover;
-
   text-decoration: none;
 }
 
@@ -46,26 +51,6 @@
   height: 100%;
 }
 
-/* Album toolbar layer */
-.album-toolbar-layer {
-  position: absolute;
-  top: 0;
-  left: 0;
-
-  z-index: 1050;
-
-  width: 100%;
-  height: 3rem;
-
-  background: hsla(231, 100%, 50%, 0.5);
-
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: end;
-  gap: 1rem;
-}
-
 /* Album upper part (for photos) */
 .album-upper-part {
   flex: 100%;
@@ -92,22 +77,54 @@
 .album-creation-date {
   color: @color-album-text;
 
-  font-size: @album-font-size;
+  font-size: @album-creation-date-font-size;
 }
 
-.album-delete-button {
+/* Album toolbar layer */
+.album-toolbar-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  z-index: 1050;
+
+  width: 100%;
+  height: 3rem;
+
+  background: hsla(231, 100%, 50%, 0.5);
+}
+
+/* Album toolbar */
+.album-toolbar {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: end;
+  align-items: center;
+  gap: 0.5rem;
+
+  height: 100%;
+
+  margin-left: @margin-normal;
+  margin-right: @margin-normal;
+}
+
+/* Album toolbar - delete button */
+.album-toolbar-delete-button {
   width: @album-delete-button-size;
   height: @album-delete-button-size;
-  border-radius: @border-radius-big;
 
-  /*position: absolute; todo: верни меня! */
-
-  right: @album-delete-button-positioning;
-  top: @album-delete-button-positioning;
+  border-radius: @album-delete-button-radius;
 
   cursor: pointer;
 }
 
-.album-rename-button { /* Todo: я костыль настрой меня(я занимаю слишком много времени и не хочу мешать обучению C#-рпу) */
-  margin-right: 4rem;
+/* Album toolbar - rename button */
+.album-toolbar-rename-button {
+  width: @album-rename-button-size;
+  height: @album-rename-button-size;
+
+  border-radius: @album-rename-button-radius;
+
+  cursor: pointer;
 }
