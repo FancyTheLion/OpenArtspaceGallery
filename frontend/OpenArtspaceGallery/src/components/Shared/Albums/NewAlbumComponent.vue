@@ -120,7 +120,6 @@ const props = defineProps({
           <div class="new-album-form-button-container">
 
             <button
-              class="test3"
               type="button"
               @click="async() => await HideNewAlbumPopup()">
               Cancel

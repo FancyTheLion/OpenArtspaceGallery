@@ -10,6 +10,7 @@
 @popup-zIndex-lower: 1000;
 @popup-zIndex-upper: 2000;
 
+/* Lower layer */
 .popup-lower-layer {
   position: fixed;
   top: 0;
@@ -20,6 +21,7 @@
   background: @popup-lower-background-color;
 }
 
+/* Upper layer */
 .popup-upper-layer {
   position: fixed;
   top: 0;
@@ -37,18 +39,19 @@
   transform: translate(-50%, -50%);
   overflow-y: auto;
 }
-
+ /* Popup title */
 .popup-title {
   text-align: center;
-  font-weight: bold;
-  font-size: 1.2rem;
+  font-weight: @font-boldness-bold;
+  font-size: @text-size-smaller;
 }
 
 /* Used to indent buttons */
 .popup-text-info-padding {
-  padding: 0.1rem;
+  padding: @padding-micro;
 }
 
+/* Button separation */
 .popup-button-separation-container {
   display: flex;
   flex-direction: row;

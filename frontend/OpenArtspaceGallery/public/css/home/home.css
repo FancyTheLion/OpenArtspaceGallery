@@ -1,6 +1,7 @@
 /* Colors */
 /* Text colors */
 /* Text size */
+/* Text boldness */
 /* Margins */
 /* End margins */
 /* Paddings */
@@ -16,10 +17,11 @@
   justify-content: center;
   align-items: center;
 }
+/* Mixin for indentation everywhere except the top */
 .mixin-padding-small-left-right-bottom {
-  padding-left: 0.4rem;
-  padding-right: 0.4rem;
-  padding-bottom: 0.4rem;
+  padding-left: 0.4;
+  padding-right: 0.4;
+  padding-bottom: 0.4;
 }
 /* Centered item */
 .flex-vertically-and-horizontally-centered {
@@ -32,16 +34,20 @@
 .text-centered {
   text-align: center;
 }
+/* link not important */
 .link-not-important {
   color: hsl(0, 0%, 56%);
   font-size: 0.9rem;
 }
+/* link not important:hover */
 .link-not-important:hover {
   color: hsl(219, 39%, 59%);
   font-size: 0.9rem;
 }
+/* Form invalid field */
 .form-invalid-field {
   border: hsl(0, 75%, 47%) solid 0.2rem;
   border-radius: 0.3rem;
 }
+/* Form valid field. Dont touch */
 /*# sourceMappingURL=home.css.map */

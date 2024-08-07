@@ -1,14 +1,17 @@
 @import "../common";
+/* Colors */
+@popupYesNo-color-border: hsl(180, 97%, 50%);
 
+/* Main container */
 .popup-yes-no-content {
   .mixin-flex-vertically-and-horizontally-centered();
   flex-direction: column;
   flex-wrap: nowrap;
   gap: 0;
 
-  border: @border-width-thick @border-type-common aqua;
+  border: @border-width-thick @border-type-common @popupYesNo-color-border;
   border-radius: @border-radius-normal;
-  background-color: white;
+  background-color: @standart-backgraund-color;
 
   .mixin-padding-small-left-right-bottom;
 }

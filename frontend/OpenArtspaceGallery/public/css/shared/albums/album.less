@@ -19,6 +19,9 @@
 @album-rename-button-size: 2rem;
 @album-rename-button-radius: 1rem;
 
+/* Size toolbar */
+@toolbar-height: 3rem;
+
 /* Link to full albums on hover */
 .album-link-full {
   text-decoration: none;
@@ -70,7 +73,7 @@
 .album-name {
   color: @color-album-text;
   text-align: center;
-  font-weight: bold;
+  font-weight: @font-boldness-bold;
 }
 
 /* Album creation date */
@@ -89,7 +92,7 @@
   z-index: 1050;
 
   width: 100%;
-  height: 3rem;
+  height: @toolbar-height;
 
   background: hsla(233, 100%, 50%, 0.5);
 }
@@ -101,7 +104,7 @@
   flex-wrap: nowrap;
   justify-content: end;
   align-items: center;
-  gap: 0.5rem;
+  gap: @gap-small;
 
   height: 100%;
 

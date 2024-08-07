@@ -5,14 +5,20 @@
 @color-text-not-important-hovered-link: hsl(219, 39%, 59%);
 @color-album-text: hsl(0, 0%, 100%);
 @alert-color: hsl(0, 75%, 47%);
+@standart-backgraund-color: hsl(0, 0%, 100%);
 
 /* Text size */
 @text-size-smallest: 0.9rem;
 @text-size-smaller: 1.2rem;
 @text-size-medium: 1.5rem;
 
+/* Text boldness */
+
+@font-boldness-bold: bold;
+
 /* Margins */
 
+@margin-micro: 0.1rem;
 @margin-small: 0.2rem;
 @margin-normal: 0.5rem;
 
@@ -20,8 +26,9 @@
 
 
 /* Paddings */
-
-@padding-small: 0.2rem;
+@padding-micro: 0.1rem;
+@padding-smaller: 0.2rem;
+@padding-small: 0.4;
 @padding-normal: 0.5rem;
 
 /* End paddings */
@@ -43,9 +50,10 @@
 
 /* Gaps */
 
-@gap-normal: 0.5rem;
+@gap-small: 0.5rem;
 
 /* End gaps */
+
 
 /* Mixins */
 
@@ -56,10 +64,11 @@
   align-items: center;
 }
 
+/* Mixin for indentation everywhere except the top */
 .mixin-padding-small-left-right-bottom {
-  padding-left: 0.4rem;
-  padding-right: 0.4rem;
-  padding-bottom: 0.4rem;
+  padding-left: @padding-small;
+  padding-right: @padding-small;
+  padding-bottom: @padding-small;
 }
 
 /* Centered item */
@@ -74,21 +83,25 @@
   text-align: center;
 }
 
+/* link not important */
 .link-not-important {
   color: @color-text-not-important;
   font-size: @text-size-smallest;
 }
 
+/* link not important:hover */
 .link-not-important:hover {
   color: @color-text-not-important-hovered-link;
   font-size: @text-size-smallest;
 }
 
+/* Form invalid field */
 .form-invalid-field {
   border: @alert-color @border-type-common @border-alert;
   border-radius: @border-width-thick;
 }
 
+/* Form valid field. Dont touch */
 .form-valid-field {
 
 }
