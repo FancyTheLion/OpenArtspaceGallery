@@ -90,7 +90,7 @@ const props = defineProps({
         class="new-album-button"
         @click="async () => await ShowNewAlbumPopup()">
 
-        <img class="new-album-button-image" src="/images/AddNewAlbum.webp" alt="Create new album" title="Create new album"/>
+        <img class="new-album-button-image" src="/images/icons/addNewAlbum.webp" alt="Create new album" title="Create new album"/>
     </div>
 
   </div>

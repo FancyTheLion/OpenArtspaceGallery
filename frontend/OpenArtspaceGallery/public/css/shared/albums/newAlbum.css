@@ -11,17 +11,7 @@
 /* End gaps */
 /* Mixins */
 /* Centered flex (vertically and horizontally) */
-.mixin-flex-vertically-and-horizontally-centered {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 /* Centered item */
-.flex-vertically-and-horizontally-centered {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 /* End of mixins */
 /* Text centered */
 .text-centered {
@@ -44,9 +34,6 @@
   border-radius: 0.5rem;
   width: 10rem;
   height: 10rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   cursor: pointer;
 }
 /* New album bottom image */
@@ -54,16 +41,8 @@
   width: 4rem;
   height: 4rem;
 }
-.new-album-button-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 /* Container with one albums */
 .new-album-add-new-album-form {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
   flex-wrap: nowrap;
   gap: 0;

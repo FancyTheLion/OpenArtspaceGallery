@@ -71,7 +71,7 @@ import { reactive, ref} from "vue";
 
           <div>
 
-            <div>
+            <div class="popup-input-title">
               {{props.title}}
             </div>
 
@@ -80,19 +80,27 @@ import { reactive, ref} from "vue";
             </div>
 
             <input
+                class="popup-input-info-text"
                 v-model="valueFormData.value">
 
           </div>
 
-        <button
-            @click ="async () => await OnOk()">
-          Ok
-        </button>
+          <div class="popup-input-and-button-conteiner">
 
-        <button
-            @click="async () => await OnCancel()">
-          Cancel
-        </button>
+            <button
+                @click="async () => await OnCancel()">
+              Cancel
+            </button>
+
+            <button
+                class="popup-input-button-ok"
+                @click ="async () => await OnOk()">
+              Ok
+            </button>
+
+          </div>
+
+
 
         </div>
 

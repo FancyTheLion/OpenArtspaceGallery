@@ -41,7 +41,7 @@ public class AlbumsController : ControllerBase
     [Route("api/Albums/ChildrenOf/{albumId}")]
     public async Task<ActionResult<AlbumsListResponse>> GetChildrenAlbumsListAsync(Guid albumId)
     {
-        if (!await _albumsService.IsAlbumExistsAsync(albumId))
+        if (!await _albumsService.IsAlbumExistsAsync(albumId))    
         {
             return NotFound();
         }

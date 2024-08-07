@@ -11,17 +11,7 @@
 /* End gaps */
 /* Mixins */
 /* Centered flex (vertically and horizontally) */
-.mixin-flex-vertically-and-horizontally-centered {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 /* Centered item */
-.flex-vertically-and-horizontally-centered {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 /* End of mixins */
 /* Text centered */
 .text-centered {
@@ -40,16 +30,27 @@
   border-radius: 0.3rem;
 }
 .popup-text-input-content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
   flex-wrap: nowrap;
   gap: 0;
-  border: 0.3rem solid aqua;
+  border: 0.3rem solid hsla(52, 81%, 48%, 0.5);
   border-radius: 0.5rem;
-  width: 18rem;
-  height: 10rem;
-  background-color: white;
+  background-color: hsl(0, 0%, 100%);
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+  padding-bottom: 0.4rem;
+}
+.popup-input-title {
+  text-align: center;
+  font-weight: bold;
+}
+.popup-input-info-text {
+  width: 98%;
+}
+.popup-input-and-button-conteiner {
+  display: flex;
+}
+.popup-input-button-ok {
+  margin-left: auto;
 }
 /*# sourceMappingURL=popupInputText.css.map */

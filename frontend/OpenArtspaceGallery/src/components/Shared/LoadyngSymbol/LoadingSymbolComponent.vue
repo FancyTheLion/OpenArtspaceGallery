@@ -4,6 +4,6 @@
 
 <template>
   <div class="flex-vertically-and-horizontally-centered">
-    <img class="loading-symbol-image" src="/images/loading.webp" alt="Loading animation" />
+    <img class="loading-symbol-image" src="/images/icons/loading.webp" alt="Loading animation" />
   </div>
 </template>

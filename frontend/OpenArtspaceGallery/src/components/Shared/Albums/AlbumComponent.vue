@@ -126,12 +126,12 @@
 
         <img
             class="album-toolbar-rename-button"
-            src="/images/rename.webp"
+            src="/images/icons/rename.webp"
             @click="async () => await ShowAlbumRenameConfirmationAsync()" />
 
         <img
             class="album-toolbar-delete-button"
-            src="/public/images/delete.webp"
+            src="/images/icons/delete.webp"
             @click="async () => await ShowAlbumDeletionConfirmationAsync()" />
 
       </div>
