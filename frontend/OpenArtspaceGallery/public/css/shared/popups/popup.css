@@ -16,6 +16,11 @@
   justify-content: center;
   align-items: center;
 }
+.mixin-padding-small-left-right-bottom {
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+  padding-bottom: 0.4rem;
+}
 /* Centered item */
 .flex-vertically-and-horizontally-centered {
   display: flex;
@@ -63,5 +68,20 @@
   left: 50%;
   transform: translate(-50%, -50%);
   overflow-y: auto;
+}
+.popup-title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+/* Used to indent buttons */
+.popup-text-info-padding {
+  padding: 0.1rem;
+}
+.popup-button-separation-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
 }
 /*# sourceMappingURL=popup.css.map */

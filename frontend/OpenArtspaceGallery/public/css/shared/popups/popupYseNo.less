@@ -1,8 +1,5 @@
 @import "../common";
 
-@confirmation-window-width: 15rem;
-@confirmation-window-height: 10rem;
-
 .popup-yes-no-content {
   .mixin-flex-vertically-and-horizontally-centered();
   flex-direction: column;
@@ -11,8 +8,7 @@
 
   border: @border-width-thick @border-type-common aqua;
   border-radius: @border-radius-normal;
-  width: @confirmation-window-width;
-  height: @confirmation-window-height;
   background-color: white;
-}
 
+  .mixin-padding-small-left-right-bottom;
+}

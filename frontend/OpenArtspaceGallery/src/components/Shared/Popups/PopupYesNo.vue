@@ -58,23 +58,27 @@
 
           <div class="popup-yes-no-content">
 
-            <div>
+            <h1 class="popup-title">
               {{props.title}}
-            </div>
+            </h1>
 
-            <div>
+            <div class="popup-text-info-padding">
               {{props.text}}
             </div>
 
-            <button
-              @click ="async () => await OnYes()">
-              Yes
-            </button>
+            <div class="popup-button-separation-container">
 
-            <button
-              @click="async () => await OnNo()">
-              No
-            </button>
+              <button
+                  @click="async () => await OnNo()">
+                No
+              </button>
+
+              <button
+                  @click ="async () => await OnYes()">
+                Yes
+              </button>
+
+            </div>
 
           </div>
 

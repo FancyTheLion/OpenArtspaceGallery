@@ -11,27 +11,15 @@
   border-radius: @border-radius-normal;
   background-color: hsl(0, 0%, 100%);
 
-  padding-left: 0.4rem;
-  padding-right: 0.4rem;
-  padding-bottom: 0.4rem;
+  .mixin-padding-small-left-right-bottom
 }
 
-.popup-input-title {
-  text-align: center;
-  font-weight: bold;
+/* Extends the input field to the end of the container */
+.popup-input {
+  width: 96%;
+  margin-top: 0.1rem;
+  margin-bottom: 0.2rem;
 }
 
-.popup-input-info-text {
-  width: 98%;
-}
 
-.popup-input-and-button-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 100%;
-}
 
-.popup-input-button-ok {
-  margin-left: auto;
-}

@@ -71,21 +71,24 @@ import { reactive, ref} from "vue";
 
           <div>
 
-            <div class="popup-input-title">
-              {{props.title}}
-            </div>
+            <h1
+              class="popup-title">
 
-            <div>
+              {{props.title}}
+            </h1>
+
+            <div class="popup-text-info-padding">
+
               {{props.text}}
             </div>
 
             <input
-                class="popup-input-info-text"
+                class="popup-input"
                 v-model="valueFormData.value">
 
           </div>
 
-          <div class="popup-input-and-button-container">
+          <div class="popup-button-separation-container">
 
             <button
                 @click="async () => await OnCancel()">
