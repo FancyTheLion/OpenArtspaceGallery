@@ -11,7 +11,17 @@
 /* End gaps */
 /* Mixins */
 /* Centered flex (vertically and horizontally) */
+.mixin-flex-vertically-and-horizontally-centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 /* Centered item */
+.flex-vertically-and-horizontally-centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 /* End of mixins */
 /* Text centered */
 .text-centered {

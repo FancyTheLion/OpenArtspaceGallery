@@ -85,7 +85,7 @@ import { reactive, ref} from "vue";
 
           </div>
 
-          <div class="popup-input-and-button-conteiner">
+          <div class="popup-input-and-button-container">
 
             <button
                 @click="async () => await OnCancel()">
@@ -93,7 +93,6 @@ import { reactive, ref} from "vue";
             </button>
 
             <button
-                class="popup-input-button-ok"
                 @click ="async () => await OnOk()">
               Ok
             </button>

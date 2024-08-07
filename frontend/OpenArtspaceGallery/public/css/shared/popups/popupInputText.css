@@ -11,7 +11,17 @@
 /* End gaps */
 /* Mixins */
 /* Centered flex (vertically and horizontally) */
+.mixin-flex-vertically-and-horizontally-centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 /* Centered item */
+.flex-vertically-and-horizontally-centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 /* End of mixins */
 /* Text centered */
 .text-centered {
@@ -30,6 +40,9 @@
   border-radius: 0.3rem;
 }
 .popup-text-input-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
   flex-wrap: nowrap;
   gap: 0;
@@ -47,8 +60,11 @@
 .popup-input-info-text {
   width: 98%;
 }
-.popup-input-and-button-conteiner {
+.popup-input-and-button-container {
   display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
 }
 .popup-input-button-ok {
   margin-left: auto;
