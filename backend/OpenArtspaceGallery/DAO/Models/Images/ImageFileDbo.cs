@@ -13,11 +13,6 @@ public class ImageFileDbo
     /// </summary>
     [Key]
     public Guid Id { get; set; }
-
-    /// <summary>
-    /// Specifying that the foreign key is associated with Image
-    /// </summary>
-    public ImageDbo Image { get; set; }
     
     /// <summary>
     /// Specifying that the foreign key is associated with ImageSizeId
@@ -28,4 +23,9 @@ public class ImageFileDbo
     /// Specifying that the foreign key is associated with File
     /// </summary>
     public FileDbo File { get; set; }
+    
+    /// <summary>
+    /// This image file belongs to this Image
+    /// </summary>
+    public ImageDbo Image { get; set; }
 }

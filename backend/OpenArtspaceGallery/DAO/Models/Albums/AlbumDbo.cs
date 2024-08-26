@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using OpenArtspaceGallery.DAO.Models.Images;
 using OpenArtspaceGallery.Models;
 using OpenArtspaceGallery.Models.API.DTOs;
 
@@ -26,6 +27,11 @@ public class AlbumDbo
     /// Album creation time
     /// </summary>
     public DateTime CreationTime { get; set; }
+    
+    /// <summary>
+    /// Album's images
+    /// </summary>
+    public IList<ImageDbo> Images { get; set; }
 
     public Album ToModel()
     {

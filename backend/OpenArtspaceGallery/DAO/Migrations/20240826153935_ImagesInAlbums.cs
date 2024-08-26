@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace OpenArtspaceGallery.DAO.Migrations
 {
     /// <inheritdoc />
-    public partial class FilesInDatabase : Migration
+    public partial class ImagesInAlbums : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -29,10 +29,10 @@ namespace OpenArtspaceGallery.DAO.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    AlbumId = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
-                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    AlbumId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -67,17 +67,11 @@ namespace OpenArtspaceGallery.DAO.Migrations
                     TypeId = table.Column<Guid>(type: "uuid", nullable: false),
                     OriginalName = table.Column<string>(type: "text", nullable: false),
                     Hash = table.Column<string>(type: "text", nullable: false),
-                    UploadTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    FileTypeDboId = table.Column<Guid>(type: "uuid", nullable: true)
+                    UploadTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Files", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Files_FileTypes_FileTypeDboId",
-                        column: x => x.FileTypeDboId,
-                        principalTable: "FileTypes",
-                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Files_FileTypes_TypeId",
                         column: x => x.TypeId,
@@ -87,31 +81,31 @@ namespace OpenArtspaceGallery.DAO.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ImagesFiles",
+                name: "ImageFileDbo",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    ImageId = table.Column<Guid>(type: "uuid", nullable: false),
                     SizeId = table.Column<Guid>(type: "uuid", nullable: false),
-                    FileId = table.Column<Guid>(type: "uuid", nullable: false)
+                    FileId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ImageId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ImagesFiles", x => x.Id);
+                    table.PrimaryKey("PK_ImageFileDbo", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ImagesFiles_Files_FileId",
+                        name: "FK_ImageFileDbo_Files_FileId",
                         column: x => x.FileId,
                         principalTable: "Files",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ImagesFiles_ImagesSizes_SizeId",
+                        name: "FK_ImageFileDbo_ImagesSizes_SizeId",
                         column: x => x.SizeId,
                         principalTable: "ImagesSizes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ImagesFiles_Images_ImageId",
+                        name: "FK_ImageFileDbo_Images_ImageId",
                         column: x => x.ImageId,
                         principalTable: "Images",
                         principalColumn: "Id",
@@ -119,41 +113,36 @@ namespace OpenArtspaceGallery.DAO.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Files_FileTypeDboId",
-                table: "Files",
-                column: "FileTypeDboId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Files_TypeId",
                 table: "Files",
                 column: "TypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Images_AlbumId",
-                table: "Images",
-                column: "AlbumId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ImagesFiles_FileId",
-                table: "ImagesFiles",
+                name: "IX_ImageFileDbo_FileId",
+                table: "ImageFileDbo",
                 column: "FileId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ImagesFiles_ImageId",
-                table: "ImagesFiles",
+                name: "IX_ImageFileDbo_ImageId",
+                table: "ImageFileDbo",
                 column: "ImageId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ImagesFiles_SizeId",
-                table: "ImagesFiles",
+                name: "IX_ImageFileDbo_SizeId",
+                table: "ImageFileDbo",
                 column: "SizeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Images_AlbumId",
+                table: "Images",
+                column: "AlbumId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ImagesFiles");
+                name: "ImageFileDbo");
 
             migrationBuilder.DropTable(
                 name: "Files");

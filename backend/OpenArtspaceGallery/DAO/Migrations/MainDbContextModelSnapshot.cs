@@ -51,9 +51,6 @@ namespace OpenArtspaceGallery.DAO.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("FileTypeDboId")
-                        .HasColumnType("uuid");
-
                     b.Property<string>("Hash")
                         .IsRequired()
                         .HasColumnType("text");
@@ -69,8 +66,6 @@ namespace OpenArtspaceGallery.DAO.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("FileTypeDboId");
 
                     b.HasIndex("TypeId");
 
@@ -146,7 +141,7 @@ namespace OpenArtspaceGallery.DAO.Migrations
 
                     b.HasIndex("SizeId");
 
-                    b.ToTable("ImagesFiles");
+                    b.ToTable("ImageFileDbo");
                 });
 
             modelBuilder.Entity("OpenArtspaceGallery.DAO.Models.Images.ImageSizeDbo", b =>
@@ -181,10 +176,6 @@ namespace OpenArtspaceGallery.DAO.Migrations
 
             modelBuilder.Entity("OpenArtspaceGallery.DAO.Models.Files.FileDbo", b =>
                 {
-                    b.HasOne("OpenArtspaceGallery.DAO.Models.FilesTypes.FileTypeDbo", null)
-                        .WithMany()
-                        .HasForeignKey("FileTypeDboId");
-
                     b.HasOne("OpenArtspaceGallery.DAO.Models.FilesTypes.FileTypeDbo", "Type")
                         .WithMany()
                         .HasForeignKey("TypeId")
@@ -197,7 +188,7 @@ namespace OpenArtspaceGallery.DAO.Migrations
             modelBuilder.Entity("OpenArtspaceGallery.DAO.Models.Images.ImageDbo", b =>
                 {
                     b.HasOne("OpenArtspaceGallery.DAO.Models.Albums.AlbumDbo", "Album")
-                        .WithMany()
+                        .WithMany("Images")
                         .HasForeignKey("AlbumId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -214,7 +205,7 @@ namespace OpenArtspaceGallery.DAO.Migrations
                         .IsRequired();
 
                     b.HasOne("OpenArtspaceGallery.DAO.Models.Images.ImageDbo", "Image")
-                        .WithMany()
+                        .WithMany("Files")
                         .HasForeignKey("ImageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -230,6 +221,16 @@ namespace OpenArtspaceGallery.DAO.Migrations
                     b.Navigation("Image");
 
                     b.Navigation("Size");
+                });
+
+            modelBuilder.Entity("OpenArtspaceGallery.DAO.Models.Albums.AlbumDbo", b =>
+                {
+                    b.Navigation("Images");
+                });
+
+            modelBuilder.Entity("OpenArtspaceGallery.DAO.Models.Images.ImageDbo", b =>
+                {
+                    b.Navigation("Files");
                 });
 #pragma warning restore 612, 618
         }

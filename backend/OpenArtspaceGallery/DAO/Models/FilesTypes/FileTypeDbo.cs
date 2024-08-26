@@ -5,7 +5,7 @@ namespace OpenArtspaceGallery.DAO.Models.FilesTypes;
 public class FileTypeDbo
 {
     /// <summary>
-    /// File type guide
+    /// File type GUID
     /// </summary>
     [Key]
     public Guid Id { get; set; }
