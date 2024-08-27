@@ -19,17 +19,17 @@ public class MainDbContext : DbContext
     public DbSet<FileTypeDbo> FileTypes { get; set; }
     
     /// <summary>
-    ///
+    /// Image sizes
     /// </summary>
     public DbSet<ImageSizeDbo> ImagesSizes { get; set; }
     
     /// <summary>
-    /// 
+    /// Files
     /// </summary>
     public DbSet<FileDbo> Files { get; set; }
     
     /// <summary>
-    /// 
+    /// Images
     /// </summary>
     public DbSet<ImageDbo> Images { get; set; }
 
@@ -49,7 +49,7 @@ public class MainDbContext : DbContext
         
         modelBuilder
             .Entity<FileDbo>()
-            .HasOne<FileTypeDbo>(f => f.Type); // File имеет один связанный тип файла
+            .HasOne<FileTypeDbo>(f => f.Type);
 
         modelBuilder
             .Entity<ImageFileDbo>()
