@@ -14,6 +14,8 @@ var builder = WebApplication.CreateBuilder(args);
                 
     builder.Services.AddScoped<IAlbumsService, AlbumsService>();
     builder.Services.AddScoped<IAlbumsDao, AlbumsDao>();
+    builder.Services.AddScoped<IFilesService, FilesService>();
+
 
     #endregion
             

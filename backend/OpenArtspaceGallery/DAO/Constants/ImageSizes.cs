@@ -1,27 +1,30 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace OpenArtspaceGallery.DAO.Models.Images;
+namespace OpenArtspaceGallery.DAO.Constants;
 
-public class ImageSizeDbo
+public class ImageSizes
 {
+    #region Thumbnail
+
     /// <summary>
     /// Image size id
     /// </summary>
-    [Key]
-    public Guid Id { get; set; }
+    public static Guid Id = new Guid("8811ed47-3ec6-490a-8074-42bf4838fdb3");
 
     /// <summary>
     /// Size name (large, medium and others)
     /// </summary>
-    public String Name { get; set; }
+    public static String Name = new string("Thumbnail");
 
     /// <summary>
     ///  Image size (Width)
     /// </summary>
-    public int Width { get; set; }
+    public static int Width = 100;
 
     /// <summary>
     /// Image size (Height)
     /// </summary>
-    public int Height { get; set; }
+    public static int Height = 150;
+
+    #endregion
 }
