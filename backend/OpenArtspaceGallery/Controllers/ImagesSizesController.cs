@@ -6,16 +6,16 @@ using OpenArtspaceGallery.Services.Abstract;
 namespace OpenArtspaceGallery.Controllers;
 
 [ApiController]
-public class FilesController : ControllerBase
+public class ImagesSizesController : ControllerBase
 {
-    private readonly IFilesService _filesService;
+    private readonly IImagesSizesService _imagesSizesService;
 
-    public FilesController
+    public ImagesSizesController
     (
-        IFilesService filesService
+        IImagesSizesService imagesSizesService
     )
     {
-        _filesService = filesService;
+        _imagesSizesService = imagesSizesService;
     }
 
     /// <summary>
@@ -25,7 +25,7 @@ public class FilesController : ControllerBase
     [Route("api/Files/Images/GetImagesSizesList")]
     public async Task<ActionResult<ImageSizesResponse>> GetImageSizesListAsync()
     {
-        var imagesSizes = await _filesService.GetImagesSizesAsync();
+        var imagesSizes = await _imagesSizesService.GetImagesSizesAsync();
 
         var imagesSizesDtos = imagesSizes
             .Select(i => i.ToDto())

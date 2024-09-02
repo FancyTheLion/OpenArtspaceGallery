@@ -2,7 +2,7 @@ using OpenArtspaceGallery.Models;
 
 namespace OpenArtspaceGallery.Services.Abstract;
 
-public interface IFilesService
+public interface IImagesSizesService
 {
     /// <summary>
     /// Getting the images sizes

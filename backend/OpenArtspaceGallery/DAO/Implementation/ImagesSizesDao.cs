@@ -1,15 +1,15 @@
 using Microsoft.EntityFrameworkCore;
 using OpenArtspaceGallery.DAO.Abstract;
 using OpenArtspaceGallery.DAO.Contexts;
-using OpenArtspaceGallery.DAO.Models.Files;
+using OpenArtspaceGallery.DAO.Models.Images;
 
 namespace OpenArtspaceGallery.DAO.Implementation;
 
-public class FilesDao : IFilesDao
+public class ImagesSizesDao : IImagesSizesDao
 {
     private readonly MainDbContext _dbContext;
     
-    public FilesDao
+    public ImagesSizesDao
     (
         MainDbContext dbContext
     )
@@ -17,8 +17,10 @@ public class FilesDao : IFilesDao
         _dbContext = dbContext;
     }
 
-    /*public async Task<IReadOnlyCollection<FileDbo>> GetImagesSizesAsync()
+    public async Task<IReadOnlyCollection<ImageSizeDbo>> GetImagesSizesAsync()
     {
-        return await _dbContext.ImagesSizes.Select().ToListAsync();
-    }*/
+        return await _dbContext
+            .ImagesSizes
+            .ToListAsync();
+    }
 }
