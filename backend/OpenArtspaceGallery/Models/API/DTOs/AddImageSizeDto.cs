@@ -2,14 +2,11 @@ using System.Text.Json.Serialization;
 
 namespace OpenArtspaceGallery.Models.API.DTOs;
 
-public class ImageSizeDto
+/// <summary>
+/// Dto for accepting data from the frontend
+/// </summary>
+public class AddImageSizeDto
 {
-    /// <summary>
-    /// Image size id
-    /// </summary>
-    [JsonPropertyName("id")]
-    public Guid Id { get; private set; }
-
     /// <summary>
     /// Size name (large, medium and others)
     /// </summary>
@@ -28,22 +25,15 @@ public class ImageSizeDto
     [JsonPropertyName("height")]
     public int Height { get; private set; }
 
-    public ImageSizeDto
+    public AddImageSizeDto
     (
-        Guid id,
         string name,
         int width,
         int height
     )
     {
-        Id = id;
         Name = name;
         Width = width;
         Height = height;
-    }
-
-    public ImageSize ToModel()
-    {
-        return new ImageSize(Id, Name, Width, Height);
     }
 }

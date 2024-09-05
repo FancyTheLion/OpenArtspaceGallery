@@ -33,4 +33,6 @@ public interface IAlbumsService
     /// Rename albom
     /// </summary>
     public Task RenameAlbumAsync(Guid albumId, string newName);
+    
+    
 }
