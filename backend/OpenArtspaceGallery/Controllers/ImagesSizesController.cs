@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using OpenArtspaceGallery.Models.API.DTOs;
 using OpenArtspaceGallery.Models.API.Requests;
+using OpenArtspaceGallery.Models.API.Requests.ImagesSizes;
 using OpenArtspaceGallery.Models.API.Responses;
+using OpenArtspaceGallery.Models.API.Responses.ImagesSizes;
 using OpenArtspaceGallery.Services.Abstract;
 
 namespace OpenArtspaceGallery.Controllers;
@@ -23,15 +25,10 @@ public class ImagesSizesController : ControllerBase
     /// Get Images Sizes List 
     /// </summary>
     [HttpGet]
-    [Route("api/Files/Images/GetImagesSizesList")]
+    [Route("api/ImagesSizes/GetImagesSizesList")]
     public async Task<ActionResult<ImageSizesResponse>> GetImageSizesListAsync()
     {
         var imagesSizes = await _imagesSizesService.GetImagesSizesAsync();
-        
-        if (!imagesSizes.Any()) 
-        {
-            return NotFound();
-        }
 
         var imagesSizesDtos = imagesSizes
             .Select(i => i.ToDto())
@@ -44,10 +41,20 @@ public class ImagesSizesController : ControllerBase
     /// Add Image Size entry
     /// </summary>
     [HttpPost]
-    [Route("api/Files/Images/AddImageSizeAsync")]
+    [Route("api/ImagesSizes/AddImageSize")]
     public async Task<ActionResult<AddImageSizeResponse>> AddImageSizeAsync(AddImageSizeRequest request)
     {
-        var addImagesSizes = await _imagesSizesService.AddImageSizeAsync();
+        if (request == null)
+        {
+            return BadRequest("Add image size request mustn't be null!");
+        }
+        
+        if (request.AddImageSize == null)
+        {
+            return BadRequest("When adding a new image size, the size information must not be zero.");
+        }
+        
+        var addImagesSizes = await _imagesSizesService.AddImageSizeAsync(request.AddImageSize.ToModel());
         
         return Ok(new AddImageSizeResponse(addImagesSizes.ToDto()));
     }

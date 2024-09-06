@@ -1,7 +1,8 @@
 using System.Text.Json.Serialization;
 using OpenArtspaceGallery.Models.API.DTOs;
+using OpenArtspaceGallery.Models.API.DTOs.ImagesSizes;
 
-namespace OpenArtspaceGallery.Models.API.Responses;
+namespace OpenArtspaceGallery.Models.API.Responses.ImagesSizes;
 
 public class AddImageSizeResponse
 {
@@ -16,6 +17,6 @@ public class AddImageSizeResponse
         ImageSizeDto imagesSizes
     )
     {
-        ImageSize = imagesSizes ?? throw new ArgumentNullException(nameof(imagesSizes), "Images sizes list can't be null.");
+        ImageSize = imagesSizes ?? throw new ArgumentNullException(nameof(imagesSizes), "Image size can't be null.");
     }
 }

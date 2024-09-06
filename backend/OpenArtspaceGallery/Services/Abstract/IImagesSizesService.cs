@@ -10,7 +10,7 @@ public interface IImagesSizesService
     Task<IReadOnlyCollection<ImageSize>> GetImagesSizesAsync();
     
     /// <summary>
-    /// Add image size
+    /// Add new image size
     /// </summary>
-    Task<ImageSize> AddImageSizeAsync();
+    Task<ImageSize> AddImageSizeAsync(ImageSize imageSize);
 }

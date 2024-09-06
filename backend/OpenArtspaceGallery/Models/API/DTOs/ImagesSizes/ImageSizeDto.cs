@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace OpenArtspaceGallery.Models.API.DTOs;
+namespace OpenArtspaceGallery.Models.API.DTOs.ImagesSizes;
 
 public class ImageSizeDto
 {
@@ -40,10 +40,5 @@ public class ImageSizeDto
         Name = name;
         Width = width;
         Height = height;
-    }
-
-    public ImageSize ToModel()
-    {
-        return new ImageSize(Id, Name, Width, Height);
     }
 }

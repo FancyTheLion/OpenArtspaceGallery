@@ -10,4 +10,9 @@ public interface IImagesSizesDao
     /// Getting the images sizes
     /// </summary>
     Task<IReadOnlyCollection<ImageSizeDbo>> GetImagesSizesAsync();
+    
+    /// <summary>
+    /// Add new image size
+    /// </summary>
+    Task<ImageSizeDbo> AddImageSizeAsync(ImageSizeDbo imageSizeToInsert);
 }

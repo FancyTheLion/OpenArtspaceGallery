@@ -79,7 +79,7 @@ public class AlbumsController : ControllerBase
 
         if (request.AlbumToAdd == null)
         {
-            return BadRequest("when adding an album, information about the album must not be null.");
+            return BadRequest("When adding an album, information about the album must not be null.");
         }
         
         return new NewAlbumResponse

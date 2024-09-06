@@ -23,4 +23,17 @@ public class ImagesSizesDao : IImagesSizesDao
             .ImagesSizes
             .ToListAsync();
     }
+
+    public async Task<ImageSizeDbo> AddImageSizeAsync(ImageSizeDbo imageSizeToInsert)
+    {
+        _ = imageSizeToInsert ?? throw new ArgumentNullException(nameof(imageSizeToInsert), "Image size can't be null!");
+        
+         await _dbContext
+            .ImagesSizes
+            .AddAsync(imageSizeToInsert);
+        
+         await _dbContext.SaveChangesAsync();
+
+         return imageSizeToInsert;
+    }
 }
