@@ -37,10 +37,17 @@ public class ImagesSizesDao : IImagesSizesDao
          return imageSizeToInsert;
     }
 
-    public async Task<bool> CheckDuplicatesImageSizeAsync(ImageSizeDbo checkImageSize)
+    public async Task<bool> IsImageSizeExistsByNameAsync(string name)
     {
-        return !await _dbContext
+        return await _dbContext
             .ImagesSizes
-            .AnyAsync(n => n.Name == checkImageSize.Name);
+            .AnyAsync(n => n.Name.ToLower() == name.ToLower());
+    }
+
+    public async Task<bool> IsImageSizeExistsByDimensionsAsync(int sizeWidth, int sizeHeight)
+    {
+        return await _dbContext
+            .ImagesSizes
+            .AnyAsync(s  => s.Width == sizeWidth && s.Height == sizeHeight);
     }
 }

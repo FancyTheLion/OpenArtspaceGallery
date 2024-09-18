@@ -36,9 +36,14 @@ public class ImagesSizesService : IImagesSizesService
             Height = imageSize.Height
         };
         
-        if (!await _imagesSizesDao.CheckDuplicatesImageSizeAsync(newImageSize))
+        if (await _imagesSizesDao.IsImageSizeExistsByNameAsync(imageSize.Name))
         {
             throw new ArgumentException("Image size with this name already exists.", nameof(imageSize.Name));
+        }
+        
+        if (await _imagesSizesDao.IsImageSizeExistsByDimensionsAsync(imageSize.Width, imageSize.Height))
+        {
+            throw new ArgumentException($"Image size with width {imageSize.Width} and height {imageSize.Height} already exists.");
         }
         
         return ImageSize.FromDbo(await _imagesSizesDao.AddImageSizeAsync(newImageSize));
