@@ -15,4 +15,11 @@ public interface IImagesSizesDao
     /// Add new image size
     /// </summary>
     Task<ImageSizeDbo> AddImageSizeAsync(ImageSizeDbo imageSizeToInsert);
+    
+    /// <summary>
+    /// Validate image size for duplicates
+    /// </summary>
+    Task<bool> CheckDuplicatesImageSizeAsync(ImageSizeDbo checkImageSize);
+
+    //Task<bool> IsImageSizeExistsByNameAsync(string name);
 }

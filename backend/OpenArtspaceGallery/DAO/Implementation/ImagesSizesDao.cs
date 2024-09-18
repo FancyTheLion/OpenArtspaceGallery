@@ -36,4 +36,11 @@ public class ImagesSizesDao : IImagesSizesDao
 
          return imageSizeToInsert;
     }
+
+    public async Task<bool> CheckDuplicatesImageSizeAsync(ImageSizeDbo checkImageSize)
+    {
+        return !await _dbContext
+            .ImagesSizes
+            .AnyAsync(n => n.Name == checkImageSize.Name);
+    }
 }
