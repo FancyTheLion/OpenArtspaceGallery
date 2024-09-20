@@ -54,15 +54,15 @@ public class ImagesSizesController : ControllerBase
             return BadRequest("When adding a new image size, the size information must not be zero.");
         }
         
-        return Ok
-        (
-            new AddImageSizeResponse
-            (
-                (await _imagesSizesService.AddImageSizeAsync
-                (
-                    request.AddImageSize.ToModel())
-                ).ToDto()
-            )
-        );
+        try
+        {
+            return Ok(new AddImageSizeResponse((await _imagesSizesService.AddImageSizeAsync(request.AddImageSize.ToModel())).ToDto()));
+        }
+        catch (ArgumentException exception)
+        {
+            return BadRequest(exception.Message);
+        }
+        
+        
     }
 }
