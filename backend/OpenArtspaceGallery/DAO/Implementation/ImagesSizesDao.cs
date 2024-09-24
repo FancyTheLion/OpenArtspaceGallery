@@ -50,4 +50,22 @@ public class ImagesSizesDao : IImagesSizesDao
             .ImagesSizes
             .AnyAsync(s  => s.Width == sizeWidth && s.Height == sizeHeight);
     }
+
+    public async Task DeleteImageSizeAsync(Guid sizeId)
+    {
+        var imageSize = await _dbContext
+            .ImagesSizes
+            .SingleAsync(s => s.Id == sizeId);
+
+        _dbContext.Remove(imageSize);
+
+        await _dbContext.SaveChangesAsync();
+    }
+    
+    public async Task<bool> IsImageSizeExistsAsync(Guid sizeId)
+    {
+        return await _dbContext
+            .ImagesSizes
+            .AnyAsync(s => s.Id == sizeId);
+    }
 }

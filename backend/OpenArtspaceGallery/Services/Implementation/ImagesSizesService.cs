@@ -48,4 +48,16 @@ public class ImagesSizesService : IImagesSizesService
         
         return ImageSize.FromDbo(await _imagesSizesDao.AddImageSizeAsync(newImageSize));
     }
+
+    public async Task DeleteImageSizeAsync(Guid sizeId)
+    {
+        var imagesSizes = await _imagesSizesDao.GetImagesSizesAsync();
+        
+        await _imagesSizesDao.DeleteImageSizeAsync(sizeId);
+    }
+    
+    public async Task<bool> IsImageSizeExistsAsync(Guid sizeId)
+    {
+        return await _imagesSizesDao.IsImageSizeExistsAsync(sizeId);
+    }
 }

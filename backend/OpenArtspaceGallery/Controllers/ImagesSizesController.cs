@@ -56,13 +56,31 @@ public class ImagesSizesController : ControllerBase
         
         try
         {
-            return Ok(new AddImageSizeResponse((await _imagesSizesService.AddImageSizeAsync(request.AddImageSize.ToModel())).ToDto()));
+            return Ok
+            (
+                new AddImageSizeResponse
+                (
+                    (await _imagesSizesService.AddImageSizeAsync(request.AddImageSize.ToModel())).ToDto()
+                )
+            );
         }
-        catch (ArgumentException exception)
+        catch (ArgumentException ex)
         {
-            return BadRequest(exception.Message);
+            return BadRequest(ex.Message);
+        }
+    }
+    
+    [HttpDelete]
+    [Route("api/ImagesSizes/{sizeId}")]
+    public async Task<ActionResult> DeleteImageSizeAsync(Guid sizeId)
+    {
+        if (!await _imagesSizesService.IsImageSizeExistsAsync(sizeId))
+        {
+            return NotFound();
         }
         
-        
+        await _imagesSizesService.DeleteImageSizeAsync(sizeId);
+
+        return Ok();
     }
 }

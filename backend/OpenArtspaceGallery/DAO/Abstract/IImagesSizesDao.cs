@@ -25,4 +25,14 @@ public interface IImagesSizesDao
     /// Validate image size for duplicates by size
     /// </summary>
     Task<bool> IsImageSizeExistsByDimensionsAsync(int sizeWidth, int sizeHeight);
+
+    /// <summary>
+    /// Delete image size
+    /// </summary>
+    public Task DeleteImageSizeAsync(Guid sizeId);
+
+    /// <summary>
+    /// Is Image Size Exists
+    /// </summary>
+    public Task<bool> IsImageSizeExistsAsync(Guid sizeId);
 }
