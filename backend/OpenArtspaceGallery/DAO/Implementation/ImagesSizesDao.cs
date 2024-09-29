@@ -68,4 +68,21 @@ public class ImagesSizesDao : IImagesSizesDao
             .ImagesSizes
             .AnyAsync(s => s.Id == sizeId);
     }
+
+    public async Task<ImageSizeDbo> UpdateImageSizeAsync(ImageSizeDbo updateImageSize)
+    {
+        _ = updateImageSize ?? throw new ArgumentNullException(nameof(updateImageSize), "Update image size can't be null!");
+        
+        var imageSize = await _dbContext
+            .ImagesSizes
+            .SingleAsync(s => s.Id == updateImageSize.Id);
+        
+        imageSize.Name = updateImageSize.Name;
+        imageSize.Width = updateImageSize.Width;
+        imageSize.Height = updateImageSize.Height;
+        
+        await _dbContext.SaveChangesAsync();
+
+        return imageSize;
+    }
 }

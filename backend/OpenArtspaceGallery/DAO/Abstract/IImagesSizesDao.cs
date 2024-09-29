@@ -35,4 +35,9 @@ public interface IImagesSizesDao
     /// Is Image Size Exists
     /// </summary>
     public Task<bool> IsImageSizeExistsAsync(Guid sizeId);
+    
+    /// <summary>
+    /// Update image size
+    /// </summary>
+    Task<ImageSizeDbo> UpdateImageSizeAsync(ImageSizeDbo imageSize);
 }

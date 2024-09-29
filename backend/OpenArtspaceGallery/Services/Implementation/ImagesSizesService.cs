@@ -35,16 +35,8 @@ public class ImagesSizesService : IImagesSizesService
             Width = imageSize.Width,
             Height = imageSize.Height
         };
-        
-        if (await _imagesSizesDao.IsImageSizeExistsByNameAsync(imageSize.Name))
-        {
-            throw new ArgumentException("Image size with this name already exists.", nameof(imageSize.Name));
-        }
-        
-        if (await _imagesSizesDao.IsImageSizeExistsByDimensionsAsync(imageSize.Width, imageSize.Height))
-        {
-            throw new ArgumentException($"Image size with width {imageSize.Width} and height {imageSize.Height} already exists.");
-        }
+
+        await ValidateImageSizeAsync(imageSize);
         
         return ImageSize.FromDbo(await _imagesSizesDao.AddImageSizeAsync(newImageSize));
     }
@@ -59,5 +51,36 @@ public class ImagesSizesService : IImagesSizesService
     public async Task<bool> IsImageSizeExistsAsync(Guid sizeId)
     {
         return await _imagesSizesDao.IsImageSizeExistsAsync(sizeId);
+    }
+
+    public async Task<ImageSize> UpdateImageSizeAsync(ImageSize imageSize)
+    {
+        var freshImageSize = new ImageSizeDbo()
+        {
+            Id = imageSize.Id,
+            Name = imageSize.Name,
+            Width = imageSize.Width,
+            Height = imageSize.Height
+        };
+        
+        await ValidateImageSizeAsync(imageSize);
+        
+        return ImageSize.FromDbo(await _imagesSizesDao.UpdateImageSizeAsync(freshImageSize));
+    }
+
+    /// <summary>
+    /// Validate image size for duplicates
+    /// </summary>
+    private async Task ValidateImageSizeAsync(ImageSize imageSize)
+    {
+        if (await _imagesSizesDao.IsImageSizeExistsByNameAsync(imageSize.Name))
+        {
+            throw new ArgumentException($"Image size with name { imageSize.Name } already exists.", nameof(imageSize.Name));
+        }
+        
+        if (await _imagesSizesDao.IsImageSizeExistsByDimensionsAsync(imageSize.Width, imageSize.Height))
+        {
+            throw new ArgumentException($"Image size with width { imageSize.Width } and height { imageSize.Height } already exists.");
+        }
     }
 }

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using OpenArtspaceGallery.Models.API.DTOs;
+using OpenArtspaceGallery.Models.API.DTOs.ImagesSizes;
 using OpenArtspaceGallery.Models.API.Requests;
 using OpenArtspaceGallery.Models.API.Requests.ImagesSizes;
 using OpenArtspaceGallery.Models.API.Responses;
@@ -54,6 +55,8 @@ public class ImagesSizesController : ControllerBase
             return BadRequest("When adding a new image size, the size information must not be zero.");
         }
         
+        
+        
         try
         {
             return Ok
@@ -82,5 +85,35 @@ public class ImagesSizesController : ControllerBase
         await _imagesSizesService.DeleteImageSizeAsync(sizeId);
 
         return Ok();
+    }
+
+    [HttpPost]
+    [Route("api/ImagesSizes/UpdateImageSizeAsync")]
+    public async Task<ActionResult<UpdateImageSizeResponse>> UpdateImageSizeAsync(UpdateImageSizeRequest request)
+    {
+        if (request == null)
+        {
+            return BadRequest("Update image size request mustn't be null!");
+        }
+        
+        if (request.ImageSize == null)
+        {
+            return BadRequest("When update new image size, the size information must not be zero.");
+        }
+
+        try
+        {
+            return Ok
+            (
+                new UpdateImageSizeResponse
+                (
+                    (await _imagesSizesService.UpdateImageSizeAsync(request.ImageSize.ToModel())).ToDto()
+                )
+            );
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 }

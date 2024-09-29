@@ -23,4 +23,9 @@ public interface IImagesSizesService
     /// Is image size existt
     /// </summary>
     public Task<bool> IsImageSizeExistsAsync(Guid sizeId);
+    
+    /// <summary>
+    /// Update image size
+    /// </summary>
+    Task<ImageSize> UpdateImageSizeAsync(ImageSize imageSize);
 }
