@@ -55,8 +55,6 @@ public class ImagesSizesController : ControllerBase
             return BadRequest("When adding a new image size, the size information must not be zero.");
         }
         
-        
-        
         try
         {
             return Ok
@@ -100,7 +98,12 @@ public class ImagesSizesController : ControllerBase
         {
             return BadRequest("When update new image size, the size information must not be zero.");
         }
-
+        
+        if (!await _imagesSizesService.IsImageSizeExistsAsync(request.ImageSize.Id))
+        {
+            return NotFound();
+        }
+        
         try
         {
             return Ok
