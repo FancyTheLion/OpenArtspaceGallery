@@ -15,12 +15,12 @@ public class ImageDbo
     /// <summary>
     /// Image name
     /// </summary>
-    public String Name { get; set; }
+    public string Name { get; set; }
 
     /// <summary>
-    /// Image Description
+    /// Image description
     /// </summary>
-    public String Description { get; set; }
+    public string Description { get; set; }
 
     /// <summary>
     /// Image upload date

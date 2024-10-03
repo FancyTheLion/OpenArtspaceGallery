@@ -4,10 +4,11 @@ using OpenArtspaceGallery.Models;
 
 namespace OpenArtspaceGallery.DAO.Abstract;
 
+// TODO: Add comment
 public interface IImagesSizesDao
 {
     /// <summary>
-    /// Getting the images sizes
+    /// Getting images sizes
     /// </summary>
     Task<IReadOnlyCollection<ImageSizeDbo>> GetImagesSizesAsync();
     
@@ -17,12 +18,12 @@ public interface IImagesSizesDao
     Task<ImageSizeDbo> AddImageSizeAsync(ImageSizeDbo imageSizeToInsert);
     
     /// <summary>
-    /// Validate image size for duplicates by name
+    /// Check if image size with given name exists
     /// </summary>
     Task<bool> IsImageSizeExistsByNameAsync(string name);
     
     /// <summary>
-    /// Validate image size for duplicates by size
+    /// Check if image size with given dimensions exists
     /// </summary>
     Task<bool> IsImageSizeExistsByDimensionsAsync(int sizeWidth, int sizeHeight);
 
@@ -32,7 +33,7 @@ public interface IImagesSizesDao
     public Task DeleteImageSizeAsync(Guid sizeId);
 
     /// <summary>
-    /// Is Image Size Exists
+    /// Is image size exists
     /// </summary>
     public Task<bool> IsImageSizeExistsAsync(Guid sizeId);
     

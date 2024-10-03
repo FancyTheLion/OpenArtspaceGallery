@@ -12,6 +12,6 @@ public class SourcesLinkDto
     
     public SourcesLinkDto(string sourcesLink)
     {
-        SourcesSourcesLink = sourcesLink;
+        SourcesSourcesLink = sourcesLink; // TODO: Add validation
     }
 }

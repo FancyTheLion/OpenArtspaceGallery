@@ -34,6 +34,7 @@ public class ImageSize
         int height
     )
     {
+        // TODO: Add validation
         Id = id;
         Name = name;
         Width = width;
@@ -47,6 +48,7 @@ public class ImageSize
     {
         return new ImageSize
         (
+            // TODO: Add validation
             imageSize.Id,
             imageSize.Name,
             imageSize.Width,

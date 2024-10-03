@@ -21,15 +21,11 @@ public class AlbumInHierarchy
     )
     {
         Id = id;
-        Name = name;
+        Name = name; // TODO: Add validation
     }
 
     public AlbumInHierarchyDto ToDto()
     {
-        return new AlbumInHierarchyDto
-        (
-            Id,
-            Name
-        );
+        return new AlbumInHierarchyDto(Id, Name);
     }
 }

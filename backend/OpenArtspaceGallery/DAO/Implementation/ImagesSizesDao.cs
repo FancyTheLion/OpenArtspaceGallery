@@ -39,6 +39,8 @@ public class ImagesSizesDao : IImagesSizesDao
 
     public async Task<bool> IsImageSizeExistsByNameAsync(string name)
     {
+        // TODO: Check name for null / empty string (do it everywhere when needed)
+        
         return await _dbContext
             .ImagesSizes
             .AnyAsync(n => n.Name.ToLower() == name.ToLower());
@@ -71,7 +73,7 @@ public class ImagesSizesDao : IImagesSizesDao
 
     public async Task<ImageSizeDbo> UpdateImageSizeAsync(ImageSizeDbo updateImageSize)
     {
-        _ = updateImageSize ?? throw new ArgumentNullException(nameof(updateImageSize), "Update image size can't be null!");
+        _ = updateImageSize ?? throw new ArgumentNullException(nameof(updateImageSize), "Image size to update can't be null!");
         
         var imageSize = await _dbContext
             .ImagesSizes

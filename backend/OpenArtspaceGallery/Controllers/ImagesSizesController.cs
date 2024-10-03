@@ -10,6 +10,7 @@ using OpenArtspaceGallery.Services.Abstract;
 namespace OpenArtspaceGallery.Controllers;
 
 [ApiController]
+[Route("api/ImagesSizes")]
 public class ImagesSizesController : ControllerBase
 {
     private readonly IImagesSizesService _imagesSizesService;
@@ -26,7 +27,7 @@ public class ImagesSizesController : ControllerBase
     /// Get Images Sizes List 
     /// </summary>
     [HttpGet]
-    [Route("api/ImagesSizes/GetImagesSizesList")]
+    [Route("GetImagesSizesList")]
     public async Task<ActionResult<ImageSizesResponse>> GetImageSizesListAsync()
     {
         var imagesSizes = await _imagesSizesService.GetImagesSizesAsync();
@@ -42,7 +43,7 @@ public class ImagesSizesController : ControllerBase
     /// Add Image Size entry
     /// </summary>
     [HttpPost]
-    [Route("api/ImagesSizes/AddImageSize")]
+    [Route("AddImageSize")]
     public async Task<ActionResult<AddImageSizeResponse>> AddImageSizeAsync(AddImageSizeRequest request)
     {
         if (request == null)
@@ -50,7 +51,7 @@ public class ImagesSizesController : ControllerBase
             return BadRequest("Add image size request mustn't be null!");
         }
         
-        if (request.AddImageSize == null)
+        if (request.ImageSize == null)
         {
             return BadRequest("When adding a new image size, the size information must not be zero.");
         }
@@ -61,7 +62,7 @@ public class ImagesSizesController : ControllerBase
             (
                 new AddImageSizeResponse
                 (
-                    (await _imagesSizesService.AddImageSizeAsync(request.AddImageSize.ToModel())).ToDto()
+                    (await _imagesSizesService.AddImageSizeAsync(request.ImageSize.ToModel())).ToDto()
                 )
             );
         }
@@ -72,7 +73,7 @@ public class ImagesSizesController : ControllerBase
     }
     
     [HttpDelete]
-    [Route("api/ImagesSizes/{sizeId}")]
+    [Route("{sizeId}")]
     public async Task<ActionResult> DeleteImageSizeAsync(Guid sizeId)
     {
         if (!await _imagesSizesService.IsImageSizeExistsAsync(sizeId))
@@ -86,7 +87,7 @@ public class ImagesSizesController : ControllerBase
     }
 
     [HttpPost]
-    [Route("api/ImagesSizes/UpdateImageSizeAsync")]
+    [Route("UpdateImageSize")]
     public async Task<ActionResult<UpdateImageSizeResponse>> UpdateImageSizeAsync(UpdateImageSizeRequest request)
     {
         if (request == null)
@@ -96,7 +97,7 @@ public class ImagesSizesController : ControllerBase
         
         if (request.ImageSize == null)
         {
-            return BadRequest("When update new image size, the size information must not be zero.");
+            return BadRequest("When update image size, the size information must not be null.");
         }
         
         if (!await _imagesSizesService.IsImageSizeExistsAsync(request.ImageSize.Id))

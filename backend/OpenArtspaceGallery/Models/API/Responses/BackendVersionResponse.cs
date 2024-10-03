@@ -6,13 +6,13 @@ namespace OpenArtspaceGallery.Models.API.Responses;
 public class BackendVersionResponse
 {
     [JsonPropertyName("backendVersion")]
-    public BackendVersionDto BackendVersion { get; set; } 
+    public BackendVersionDto BackendVersion { get; set; } // TODO: Private set
 
     public BackendVersionResponse
     (
         BackendVersionDto backendVersion
     )
     {
-        BackendVersion = backendVersion;
+        BackendVersion = backendVersion; // TODO: Add validation
     }
 }

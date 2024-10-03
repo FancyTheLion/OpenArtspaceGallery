@@ -6,7 +6,7 @@ namespace OpenArtspaceGallery.Models.API.Responses;
 public class AlbumHierarchyResponse
 {
     /// <summary>
-    /// Album in hierarchy
+    /// Album hierarchy
     /// </summary>
     [JsonPropertyName("albumHierarchy")]
     public IReadOnlyCollection<AlbumInHierarchyDto> AlbumHierarchy { get; private set; }

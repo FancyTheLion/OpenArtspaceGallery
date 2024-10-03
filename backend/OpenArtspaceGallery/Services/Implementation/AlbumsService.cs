@@ -41,6 +41,8 @@ public class AlbumsService : IAlbumsService
 
     public async Task<Album> CreateNewAlbumAsync(NewAlbum newAlbum)
     {
+        // TODO: Check newAlbum for null (in all methods when needed)
+        
         var albumToInsert = new AlbumDbo()
         {
             Id = Guid.Empty,
@@ -56,6 +58,7 @@ public class AlbumsService : IAlbumsService
     {
         var albumChildrenIdList = await _albumsDao.GetChildrenAlbumbsGuidsAsync(albumId);
 
+        // TODO: To study - read about N+1 problem
         foreach (var childId in albumChildrenIdList)
         {
             await DeleteAlbumAsync(childId);

@@ -6,13 +6,13 @@ namespace OpenArtspaceGallery.Models.API.Responses.ImagesSizes;
 public class UpdateImageSizeResponse
 {
     /// <summary>
-    /// Update image size
+    /// Image size to update
     /// </summary>
     [JsonPropertyName("imageSize")]
     public ImageSizeDto ImageSize { get; private set; }
 
     public UpdateImageSizeResponse(ImageSizeDto imageSize)
     {
-        ImageSize = imageSize ?? throw new ArgumentNullException(nameof(imageSize), "Update image size can't be null.");
+        ImageSize = imageSize ?? throw new ArgumentNullException(nameof(imageSize), "Image size to update can't be null.");
     }
 }

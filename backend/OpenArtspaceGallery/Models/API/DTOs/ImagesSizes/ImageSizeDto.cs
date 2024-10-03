@@ -2,6 +2,9 @@ using System.Text.Json.Serialization;
 
 namespace OpenArtspaceGallery.Models.API.DTOs.ImagesSizes;
 
+/// <summary>
+/// TODO: Add comments to all DTOs
+/// </summary>
 public class ImageSizeDto
 {
     /// <summary>
@@ -36,6 +39,7 @@ public class ImageSizeDto
         int height
     )
     {
+        // TODO: Add validation
         Id = id;
         Name = name;
         Width = width;

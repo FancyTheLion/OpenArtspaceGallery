@@ -5,12 +5,12 @@ public class NewAlbum
     /// <summary>
     /// New album name
     /// </summary>
-    public string Name { get; set; }
+    public string Name { get; private set; }
     
     /// <summary>
     /// Parent album ID
     /// </summary>
-    public Guid? ParentAlbumId { get; set; }
+    public Guid? ParentAlbumId { get; private set; }
 
     public NewAlbum
     (        
@@ -19,6 +19,6 @@ public class NewAlbum
     )
     {
         ParentAlbumId = parentAlbumId;
-        Name = name;
+        Name = name; // TODO: Add validation
     }
 }

@@ -23,6 +23,6 @@ public class AlbumInHierarchyDto
     )
     {
         Id = id;
-        Name = name;
+        Name = name; // TODO: Add validation
     }
 }

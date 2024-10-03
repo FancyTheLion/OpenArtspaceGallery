@@ -1,23 +1,28 @@
 namespace OpenArtspaceGallery.DAO.Constants;
 
-public class Types
+// TODO: Fix English here
+// TODO: static readonly and const
+// TODO: Fix naming
+// TODO: Add comment
+public static class Types
 {
+    // TODO: JPEG is abbreviation
     #region Jpeg
     
     /// <summary>
     /// Type id (jpeg)
     /// </summary>
-    public static Guid TypeIdJpeg = new Guid("357ded90-5274-4a5b-9161-ca357a1c1eea");
+    public static readonly Guid TypeIdJpeg = new Guid("357ded90-5274-4a5b-9161-ca357a1c1eea");
     
     /// <summary>
     /// Image mime type (jpeg)
     /// </summary>
-    public static string MimeTypeJpeg = new string("image/jpeg");
+    public const string MimeTypeJpeg = "image/jpeg";
     
     /// <summary>
     /// Description type (jpeg)
     /// </summary>
-    public static string DescriptionTypeJpeg = new string("Uses file extensions: jpeg, .jpg");
+    public const string DescriptionTypeJpeg = "Uses file extensions: jpeg, .jpg"; // TODO: TypeDescriptionJpeg
     
     #endregion
 

@@ -20,12 +20,12 @@ public class FileDbo
     /// <summary>
     /// The file name that was given by the user (before uploading to the gallery)
     /// </summary>
-    public String OriginalName { get; set; }
+    public string OriginalName { get; set; }
 
     /// <summary>
     /// SHA-512 of file content, for use as ETag
     /// </summary>
-    public String Hash { get; set; }
+    public string Hash { get; set; }
 
     /// <summary>
     /// File upload date

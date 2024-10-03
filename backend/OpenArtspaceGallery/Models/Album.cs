@@ -32,6 +32,7 @@ public class Album
         DateTime creationTime
     )
     {
+        // TODO: Add validation
         Id = id;
         Parent = parent;
         Name = name;

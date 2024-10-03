@@ -23,14 +23,14 @@ public interface IAlbumsDao
     Task<bool> IsAlbumExistsAsync(Guid albumId);
 
     /// <summary>
-    /// Add new album to the database
+    /// Add new album
     /// </summary>
     Task<AlbumDbo> CreateNewAlbumAsync(AlbumDbo albumToInsert);
     
     /// <summary>
-    /// Delete album from database
+    /// Delete album
     /// </summary>
-    Task DeleteAlbumAsync(Guid albumToInsert);
+    Task DeleteAlbumAsync(Guid albumToDelete);
     
     /// <summary>
     /// Get albums id by parent Id
@@ -38,7 +38,7 @@ public interface IAlbumsDao
     Task<IReadOnlyCollection<Guid>> GetChildrenAlbumbsGuidsAsync(Guid albumId);
     
     /// <summary>
-    /// Delete album
+    /// Rename album
     /// </summary>
     Task RenameAlbumAsync(Guid albumId, string newName);
 }

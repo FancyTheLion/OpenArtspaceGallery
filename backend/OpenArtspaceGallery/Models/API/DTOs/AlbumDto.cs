@@ -40,7 +40,7 @@ public class AlbumDto
     {
         Id = id;
         Parent = parent;
-        Name = name;
+        Name = name; // TODO: Add validation
         CreationTime = creationTime;
     }
     

@@ -2,10 +2,11 @@ using OpenArtspaceGallery.Models;
 
 namespace OpenArtspaceGallery.Services.Abstract;
 
+// TODO: Add comment
 public interface IImagesSizesService
 {
     /// <summary>
-    /// Getting the images sizes
+    /// Get the images sizes
     /// </summary>
     Task<IReadOnlyCollection<ImageSize>> GetImagesSizesAsync();
     
@@ -17,12 +18,12 @@ public interface IImagesSizesService
     /// <summary>
     /// Delete image size
     /// </summary>
-    public Task DeleteImageSizeAsync(Guid sizeId);
+    Task DeleteImageSizeAsync(Guid sizeId);
 
     /// <summary>
-    /// Is image size existt
+    /// Is image size exists
     /// </summary>
-    public Task<bool> IsImageSizeExistsAsync(Guid sizeId);
+    Task<bool> IsImageSizeExistsAsync(Guid sizeId);
     
     /// <summary>
     /// Update image size

@@ -43,8 +43,6 @@ public class ImagesSizesService : IImagesSizesService
 
     public async Task DeleteImageSizeAsync(Guid sizeId)
     {
-        var imagesSizes = await _imagesSizesDao.GetImagesSizesAsync();
-        
         await _imagesSizesDao.DeleteImageSizeAsync(sizeId);
     }
     
@@ -55,7 +53,7 @@ public class ImagesSizesService : IImagesSizesService
 
     public async Task<ImageSize> UpdateImageSizeAsync(ImageSize imageSize)
     {
-        var freshImageSize = new ImageSizeDbo()
+        var imageSizeToUpdate = new ImageSizeDbo()
         {
             Id = imageSize.Id,
             Name = imageSize.Name,
@@ -65,7 +63,7 @@ public class ImagesSizesService : IImagesSizesService
         
         await ValidateImageSizeAsync(imageSize);
         
-        return ImageSize.FromDbo(await _imagesSizesDao.UpdateImageSizeAsync(freshImageSize));
+        return ImageSize.FromDbo(await _imagesSizesDao.UpdateImageSizeAsync(imageSizeToUpdate));
     }
 
     /// <summary>

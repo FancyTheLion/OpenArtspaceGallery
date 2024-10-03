@@ -12,6 +12,6 @@ public class BackendVersionDto
     
     public BackendVersionDto(string version)
     {
-        Version = version;
+        Version = version; // Add validation
     }
 }

@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 namespace OpenArtspaceGallery.Models.API.DTOs.ImagesSizes;
 
 /// <summary>
-/// Dto for accepting data from the frontend
+/// DTO with information about image size to add
 /// </summary>
 public class AddImageSizeDto
 {

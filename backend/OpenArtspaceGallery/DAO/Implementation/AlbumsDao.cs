@@ -33,7 +33,7 @@ public class AlbumsDao : IAlbumsDao
         // TODO: Rewrite me, inoptimal
         var result = new List<AlbumDbo>();
 
-        AlbumDbo album = await _dbContext
+        var album = await _dbContext
             .Albums
             .Include(a => a.Parent)
             .SingleAsync(a => a.Id == albumId);
@@ -77,11 +77,11 @@ public class AlbumsDao : IAlbumsDao
         return albumToInsert;
     }
 
-    public async Task DeleteAlbumAsync(Guid albumToInsert)
+    public async Task DeleteAlbumAsync(Guid albumToDelete)
     {
         var album = await _dbContext
             .Albums
-            .SingleAsync(f => f.Id == albumToInsert);
+            .SingleAsync(f => f.Id == albumToDelete);
 
         _dbContext.Remove(album);
 

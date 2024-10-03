@@ -7,8 +7,8 @@ namespace OpenArtspaceGallery.Models.API.Requests.ImagesSizes;
 public class AddImageSizeRequest
 {
     /// <summary>
-    /// New Image Size Entry
+    /// New image size
     /// </summary>
     [JsonPropertyName("imageSize")]
-    public AddImageSizeDto AddImageSize { get; set; }
+    public AddImageSizeDto ImageSize { get; set; }
 }
