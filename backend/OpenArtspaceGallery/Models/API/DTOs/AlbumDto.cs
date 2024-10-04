@@ -40,7 +40,7 @@ public class AlbumDto
     {
         Id = id;
         Parent = parent;
-        Name = name; // TODO: Add validation
+        Name = name ?? throw new ArgumentNullException(nameof(name), "Name mustn't be null!");
         CreationTime = creationTime;
     }
     

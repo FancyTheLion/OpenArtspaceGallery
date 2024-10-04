@@ -12,6 +12,6 @@ public class BackendVersionDto
     
     public BackendVersionDto(string version)
     {
-        Version = version; // Add validation
+        Version = version ?? throw new ArgumentNullException(nameof(version), "Name mustn't be null!");
     }
 }

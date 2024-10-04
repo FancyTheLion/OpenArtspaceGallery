@@ -23,6 +23,6 @@ public class AlbumInHierarchyDto
     )
     {
         Id = id;
-        Name = name; // TODO: Add validation
+        Name = name ?? throw new ArgumentNullException(nameof(name), "Name mustn't be null!");
     }
 }

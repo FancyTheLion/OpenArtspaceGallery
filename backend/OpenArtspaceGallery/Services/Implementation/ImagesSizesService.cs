@@ -28,6 +28,11 @@ public class ImagesSizesService : IImagesSizesService
 
     public async Task<ImageSize> AddImageSizeAsync(ImageSize imageSize)
     {
+        if (imageSize == null)
+        {
+            throw new ArgumentNullException(nameof(imageSize), "New image size data cannot be null!");
+        }
+        
         var newImageSize = new ImageSizeDbo()
         {
             Id = Guid.Empty,
@@ -53,6 +58,11 @@ public class ImagesSizesService : IImagesSizesService
 
     public async Task<ImageSize> UpdateImageSizeAsync(ImageSize imageSize)
     {
+        if (imageSize == null)
+        {
+            throw new ArgumentNullException(nameof(imageSize), "Update data cannot be null!");
+        }
+        
         var imageSizeToUpdate = new ImageSizeDbo()
         {
             Id = imageSize.Id,

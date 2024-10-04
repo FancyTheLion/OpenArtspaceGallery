@@ -2,7 +2,9 @@ using OpenArtspaceGallery.Models;
 
 namespace OpenArtspaceGallery.Services.Abstract;
 
-// TODO: Add comment for interface
+/// <summary>
+/// Service for working with albums
+/// </summary>
 public interface IAlbumsService
 {
     /// <summary>

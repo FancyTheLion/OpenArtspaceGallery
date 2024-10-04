@@ -12,6 +12,6 @@ public class SourcesLinkDto
     
     public SourcesLinkDto(string sourcesLink)
     {
-        SourcesSourcesLink = sourcesLink; // TODO: Add validation
+        SourcesSourcesLink = sourcesLink ?? throw new ArgumentNullException(nameof(sourcesLink), "Name mustn't be null!");
     }
 }

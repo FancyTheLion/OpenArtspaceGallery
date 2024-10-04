@@ -2,9 +2,6 @@ using System.Text.Json.Serialization;
 
 namespace OpenArtspaceGallery.Models.API.DTOs.ImagesSizes;
 
-/// <summary>
-/// TODO: Add comments to all DTOs
-/// </summary>
 public class ImageSizeDto
 {
     /// <summary>
@@ -39,9 +36,19 @@ public class ImageSizeDto
         int height
     )
     {
-        // TODO: Add validation
         Id = id;
-        Name = name;
+        Name = name ?? throw new ArgumentNullException(nameof(name), "Name mustn't be null!");
+        
+        if (width <= 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(width), "Width must be greater than zero!");
+        }
+        
+        if (height <= 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(height), "Width must be greater than zero!");
+        }
+        
         Width = width;
         Height = height;
     }

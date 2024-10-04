@@ -3,9 +3,6 @@ using OpenArtspaceGallery.Models.API.DTOs;
 
 namespace OpenArtspaceGallery.Models.API.Responses;
 
-/// <summary>
-/// Albums list
-/// </summary>
 public class AlbumsListResponse
 {
     /// <summary>

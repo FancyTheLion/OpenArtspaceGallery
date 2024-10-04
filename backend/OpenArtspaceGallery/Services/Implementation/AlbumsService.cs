@@ -41,7 +41,10 @@ public class AlbumsService : IAlbumsService
 
     public async Task<Album> CreateNewAlbumAsync(NewAlbum newAlbum)
     {
-        // TODO: Check newAlbum for null (in all methods when needed)
+        if (newAlbum == null)
+        {
+            throw new ArgumentNullException(nameof(newAlbum), "New album data cannot be null!");
+        }
         
         var albumToInsert = new AlbumDbo()
         {

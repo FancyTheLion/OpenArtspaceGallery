@@ -6,7 +6,9 @@ using OpenArtspaceGallery.DAO.Models.Images;
 
 namespace OpenArtspaceGallery.DAO.Contexts;
 
-// TODO: Add comment
+/// <summary>
+/// Main DB context
+/// </summary>
 public class MainDbContext : DbContext
 {
     /// <summary>

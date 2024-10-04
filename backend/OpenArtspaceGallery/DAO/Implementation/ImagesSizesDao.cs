@@ -39,7 +39,7 @@ public class ImagesSizesDao : IImagesSizesDao
 
     public async Task<bool> IsImageSizeExistsByNameAsync(string name)
     {
-        // TODO: Check name for null / empty string (do it everywhere when needed)
+        _ = name ?? throw new ArgumentNullException(nameof(name), "Name can't be null!");
         
         return await _dbContext
             .ImagesSizes
@@ -48,6 +48,11 @@ public class ImagesSizesDao : IImagesSizesDao
 
     public async Task<bool> IsImageSizeExistsByDimensionsAsync(int sizeWidth, int sizeHeight)
     {
+        if (sizeWidth <= 0 || sizeHeight <= 0)
+        {
+            throw new ArgumentNullException("Width and height must be greater than zero!");
+        }   
+        
         return await _dbContext
             .ImagesSizes
             .AnyAsync(s  => s.Width == sizeWidth && s.Height == sizeHeight);

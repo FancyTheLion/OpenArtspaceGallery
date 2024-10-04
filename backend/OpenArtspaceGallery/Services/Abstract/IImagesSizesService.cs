@@ -2,7 +2,9 @@ using OpenArtspaceGallery.Models;
 
 namespace OpenArtspaceGallery.Services.Abstract;
 
-// TODO: Add comment
+/// <summary>
+/// Service for working with imeges sizes
+/// </summary>
 public interface IImagesSizesService
 {
     /// <summary>
