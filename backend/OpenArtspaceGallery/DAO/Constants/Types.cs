@@ -1,85 +1,83 @@
 namespace OpenArtspaceGallery.DAO.Constants;
 
-// TODO: Fix English here
-// TODO: static readonly and const
-// TODO: Fix naming
-// TODO: Add comment
+/// <summary>
+/// File types for working with images
+/// </summary>
 public static class Types
 {
-    // TODO: JPEG is abbreviation
-    #region Jpeg
+    #region JPEG
     
     /// <summary>
-    /// Type id (jpeg)
+    /// Type id (JPEG)
     /// </summary>
     public static readonly Guid TypeIdJpeg = new Guid("357ded90-5274-4a5b-9161-ca357a1c1eea");
     
     /// <summary>
-    /// Image mime type (jpeg)
+    /// Image mime type (JPEG)
     /// </summary>
-    public const string MimeTypeJpeg = "image/jpeg";
+    public const string TypeMimeJpeg = "image/jpeg";
     
     /// <summary>
-    /// Description type (jpeg)
+    /// Description type (JPEG)
     /// </summary>
-    public const string DescriptionTypeJpeg = "Uses file extensions: jpeg, .jpg"; // TODO: TypeDescriptionJpeg
+    public const string TypeDescriptionJpeg = "Uses file extensions: jpeg, .jpg"; 
     
     #endregion
 
-    #region Png
+    #region PNG
 
     /// <summary>
-    /// Type id (png)
+    /// Type id (PNG)
     /// </summary>
-    public static Guid TypeIdPng = new Guid("575335b1-6f77-422f-86cc-ec929fbb685a");
+    public static readonly Guid TypeIdPng = new Guid("575335b1-6f77-422f-86cc-ec929fbb685a");
     
     /// <summary>
-    /// Image mime type (png)
+    /// Image mime type (PNG)
     /// </summary>
-    public static string MimeTypePng = new string("image/png");
+    public const string TypeMimePng = "image/png";
     
     /// <summary>
-    /// Description type (png)
+    /// Description type (PNG)
     /// </summary>
-    public static string DescriptionTypePng = new string("Uses file extensions: .png");
+    public const string TypeDescriptionPng = "Uses file extensions: .png";
 
     #endregion
 
-    #region Gif
+    #region GIF
 
     /// <summary>
-    /// Type id (Gif)
+    /// Type id (GIF)
     /// </summary>
-    public static Guid TypeIdGif = new Guid("73d52adf-22d3-425c-8982-02fc323a862f");
+    public static readonly Guid TypeIdGif = new Guid("73d52adf-22d3-425c-8982-02fc323a862f");
     
     /// <summary>
-    /// Image mime type (Gif)
+    /// Image mime type (GIF)
     /// </summary>
-    public static string MimeTypeGif = new string("image/gif");
+    public const string TypeMimeGif = "image/gif";
     
     /// <summary>
-    /// Description type (Gif)
+    /// Description type (GIF)
     /// </summary>
-    public static string DescriptionTypeGif = new string("Uses file extensions: .gif");
+    public const string TypeDescriptionGif = "Uses file extensions: .gif";
 
     #endregion
 
-    #region Bmp
+    #region BMP
 
     /// <summary>
-    /// Type id (Bmp)
+    /// Type id (BMP)
     /// </summary>
-    public static Guid TypeIdBmp = new Guid("b7d6f2eb-0ded-473d-9fe0-433565a127e9");
+    public static readonly Guid TypeIdBmp = new Guid("b7d6f2eb-0ded-473d-9fe0-433565a127e9");
     
     /// <summary>
-    /// Image mime type (Bmp)
+    /// Image mime type (BMP)
     /// </summary>
-    public static string MimeTypeBmp = new string("image/bmp");
+    public const string TypeMimeBmp = "image/bmp";
     
     /// <summary>
-    /// Description type (Bmp)
+    /// Description type (BMP)
     /// </summary>
-    public static string DescriptionTypeBmp = new string("Uses file extensions: .bmp");
+    public const string TypeDescriptionBmp = "Uses file extensions: .bmp";
 
     #endregion
 
@@ -88,93 +86,93 @@ public static class Types
     /// <summary>
     /// Type id (WebP)
     /// </summary>
-    public static Guid TypeIdWebP = new Guid("9060f26e-8544-49af-9c37-a2dad4bd574f");
+    public static readonly Guid TypeIdWebP = new Guid("9060f26e-8544-49af-9c37-a2dad4bd574f");
     
     /// <summary>
     /// Image mime type (WebP)
     /// </summary>
-    public static string MimeTypeWebP = new string("image/webp");
+    public const string TypeMimeWebP = "image/webp";
     
     /// <summary>
     /// Description type (WebP)
     /// </summary>
-    public static string DescriptionTypeWebP = new string("Uses file extensions: .webp");
+    public const string TypeDescriptionWebP = "Uses file extensions: .webp";
     
     #endregion
     
-    #region Tiff
+    #region TIFF
     
     /// <summary>
-    /// Type id (Tiff)
+    /// Type id (TIFF)
     /// </summary>
-    public static Guid TypeIdTiff = new Guid("c7eeba7b-d085-495d-a879-91534d9affb8");
+    public static readonly Guid TypeIdTiff = new Guid("c7eeba7b-d085-495d-a879-91534d9affb8");
     
     /// <summary>
-    /// Image mime type (Tiff)
+    /// Image mime type (TIFF)
     /// </summary>
-    public static string MimeTypeTiff = new string("image/tiff");
+    public const string TypeMimeTiff = "image/tiff";
     
     /// <summary>
-    /// Description type (Tiff)
+    /// Description type (TIFF)
     /// </summary>
-    public static string DescriptionTypeTiff = new string("Uses file extensions: .tiff, .tif");
+    public const string TypeDescriptionTiff = "Uses file extensions: .tiff, .tif";
     
     #endregion
     
-    #region Ico
+    #region ICO
     
     /// <summary>
-    /// Type id (Ico)
+    /// Type id (ICO)
     /// </summary>
-    public static Guid TypeIdIco = new Guid("94ad1de6-760a-477b-a22d-c45804e55fa2");
+    public static readonly Guid TypeIdIco = new Guid("94ad1de6-760a-477b-a22d-c45804e55fa2");
     
     /// <summary>
-    /// Image mime type (Ico)
+    /// Image mime type (ICO)
     /// </summary>
-    public static string MimeTypeIco = new string("image/x-icon");
+    public const string TypeMimeIco = "image/x-icon";
     
     /// <summary>
-    /// Description type (Ico)
+    /// Description type (ICO)
     /// </summary>
-    public static string DescriptionTypeIco = new string("Uses file extensions: .ico");
+    public const string TypeDescriptionIco = "Uses file extensions: .ico";
     
     #endregion
     
-    #region Svg
+    #region SVG
     
     /// <summary>
-    /// Type id (Svg)
+    /// Type id (SVG)
     /// </summary>
-    public static Guid TypeIdSvg = new Guid("9f1a29ca-d2df-4e1d-9c5c-7ac1be1d74aa");
+    public static readonly Guid TypeIdSvg = new Guid("9f1a29ca-d2df-4e1d-9c5c-7ac1be1d74aa");
     
     /// <summary>
-    /// Image mime type (Svg)
+    /// Image mime type (SVG)
     /// </summary>
-    public static string MimeTypeSvg = new string("image/svg+xml");
+    public const string TypeMimeSvg = "image/svg+xml";
     
     /// <summary>
-    /// Description type (Svg)
+    /// Description type (SVG)
     /// </summary>
-    public static string DescriptionTypeSvg = new string("Uses file extensions: .svg");
+    public const string TypeDescriptionSvg = "Uses file extensions: .svg";
     
     #endregion
     
-    #region Heic
+    #region HEIC
     
     /// <summary>
-    /// Type id (Heic)
+    /// Type id (HEIC)
     /// </summary>
-    public static Guid TypeIdHeic = new Guid("de4a82cb-9305-418a-a2c9-4b6182defe35");
+    public static readonly Guid TypeIdHeic = new Guid("de4a82cb-9305-418a-a2c9-4b6182defe35");
     
     /// <summary>
-    /// Image mime type (Heic)
+    /// Image mime type (HEIC)
     /// </summary>
-    public static string MimeTypeHeic = new string("image/heic");
+    public const string TypeMimeHeic = "image/heic";
     
     /// <summary>
-    /// Description type (Heic)
+    /// Description type (HEIC)
     /// </summary>
-    public static string DescriptionTypeHeic = new string("Uses file extensions: .heic");
+    public const string TypeDescriptionHeic = "Uses file extensions: .heic";
     
     #endregion
 }
