@@ -50,7 +50,7 @@ public class ImagesSizesDao : IImagesSizesDao
     {
         if (sizeWidth <= 0 || sizeHeight <= 0)
         {
-            throw new ArgumentNullException("Width and height must be greater than zero!");
+            throw new ArgumentException("Width and height must be greater than zero!");
         }   
         
         return await _dbContext

@@ -14,9 +14,9 @@ public class AddImageSizeResponse
 
     public AddImageSizeResponse
     (
-        ImageSizeDto imagesSizes
+        ImageSizeDto imageSize
     )
     {
-        ImageSize = imagesSizes ?? throw new ArgumentNullException(nameof(imagesSizes), "Image size can't be null.");
+        ImageSize = imageSize ?? throw new ArgumentNullException(nameof(imageSize), "Image size can't be null.");
     }
 }

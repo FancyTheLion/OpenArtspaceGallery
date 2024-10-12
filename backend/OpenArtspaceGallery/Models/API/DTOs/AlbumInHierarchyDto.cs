@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using OpenArtspaceGallery.Helpers.Validators;
 
 namespace OpenArtspaceGallery.Models.API.DTOs;
 
@@ -22,7 +23,9 @@ public class AlbumInHierarchyDto
         string name
     )
     {
+        AlbumValidator.Validate(name);
+        
         Id = id;
-        Name = name ?? throw new ArgumentNullException(nameof(name), "Name mustn't be null!");
+        Name = name;
     }
 }

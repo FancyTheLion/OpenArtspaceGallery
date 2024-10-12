@@ -16,6 +16,6 @@ public class AlbumsListResponse
         IReadOnlyCollection<AlbumDto> albums
     )
     {
-        Albums = albums ?? throw new ArgumentNullException(nameof(albums), "Album list can't be null.");
+        Albums = albums ?? throw new ArgumentNullException(nameof(albums), "Albums collection can't be null.");
     }
 }

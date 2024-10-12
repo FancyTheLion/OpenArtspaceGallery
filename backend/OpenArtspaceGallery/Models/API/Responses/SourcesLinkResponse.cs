@@ -16,6 +16,6 @@ public class SourcesLinkResponse
         SourcesLinkDto sourcesLink
     )
     {
-        SourcesLink = sourcesLink ?? throw new ArgumentNullException(nameof(sourcesLink), "Album list can't be null.");
+        SourcesLink = sourcesLink ?? throw new ArgumentNullException(nameof(sourcesLink), "Source link can't be null.");
     }
 }

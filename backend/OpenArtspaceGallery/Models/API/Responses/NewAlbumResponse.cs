@@ -16,6 +16,6 @@ public class NewAlbumResponse
         AlbumDto newAlbum
     )
     {
-        NewAlbum = newAlbum ?? throw new ArgumentNullException(nameof(newAlbum), "Album list can't be null.");
+        NewAlbum = newAlbum ?? throw new ArgumentNullException(nameof(newAlbum), "New album can't be null.");
     }
 }

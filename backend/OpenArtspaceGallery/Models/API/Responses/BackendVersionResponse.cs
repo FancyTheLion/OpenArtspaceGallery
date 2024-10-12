@@ -16,6 +16,6 @@ public class BackendVersionResponse
         BackendVersionDto backendVersion
     )
     {
-        BackendVersion = backendVersion ?? throw new ArgumentNullException(nameof(backendVersion), "Album list can't be null.");
+        BackendVersion = backendVersion ?? throw new ArgumentNullException(nameof(backendVersion), "Backend version can't be null.");
     }
 }

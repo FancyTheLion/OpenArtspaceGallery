@@ -1,4 +1,5 @@
 using OpenArtspaceGallery.DAO.Models.Images;
+using OpenArtspaceGallery.Helpers.Validators;
 using OpenArtspaceGallery.Models.API.DTOs;
 using OpenArtspaceGallery.Models.API.DTOs.ImagesSizes;
 
@@ -14,7 +15,7 @@ public class ImageSize
     /// <summary>
     /// Size name (large, medium and others)
     /// </summary>
-    public String Name { get; private set; }
+    public string Name { get; private set; }
 
     /// <summary>
     ///  Image size (Width)
@@ -34,19 +35,10 @@ public class ImageSize
         int height
     )
     {
+        ImageSizeValidator.Validate(name, width, height);
+        
         Id = id;
-        Name = name ?? throw new ArgumentNullException(nameof(name), "Name mustn't be null!");
-        
-        if (width <= 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(width), "Width must be greater than zero!");
-        }
-        
-        if (height <= 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(height), "Width must be greater than zero!");
-        }
-        
+        Name = name;
         Width = width;
         Height = height;
     }
@@ -56,9 +48,10 @@ public class ImageSize
         ImageSizeDbo imageSize
     )
     {
+        ImageSizeValidator.Validate(imageSize.Name, imageSize.Width, imageSize.Height);
+        
         return new ImageSize
         (
-            // TODO: Add validation
             imageSize.Id,
             imageSize.Name,
             imageSize.Width,

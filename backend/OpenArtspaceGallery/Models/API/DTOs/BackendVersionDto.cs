@@ -12,6 +12,11 @@ public class BackendVersionDto
     
     public BackendVersionDto(string version)
     {
-        Version = version ?? throw new ArgumentNullException(nameof(version), "Name mustn't be null!");
+        if (string.IsNullOrWhiteSpace(version))
+        {
+            throw new ArgumentException("Backend version mustn't be null or whitespace.", nameof(version));
+        }
+        
+        Version = version;
     }
 }

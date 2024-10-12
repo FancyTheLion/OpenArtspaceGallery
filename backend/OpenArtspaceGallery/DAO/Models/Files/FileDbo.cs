@@ -31,5 +31,4 @@ public class FileDbo
     /// File upload date
     /// </summary>
     public DateTime UploadTime { get; set; }
-    
 }

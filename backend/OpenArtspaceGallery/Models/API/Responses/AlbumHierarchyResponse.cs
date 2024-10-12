@@ -16,6 +16,6 @@ public class AlbumHierarchyResponse
         IReadOnlyCollection<AlbumInHierarchyDto> albumHierarchy
     )
     {
-        AlbumHierarchy = albumHierarchy ?? throw new ArgumentNullException(nameof(albumHierarchy), "Album hierarchy list can't be null.");
+        AlbumHierarchy = albumHierarchy ?? throw new ArgumentNullException(nameof(albumHierarchy), "Album hierarchy collection can't be null.");
     }
 }

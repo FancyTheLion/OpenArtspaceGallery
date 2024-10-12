@@ -1,3 +1,5 @@
+using OpenArtspaceGallery.Helpers.Validators;
+
 namespace OpenArtspaceGallery.Models;
 
 public class NewAlbum
@@ -18,7 +20,9 @@ public class NewAlbum
         string name
     )
     {
+        AlbumValidator.Validate(name);
+        
         ParentAlbumId = parentAlbumId;
-        Name = name ?? throw new ArgumentNullException(nameof(name), "Name mustn't be null!");
+        Name = name;
     }
 }

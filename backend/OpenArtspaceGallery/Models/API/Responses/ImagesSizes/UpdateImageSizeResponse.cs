@@ -11,7 +11,10 @@ public class UpdateImageSizeResponse
     [JsonPropertyName("imageSize")]
     public ImageSizeDto ImageSize { get; private set; }
 
-    public UpdateImageSizeResponse(ImageSizeDto imageSize)
+    public UpdateImageSizeResponse
+    (
+        ImageSizeDto imageSize
+    )
     {
         ImageSize = imageSize ?? throw new ArgumentNullException(nameof(imageSize), "Image size to update can't be null.");
     }

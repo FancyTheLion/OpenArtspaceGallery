@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using OpenArtspaceGallery.DAO.Models.Albums;
+using OpenArtspaceGallery.Helpers.Validators;
 
 namespace OpenArtspaceGallery.Models.API.DTOs;
 
@@ -38,9 +39,11 @@ public class AlbumDto
         DateTime creationTime
     )
     {
+        AlbumValidator.Validate(name);
+        
         Id = id;
         Parent = parent;
-        Name = name ?? throw new ArgumentNullException(nameof(name), "Name mustn't be null!");
+        Name = name;
         CreationTime = creationTime;
     }
     

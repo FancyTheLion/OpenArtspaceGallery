@@ -18,45 +18,61 @@ namespace OpenArtspaceGallery.DAO.Migrations
                 new object[] { Types.TypeIdJpeg, Types.TypeMimeJpeg, Types.TypeDescriptionJpeg }
             );
             
-            migrationBuilder.InsertData(
+            migrationBuilder.InsertData
+            (
                  "FileTypes",
                  new[] { "Id", "MimeType", "Description" },
-                 new object[] { Types.TypeIdPng, Types.TypeMimePng, Types.TypeDescriptionPng });
+                 new object[] { Types.TypeIdPng, Types.TypeMimePng, Types.TypeDescriptionPng }
+            );
             
-            migrationBuilder.InsertData(
+            migrationBuilder.InsertData
+            (
                  "FileTypes",
                  new[] { "Id", "MimeType", "Description" },
-                 new object[] { Types.TypeIdGif, Types.TypeMimeGif, Types.TypeDescriptionGif });
+                 new object[] { Types.TypeIdGif, Types.TypeMimeGif, Types.TypeDescriptionGif }
+            );
             
-            migrationBuilder.InsertData(
+            migrationBuilder.InsertData
+            (
                  "FileTypes",
                  new[] { "Id", "MimeType", "Description" },
-                 new object[] { Types.TypeIdBmp, Types.TypeMimeBmp, Types.TypeDescriptionBmp });
+                 new object[] { Types.TypeIdBmp, Types.TypeMimeBmp, Types.TypeDescriptionBmp }
+            );
             
-            migrationBuilder.InsertData(
+            migrationBuilder.InsertData
+            (
                  "FileTypes",
                  new[] { "Id", "MimeType", "Description" },
-                 new object[] { Types.TypeIdWebP, Types.TypeMimeWebP, Types.TypeDescriptionWebP });
+                 new object[] { Types.TypeIdWebP, Types.TypeMimeWebP, Types.TypeDescriptionWebP }
+            );
             
-            migrationBuilder.InsertData(
+            migrationBuilder.InsertData
+            (
                  "FileTypes",
                  new[] { "Id", "MimeType", "Description" },
-                 new object[] { Types.TypeIdTiff, Types.TypeMimeTiff, Types.TypeDescriptionTiff });
+                 new object[] { Types.TypeIdTiff, Types.TypeMimeTiff, Types.TypeDescriptionTiff }
+            );
             
-            migrationBuilder.InsertData(
+            migrationBuilder.InsertData
+            (
                  "FileTypes",
                  new[] { "Id", "MimeType", "Description" },
-                 new object[] { Types.TypeIdIco, Types.TypeMimeIco, Types.TypeDescriptionIco });
+                 new object[] { Types.TypeIdIco, Types.TypeMimeIco, Types.TypeDescriptionIco }
+            );
             
-            migrationBuilder.InsertData(
+            migrationBuilder.InsertData
+            (
                  "FileTypes",
                  new[] { "Id", "MimeType", "Description" },
-                 new object[] { Types.TypeIdSvg, Types.TypeMimeSvg, Types.TypeDescriptionSvg });
+                 new object[] { Types.TypeIdSvg, Types.TypeMimeSvg, Types.TypeDescriptionSvg }
+            );
             
-            migrationBuilder.InsertData(
+            migrationBuilder.InsertData
+            (
                  "FileTypes",
                  new[] { "Id", "MimeType", "Description" },
-                 new object[] { Types.TypeIdHeic, Types.TypeMimeHeic, Types.TypeDescriptionHeic });
+                 new object[] { Types.TypeIdHeic, Types.TypeMimeHeic, Types.TypeDescriptionHeic }
+            );
         }
 
         /// <inheritdoc />
