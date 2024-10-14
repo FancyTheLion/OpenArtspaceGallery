@@ -28,7 +28,7 @@ public class ImagesSizesController : ControllerBase
     /// </summary>
     [HttpGet]
     [Route("GetImagesSizesList")]
-    public async Task<ActionResult<ImageSizesResponse>> GetImageSizesListAsync()
+    public async Task<ActionResult<ImagesSizesResponse>> GetImageSizesListAsync()
     {
         var imagesSizes = await _imagesSizesService.GetImagesSizesAsync();
 
@@ -36,7 +36,7 @@ public class ImagesSizesController : ControllerBase
             .Select(i => i.ToDto())
             .ToList();
         
-        return Ok(new ImageSizesResponse(imagesSizesDtos));
+        return Ok(new ImagesSizesResponse(imagesSizesDtos));
     }
     
     /// <summary>
@@ -73,7 +73,7 @@ public class ImagesSizesController : ControllerBase
     }
     
     [HttpDelete]
-    [Route("{sizeId}")]
+    [Route("{sizeId:guid}")]
     public async Task<ActionResult> DeleteImageSizeAsync(Guid sizeId)
     {
         if (!await _imagesSizesService.IsImageSizeExistsAsync(sizeId))
@@ -104,7 +104,7 @@ public class ImagesSizesController : ControllerBase
         {
             return NotFound();
         }
-        
+
         try
         {
             return Ok

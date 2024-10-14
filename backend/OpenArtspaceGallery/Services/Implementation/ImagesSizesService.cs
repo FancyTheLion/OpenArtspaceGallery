@@ -58,10 +58,7 @@ public class ImagesSizesService : IImagesSizesService
 
     public async Task<ImageSize> UpdateImageSizeAsync(ImageSize imageSize)
     {
-        if (imageSize == null)
-        {
-            throw new ArgumentNullException(nameof(imageSize), "Update data cannot be null!");
-        }
+        _ = imageSize ?? throw new ArgumentNullException(nameof(imageSize), "Update data cannot be null!");
         
         var imageSizeToUpdate = new ImageSizeDbo()
         {

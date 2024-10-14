@@ -48,11 +48,6 @@ public class ImagesSizesDao : IImagesSizesDao
 
     public async Task<bool> IsImageSizeExistsByDimensionsAsync(int sizeWidth, int sizeHeight)
     {
-        if (sizeWidth <= 0 || sizeHeight <= 0)
-        {
-            throw new ArgumentException("Width and height must be greater than zero!");
-        }   
-        
         return await _dbContext
             .ImagesSizes
             .AnyAsync(s  => s.Width == sizeWidth && s.Height == sizeHeight);

@@ -20,7 +20,7 @@ public static class Types
     /// <summary>
     /// Description type (JPEG)
     /// </summary>
-    public const string TypeDescriptionJpeg = "Uses file extensions: jpeg, .jpg"; 
+    public const string TypeDescriptionJpeg = "JPEG"; 
     
     #endregion
 
@@ -39,7 +39,7 @@ public static class Types
     /// <summary>
     /// Description type (PNG)
     /// </summary>
-    public const string TypeDescriptionPng = "Uses file extensions: .png";
+    public const string TypeDescriptionPng = "PNG";
 
     #endregion
 
@@ -58,7 +58,7 @@ public static class Types
     /// <summary>
     /// Description type (GIF)
     /// </summary>
-    public const string TypeDescriptionGif = "Uses file extensions: .gif";
+    public const string TypeDescriptionGif = "GIF";
 
     #endregion
 
@@ -77,7 +77,7 @@ public static class Types
     /// <summary>
     /// Description type (BMP)
     /// </summary>
-    public const string TypeDescriptionBmp = "Uses file extensions: .bmp";
+    public const string TypeDescriptionBmp = "BMP";
 
     #endregion
 
@@ -96,7 +96,7 @@ public static class Types
     /// <summary>
     /// Description type (WebP)
     /// </summary>
-    public const string TypeDescriptionWebP = "Uses file extensions: .webp";
+    public const string TypeDescriptionWebP = "WebP";
     
     #endregion
     
@@ -115,7 +115,7 @@ public static class Types
     /// <summary>
     /// Description type (TIFF)
     /// </summary>
-    public const string TypeDescriptionTiff = "Uses file extensions: .tiff, .tif";
+    public const string TypeDescriptionTiff = "TIFF";
     
     #endregion
     
@@ -134,7 +134,7 @@ public static class Types
     /// <summary>
     /// Description type (ICO)
     /// </summary>
-    public const string TypeDescriptionIco = "Uses file extensions: .ico";
+    public const string TypeDescriptionIco = "ICO";
     
     #endregion
     
@@ -153,7 +153,7 @@ public static class Types
     /// <summary>
     /// Description type (SVG)
     /// </summary>
-    public const string TypeDescriptionSvg = "Uses file extensions: .svg";
+    public const string TypeDescriptionSvg = "SVG";
     
     #endregion
     
@@ -172,7 +172,7 @@ public static class Types
     /// <summary>
     /// Description type (HEIC)
     /// </summary>
-    public const string TypeDescriptionHeic = "Uses file extensions: .heic";
+    public const string TypeDescriptionHeic = "HEIC";
     
     #endregion
 }
