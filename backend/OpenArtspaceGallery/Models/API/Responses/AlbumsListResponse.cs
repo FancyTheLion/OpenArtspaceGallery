@@ -3,9 +3,6 @@ using OpenArtspaceGallery.Models.API.DTOs;
 
 namespace OpenArtspaceGallery.Models.API.Responses;
 
-/// <summary>
-/// Albums list
-/// </summary>
 public class AlbumsListResponse
 {
     /// <summary>
@@ -19,6 +16,6 @@ public class AlbumsListResponse
         IReadOnlyCollection<AlbumDto> albums
     )
     {
-        Albums = albums ?? throw new ArgumentNullException(nameof(albums), "Album list can't be null.");
+        Albums = albums ?? throw new ArgumentNullException(nameof(albums), "Albums collection can't be null.");
     }
 }

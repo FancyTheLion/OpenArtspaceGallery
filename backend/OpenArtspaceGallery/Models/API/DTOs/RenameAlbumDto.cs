@@ -5,7 +5,7 @@ namespace OpenArtspaceGallery.Models.API.DTOs;
 public class RenameAlbumDto
 {
     /// <summary>
-    /// New name album
+    /// Album new name
     /// </summary>
     [JsonPropertyName("newName")]
     public string NewName { get; set; }

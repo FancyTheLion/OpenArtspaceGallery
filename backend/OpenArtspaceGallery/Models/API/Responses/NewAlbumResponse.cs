@@ -5,14 +5,17 @@ namespace OpenArtspaceGallery.Models.API.Responses;
 
 public class NewAlbumResponse
 {
+    /// <summary>
+    /// New album
+    /// </summary>
     [JsonPropertyName("newAlbum")]
-    public AlbumDto NewAlbum { get; set; }
+    public AlbumDto NewAlbum { get; private set; } 
 
     public NewAlbumResponse
     (
         AlbumDto newAlbum
     )
     {
-        NewAlbum = newAlbum;
+        NewAlbum = newAlbum ?? throw new ArgumentNullException(nameof(newAlbum), "New album can't be null.");
     }
 }

@@ -5,14 +5,17 @@ namespace OpenArtspaceGallery.Models.API.Responses;
 
 public class SourcesLinkResponse
 {
+    /// <summary>
+    /// Source link
+    /// </summary>
     [JsonPropertyName("sourcesLink")]
-    public SourcesLinkDto SourcesLink { get; set; } 
+    public SourcesLinkDto SourcesLink { get; private set; } 
 
     public SourcesLinkResponse
     (
         SourcesLinkDto sourcesLink
     )
     {
-        SourcesLink = sourcesLink;
+        SourcesLink = sourcesLink ?? throw new ArgumentNullException(nameof(sourcesLink), "Sources link can't be null.");
     }
 }

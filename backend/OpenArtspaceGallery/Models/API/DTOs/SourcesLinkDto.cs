@@ -8,10 +8,15 @@ public class SourcesLinkDto
     ///  Source code link
     /// </summary>
     [JsonPropertyName("sourcesLink")]
-    public string SourcesSourcesLink { get; private set; }
+    public string SourcesLink { get; private set; }
     
     public SourcesLinkDto(string sourcesLink)
     {
-        SourcesSourcesLink = sourcesLink;
+        if (string.IsNullOrWhiteSpace(sourcesLink))
+        {
+            throw new ArgumentException("Source link mustn't be null or whitespace.", nameof(sourcesLink));
+        }
+        
+        SourcesLink = sourcesLink;
     }
 }

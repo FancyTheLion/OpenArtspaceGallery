@@ -10,6 +10,7 @@ using OpenArtspaceGallery.Services.Abstract;
 namespace OpenArtspaceGallery.Controllers;
 
 [ApiController]
+[Route("api/Albums")]
 public class AlbumsController : ControllerBase
 {
     private readonly IAlbumsService _albumsService;
@@ -26,19 +27,22 @@ public class AlbumsController : ControllerBase
     /// Get album list (top level)
     /// </summary>
     [HttpGet]
-    [Route("api/Albums/TopLevel")]
+    [Route("TopLevel")]
     public async Task<ActionResult<AlbumsListResponse>> GetTopLevelAlbumsListAsync()
     {
-        return  new AlbumsListResponse((await _albumsService.GetChildrenAsync(null))
+        return  new AlbumsListResponse
+        (
+            (await _albumsService.GetChildrenAsync(null))
             .Select(a => a.ToDto())
-            .ToList());
+            .ToList()
+        );
     }
     
     /// <summary>
     /// Get album list (children)
     /// </summary>
     [HttpGet]
-    [Route("api/Albums/ChildrenOf/{albumId}")]
+    [Route("ChildrenOf/{albumId:guid}")]
     public async Task<ActionResult<AlbumsListResponse>> GetChildrenAlbumsListAsync(Guid albumId)
     {
         if (!await _albumsService.IsAlbumExistsAsync(albumId))    
@@ -46,13 +50,16 @@ public class AlbumsController : ControllerBase
             return NotFound();
         }
         
-        return  new AlbumsListResponse((await _albumsService.GetChildrenAsync(albumId))
+        return  new AlbumsListResponse
+        (
+            (await _albumsService.GetChildrenAsync(albumId))
             .Select(a => a.ToDto())
-            .ToList());
+            .ToList()
+        );
     }
 
     [HttpGet]
-    [Route("api/Albums/Hierarchy/{albumId}")]
+    [Route("Hierarchy/{albumId:guid}")]
     public async Task<ActionResult<AlbumHierarchyResponse>> GetListAlbumsInHierarchy(Guid albumId)
     {
         if (!await _albumsService.IsAlbumExistsAsync(albumId))
@@ -61,15 +68,15 @@ public class AlbumsController : ControllerBase
         }
         
         return new AlbumHierarchyResponse
-            (
-                (await _albumsService.GetAlbumsHierarchyAsync(albumId))
-                .Select(ah => ah.ToDto())
-                .ToList()
-            );
+        (
+            (await _albumsService.GetAlbumsHierarchyAsync(albumId))
+            .Select(ah => ah.ToDto())
+            .ToList()
+        );
     }
 
     [HttpPost]
-    [Route("api/Albums/New")]
+    [Route("New")]
     public async Task<ActionResult<NewAlbumResponse>> AddAlbumAsync(NewAlbumRequest request)
     {
         if (request == null)
@@ -79,7 +86,7 @@ public class AlbumsController : ControllerBase
 
         if (request.AlbumToAdd == null)
         {
-            return BadRequest("when adding an album, information about the album must not be null.");
+            return BadRequest("When adding an album, information about the album must not be null.");
         }
         
         return new NewAlbumResponse
@@ -89,7 +96,7 @@ public class AlbumsController : ControllerBase
     }
 
     [HttpDelete]
-    [Route("api/Albums/{albumId}")]
+    [Route("{albumId:guid}")]
     public async Task<ActionResult> DeleteAlbumAsync(Guid albumId)
     {
         if (!await _albumsService.IsAlbumExistsAsync(albumId))
@@ -103,7 +110,7 @@ public class AlbumsController : ControllerBase
     }
 
     [HttpPost]
-    [Route("api/Albums/{albumId}/Rename")]
+    [Route("{albumId:guid}/Rename")]
     public async Task<ActionResult> RenameAlbumAsync(Guid albumId, RenameAlbumRequest request)
     {
         if (request == null)
@@ -120,9 +127,9 @@ public class AlbumsController : ControllerBase
         {
             await _albumsService.RenameAlbumAsync(albumId, request.RenameAlbumInfo.NewName);
         }
-        catch (ArgumentException exception)
+        catch (ArgumentException ex)
         {
-            return BadRequest(exception.Message);
+            return BadRequest(ex.Message);
         }
         
         return Ok();

@@ -1,3 +1,5 @@
+using OpenArtspaceGallery.Helpers.Validators;
+
 namespace OpenArtspaceGallery.Models;
 
 public class NewAlbum
@@ -5,12 +7,12 @@ public class NewAlbum
     /// <summary>
     /// New album name
     /// </summary>
-    public string Name { get; set; }
+    public string Name { get; private set; }
     
     /// <summary>
     /// Parent album ID
     /// </summary>
-    public Guid? ParentAlbumId { get; set; }
+    public Guid? ParentAlbumId { get; private set; }
 
     public NewAlbum
     (        
@@ -18,9 +20,9 @@ public class NewAlbum
         string name
     )
     {
+        AlbumValidator.Validate(name);
+        
         ParentAlbumId = parentAlbumId;
         Name = name;
     }
-    
-    //TODO: hello! I'm test commit, i love you!
 }

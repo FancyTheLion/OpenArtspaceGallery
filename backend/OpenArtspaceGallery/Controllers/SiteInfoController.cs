@@ -8,6 +8,7 @@ using OpenArtspaceGallery.Models.Settings;
 namespace OpenArtspaceGallery.Controllers;
 
 [ApiController]
+[Route("api/SiteInfo")]
 public class SiteInfoController : ControllerBase
 {
     private readonly SiteInfoSettings _siteInfoSettings;
@@ -24,16 +25,16 @@ public class SiteInfoController : ControllerBase
     /// Send backend version to frontend
     /// </summary>
     [HttpGet]
-    [Route("api/SiteInfo/GetBackendVersion")]
+    [Route("GetBackendVersion")]
     public async Task<ActionResult<BackendVersionResponse>> GetBackendVersion()
     {
-        return new BackendVersionResponse(new BackendVersionDto("0.0.1"));
+        return new BackendVersionResponse(new BackendVersionDto("0.0.2"));
     }
     
     /// <summary>
     /// Get link to source code
     /// </summary>
-    [Route("api/SiteInfo/GetSourcesLink")]
+    [Route("GetSourcesLink")]
     [HttpGet]
     public async Task<ActionResult<SourcesLinkResponse>> GeSourcesLink()
     {

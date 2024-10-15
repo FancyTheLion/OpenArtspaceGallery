@@ -1,3 +1,4 @@
+using OpenArtspaceGallery.Helpers.Validators;
 using OpenArtspaceGallery.Models.API.DTOs;
 
 namespace OpenArtspaceGallery.Models;
@@ -32,6 +33,8 @@ public class Album
         DateTime creationTime
     )
     {
+        AlbumValidator.Validate(name);
+        
         Id = id;
         Parent = parent;
         Name = name;

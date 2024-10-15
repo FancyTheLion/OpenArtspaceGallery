@@ -5,14 +5,17 @@ namespace OpenArtspaceGallery.Models.API.Responses;
 
 public class BackendVersionResponse
 {
+    /// <summary>
+    /// Backend version
+    /// </summary>
     [JsonPropertyName("backendVersion")]
-    public BackendVersionDto BackendVersion { get; set; } 
+    public BackendVersionDto BackendVersion { get; private set; } 
 
     public BackendVersionResponse
     (
         BackendVersionDto backendVersion
     )
     {
-        BackendVersion = backendVersion;
+        BackendVersion = backendVersion ?? throw new ArgumentNullException(nameof(backendVersion), "Backend version can't be null.");
     }
 }

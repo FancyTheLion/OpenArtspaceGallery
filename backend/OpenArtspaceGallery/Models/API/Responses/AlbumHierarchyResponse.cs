@@ -6,7 +6,7 @@ namespace OpenArtspaceGallery.Models.API.Responses;
 public class AlbumHierarchyResponse
 {
     /// <summary>
-    /// Album in hierarchy
+    /// Album hierarchy
     /// </summary>
     [JsonPropertyName("albumHierarchy")]
     public IReadOnlyCollection<AlbumInHierarchyDto> AlbumHierarchy { get; private set; }
@@ -16,6 +16,6 @@ public class AlbumHierarchyResponse
         IReadOnlyCollection<AlbumInHierarchyDto> albumHierarchy
     )
     {
-        AlbumHierarchy = albumHierarchy ?? throw new ArgumentNullException(nameof(albumHierarchy), "Album hierarchy list can't be null.");
+        AlbumHierarchy = albumHierarchy ?? throw new ArgumentNullException(nameof(albumHierarchy), "Album hierarchy collection can't be null.");
     }
 }

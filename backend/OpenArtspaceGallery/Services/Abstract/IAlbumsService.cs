@@ -2,6 +2,9 @@ using OpenArtspaceGallery.Models;
 
 namespace OpenArtspaceGallery.Services.Abstract;
 
+/// <summary>
+/// Service for working with albums
+/// </summary>
 public interface IAlbumsService
 {
     /// <summary>
@@ -32,5 +35,5 @@ public interface IAlbumsService
     /// <summary>
     /// Rename albom
     /// </summary>
-    public Task RenameAlbumAsync(Guid albumId, string newName);
+    Task RenameAlbumAsync(Guid albumId, string newName);
 }

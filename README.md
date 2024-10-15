@@ -1,6 +1,6 @@
 # OpenArtspaceGallery :)
 
-# 1).Build and run on Docker
+# 1) Build and run on Docker
 
 # Create virtual network
 ```
@@ -23,7 +23,7 @@ docker-compose -f docker-compose-gallery-app-infrastructure.yml up
 docker-compose -f docker-compose-gallery-app-infrastructure.yml up -d
 ```
 
-# 2). Stop containers
+# 2) Stop containers
 
 # List containers:
 ```

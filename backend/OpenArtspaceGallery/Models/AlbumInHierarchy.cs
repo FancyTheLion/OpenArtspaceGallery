@@ -1,3 +1,4 @@
+using OpenArtspaceGallery.Helpers.Validators;
 using OpenArtspaceGallery.Models.API.DTOs;
 
 namespace OpenArtspaceGallery.Models;
@@ -20,16 +21,14 @@ public class AlbumInHierarchy
         string name
     )
     {
+        AlbumValidator.Validate(name);
+            
         Id = id;
         Name = name;
     }
 
     public AlbumInHierarchyDto ToDto()
     {
-        return new AlbumInHierarchyDto
-        (
-            Id,
-            Name
-        );
+        return new AlbumInHierarchyDto(Id, Name);
     }
 }

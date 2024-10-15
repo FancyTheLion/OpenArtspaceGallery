@@ -41,6 +41,11 @@ public class AlbumsService : IAlbumsService
 
     public async Task<Album> CreateNewAlbumAsync(NewAlbum newAlbum)
     {
+        if (newAlbum == null)
+        {
+            throw new ArgumentNullException(nameof(newAlbum), "New album data cannot be null!");
+        }
+        
         var albumToInsert = new AlbumDbo()
         {
             Id = Guid.Empty,
@@ -56,6 +61,7 @@ public class AlbumsService : IAlbumsService
     {
         var albumChildrenIdList = await _albumsDao.GetChildrenAlbumbsGuidsAsync(albumId);
 
+        // TODO: To study - read about N+1 problem
         foreach (var childId in albumChildrenIdList)
         {
             await DeleteAlbumAsync(childId);
