@@ -50,46 +50,11 @@
   border-radius: 0.3rem;
 }
 /* Form valid field. Dont touch */
-.new-album-button {
-  border: 0.3rem solid hsl(219, 67%, 66%);
-  border-radius: 0.5rem;
-  width: 10rem;
-  height: 10rem;
+/* Admin panel */
+.admin-panel-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
+  justify-content: left;
+  gap: 10rem;
+  padding: 0 1rem;
 }
-/* New album bottom image */
-.new-album-button-image {
-  width: 4rem;
-  height: 4rem;
-}
-.new-album-button-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-/* Container with one albums */
-.new-album-add-new-album-form {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  gap: 0;
-  border: 0.3rem solid aqua;
-  border-radius: 0.5rem;
-  width: 15rem;
-  height: 10rem;
-  background-color: white;
-}
-/* New album form button container */
-.new-album-form-button-container {
-  padding: 0.2rem;
-}
-/* For function buttons in a form */
-.new-album-form-buttons {
-  margin: 0.2rem;
-}
-/*# sourceMappingURL=newAlbum.css.map */
+/*# sourceMappingURL=adminPanel.css.map */

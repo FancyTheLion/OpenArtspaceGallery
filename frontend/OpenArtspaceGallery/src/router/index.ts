@@ -17,6 +17,12 @@ const routes = [
         component: AlbumContentView,
         props: true
     },
+
+    // Admin panel
+    {
+        path: "/adminPanel",
+        name: "adminPanel",
+    },
 ]
 
 const router = createRouter({
