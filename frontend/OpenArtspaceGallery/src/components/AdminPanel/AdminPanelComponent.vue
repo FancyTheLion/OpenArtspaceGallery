@@ -4,22 +4,15 @@
 
 <template>
 
-  <div class="admin-panel-container">
+  <div class="admin-panel-main-container">
 
-    <div>
-      I'm point 1
+    <div class="admin-panel-left-part">
+      Left part
     </div>
 
-    <a class="album-link-full" href="/adminPanel">
-      <div>
-        I'm point 2
-      </div>
-    </a>
-
-    <div>
-      I'm point 3
+    <div class="admin-panel-right-part">
+      Right part
     </div>
-
   </div>
 
 </template>

@@ -50,21 +50,11 @@
   border-radius: 0.3rem;
 }
 /* Form valid field. Dont touch */
-/* Admin panel main container */
-.admin-panel-main-container {
+/* Header menu */
+.header-menu-container {
   display: flex;
-  flex-direction: row;
   justify-content: left;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 10rem;
+  padding: 0 1rem;
 }
-/* Admin panel left part */
-.admin-panel-left-part {
-  background: red;
-}
-/* Admin panel right part */
-.admin-panel-right-part {
-  flex: auto;
-  background: blue;
-}
-/*# sourceMappingURL=adminPanel.css.map */
+/*# sourceMappingURL=headerMenu.css.map */

@@ -1,9 +1,19 @@
-/* Admin panel */
-.admin-panel-container {
+/* Admin panel main container */
+.admin-panel-main-container {
   display: flex;
+  flex-direction: row;
   justify-content: left;
-  gap: 10rem;
-  padding: 0 1rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+/* Admin panel left part */
+.admin-panel-left-part {
+  background: red;
+}
+/* Admin panel right part */
+.admin-panel-right-part {
+  flex: auto;
+  background: blue;
 }
 /* Album navigation panel */
 .albums-hierarchy-container {
@@ -97,6 +107,13 @@
   border-bottom-style: solid;
   margin-bottom: 0.2rem;
   padding-bottom: 0.2rem;
+}
+/* Header menu */
+.header-menu-container {
+  display: flex;
+  justify-content: left;
+  gap: 10rem;
+  padding: 0 1rem;
 }
 /* Loading symbol size */
 /* Loading symbol image */

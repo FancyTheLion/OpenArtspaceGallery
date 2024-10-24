@@ -9,9 +9,9 @@
 </script>
 
 <template>
-  <HeaderComponent/>
+  <HeaderComponent />
 
   <AlbumPageComponent :currentAlbumId="props.currentAlbumId" />
 
-  <FooterComponent/>
+  <FooterComponent />
 </template>
