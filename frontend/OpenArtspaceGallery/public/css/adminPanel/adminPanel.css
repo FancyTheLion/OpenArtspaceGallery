@@ -58,13 +58,22 @@
   flex-wrap: wrap;
   gap: 0.5rem;
 }
-/* Admin panel left part */
-.admin-panel-left-part {
-  background: red;
+/* Admin action panel */
+.admin-panel-action {
+  background: yellow;
+  width: 20rem;
+  height: 100vh;
 }
-/* Admin panel right part */
-.admin-panel-right-part {
-  flex: auto;
+/* Info admin panel */
+.admin-panel-info {
+  flex: 1;
   background: blue;
+  height: 100vh;
+}
+/* Admin action panel conteiner */
+.admin-panel-action-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 /*# sourceMappingURL=adminPanel.css.map */

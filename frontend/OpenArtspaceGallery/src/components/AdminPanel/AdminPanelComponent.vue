@@ -1,16 +1,30 @@
 <script setup lang="ts">
 
+import AdminActionPanelComponent from "./AdminActionPanelComponent.vue";
+import AdminPanelInaoComponent from "./AdminPanelInaoComponent.vue";
 </script>
 
 <template>
 
   <div class="admin-panel-main-container">
 
-    <div class="admin-panel-left-part">
-      Left part
+    <div class="admin-panel-action">
+
+      <div class="admin-panel-action-container">
+
+        <AdminActionPanelComponent />
+
+        <AdminPanelInaoComponent />
+
+        <div>
+          Something third
+        </div>
+
+      </div>
+
     </div>
 
-    <div class="admin-panel-right-part">
+    <div class="admin-panel-info">
       Right part
     </div>
   </div>
