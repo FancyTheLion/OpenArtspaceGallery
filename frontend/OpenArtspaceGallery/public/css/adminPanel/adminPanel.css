@@ -3,6 +3,14 @@
 /* Text size */
 /* Text boldness */
 /* Margins */
+/*
+@margin-large: ;
+@margin-xlarge: ;
+@margin-xxlarge: ;
+@margin-xxxlarge: ;
+@margin-huge: ;
+@margin-xxhuge: ;
+@margin-max: ;*/
 /* End margins */
 /* Paddings */
 /* End paddings */
@@ -75,5 +83,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.admin-panel-action-button-conteiner {
+  margin: 1rem;
 }
 /*# sourceMappingURL=adminPanel.css.map */

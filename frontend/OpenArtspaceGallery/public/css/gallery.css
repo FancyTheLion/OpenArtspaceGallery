@@ -24,6 +24,9 @@
   flex-direction: column;
   align-items: center;
 }
+.admin-panel-action-button-conteiner {
+  margin: 1rem;
+}
 /* Album navigation panel */
 .albums-hierarchy-container {
   padding-bottom: 0.2rem;
@@ -47,6 +50,14 @@
 /* Text size */
 /* Text boldness */
 /* Margins */
+/*
+@margin-large: ;
+@margin-xlarge: ;
+@margin-xxlarge: ;
+@margin-xxxlarge: ;
+@margin-huge: ;
+@margin-xxhuge: ;
+@margin-max: ;*/
 /* End margins */
 /* Paddings */
 /* End paddings */

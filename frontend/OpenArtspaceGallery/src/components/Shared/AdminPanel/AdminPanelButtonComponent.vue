@@ -1,13 +1,21 @@
 <script setup lang="ts">
 
+const props = defineProps({
+  name: {
+    type: String,
+    default: "",
+    required: true
+  }
+})
+
 </script>
 
 <template>
 
-  <div>
+  <div class="admin-panel-action-button-conteiner">
 
     <button>
-
+      {{props.name}}
     </button>
 
   </div>

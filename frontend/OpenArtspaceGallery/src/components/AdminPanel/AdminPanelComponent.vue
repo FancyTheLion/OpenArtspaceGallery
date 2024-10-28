@@ -13,10 +13,8 @@ import AdminPanelInfoComponent from "./AdminPanelInfoComponent.vue";
 
         <AdminActionPanelComponent />
 
-        <AdminPanelInfoComponent />
-
         <div>
-          Something third
+          Something second
         </div>
 
       </div>
@@ -24,8 +22,11 @@ import AdminPanelInfoComponent from "./AdminPanelInfoComponent.vue";
     </div>
 
     <div class="admin-panel-info">
-      Right part
+
+      <AdminPanelInfoComponent />
+
     </div>
+
   </div>
 
 </template>
