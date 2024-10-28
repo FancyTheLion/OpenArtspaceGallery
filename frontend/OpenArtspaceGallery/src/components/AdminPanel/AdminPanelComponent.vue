@@ -1,7 +1,6 @@
 <script setup lang="ts">
-
 import AdminActionPanelComponent from "./AdminActionPanelComponent.vue";
-import AdminPanelInaoComponent from "./AdminPanelInaoComponent.vue";
+import AdminPanelInfoComponent from "./AdminPanelInfoComponent.vue";
 </script>
 
 <template>
@@ -14,7 +13,7 @@ import AdminPanelInaoComponent from "./AdminPanelInaoComponent.vue";
 
         <AdminActionPanelComponent />
 
-        <AdminPanelInaoComponent />
+        <AdminPanelInfoComponent />
 
         <div>
           Something third

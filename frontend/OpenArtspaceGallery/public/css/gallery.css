@@ -10,13 +10,13 @@
 .admin-panel-action {
   background: yellow;
   width: 20rem;
-  height: 100vh;
+  height: 77vh;
 }
 /* Info admin panel */
 .admin-panel-info {
   flex: 1;
   background: blue;
-  height: 100vh;
+  height: 77vh;
 }
 /* Admin action panel conteiner */
 .admin-panel-action-container {

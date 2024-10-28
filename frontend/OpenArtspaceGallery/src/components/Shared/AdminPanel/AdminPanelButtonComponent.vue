@@ -5,7 +5,11 @@
 <template>
 
   <div>
-    Point 2
+
+    <button>
+
+    </button>
+
   </div>
 
 </template>
