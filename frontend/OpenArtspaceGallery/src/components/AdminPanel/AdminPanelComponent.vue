@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import AdminActionPanelComponent from "./AdminActionPanelComponent.vue";
+import AdminActionPanelComponent from "./AdminPanelMenuComponent.vue";
 import AdminPanelInfoComponent from "./AdminPanelInfoComponent.vue";
 </script>
 
