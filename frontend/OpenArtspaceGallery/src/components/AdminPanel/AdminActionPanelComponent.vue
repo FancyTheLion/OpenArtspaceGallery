@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import AdminPanelButtonComponent from "../Shared/AdminPanel/AdminPanelButtonComponent.vue";
+import AdminPanelButtonComponent from "../Shared/Controls/AdminPanelButtonComponent.vue";
 
 </script>
 
@@ -12,5 +12,7 @@ import AdminPanelButtonComponent from "../Shared/AdminPanel/AdminPanelButtonComp
     <AdminPanelButtonComponent name="Button 2" />
 
   </div>
+
+
 
 </template>

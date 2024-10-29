@@ -8,14 +8,14 @@
 }
 /* Admin action panel */
 .admin-panel-action {
-  background: yellow;
+  background: azure;
   width: 20rem;
   height: 77vh;
 }
 /* Info admin panel */
 .admin-panel-info {
   flex: 1;
-  background: blue;
+  background: gainsboro;
   height: 77vh;
 }
 /* Admin action panel conteiner */
@@ -23,9 +23,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-.admin-panel-action-button-conteiner {
-  margin: 1rem;
 }
 /* Album navigation panel */
 .albums-hierarchy-container {
@@ -105,6 +102,31 @@
   border-radius: 0.3rem;
 }
 /* Form valid field. Dont touch */
+.admin-panel-action-button-conteiner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 1rem;
+}
+.admin-panel-action-button {
+  background-color: #007bff;
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 10px 20px;
+}
+.admin-panel-action-button:hover {
+  background-color: gold;
+}
+.active-button {
+  background-color: darkmagenta;
+  color: #fff;
+  transform: scale(1.2);
+  padding: 10px 20px;
+}
 /* Footer container */
 .footer-container {
   margin-top: 0.5rem;

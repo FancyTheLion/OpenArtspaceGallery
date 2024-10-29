@@ -4,12 +4,7 @@
 
 <template>
 
-  <div>
 
 
-    Here more show components
-
-
-  </div>
 
 </template>

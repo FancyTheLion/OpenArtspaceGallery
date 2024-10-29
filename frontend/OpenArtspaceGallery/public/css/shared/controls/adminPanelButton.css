@@ -58,30 +58,29 @@
   border-radius: 0.3rem;
 }
 /* Form valid field. Dont touch */
-/* Admin panel main container */
-.admin-panel-main-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: left;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-/* Admin action panel */
-.admin-panel-action {
-  background: azure;
-  width: 20rem;
-  height: 77vh;
-}
-/* Info admin panel */
-.admin-panel-info {
-  flex: 1;
-  background: gainsboro;
-  height: 77vh;
-}
-/* Admin action panel conteiner */
-.admin-panel-action-container {
+.admin-panel-action-button-conteiner {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 1rem;
 }
-/*# sourceMappingURL=adminPanel.css.map */
+.admin-panel-action-button {
+  background-color: #007bff;
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 10px 20px;
+}
+.admin-panel-action-button:hover {
+  background-color: gold;
+}
+.active-button {
+  background-color: darkmagenta;
+  color: #fff;
+  transform: scale(1.2);
+  padding: 10px 20px;
+}
+/*# sourceMappingURL=adminPanelButton.css.map */
