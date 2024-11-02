@@ -7,17 +7,13 @@ import AdminPanelInfoComponent from "./AdminPanelInfoComponent.vue";
 
   <div class="admin-panel-main-container">
 
-    <div class="admin-panel-action">
-
-      <div class="admin-panel-action-container">
+    <div class="admin-panel-menu-container">
 
         <AdminActionPanelComponent />
 
         <div>
           Something second
         </div>
-
-      </div>
 
     </div>
 

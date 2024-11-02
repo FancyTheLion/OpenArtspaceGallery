@@ -15,7 +15,7 @@
 
 <template>
 
-  <div class="admin-panel-menu-container">
+  <div class="admin-panel-menu-list">
 
     <ButtonComponent
       name="Big button"

@@ -1,0 +1,33 @@
+@import "../common.less";
+
+/* Colors */
+@color-button-base-background: deepskyblue;
+@color-button-base-text: white;
+@color-simple-button: gold;
+@color-simple-button-active: darkmagenta;
+
+
+.mixin-button-base {
+  background-color: @color-button-base-background;
+  color: @color-button-base-text;
+  text-align: center;
+  border-radius: @border-radius-normal;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: @padding-normal @paddding-medium;
+}
+
+.simple-button {
+  .mixin-button-base();
+}
+
+.simple-button:hover {
+  background-color: @color-simple-button;
+}
+
+.simple-button-active {
+  .mixin-button-base();
+
+  background-color: @color-simple-button-active;
+  transform: scale(1.2);
+}
