@@ -11,10 +11,6 @@ import AdminPanelInfoComponent from "./AdminPanelInfoComponent.vue";
 
         <AdminActionPanelComponent />
 
-        <div>
-          Something second
-        </div>
-
     </div>
 
     <div class="admin-panel-info">
