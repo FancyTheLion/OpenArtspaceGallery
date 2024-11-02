@@ -5,6 +5,7 @@
 @color-button-base-text: white;
 @color-simple-button: gold;
 @color-simple-button-active: darkmagenta;
+@button-animation-time: 0.3s;
 
 
 .mixin-button-base {
@@ -13,7 +14,7 @@
   text-align: center;
   border-radius: @border-radius-normal;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all @button-animation-time ease;
   padding: @padding-normal @paddding-medium;
 }
 
