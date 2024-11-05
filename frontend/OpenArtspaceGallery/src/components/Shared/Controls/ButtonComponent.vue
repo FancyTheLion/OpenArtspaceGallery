@@ -22,7 +22,7 @@
 
   function OnClick()
   {
-    emit('clicked', props.id)
+    emit("clicked", props.id)
   }
 
 </script>
@@ -34,9 +34,6 @@
         @click="OnClick">
 
       {{props.name}}
-
-      {{ props.id }}
-
     </div>
 
 </template>

@@ -15,7 +15,8 @@
   <div class="admin-panel-menu-list">
 
     <MultiButtonComponent
-      :buttons="buttonsList" />
+      :buttons="buttonsList"
+      activeButton="76060c36-d2f5-4fdd-9455-8b20ce983d6c"/>
 
   </div>
 

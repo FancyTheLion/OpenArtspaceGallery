@@ -7,12 +7,16 @@
     buttons: {
       type: Object as PropType<Array<MultiButtonButton>>,
       required: true
+    },
+    activeButton: {
+      type: String,
+      required: true
     }
   })
 
-  const activeButtonId = ref<string>("")
+  const activeButtonId = ref<string>(props.activeButton)
 
-  function ButtonOutputId(id: string)
+  function OnButtonClick(id: string)
   {
     activeButtonId.value = id
   }
@@ -27,7 +31,7 @@
       :name="button.name"
       :id="button.id"
       :isActive="button.id === activeButtonId"
-      @clicked="ButtonOutputId"
+      @clicked="OnButtonClick"
     />
 
   </div>
