@@ -1,6 +1,11 @@
 <script setup lang="ts">
 
   const props = defineProps({
+    id: {
+      type: String,
+      default: "",
+      required: true
+    },
     name: {
       type: String,
       default: "",
@@ -17,7 +22,7 @@
 
   function OnClick()
   {
-    emit("clicked")
+    emit('clicked', props.id)
   }
 
 </script>
@@ -29,6 +34,8 @@
         @click="OnClick">
 
       {{props.name}}
+
+      {{ props.id }}
 
     </div>
 

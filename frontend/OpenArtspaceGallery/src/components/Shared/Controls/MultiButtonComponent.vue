@@ -1,7 +1,7 @@
 <script setup lang="ts">
-
-  import {PropType} from "vue";
+  import {PropType, ref} from "vue";
   import {MultiButtonButton} from "../../../ts/Shared/Controls/libMultiButton.ts";
+  import ButtonComponent from "./ButtonComponent.vue";
 
   const props = defineProps({
     buttons: {
@@ -10,15 +10,25 @@
     }
   })
 
+  const activeButtonId = ref<string>("")
+
+  function ButtonOutputId(id: string)
+  {
+    activeButtonId.value = id
+  }
+
 </script>
 
 <template>
 
-  <div> Hello there </div>
+  <div v-for="button in props.buttons" :key="activeButtonId.value">
 
-  <div v-for="button in props.buttons" :key="button.name">
-
-    {{ button.name }}
+    <ButtonComponent
+      :name="button.name"
+      :id="button.id"
+      :isActive="button.id === activeButtonId"
+      @clicked="ButtonOutputId"
+    />
 
   </div>
 
