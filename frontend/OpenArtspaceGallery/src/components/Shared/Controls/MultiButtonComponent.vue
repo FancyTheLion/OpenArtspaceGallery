@@ -14,11 +14,14 @@
     }
   })
 
+  const emit = defineEmits([ "buttonSelected" ])
+
   const activeButtonId = ref<string>(props.activeButton)
 
-  function OnButtonClick(id: string)
+  function OnButtonClicked(id: string)
   {
     activeButtonId.value = id
+    emit("buttonSelected", activeButtonId.value)
   }
 
 </script>
@@ -31,7 +34,7 @@
       :name="button.name"
       :id="button.id"
       :isActive="button.id === activeButtonId"
-      @clicked="OnButtonClick"
+      @clicked="OnButtonClicked"
     />
 
   </div>

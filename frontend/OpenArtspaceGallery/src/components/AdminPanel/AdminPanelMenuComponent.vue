@@ -8,6 +8,11 @@
     { name: "three", id: "76060c36-d2f5-4fdd-9455-8b20ce983d6c" }
   ])
 
+  function OnClick(currentButtonId: string)
+  {
+    alert(currentButtonId)
+  }
+
 </script>
 
 <template>
@@ -16,7 +21,8 @@
 
     <MultiButtonComponent
       :buttons="buttonsList"
-      activeButton="76060c36-d2f5-4fdd-9455-8b20ce983d6c"/>
+      activeButton="f16d0a3e-2bdf-4634-9cf7-7ae9e9b12a10"
+      @buttonSelected="OnClick"/>
 
   </div>
 
