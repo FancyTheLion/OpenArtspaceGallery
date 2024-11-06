@@ -58,4 +58,11 @@
   border-radius: 0.3rem;
 }
 /* Form valid field. Dont touch */
+.multibutton {
+  margin: 0.5rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
 /*# sourceMappingURL=MultiButton.css.map */

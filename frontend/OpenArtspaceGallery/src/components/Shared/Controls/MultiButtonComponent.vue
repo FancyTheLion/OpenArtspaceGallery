@@ -28,14 +28,15 @@
 
 <template>
 
-  <div v-for="button in props.buttons" :key="activeButtonId.value">
+  <div class="multibutton">
 
-    <SimpleButtonComponent
-      :name="button.name"
-      :id="button.id"
-      :isActive="button.id === activeButtonId"
-      @clicked="OnButtonClicked"
-    />
+      <SimpleButtonComponent
+        v-for="button in props.buttons" :key="activeButtonId.value"
+        :name="button.name"
+        :id="button.id"
+        :isActive="button.id === activeButtonId"
+        @clicked="OnButtonClicked"
+      />
 
   </div>
 
