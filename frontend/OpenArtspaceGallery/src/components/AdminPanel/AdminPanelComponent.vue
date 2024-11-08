@@ -1,6 +1,16 @@
 <script setup lang="ts">
-import AdminActionPanelComponent from "./AdminPanelMenuComponent.vue";
-import AdminPanelInfoComponent from "./AdminPanelInfoComponent.vue";
+  import AdminPanelPagesComponent from "./AdminPanelPagesComponent.vue";
+  import AdminPanelMenuComponent from "./AdminPanelMenuComponent.vue";
+  import {ref} from "vue";
+  import {ImageSizeButtonId} from "../../ts/Shared/Constans/libAdminPanelButton.ts";
+
+  const activePageId = ref<string>(ImageSizeButtonId)
+
+  function OnButtonClicked(currentButtonId: string)
+  {
+    activePageId.value = currentButtonId;
+  }
+
 </script>
 
 <template>
@@ -9,13 +19,16 @@ import AdminPanelInfoComponent from "./AdminPanelInfoComponent.vue";
 
     <div class="admin-panel-menu-container">
 
-        <AdminActionPanelComponent />
+      <AdminPanelMenuComponent
+        @activatedButton="OnButtonClicked"/>
 
     </div>
 
     <div class="admin-panel-info">
 
-      <AdminPanelInfoComponent />
+      <AdminPanelPagesComponent
+      :key="activePageId"
+      :id="activePageId"/>
 
     </div>
 
