@@ -28,6 +28,15 @@
   gap: 0.1rem;
   width: 100%;
 }
+.admin-Panel-Images-Sizes-conteiner {
+  display: flex;
+  flex-direction: column;
+}
+.admin-Panel-Images-Sizes-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 /* Album navigation panel */
 .albums-hierarchy-container {
   padding-bottom: 0.2rem;

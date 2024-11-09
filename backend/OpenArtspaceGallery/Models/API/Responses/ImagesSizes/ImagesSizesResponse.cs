@@ -9,7 +9,7 @@ public class ImagesSizesResponse
     /// <summary>
     /// Images sizes
     /// </summary>
-    [JsonPropertyName("imageSizes")]
+    [JsonPropertyName("imagesSizes")]
     public IReadOnlyCollection<ImageSizeDto> ImagesSizes { get; private set; }
 
     public ImagesSizesResponse
