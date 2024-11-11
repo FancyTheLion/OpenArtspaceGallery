@@ -71,14 +71,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: azure;
   width: 20rem;
   height: 77vh;
 }
 /* Info admin panel */
 .admin-panel-info {
   flex: 1;
-  background: gainsboro;
   height: 77vh;
 }
 .admin-panel-menu-list {

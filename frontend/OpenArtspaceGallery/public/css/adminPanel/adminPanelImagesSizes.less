@@ -1,12 +1,40 @@
 @import "../shared/common.less";
 
-.admin-Panel-Images-Sizes-conteiner {
+.admin-panel-images-sizes-conteiner {
   display: flex;
   flex-direction: column;
+  padding: @padding-normal;
 }
 
-.admin-Panel-Images-Sizes-header {
+.admin-panel-images-sizes-header {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.admin-panel-images-sizes-content {
+  border: @border-radius-smaller solid;
+  border-radius: 0.1rem;
+  padding: @padding-normal;
+}
+
+table, th, td, tr {
+  border:0.1rem solid black;
+}
+
+table {
+
+}
+
+th {
+  background: deepskyblue;
+  color: white;
+}
+
+tr:nth-child(odd) {
+  background: blue;
+}
+
+tr:nth-child(even) {
+  background: aqua;
 }
