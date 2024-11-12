@@ -33,23 +33,29 @@
       Images sizes
     </div>
 
-    <table>
+    <table
+    class="admin-panel-images-sizes-table">
 
       <thead>
         <tr>
-          <th>Size name</th>
-          <th>Width</th>
-          <th>Height</th>
-          <th>Custom</th>
+          <th class="admin-panel-images-sizes-table-header">Size name</th>
+          <th class="admin-panel-images-sizes-table-header">Width</th>
+          <th class="admin-panel-images-sizes-table-header">Height</th>
+          <th class="admin-panel-images-sizes-table-header">Custom</th>
         </tr>
       </thead>
 
       <tbody>
-        <tr v-for="(image) in imagesSizes" :key="image.id">
-          <td>{{ image.name }}</td>
-          <td>{{ image.width }}</td>
-          <td>{{ image.height }}</td>
-          <td>Empty</td>
+        <tr
+          v-for="(image) in imagesSizes"
+          :key="image.id"
+          class="admin-panel-images-sizes-table-row">
+
+          <td class="admin-panel-images-sizes-table-cells">{{ image.name }}</td>
+          <td class="admin-panel-images-sizes-table-cells">{{ image.width }}</td>
+          <td class="admin-panel-images-sizes-table-cells">{{ image.height }}</td>
+          <td class="admin-panel-images-sizes-table-cells">Empty</td>
+
         </tr>
       </tbody>
 
@@ -58,5 +64,3 @@
   </div>
 
 </template>
-
-<style src="public/css/adminPanel/adminPanelImagesSizes.less"/>

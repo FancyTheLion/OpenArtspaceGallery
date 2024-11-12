@@ -1,5 +1,9 @@
 @import "../shared/common.less";
 
+.mixin-admin-panel-images-sizes-borders {
+  border:0.1rem solid black;
+}
+
 .admin-panel-images-sizes-conteiner {
   display: flex;
   flex-direction: column;
@@ -18,23 +22,51 @@
   padding: @padding-normal;
 }
 
-table, th, td, tr {
-  border:0.1rem solid black;
+.admin-panel-images-sizes-table {
+  .mixin-admin-panel-images-sizes-borders();
+  border-collapse: collapse;
 }
 
-table {
-
-}
-
-th {
-  background: deepskyblue;
+.admin-panel-images-sizes-table-header {
+  .mixin-admin-panel-images-sizes-borders();
+  background: blue;
   color: white;
 }
 
+.admin-panel-images-sizes-table-row:nth-child(odd) {
+  .mixin-admin-panel-images-sizes-borders();
+  background: #0925d4;
+  color: white;
+}
+
+.admin-panel-images-sizes-table-row:nth-child(even) {
+  .mixin-admin-panel-images-sizes-borders();
+  background: #2d72d4;
+  color: white;
+}
+
+.admin-panel-images-sizes-table-cells {
+  .mixin-admin-panel-images-sizes-borders();
+}
+
+/*table, th, td, tr {
+  border:0.1rem solid black;
+}*/
+
+/*table {
+
+}*/
+
+/*th {
+  background: red;
+  color: white;
+}*/
+
+/*
 tr:nth-child(odd) {
-  background: blue;
+  background: yellow;
 }
 
 tr:nth-child(even) {
-  background: aqua;
-}
+  background: green;
+}*/

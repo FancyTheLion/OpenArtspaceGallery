@@ -58,6 +58,9 @@
   border-radius: 0.3rem;
 }
 /* Form valid field. Dont touch */
+.mixin-admin-panel-images-sizes-borders {
+  border: 0.1rem solid black;
+}
 .admin-panel-images-sizes-conteiner {
   display: flex;
   flex-direction: column;
@@ -73,20 +76,44 @@
   border-radius: 0.1rem;
   padding: 0.5rem;
 }
-table,
-th,
-td,
-tr {
+.admin-panel-images-sizes-table {
   border: 0.1rem solid black;
+  border-collapse: collapse;
 }
-th {
-  background: deepskyblue;
+.admin-panel-images-sizes-table-header {
+  border: 0.1rem solid black;
+  background: blue;
   color: white;
 }
+.admin-panel-images-sizes-table-row:nth-child(odd) {
+  border: 0.1rem solid black;
+  background: #0925d4;
+  color: white;
+}
+.admin-panel-images-sizes-table-row:nth-child(even) {
+  border: 0.1rem solid black;
+  background: #2d72d4;
+  color: white;
+}
+.admin-panel-images-sizes-table-cells {
+  border: 0.1rem solid black;
+}
+/*table, th, td, tr {
+  border:0.1rem solid black;
+}*/
+/*table {
+
+}*/
+/*th {
+  background: red;
+  color: white;
+}*/
+/*
 tr:nth-child(odd) {
-  background: blue;
+  background: yellow;
 }
+
 tr:nth-child(even) {
-  background: aqua;
-}
+  background: green;
+}*/
 /*# sourceMappingURL=adminPanelImagesSizes.css.map */
