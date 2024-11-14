@@ -35,6 +35,8 @@
         "imageSize": imageSizeId
       });
 
+      RefreshAlbumsList()
+
       return request
     }
 
@@ -42,9 +44,12 @@
     {
       return null;
     }
-
   }
 
+  async function RefreshAlbumsList()
+  {
+    imagesSizes.value = await GetImagesSizesList()
+  }
 
 </script>
 
