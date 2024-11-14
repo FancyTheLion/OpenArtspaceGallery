@@ -35,7 +35,7 @@
 
     if (currentAlbumId === undefined || currentAlbumId === null)
     {
-      // Showing root albums's children
+      // Showing root albums' children
       albumsList = (await (await WebClientSendGetRequest("/Albums/TopLevel")).json())
           .albums
           .map(DecodeAlbumDto)

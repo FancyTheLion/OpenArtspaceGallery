@@ -25,28 +25,12 @@
 
   async function DeleteImageSizeAsync(id: string)
   {
-    const image = imagesSizes.value.find(image => image.id === id);
+    await WebClientSendDeleteRequest("/ImagesSizes/" + id)
 
-    if (image)
-    {
-      const imageSizeId = image.id;
-
-      const request = await WebClientSendDeleteRequest("/ImagesSizes/" + imageSizeId, {
-        "imageSize": imageSizeId
-      });
-
-      RefreshAlbumsList()
-
-      return request
-    }
-
-    else
-    {
-      return null;
-    }
+    await RefreshImageSizesList()
   }
 
-  async function RefreshAlbumsList()
+  async function RefreshImageSizesList()
   {
     imagesSizes.value = await GetImagesSizesList()
   }
@@ -57,9 +41,7 @@
 
   <div class="admin-panel-images-sizes-conteiner">
 
-    <div class="admin-panel-images-sizes-header">
-      Images sizes
-    </div>
+    <div class="admin-panel-images-sizes-header">Images sizes</div>
 
     <table
     class="admin-panel-images-sizes-table">
@@ -84,17 +66,15 @@
           <td class="admin-panel-images-sizes-table-cells">{{ image.height }}</td>
           <td class="admin-panel-images-sizes-table-cells">
 
-          <div>
+            <div>
+              <img
+                class="admin-panel-images-sizes-close-button"
+                src="/public/images/icons/deleteImageSizeRow.webp"
+                alt="Delete image size"
+                @click="async () => await DeleteImageSizeAsync(image.id)"
+              />
 
-            Delete
-            <img
-              class="admin-panel-images-sizes-close-button"
-              src="/public/images/icons/deleteImageSizeRow.webp"
-              alt="Delete image size"
-              @click="DeleteImageSizeAsync(image.id)"
-            />
-
-          </div>
+            </div>
 
           </td>
 

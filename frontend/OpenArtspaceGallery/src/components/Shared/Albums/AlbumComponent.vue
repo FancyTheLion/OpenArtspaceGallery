@@ -54,12 +54,9 @@
 
   async function DeleteAlbumAsync()
   {
-    const request = await WebClientSendDeleteRequest("/Albums/"  + props.info.id,
-        {
-          "albumId": props.info.id
-        })
+    const response = await WebClientSendDeleteRequest("/Albums/"  + props.info.id)
 
-    if (!request.ok)
+    if (!response.ok)
     {
       alert("An error happened. Try again later.")
       return
@@ -70,14 +67,14 @@
 
   async function RenameAlbumAsync(newName: string)
   {
-    const request = await WebClientSendPostRequest("/Albums/" + props.info.id + "/Rename",
+    const response = await WebClientSendPostRequest("/Albums/" + props.info.id + "/Rename",
         {
             "renameAlbumInfo": {
               "newName": newName
             }
         })
 
-    if (!request.ok)
+    if (!response.ok)
     {
       alert("An error happened. Try again later.")
       return

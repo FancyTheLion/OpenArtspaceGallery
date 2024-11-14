@@ -80,7 +80,7 @@ public class ImagesSizesController : ControllerBase
         {
             return NotFound();
         }
-        
+
         await _imagesSizesService.DeleteImageSizeAsync(sizeId);
 
         return Ok();
