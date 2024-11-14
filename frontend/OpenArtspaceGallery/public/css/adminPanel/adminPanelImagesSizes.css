@@ -27,9 +27,9 @@
 }
 /* Mixin for indentation everywhere except the top */
 .mixin-padding-small-left-right-bottom {
-  padding-left: 0.4;
-  padding-right: 0.4;
-  padding-bottom: 0.4;
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+  padding-bottom: 0.4rem;
 }
 /* Centered item */
 .flex-vertically-and-horizontally-centered {
@@ -70,11 +70,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  font-weight: bold;
+  padding-bottom: 0.2rem;
 }
 .admin-panel-images-sizes-content {
   border: 0.1rem solid;
   border-radius: 0.1rem;
-  padding: 0.5rem;
+  padding: 0.4rem;
 }
 .admin-panel-images-sizes-table {
   border: 0.1rem solid black;
@@ -97,5 +99,12 @@
 }
 .admin-panel-images-sizes-table-cells {
   border: 0.1rem solid black;
+  padding: 0.4rem;
+}
+.admin-panel-images-sizes-close-button {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 1rem;
+  cursor: pointer;
 }
 /*# sourceMappingURL=adminPanelImagesSizes.css.map */

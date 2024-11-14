@@ -2,7 +2,7 @@
   import {PropType, ref} from "vue";
   import {Album} from "../../../ts/Albums/libAlbums.ts";
   import moment from "moment";
-  import {WebClientSendDeletRequest, WebClientSendPostRequest} from "../../../ts/libWebClient.ts";
+  import {WebClientSendDeleteRequest, WebClientSendPostRequest} from "../../../ts/libWebClient.ts";
   import PopupYesNo from "../Popups/PopupYesNo.vue";
   import PopupTextInput from "../Popups/PopupTextInput.vue";
 
@@ -54,7 +54,7 @@
 
   async function DeleteAlbumAsync()
   {
-    const request = await WebClientSendDeletRequest("/Albums/"  + props.info.id,
+    const request = await WebClientSendDeleteRequest("/Albums/"  + props.info.id,
         {
           "albumId": props.info.id
         })
@@ -127,11 +127,13 @@
         <img
             class="album-toolbar-rename-button"
             src="/images/icons/rename.webp"
+            alt="Rename album"
             @click="async () => await ShowAlbumRenameConfirmationAsync()" />
 
         <img
             class="album-toolbar-delete-button"
             src="/images/icons/delete.webp"
+            alt="Delete album"
             @click="async () => await ShowAlbumDeletionConfirmationAsync()" />
 
       </div>

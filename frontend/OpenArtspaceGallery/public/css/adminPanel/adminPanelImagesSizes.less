@@ -19,12 +19,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  font-weight: @font-boldness-bold;
+  padding-bottom: @padding-smaller;
 }
 
 .admin-panel-images-sizes-content {
   border: @border-radius-smaller solid;
   border-radius: @border-radius-smaller;
-  padding: @padding-normal;
+  padding: @padding-small;
 }
 
 .admin-panel-images-sizes-table {
@@ -52,4 +54,12 @@
 
 .admin-panel-images-sizes-table-cells {
   .mixin-admin-panel-images-sizes-borders();
+  padding:@padding-small;
+}
+
+.admin-panel-images-sizes-close-button {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 1rem;
+  cursor: pointer;
 }

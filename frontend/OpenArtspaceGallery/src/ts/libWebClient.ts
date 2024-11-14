@@ -29,7 +29,7 @@ async function WebClientSendPostRequest
     return response
 }
 
-async function WebClientSendDeletRequest
+async function WebClientSendDeleteRequest
 (
     relativeUrl: string,
     request: object
@@ -48,5 +48,5 @@ export
 {
     WebClientSendGetRequest,
     WebClientSendPostRequest,
-    WebClientSendDeletRequest
+    WebClientSendDeleteRequest
 }

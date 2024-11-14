@@ -38,11 +38,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  font-weight: bold;
+  padding-bottom: 0.2rem;
 }
 .admin-panel-images-sizes-content {
   border: 0.1rem solid;
   border-radius: 0.1rem;
-  padding: 0.5rem;
+  padding: 0.4rem;
 }
 .admin-panel-images-sizes-table {
   border: 0.1rem solid black;
@@ -65,6 +67,13 @@
 }
 .admin-panel-images-sizes-table-cells {
   border: 0.1rem solid black;
+  padding: 0.4rem;
+}
+.admin-panel-images-sizes-close-button {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 1rem;
+  cursor: pointer;
 }
 /* Album navigation panel */
 .albums-hierarchy-container {
@@ -113,9 +122,9 @@
 }
 /* Mixin for indentation everywhere except the top */
 .mixin-padding-small-left-right-bottom {
-  padding-left: 0.4;
-  padding-right: 0.4;
-  padding-bottom: 0.4;
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+  padding-bottom: 0.4rem;
 }
 /* Centered item */
 .flex-vertically-and-horizontally-centered {
@@ -276,9 +285,9 @@
   border: 0.3rem solid hsl(180, 97%, 50%);
   border-radius: 0.5rem;
   background-color: hsl(0, 0%, 100%);
-  padding-left: 0.4;
-  padding-right: 0.4;
-  padding-bottom: 0.4;
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+  padding-bottom: 0.4rem;
 }
 /* Colors */
 /* Main Container */
@@ -292,9 +301,9 @@
   border: 0.3rem solid hsla(52, 81%, 48%, 0.5);
   border-radius: 0.5rem;
   background-color: hsl(0, 0%, 100%);
-  padding-left: 0.4;
-  padding-right: 0.4;
-  padding-bottom: 0.4;
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+  padding-bottom: 0.4rem;
 }
 /* Extends the input field to the end of the container */
 .popup-input {
