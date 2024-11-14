@@ -64,7 +64,7 @@
 .admin-panel-images-sizes-conteiner {
   display: flex;
   flex-direction: column;
-  padding: 0.5rem;
+  padding: 0.5rem 1rem 1rem;
 }
 .admin-panel-images-sizes-header {
   display: flex;
@@ -83,37 +83,19 @@
 .admin-panel-images-sizes-table-header {
   border: 0.1rem solid black;
   background: blue;
-  color: white;
+  color: hsl(0, 0%, 100%);
 }
 .admin-panel-images-sizes-table-row:nth-child(odd) {
   border: 0.1rem solid black;
-  background: #0925d4;
-  color: white;
+  background: hsl(231, 91.9%, 43.3%);
+  color: hsl(0, 0%, 100%);
 }
 .admin-panel-images-sizes-table-row:nth-child(even) {
   border: 0.1rem solid black;
-  background: #2d72d4;
-  color: white;
+  background: hsl(215, 66%, 50%);
+  color: hsl(0, 0%, 100%);
 }
 .admin-panel-images-sizes-table-cells {
   border: 0.1rem solid black;
 }
-/*table, th, td, tr {
-  border:0.1rem solid black;
-}*/
-/*table {
-
-}*/
-/*th {
-  background: red;
-  color: white;
-}*/
-/*
-tr:nth-child(odd) {
-  background: yellow;
-}
-
-tr:nth-child(even) {
-  background: green;
-}*/
 /*# sourceMappingURL=adminPanelImagesSizes.css.map */

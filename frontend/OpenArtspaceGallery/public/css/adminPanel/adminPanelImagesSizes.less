@@ -1,13 +1,18 @@
 @import "../shared/common.less";
 
+@admin-panel-images-sizes-table-color-borders: black;
+@admin-panel-images-sizes-table-color-background: blue;
+@admin-panel-images-sizes-table-color-background-odd: hsl(231, 91.9%, 43.3%);
+@admin-panel-images-sizes-table-color-background-even: hsl(215, 66%, 50%);
+
 .mixin-admin-panel-images-sizes-borders {
-  border:0.1rem solid black;
+  border:@border-radius-smaller @border-type-common-solid @admin-panel-images-sizes-table-color-borders;
 }
 
 .admin-panel-images-sizes-conteiner {
   display: flex;
   flex-direction: column;
-  padding: @padding-normal;
+  padding: @padding-normal @paddding-medium @paddding-medium;
 }
 
 .admin-panel-images-sizes-header {
@@ -18,7 +23,7 @@
 
 .admin-panel-images-sizes-content {
   border: @border-radius-smaller solid;
-  border-radius: 0.1rem;
+  border-radius: @border-radius-smaller;
   padding: @padding-normal;
 }
 
@@ -29,44 +34,22 @@
 
 .admin-panel-images-sizes-table-header {
   .mixin-admin-panel-images-sizes-borders();
-  background: blue;
-  color: white;
+  background: @admin-panel-images-sizes-table-color-background;
+  color: @color-text;
 }
 
 .admin-panel-images-sizes-table-row:nth-child(odd) {
   .mixin-admin-panel-images-sizes-borders();
-  background: #0925d4;
-  color: white;
+  background: @admin-panel-images-sizes-table-color-background-odd;
+  color: @color-text;
 }
 
 .admin-panel-images-sizes-table-row:nth-child(even) {
   .mixin-admin-panel-images-sizes-borders();
-  background: #2d72d4;
-  color: white;
+  background: @admin-panel-images-sizes-table-color-background-even;
+  color: @color-text;
 }
 
 .admin-panel-images-sizes-table-cells {
   .mixin-admin-panel-images-sizes-borders();
 }
-
-/*table, th, td, tr {
-  border:0.1rem solid black;
-}*/
-
-/*table {
-
-}*/
-
-/*th {
-  background: red;
-  color: white;
-}*/
-
-/*
-tr:nth-child(odd) {
-  background: yellow;
-}
-
-tr:nth-child(even) {
-  background: green;
-}*/
