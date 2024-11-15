@@ -4,8 +4,14 @@
 
 <template>
   <div class="header-container">
-    Open ArtSpace Gallery
+
+    <a href="/" class="header-container-link" title="Back to home page">
+      Open ArtSpace Gallery
+
+    </a>
+
   </div>
 
   <AdminPanelComponent />
+
 </template>

@@ -18,6 +18,7 @@
 /* End borders */
 /* Gaps */
 /* End gaps */
+/* Images */
 /* Mixins */
 /* Centered flex (vertically and horizontally) */
 .mixin-flex-vertically-and-horizontally-centered {
@@ -63,5 +64,26 @@
   border-bottom-style: solid;
   margin-bottom: 0.2rem;
   padding-bottom: 0.2rem;
+}
+/* Container with header */
+.header-container-link {
+  border-bottom-style: solid;
+  margin-bottom: 0.2rem;
+  padding-bottom: 0.2rem;
+  color: hsl(240, 100%, 50%);
+}
+/* Container with header */
+.header-container-link:visited {
+  border-bottom-style: solid;
+  margin-bottom: 0.2rem;
+  padding-bottom: 0.2rem;
+  color: hsl(240, 100%, 50%);
+}
+/* Container with header */
+.header-container-link:active {
+  border-bottom-style: solid;
+  margin-bottom: 0.2rem;
+  padding-bottom: 0.2rem;
+  color: hsl(240, 100%, 50%);
 }
 /*# sourceMappingURL=header.css.map */

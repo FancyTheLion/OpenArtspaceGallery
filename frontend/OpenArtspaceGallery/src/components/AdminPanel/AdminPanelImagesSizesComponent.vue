@@ -41,7 +41,7 @@
 
   <div class="admin-panel-images-sizes-conteiner">
 
-    <div class="admin-panel-images-sizes-header">Images sizes</div>
+    <div class="admin-panel-images-sizes-header">Sizes</div>
 
     <table
     class="admin-panel-images-sizes-table">
@@ -64,12 +64,12 @@
           <td class="admin-panel-images-sizes-table-cells">{{ image.name }}</td>
           <td class="admin-panel-images-sizes-table-cells">{{ image.width }}</td>
           <td class="admin-panel-images-sizes-table-cells">{{ image.height }}</td>
-          <td class="admin-panel-images-sizes-table-cells">
+          <td class="admin-panel-images-sizes-table-actions-cells">
 
             <div>
               <img
                 class="admin-panel-images-sizes-close-button"
-                src="/public/images/icons/deleteImageSizeRow.webp"
+                src="/public/images/icons/delete.webp"
                 alt="Delete image size"
                 @click="async () => await DeleteImageSizeAsync(image.id)"
               />

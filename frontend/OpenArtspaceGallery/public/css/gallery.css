@@ -27,7 +27,8 @@
   width: 100%;
 }
 .mixin-admin-panel-images-sizes-borders {
-  border: 0.1rem solid black;
+  border: 0.1rem solid hsl(0, 0%, 0%);
+  padding: 0.4rem;
 }
 .admin-panel-images-sizes-conteiner {
   display: flex;
@@ -39,6 +40,7 @@
   justify-content: center;
   align-items: center;
   font-weight: bold;
+  font-size: 1.3rem;
   padding-bottom: 0.2rem;
 }
 .admin-panel-images-sizes-content {
@@ -47,32 +49,41 @@
   padding: 0.4rem;
 }
 .admin-panel-images-sizes-table {
-  border: 0.1rem solid black;
+  border: 0.1rem solid hsl(0, 0%, 0%);
+  padding: 0.4rem;
   border-collapse: collapse;
 }
 .admin-panel-images-sizes-table-header {
-  border: 0.1rem solid black;
-  background: blue;
+  border: 0.1rem solid hsl(0, 0%, 0%);
+  padding: 0.4rem;
+  background: hsl(240, 100%, 50%);
   color: hsl(0, 0%, 100%);
 }
 .admin-panel-images-sizes-table-row:nth-child(odd) {
-  border: 0.1rem solid black;
+  border: 0.1rem solid hsl(0, 0%, 0%);
+  padding: 0.4rem;
   background: hsl(231, 91.9%, 43.3%);
   color: hsl(0, 0%, 100%);
 }
 .admin-panel-images-sizes-table-row:nth-child(even) {
-  border: 0.1rem solid black;
+  border: 0.1rem solid hsl(0, 0%, 0%);
+  padding: 0.4rem;
   background: hsl(215, 66%, 50%);
   color: hsl(0, 0%, 100%);
 }
 .admin-panel-images-sizes-table-cells {
-  border: 0.1rem solid black;
+  border: 0.1rem solid hsl(0, 0%, 0%);
   padding: 0.4rem;
+}
+.admin-panel-images-sizes-table-actions-cells {
+  padding: 0.4rem 1rem 0.1rem;
+  position: absolute;
+  right: 1rem;
 }
 .admin-panel-images-sizes-close-button {
   width: 1.5rem;
   height: 1.5rem;
-  border-radius: 1rem;
+  border-radius: 1.5rem;
   cursor: pointer;
 }
 /* Album navigation panel */
@@ -113,6 +124,7 @@
 /* End borders */
 /* Gaps */
 /* End gaps */
+/* Images */
 /* Mixins */
 /* Centered flex (vertically and horizontally) */
 .mixin-flex-vertically-and-horizontally-centered {
@@ -214,6 +226,27 @@
   border-bottom-style: solid;
   margin-bottom: 0.2rem;
   padding-bottom: 0.2rem;
+}
+/* Container with header */
+.header-container-link {
+  border-bottom-style: solid;
+  margin-bottom: 0.2rem;
+  padding-bottom: 0.2rem;
+  color: hsl(240, 100%, 50%);
+}
+/* Container with header */
+.header-container-link:visited {
+  border-bottom-style: solid;
+  margin-bottom: 0.2rem;
+  padding-bottom: 0.2rem;
+  color: hsl(240, 100%, 50%);
+}
+/* Container with header */
+.header-container-link:active {
+  border-bottom-style: solid;
+  margin-bottom: 0.2rem;
+  padding-bottom: 0.2rem;
+  color: hsl(240, 100%, 50%);
 }
 /* Header menu */
 .header-menu-container {
