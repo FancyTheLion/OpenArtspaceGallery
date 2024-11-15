@@ -7,7 +7,7 @@
   <div class="header-menu-container">
 
     <div>
-      <a href="/adminPanel" title="Admin panel">
+      <a class="link" href="/adminPanel" title="Admin panel">
         Admin panel
       </a>
     </div>

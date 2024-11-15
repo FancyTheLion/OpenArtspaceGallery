@@ -21,11 +21,18 @@
       return DecodeImagesSizesResponse((await (await WebClientSendGetRequest("/ImagesSizes/GetImagesSizesList")).json()))
         .imagesSizes
         .map(DecodeImageSizeDto)
+        .sort((a: ImageSize, b: ImageSize) => a.name.localeCompare(b.name))
   }
 
   async function DeleteImageSizeAsync(id: string)
   {
-    await WebClientSendDeleteRequest("/ImagesSizes/" + id)
+    const response = await WebClientSendDeleteRequest("/ImagesSizes/" + id)
+
+    if (!response.ok)
+    {
+      alert("An error happened. Try again later.")
+      return
+    }
 
     await RefreshImageSizesList()
   }

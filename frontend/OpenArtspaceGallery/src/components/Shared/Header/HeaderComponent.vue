@@ -5,7 +5,7 @@
 <template>
   <div class="header-container">
 
-    <a href="/" class="header-container-link" title="Back to home page">
+    <a href="/" class="link" title="Back to home page">
       Open ArtSpace Gallery
 
     </a>
