@@ -30,7 +30,7 @@
     isButtonsToolbarVisible.value = false
   }
 
-  async function ShowAlbumDeletionConfirmationAsync()
+  async function ShowAlbumDeleteConfirmationAsync()
   {
     if (deleteAlbumPopupRef.value === undefined)
     {
@@ -125,13 +125,15 @@
             class="album-toolbar-rename-button"
             src="/images/icons/rename.webp"
             alt="Rename album"
+            title="Rename album"
             @click="async () => await ShowAlbumRenameConfirmationAsync()" />
 
         <img
             class="album-toolbar-delete-button"
             src="/images/icons/delete.webp"
             alt="Delete album"
-            @click="async () => await ShowAlbumDeletionConfirmationAsync()" />
+            title="Delete album"
+            @click="async () => await ShowAlbumDeleteConfirmationAsync()" />
 
       </div>
 

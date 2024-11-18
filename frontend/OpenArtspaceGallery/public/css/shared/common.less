@@ -3,15 +3,20 @@
 /* Text colors */
 @color-text-not-important: hsl(0, 0%, 56%);
 @color-text-not-important-hovered-link: hsl(219, 39%, 59%);
-@color-text: hsl(0, 0%, 100%);
+@color-text-inverted: hsl(0, 0%, 100%);
 @alert-color: hsl(0, 75%, 47%);
 @standart-backgraund-color: hsl(0, 0%, 100%);
 
+/* Link colors */
 @color-link-hover-visited: hsl(240, 100%, 50%);
 @color-link-hover: hsl(240, 100%, 50%);
 @color-link-hover-active: hsl(240, 100%, 50%);
 
-
+/* Table colors */
+@table-color-borders: hsl(179, 0%, 0%);
+@table-header-color: hsl(240, 100%, 50%);
+@table-color-background-odd: hsl(231, 91.9%, 43.3%);
+@table-color-background-even: hsl(215, 66%, 50%);
 
 /* Text size */
 @text-size-smallest: 0.9rem;
@@ -48,7 +53,7 @@
 @padding-smaller: 0.2rem;
 @padding-small: 0.4rem;
 @padding-normal: 0.5rem;
-@paddding-medium: 1rem;
+@padding-medium: 1rem;
 
 /* End paddings */
 
@@ -97,6 +102,11 @@
   padding-left: @padding-small;
   padding-right: @padding-small;
   padding-bottom: @padding-small;
+}
+
+.mixin-table-borders {
+  border: @border-radius-smaller @border-type-common-solid @table-color-borders;
+  padding: @padding-small;
 }
 
 /* Centered item */
@@ -159,4 +169,53 @@
 /* Form valid field. Dont touch */
 .form-valid-field {
 
+}
+
+.table-name-header {
+  text-align: center;
+  font-weight: @font-boldness-bold;
+  font-size: @header-text-size;
+  padding-bottom: @padding-smaller;
+}
+
+.table {
+  .mixin-table-borders();
+  border-collapse: collapse;
+}
+
+.table-cells-header {
+  .mixin-table-borders();
+  background: @table-header-color;
+  color: @color-text-inverted;
+}
+
+.table-row:nth-child(odd) {
+  .mixin-table-borders();
+  background: @table-color-background-odd;
+  color: @color-text-inverted;
+}
+
+.table-row:nth-child(even) {
+  .mixin-table-borders();
+  background: @table-color-background-even;
+  color: @color-text-inverted;
+}
+
+.table-cells {
+  .mixin-table-borders();
+}
+
+.table-actions-cells {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  padding: @padding-small @padding-medium @padding-small;
+}
+
+.table-close-button {
+  width: @image-size-normal;
+  height: @image-size-normal;
+  border-radius: @image-size-normal;
+  cursor: pointer;
 }

@@ -1,73 +1,13 @@
 @import "../shared/common.less";
 
-@admin-panel-images-sizes-table-color-borders: hsl(179, 0%, 0%);
-@admin-panel-images-sizes-table-header-color: hsl(240, 100%, 50%);
-@admin-panel-images-sizes-table-color-background-odd: hsl(231, 91.9%, 43.3%);
-@admin-panel-images-sizes-table-color-background-even: hsl(215, 66%, 50%);
-
-
-.mixin-admin-panel-images-sizes-borders {
-  border: @border-radius-smaller @border-type-common-solid @admin-panel-images-sizes-table-color-borders;
-  padding: @padding-small;
-}
-
-.admin-panel-images-sizes-conteiner {
+.admin-panel-images-sizes-container {
   display: flex;
   flex-direction: column;
-  padding: @padding-normal @paddding-medium @paddding-medium;
-}
-
-.admin-panel-images-sizes-header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: @font-boldness-bold;
-  font-size: @header-text-size;
-  padding-bottom: @padding-smaller;
+  padding: @padding-normal @padding-medium @padding-medium;
 }
 
 .admin-panel-images-sizes-content {
   border: @border-radius-smaller solid;
   border-radius: @border-radius-smaller;
   padding: @padding-small;
-}
-
-.admin-panel-images-sizes-table {
-  .mixin-admin-panel-images-sizes-borders();
-  border-collapse: collapse;
-}
-
-.admin-panel-images-sizes-table-header {
-  .mixin-admin-panel-images-sizes-borders();
-  background: @admin-panel-images-sizes-table-header-color;
-  color: @color-text;
-}
-
-.admin-panel-images-sizes-table-row:nth-child(odd) {
-  .mixin-admin-panel-images-sizes-borders();
-  background: @admin-panel-images-sizes-table-color-background-odd;
-  color: @color-text;
-}
-
-.admin-panel-images-sizes-table-row:nth-child(even) {
-  .mixin-admin-panel-images-sizes-borders();
-  background: @admin-panel-images-sizes-table-color-background-even;
-  color: @color-text;
-}
-
-.admin-panel-images-sizes-table-cells {
-  .mixin-admin-panel-images-sizes-borders();
-}
-
-.admin-panel-images-sizes-table-actions-cells {
-  padding: @padding-small @paddding-medium @padding-micro;
-  position: absolute;
-  right: 1rem;
-}
-
-.admin-panel-images-sizes-close-button {
-  width: @image-size-normal;
-  height: @image-size-normal;
-  border-radius: @image-size-normal;
-  cursor: pointer;
 }

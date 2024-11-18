@@ -26,65 +26,15 @@
   gap: 0.1rem;
   width: 100%;
 }
-.mixin-admin-panel-images-sizes-borders {
-  border: 0.1rem solid hsl(0, 0%, 0%);
-  padding: 0.4rem;
-}
-.admin-panel-images-sizes-conteiner {
+.admin-panel-images-sizes-container {
   display: flex;
   flex-direction: column;
   padding: 0.5rem 1rem 1rem;
-}
-.admin-panel-images-sizes-header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: bold;
-  font-size: 1.3rem;
-  padding-bottom: 0.2rem;
 }
 .admin-panel-images-sizes-content {
   border: 0.1rem solid;
   border-radius: 0.1rem;
   padding: 0.4rem;
-}
-.admin-panel-images-sizes-table {
-  border: 0.1rem solid hsl(0, 0%, 0%);
-  padding: 0.4rem;
-  border-collapse: collapse;
-}
-.admin-panel-images-sizes-table-header {
-  border: 0.1rem solid hsl(0, 0%, 0%);
-  padding: 0.4rem;
-  background: hsl(240, 100%, 50%);
-  color: hsl(0, 0%, 100%);
-}
-.admin-panel-images-sizes-table-row:nth-child(odd) {
-  border: 0.1rem solid hsl(0, 0%, 0%);
-  padding: 0.4rem;
-  background: hsl(231, 91.9%, 43.3%);
-  color: hsl(0, 0%, 100%);
-}
-.admin-panel-images-sizes-table-row:nth-child(even) {
-  border: 0.1rem solid hsl(0, 0%, 0%);
-  padding: 0.4rem;
-  background: hsl(215, 66%, 50%);
-  color: hsl(0, 0%, 100%);
-}
-.admin-panel-images-sizes-table-cells {
-  border: 0.1rem solid hsl(0, 0%, 0%);
-  padding: 0.4rem;
-}
-.admin-panel-images-sizes-table-actions-cells {
-  padding: 0.4rem 1rem 0.1rem;
-  position: absolute;
-  right: 1rem;
-}
-.admin-panel-images-sizes-close-button {
-  width: 1.5rem;
-  height: 1.5rem;
-  border-radius: 1.5rem;
-  cursor: pointer;
 }
 /* Album navigation panel */
 .albums-hierarchy-container {
@@ -106,6 +56,8 @@
 }
 /* Colors */
 /* Text colors */
+/* Link colors */
+/* Table colors */
 /* Text size */
 /* Text boldness */
 /* Margins */
@@ -137,6 +89,10 @@
   padding-left: 0.4rem;
   padding-right: 0.4rem;
   padding-bottom: 0.4rem;
+}
+.mixin-table-borders {
+  border: 0.1rem solid hsl(0, 0%, 0%);
+  padding: 0.4rem;
 }
 /* Centered item */
 .flex-vertically-and-horizontally-centered {
@@ -183,6 +139,51 @@
   border-radius: 0.3rem;
 }
 /* Form valid field. Dont touch */
+.table-name-header {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.3rem;
+  padding-bottom: 0.2rem;
+}
+.table {
+  border: 0.1rem solid hsl(0, 0%, 0%);
+  padding: 0.4rem;
+  border-collapse: collapse;
+}
+.table-cells-header {
+  border: 0.1rem solid hsl(0, 0%, 0%);
+  padding: 0.4rem;
+  background: hsl(240, 100%, 50%);
+  color: hsl(0, 0%, 100%);
+}
+.table-row:nth-child(odd) {
+  border: 0.1rem solid hsl(0, 0%, 0%);
+  padding: 0.4rem;
+  background: hsl(231, 91.9%, 43.3%);
+  color: hsl(0, 0%, 100%);
+}
+.table-row:nth-child(even) {
+  border: 0.1rem solid hsl(0, 0%, 0%);
+  padding: 0.4rem;
+  background: hsl(215, 66%, 50%);
+  color: hsl(0, 0%, 100%);
+}
+.table-cells {
+  border: 0.1rem solid hsl(0, 0%, 0%);
+  padding: 0.4rem;
+}
+.table-actions-cells {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 0.4rem 1rem 0.4rem;
+}
+.table-close-button {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 1.5rem;
+  cursor: pointer;
+}
 /* Colors */
 .mixin-button-base {
   background-color: deepskyblue;

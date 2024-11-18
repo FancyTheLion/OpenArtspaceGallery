@@ -18,7 +18,7 @@
 
   async function OnLoad()
   {
-    imagesSizes.value = await GetImagesSizesList()
+    await RefreshImageSizesList()
   }
 
   async function GetImagesSizesList()
@@ -33,13 +33,13 @@
   {
     const response = await WebClientSendDeleteRequest("/ImagesSizes/" + imageSizeToDelete.value)
 
+    await RefreshImageSizesList()
+
     if (!response.ok)
     {
       alert("An error happened. Try again later.")
       return
     }
-
-    await RefreshImageSizesList()
   }
 
   async function RefreshImageSizesList()
@@ -47,7 +47,7 @@
     imagesSizes.value = await GetImagesSizesList()
   }
 
-  async function ShowImageSizeDeletionConfirmationAsync(id: string)
+  async function ShowImageSizeDeleteConfirmationAsync(id: string)
   {
     imageSizeToDelete.value = id;
 
@@ -58,19 +58,19 @@
 
 <template>
 
-  <div class="admin-panel-images-sizes-conteiner">
+  <div class="admin-panel-images-sizes-container">
 
-    <div class="admin-panel-images-sizes-header">Sizes</div>
+    <div class="table-name-header">Sizes</div>
 
     <table
-    class="admin-panel-images-sizes-table">
+      class="table">
 
       <thead>
         <tr>
-          <th class="admin-panel-images-sizes-table-header">Size name</th>
-          <th class="admin-panel-images-sizes-table-header">Width</th>
-          <th class="admin-panel-images-sizes-table-header">Height</th>
-          <th class="admin-panel-images-sizes-table-header">Actions</th>
+          <th class="table-cells-header">Size name</th>
+          <th class="table-cells-header">Width</th>
+          <th class="table-cells-header">Height</th>
+          <th class="table-cells-header">Actions</th>
         </tr>
       </thead>
 
@@ -79,22 +79,20 @@
         <tr
           v-for="(image) in imagesSizes"
           :key="image.id"
-          class="admin-panel-images-sizes-table-row">
+          class="table-row">
 
-          <td class="admin-panel-images-sizes-table-cells">{{ image.name }}</td>
-          <td class="admin-panel-images-sizes-table-cells">{{ image.width }}</td>
-          <td class="admin-panel-images-sizes-table-cells">{{ image.height }}</td>
-          <td class="admin-panel-images-sizes-table-actions-cells">
+          <td class="table-cells">{{ image.name }}</td>
+          <td class="table-cells">{{ image.width }}</td>
+          <td class="table-cells">{{ image.height }}</td>
+          <td class="table-actions-cells">
 
-            <div>
-              <img
-                class="admin-panel-images-sizes-close-button"
-                src="/public/images/icons/delete.webp"
-                alt="Delete image size"
-                @click="async () => await ShowImageSizeDeletionConfirmationAsync(image.id)"
-              />
-
-            </div>
+            <img
+              class="table-close-button"
+              src="/public/images/icons/delete.webp"
+              alt="Delete image size"
+              title="Delete image size"
+              @click="async () => await ShowImageSizeDeleteConfirmationAsync(image.id)"
+            />
 
           </td>
 
