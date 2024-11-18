@@ -3,8 +3,13 @@
   import {onMounted, ref} from "vue";
   import {DecodeImageSizeDto, DecodeImagesSizesResponse, ImageSize} from "../../ts/imagesSizes/libImagesSizes.ts";
   import {WebClientSendDeleteRequest, WebClientSendGetRequest} from "../../ts/libWebClient.ts";
+  import PopupYesNo from "../Shared/Popups/PopupYesNo.vue";
 
   const imagesSizes = ref<ImageSize[]>([])
+
+  const deleteImageSizePopupRef = ref<InstanceType<typeof PopupYesNo>>()
+
+  const imageSizeToDelete = ref<string>("")
 
   onMounted(async () =>
   {
@@ -24,9 +29,9 @@
         .sort((a: ImageSize, b: ImageSize) => a.name.localeCompare(b.name))
   }
 
-  async function DeleteImageSizeAsync(id: string)
+  async function DeleteImageSizeAsync()
   {
-    const response = await WebClientSendDeleteRequest("/ImagesSizes/" + id)
+    const response = await WebClientSendDeleteRequest("/ImagesSizes/" + imageSizeToDelete.value)
 
     if (!response.ok)
     {
@@ -40,6 +45,13 @@
   async function RefreshImageSizesList()
   {
     imagesSizes.value = await GetImagesSizesList()
+  }
+
+  async function ShowImageSizeDeletionConfirmationAsync(id: string)
+  {
+    imageSizeToDelete.value = id;
+
+    await deleteImageSizePopupRef.value!.Show()
   }
 
 </script>
@@ -63,6 +75,7 @@
       </thead>
 
       <tbody>
+
         <tr
           v-for="(image) in imagesSizes"
           :key="image.id"
@@ -78,7 +91,7 @@
                 class="admin-panel-images-sizes-close-button"
                 src="/public/images/icons/delete.webp"
                 alt="Delete image size"
-                @click="async () => await DeleteImageSizeAsync(image.id)"
+                @click="async () => await ShowImageSizeDeletionConfirmationAsync(image.id)"
               />
 
             </div>
@@ -86,9 +99,16 @@
           </td>
 
         </tr>
+
       </tbody>
 
     </table>
+
+    <PopupYesNo
+        title="Confirmation"
+        text="Are you sure you want to delete the image size?"
+        ref="deleteImageSizePopupRef"
+        @yes="async () => await DeleteImageSizeAsync()" />
 
   </div>
 

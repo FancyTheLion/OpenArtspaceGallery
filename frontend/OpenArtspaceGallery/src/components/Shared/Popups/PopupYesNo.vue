@@ -31,6 +31,8 @@
 
   async function OnYes()
   {
+    await HidePopup()
+
     emit("yes")
   }
 
