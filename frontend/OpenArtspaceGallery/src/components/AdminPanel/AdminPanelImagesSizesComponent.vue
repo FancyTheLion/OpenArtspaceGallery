@@ -54,6 +54,11 @@
     await deleteImageSizePopupRef.value!.Show()
   }
 
+  async function OpenInputForm()
+  {
+
+  }
+
 </script>
 
 <template>
@@ -61,6 +66,12 @@
   <div class="admin-panel-images-sizes-container">
 
     <div class="table-name-header">Sizes</div>
+
+    <div class="pseudo-link">
+
+      I'm Iron Man
+
+    </div>
 
     <table
       class="table">
@@ -101,6 +112,12 @@
       </tbody>
 
     </table>
+
+    <div class="pseudo-link">
+
+      I'm Iron Man
+
+    </div>
 
     <PopupYesNo
         title="Confirmation"

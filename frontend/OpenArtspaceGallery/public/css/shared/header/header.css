@@ -77,6 +77,9 @@
   color: hsl(219, 39%, 59%);
   font-size: 0.9rem;
 }
+.pseudo-link {
+  color: hsl(240, 100%, 50%);
+}
 /* Form invalid field */
 .form-invalid-field {
   border: hsl(0, 75%, 47%) solid 0.2rem;

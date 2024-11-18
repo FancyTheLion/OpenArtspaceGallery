@@ -36,6 +36,9 @@
   border-radius: 0.1rem;
   padding: 0.4rem;
 }
+/*
+@import "/public/css/shared/common.less";
+*/
 /* Album navigation panel */
 .albums-hierarchy-container {
   padding-bottom: 0.2rem;
@@ -132,6 +135,9 @@
 .link-not-important:hover {
   color: hsl(219, 39%, 59%);
   font-size: 0.9rem;
+}
+.pseudo-link {
+  color: hsl(240, 100%, 50%);
 }
 /* Form invalid field */
 .form-invalid-field {
