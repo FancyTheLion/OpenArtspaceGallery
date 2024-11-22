@@ -35,7 +35,7 @@ import { reactive, ref} from "vue";
   {
     await HidePopup()
 
-    emit("cancel")
+    emit("ok")
   }
 
   async function OnCancel()
@@ -61,7 +61,7 @@ import { reactive, ref} from "vue";
 
   <div v-if="isDisplayed">
 
-    <div class="popup-lower-layer"></div>
+    <div class="popup-lower-layer"/>
 
     <div class="popup-upper-layer">
 
@@ -101,8 +101,6 @@ import { reactive, ref} from "vue";
             </button>
 
           </div>
-
-
 
         </div>
 

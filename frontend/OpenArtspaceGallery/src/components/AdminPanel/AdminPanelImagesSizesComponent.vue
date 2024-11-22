@@ -2,14 +2,22 @@
 
   import {onMounted, ref} from "vue";
   import {DecodeImageSizeDto, DecodeImagesSizesResponse, ImageSize} from "../../ts/imagesSizes/libImagesSizes.ts";
-  import {WebClientSendDeleteRequest, WebClientSendGetRequest} from "../../ts/libWebClient.ts";
+  import {
+    WebClientSendDeleteRequest,
+    WebClientSendGetRequest,
+  } from "../../ts/libWebClient.ts";
   import PopupYesNo from "../Shared/Popups/PopupYesNo.vue";
+  import PopupInputImageSize from "./Popups/PopupInputImageSize.vue";
 
   const imagesSizes = ref<ImageSize[]>([])
 
   const deleteImageSizePopupRef = ref<InstanceType<typeof PopupYesNo>>()
 
+  const addImageSizePopupRef = ref<InstanceType<typeof PopupInputImageSize>>()
+
   const imageSizeToDelete = ref<string>("")
+
+  const emit = defineEmits(["newImageSizeCreated"])
 
   onMounted(async () =>
   {
@@ -42,6 +50,13 @@
     }
   }
 
+  /*async function CreateImageSizeAsync()
+  {
+    alert("Hi")
+
+    emit("newImageSizeCreated")
+  }*/
+
   async function RefreshImageSizesList()
   {
     imagesSizes.value = await GetImagesSizesList()
@@ -54,9 +69,9 @@
     await deleteImageSizePopupRef.value!.Show()
   }
 
-  async function OpenInputForm()
+  async function OpenInputFormAsync()
   {
-
+    await addImageSizePopupRef.value!.Show()
   }
 
 </script>
@@ -67,9 +82,10 @@
 
     <div class="table-name-header">Sizes</div>
 
-    <div class="pseudo-link">
+    <div class="pseudo-link"
+         @click="async () => await OpenInputFormAsync()">
 
-      I'm Iron Man
+      Add new image size
 
     </div>
 
@@ -113,9 +129,10 @@
 
     </table>
 
-    <div class="pseudo-link">
+    <div class="pseudo-link"
+      @click="async () => await OpenInputFormAsync()">
 
-      I'm Iron Man
+      Add new image size
 
     </div>
 
@@ -124,6 +141,9 @@
         text="Are you sure you want to delete the image size?"
         ref="deleteImageSizePopupRef"
         @yes="async () => await DeleteImageSizeAsync()" />
+
+    <PopupInputImageSize
+        ref="addImageSizePopupRef" />
 
   </div>
 

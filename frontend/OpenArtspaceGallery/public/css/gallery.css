@@ -36,9 +36,6 @@
   border-radius: 0.1rem;
   padding: 0.4rem;
 }
-/*
-@import "/public/css/shared/common.less";
-*/
 /* Album navigation panel */
 .albums-hierarchy-container {
   padding-bottom: 0.2rem;
