@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-  import {ref} from "vue";
+import {reactive, ref} from "vue";
 
   defineExpose({
     Show: ShowPopup
@@ -8,13 +8,19 @@
 
   const isDisplayed = ref<boolean>(false)
 
+  const newImageSizeFormData = reactive({
+    name: "",
+    width: 0,
+    height: 0
+  })
+
   const emit = defineEmits([ "cancel", "ok" ])
 
   async function OnOk()
   {
     await HidePopup()
 
-    emit("ok")
+    emit("ok", newImageSizeFormData)
   }
 
   async function OnCancel()
@@ -54,15 +60,18 @@
 
           Size name
           <input
-                class="popup-input">
+            class="popup-input"
+            v-model="newImageSizeFormData.name">
 
           Width
           <input
-              class="popup-input">
+            class="popup-input"
+            v-model="newImageSizeFormData.width">
 
           Height
           <input
-              class="popup-input">
+            class="popup-input"
+            v-model="newImageSizeFormData.height">
 
           <div class="popup-button-separation-container">
 

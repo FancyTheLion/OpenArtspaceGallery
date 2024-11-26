@@ -1,11 +1,14 @@
 <script setup lang="ts">
-
-  import {onMounted, ref} from "vue";
-  import {DecodeImageSizeDto, DecodeImagesSizesResponse, ImageSize} from "../../ts/imagesSizes/libImagesSizes.ts";
-  import {
-    WebClientSendDeleteRequest,
-    WebClientSendGetRequest,
-  } from "../../ts/libWebClient.ts";
+import {onMounted, ref} from "vue";
+import {
+  DecodeImageSizeDto,
+  DecodeImagesSizesResponse,
+  ImageSize, NewImageSize
+} from "../../ts/imagesSizes/libImagesSizes.ts";
+import {
+  WebClientSendDeleteRequest,
+  WebClientSendGetRequest, WebClientSendPostRequest,
+} from "../../ts/libWebClient.ts";
   import PopupYesNo from "../Shared/Popups/PopupYesNo.vue";
   import PopupInputImageSize from "./Popups/PopupInputImageSize.vue";
 
@@ -16,8 +19,6 @@
   const addImageSizePopupRef = ref<InstanceType<typeof PopupInputImageSize>>()
 
   const imageSizeToDelete = ref<string>("")
-
-  const emit = defineEmits(["newImageSizeCreated"])
 
   onMounted(async () =>
   {
@@ -50,12 +51,17 @@
     }
   }
 
-  /*async function CreateImageSizeAsync()
+  async function CreateImageSizeAsync(newImageSize: NewImageSize)
   {
-    alert("Hi")
-
-    emit("newImageSizeCreated")
-  }*/
+    await WebClientSendPostRequest("/ImagesSizes/AddImageSize",
+        {
+          "imageSize": {
+            "name": newImageSize.name,
+            "width": newImageSize.width,
+            "height": newImageSize.height
+          }
+        })
+  }
 
   async function RefreshImageSizesList()
   {
@@ -143,7 +149,8 @@
         @yes="async () => await DeleteImageSizeAsync()" />
 
     <PopupInputImageSize
-        ref="addImageSizePopupRef" />
+        ref="addImageSizePopupRef"
+        @ok="async (nIS) => await CreateImageSizeAsync(nIS)"/>
 
   </div>
 

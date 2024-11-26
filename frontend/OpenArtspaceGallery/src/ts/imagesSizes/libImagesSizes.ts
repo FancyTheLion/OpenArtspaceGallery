@@ -46,3 +46,11 @@ export function DecodeImagesSizesResponse(response: ImagesSizesResponse) : Image
         imagesSizes: response.imagesSizes
     };
 }
+
+/* Create new image size type model */
+export type NewImageSize =
+    {
+        name: string;
+        width: number;
+        height: number;
+    }
