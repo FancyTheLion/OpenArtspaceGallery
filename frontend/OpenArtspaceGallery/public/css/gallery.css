@@ -332,7 +332,7 @@
   flex-direction: column;
   flex-wrap: nowrap;
   gap: 0;
-  border: 0.3rem solid hsla(52, 81%, 48%, 0.5);
+  border: 0.3rem solid hsl(180, 97%, 50%);
   border-radius: 0.5rem;
   background-color: hsl(0, 0%, 100%);
   padding-left: 0.4rem;
