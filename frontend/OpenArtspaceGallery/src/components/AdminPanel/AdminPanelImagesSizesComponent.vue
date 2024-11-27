@@ -53,7 +53,7 @@ import {
 
   async function CreateImageSizeAsync(newImageSize: NewImageSize)
   {
-    await WebClientSendPostRequest("/ImagesSizes/AddImageSize",
+    const request = await WebClientSendPostRequest("/ImagesSizes/AddImageSize",
         {
           "imageSize": {
             "name": newImageSize.name,
@@ -61,6 +61,14 @@ import {
             "height": newImageSize.height
           }
         })
+
+    await RefreshImageSizesList()
+
+    if (!request.ok)
+    {
+      alert("An error happened. Try again later.")
+      return
+    }
   }
 
   async function RefreshImageSizesList()

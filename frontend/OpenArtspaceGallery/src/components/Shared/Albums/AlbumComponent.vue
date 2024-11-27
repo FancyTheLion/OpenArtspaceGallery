@@ -18,6 +18,7 @@
   const isButtonsToolbarVisible = ref<boolean>(false)
 
   const deleteAlbumPopupRef = ref<InstanceType<typeof PopupYesNo>>()
+
   const renameAlbumPopupRef = ref<InstanceType<typeof PopupTextInput>>()
 
   function ShowAlbumToolbar()

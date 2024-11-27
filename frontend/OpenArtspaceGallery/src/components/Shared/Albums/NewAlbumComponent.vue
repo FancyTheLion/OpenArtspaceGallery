@@ -47,7 +47,7 @@ const props = defineProps({
 
   async function HideNewAlbumPopup()
   {
-    ClearInputField()
+    await ClearInputField()
 
     isNewAlbumPopupVisible.value = false
   }

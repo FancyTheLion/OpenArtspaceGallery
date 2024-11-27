@@ -1,6 +1,8 @@
 <script setup lang="ts">
 
-import {reactive, ref} from "vue";
+import {onMounted, reactive, ref} from "vue";
+import useVuelidate from "@vuelidate/core";
+import {maxLength, required} from "@vuelidate/validators";
 
   defineExpose({
     Show: ShowPopup
@@ -8,13 +10,40 @@ import {reactive, ref} from "vue";
 
   const isDisplayed = ref<boolean>(false)
 
+  const newImageSizeRules = {
+    name: {
+      $autoDirty: true,
+      required,
+      maxLength: maxLength(30)
+    }
+  }
+
   const newImageSizeFormData = reactive({
     name: "",
     width: 0,
     height: 0
   })
 
+  const newImageSizeFormValidator = useVuelidate(newImageSizeRules, newImageSizeFormData)
+
   const emit = defineEmits([ "cancel", "ok" ])
+
+  onMounted(async () =>
+  {
+    await OnLoad();
+  })
+
+  async function OnLoad()
+  {
+    await newImageSizeFormValidator.value.$validate()
+  }
+
+  function ClearInputField()
+  {
+    newImageSizeFormData.name = "";
+    newImageSizeFormData.width = 0;
+    newImageSizeFormData.height = 0;
+  }
 
   async function OnOk()
   {
@@ -32,6 +61,8 @@ import {reactive, ref} from "vue";
 
   async function ShowPopup()
   {
+    ClearInputField()
+
     isDisplayed.value = true
   }
 
@@ -39,7 +70,6 @@ import {reactive, ref} from "vue";
   {
     isDisplayed.value = false
   }
-
 </script>
 
 <template>
@@ -60,16 +90,19 @@ import {reactive, ref} from "vue";
 
           Size name
           <input
+            :class="(newImageSizeFormValidator.name.$error) ? 'new-album-invalid-field' : 'new-album-valid-field'"
             class="popup-input"
             v-model="newImageSizeFormData.name">
 
           Width
           <input
+            :class="(newImageSizeFormValidator.name.$error) ? 'new-album-invalid-field' : 'new-album-valid-field'"
             class="popup-input"
             v-model="newImageSizeFormData.width">
 
           Height
           <input
+            :class="(newImageSizeFormValidator.name.$error) ? 'new-album-invalid-field' : 'new-album-valid-field'"
             class="popup-input"
             v-model="newImageSizeFormData.height">
 
@@ -81,6 +114,7 @@ import {reactive, ref} from "vue";
             </button>
 
             <button
+                :disabled="newImageSizeFormValidator.$errors.length > 0"
                 @click ="async () => await OnOk()">
               Ok
             </button>
@@ -94,6 +128,5 @@ import {reactive, ref} from "vue";
     </div>
 
   </div>
-
 
 </template>
