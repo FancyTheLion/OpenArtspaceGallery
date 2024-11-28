@@ -103,19 +103,19 @@ import {maxLength, maxValue, minLength, minValue, required} from "@vuelidate/val
 
           Size name
           <input
-            :class="(newImageSizeFormValidator.name.$error) ? 'new-album-invalid-field' : 'new-album-valid-field'"
+            :class="(newImageSizeFormValidator.name.$error) ? 'form-invalid-field' : 'form-valid-field'"
             class="popup-input"
             v-model="newImageSizeFormData.name">
 
           Width
           <input
-            :class="(newImageSizeFormValidator.width.$error) ? 'new-album-invalid-field' : 'new-album-valid-field'"
+            :class="(newImageSizeFormValidator.width.$error) ? 'form-invalid-field' : 'form-valid-field'"
             class="popup-input"
             v-model="newImageSizeFormData.width">
 
           Height
           <input
-            :class="(newImageSizeFormValidator.height.$error) ? 'new-album-invalid-field' : 'new-album-valid-field'"
+            :class="(newImageSizeFormValidator.height.$error) ? 'form-invalid-field' : 'form-valid-field'"
             class="popup-input"
             v-model="newImageSizeFormData.height">
 

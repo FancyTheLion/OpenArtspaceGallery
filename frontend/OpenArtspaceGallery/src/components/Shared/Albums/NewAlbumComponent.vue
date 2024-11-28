@@ -112,7 +112,7 @@ const props = defineProps({
 
           <div>
             <input
-                :class="(newAlbumFormValidator.name.$error) ? 'new-album-invalid-field' : 'new-album-valid-field'"
+                :class="(newAlbumFormValidator.name.$error) ? 'form-invalid-field' : 'form-valid-field'"
                 type="text"
                 v-model="newAlbumFormData.name"/>
           </div>

@@ -135,6 +135,8 @@
 }
 .pseudo-link {
   color: hsl(240, 100%, 50%);
+  text-decoration: underline;
+  cursor: pointer;
 }
 /* Form invalid field */
 .form-invalid-field {
