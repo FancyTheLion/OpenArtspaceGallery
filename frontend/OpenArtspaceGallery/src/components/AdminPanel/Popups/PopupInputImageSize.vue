@@ -10,19 +10,19 @@ import {maxLength, required} from "@vuelidate/validators";
 
   const isDisplayed = ref<boolean>(false)
 
-  const newImageSizeRules = {
+  const newImageSizeFormData = reactive({
+    name: "",
+    width: 0,
+    height: 0
+  })
+
+  const newImageSizeRules = { // TODO: Check sizes
     name: {
       $autoDirty: true,
       required,
       maxLength: maxLength(30)
     }
   }
-
-  const newImageSizeFormData = reactive({
-    name: "",
-    width: 0,
-    height: 0
-  })
 
   const newImageSizeFormValidator = useVuelidate(newImageSizeRules, newImageSizeFormData)
 
@@ -45,28 +45,28 @@ import {maxLength, required} from "@vuelidate/validators";
     newImageSizeFormData.height = 0;
   }
 
-  async function OnOk()
+  function OnOk()
   {
-    await HidePopup()
+    HidePopup()
 
     emit("ok", newImageSizeFormData)
   }
 
-  async function OnCancel()
+  function OnCancel()
   {
-    await HidePopup()
+    HidePopup()
 
     emit("cancel")
   }
 
-  async function ShowPopup()
+  function ShowPopup()
   {
     ClearInputField()
 
     isDisplayed.value = true
   }
 
-  async function HidePopup()
+  function HidePopup()
   {
     isDisplayed.value = false
   }
@@ -109,13 +109,13 @@ import {maxLength, required} from "@vuelidate/validators";
           <div class="popup-button-separation-container">
 
             <button
-                @click="async () => await OnCancel()">
+                @click="OnCancel()">
               Cancel
             </button>
 
             <button
                 :disabled="newImageSizeFormValidator.$errors.length > 0"
-                @click ="async () => await OnOk()">
+                @click ="OnOk()">
               Ok
             </button>
 

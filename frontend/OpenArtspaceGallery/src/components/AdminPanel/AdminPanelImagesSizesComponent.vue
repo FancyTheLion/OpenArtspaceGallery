@@ -83,9 +83,9 @@ import {
     await deleteImageSizePopupRef.value!.Show()
   }
 
-  async function OpenInputFormAsync()
+  function ShowNewImageSizePopupAsync()
   {
-    await addImageSizePopupRef.value!.Show()
+    addImageSizePopupRef.value!.Show()
   }
 
 </script>
@@ -97,7 +97,7 @@ import {
     <div class="table-name-header">Sizes</div>
 
     <div class="pseudo-link"
-         @click="async () => await OpenInputFormAsync()">
+         @click="ShowNewImageSizePopupAsync()">
 
       Add new image size
 
@@ -144,7 +144,7 @@ import {
     </table>
 
     <div class="pseudo-link"
-      @click="async () => await OpenInputFormAsync()">
+      @click="ShowNewImageSizePopupAsync()">
 
       Add new image size
 
