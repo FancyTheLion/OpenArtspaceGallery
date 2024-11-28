@@ -2,7 +2,7 @@
 
 import {onMounted, reactive, ref} from "vue";
 import useVuelidate from "@vuelidate/core";
-import {maxLength, required} from "@vuelidate/validators";
+import {maxLength, maxValue, minLength, minValue, required} from "@vuelidate/validators";
 
   defineExpose({
     Show: ShowPopup
@@ -16,11 +16,24 @@ import {maxLength, required} from "@vuelidate/validators";
     height: 0
   })
 
-  const newImageSizeRules = { // TODO: Check sizes
+  const newImageSizeRules = {
     name: {
       $autoDirty: true,
       required,
-      maxLength: maxLength(30)
+      minLength: minLength(5),
+      maxLength: maxLength(50)
+    },
+    width: {
+      $autoDirty: true,
+      required,
+      minValue: minValue(100),
+      maxValue: maxValue(4000)
+    },
+    height: {
+      $autoDirty: true,
+      required,
+      minValue: minValue(100),
+      maxValue: maxValue(4000)
     }
   }
 
@@ -96,13 +109,13 @@ import {maxLength, required} from "@vuelidate/validators";
 
           Width
           <input
-            :class="(newImageSizeFormValidator.name.$error) ? 'new-album-invalid-field' : 'new-album-valid-field'"
+            :class="(newImageSizeFormValidator.width.$error) ? 'new-album-invalid-field' : 'new-album-valid-field'"
             class="popup-input"
             v-model="newImageSizeFormData.width">
 
           Height
           <input
-            :class="(newImageSizeFormValidator.name.$error) ? 'new-album-invalid-field' : 'new-album-valid-field'"
+            :class="(newImageSizeFormValidator.height.$error) ? 'new-album-invalid-field' : 'new-album-valid-field'"
             class="popup-input"
             v-model="newImageSizeFormData.height">
 
