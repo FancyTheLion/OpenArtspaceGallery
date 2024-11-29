@@ -65,7 +65,7 @@
 .link:active {
   margin-bottom: 0.2rem;
   padding-bottom: 0.2rem;
-  color: hsl(240, 100%, 50%);
+  color: hsl(10, 75%, 47%);
 }
 /* link not important */
 .link-not-important {
@@ -79,6 +79,11 @@
 }
 .pseudo-link {
   color: hsl(240, 100%, 50%);
+  text-decoration: underline;
+  cursor: pointer;
+}
+.pseudo-link:active {
+  color: hsl(10, 75%, 47%);
   text-decoration: underline;
   cursor: pointer;
 }

@@ -11,8 +11,11 @@
 @color-link-hover-visited: hsl(240, 100%, 50%);
 @color-link-hover: hsl(240, 100%, 50%);
 @color-link-hover-active: hsl(240, 100%, 50%);
+@color-link-active: hsl(10, 75%, 47%);
 
 @color-pseudolink: hsl(240, 100%, 50%);
+@color-pseudolink-active: hsl(10, 75%, 47%);
+
 /* Table colors */
 @table-color-borders: hsl(179, 0%, 0%);
 @table-header-color: hsl(240, 100%, 50%);
@@ -146,7 +149,7 @@
 
   padding-bottom: @padding-smaller;
 
-  color: @color-link-hover-active;
+  color: @color-link-active;
 }
 
 /* link not important */
@@ -163,6 +166,12 @@
 
 .pseudo-link {
   color: @color-pseudolink;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.pseudo-link:active {
+  color: @color-pseudolink-active;
   text-decoration: underline;
   cursor: pointer;
 }
