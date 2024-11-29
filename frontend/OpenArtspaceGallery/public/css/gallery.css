@@ -36,6 +36,28 @@
   border-radius: 0.1rem;
   padding: 0.4rem;
 }
+.popup-images-sizes-text-input {
+  text-align: left;
+  border: 0.3rem solid hsl(180, 97%, 50%);
+  border-radius: 0.5rem;
+  background-color: hsl(0, 0%, 100%);
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+  padding-bottom: 0.4rem;
+}
+.popup-images-sizes-form-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+.popup-images-sizes-form-label {
+  width: 5rem;
+  text-align: left;
+  margin-right: 0.5rem;
+}
+.popup-images-sizes-form-input {
+  flex: 1;
+}
 /* Album navigation panel */
 .albums-hierarchy-container {
   padding-bottom: 0.2rem;
@@ -58,6 +80,7 @@
 /* Text colors */
 /* Link colors */
 /* Table colors */
+/* Popaps colors */
 /* Text size */
 /* Text boldness */
 /* Margins */
@@ -105,6 +128,12 @@
 .text-centered {
   text-align: center;
 }
+/* Header */
+.header-text-centered {
+  display: flex;
+  justify-content: center;
+}
+/* End header */
 /* Container with header */
 .link {
   margin-bottom: 0.2rem;
@@ -194,6 +223,14 @@
   border-radius: 1.5rem;
   cursor: pointer;
 }
+/* Popaps */
+/* Extends the input field to the end of the container */
+.popup-input {
+  width: 96%;
+  margin-top: 0.1rem;
+  margin-bottom: 0.2rem;
+}
+/* End popaps */
 /* Colors */
 .mixin-button-base {
   background-color: deepskyblue;
@@ -330,7 +367,6 @@
   padding-right: 0.4rem;
   padding-bottom: 0.4rem;
 }
-/* Colors */
 /* Main Container */
 .popup-text-input-content {
   display: flex;
@@ -345,12 +381,6 @@
   padding-left: 0.4rem;
   padding-right: 0.4rem;
   padding-bottom: 0.4rem;
-}
-/* Extends the input field to the end of the container */
-.popup-input {
-  width: 96%;
-  margin-top: 0.1rem;
-  margin-bottom: 0.2rem;
 }
 /* Album container settings */
 /* Album creation date */

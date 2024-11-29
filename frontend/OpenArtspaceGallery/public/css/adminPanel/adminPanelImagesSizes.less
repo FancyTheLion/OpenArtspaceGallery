@@ -1,5 +1,7 @@
 @import "../shared/common.less";
 
+@form-label-cize: 5rem;
+
 .admin-panel-images-sizes-container {
   display: flex;
   flex-direction: column;
@@ -10,4 +12,30 @@
   border: @border-radius-smaller solid;
   border-radius: @border-radius-smaller;
   padding: @padding-small;
+}
+
+.popup-images-sizes-text-input {
+  text-align: left;
+
+  border: @border-width-thick @border-type-common-solid @popupInputText-color-border;
+  border-radius: @border-radius-normal;
+  background-color: @standart-backgraund-color;
+
+  .mixin-padding-small-left-right-bottom
+}
+
+.popup-images-sizes-form-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: @padding-normal;
+}
+
+.popup-images-sizes-form-label {
+  width: @form-label-cize;
+  text-align: left;
+  margin-right: @margin-normal;
+}
+
+.popup-images-sizes-form-input {
+  flex: 1;
 }

@@ -2,6 +2,7 @@
 /* Text colors */
 /* Link colors */
 /* Table colors */
+/* Popaps colors */
 /* Text size */
 /* Text boldness */
 /* Margins */
@@ -49,6 +50,12 @@
 .text-centered {
   text-align: center;
 }
+/* Header */
+.header-text-centered {
+  display: flex;
+  justify-content: center;
+}
+/* End header */
 /* Container with header */
 .link {
   margin-bottom: 0.2rem;
@@ -138,6 +145,14 @@
   border-radius: 1.5rem;
   cursor: pointer;
 }
+/* Popaps */
+/* Extends the input field to the end of the container */
+.popup-input {
+  width: 96%;
+  margin-top: 0.1rem;
+  margin-bottom: 0.2rem;
+}
+/* End popaps */
 .new-album-button {
   border: 0.3rem solid hsl(219, 67%, 66%);
   border-radius: 0.5rem;

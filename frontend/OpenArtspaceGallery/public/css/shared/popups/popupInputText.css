@@ -2,6 +2,7 @@
 /* Text colors */
 /* Link colors */
 /* Table colors */
+/* Popaps colors */
 /* Text size */
 /* Text boldness */
 /* Margins */
@@ -49,6 +50,12 @@
 .text-centered {
   text-align: center;
 }
+/* Header */
+.header-text-centered {
+  display: flex;
+  justify-content: center;
+}
+/* End header */
 /* Container with header */
 .link {
   margin-bottom: 0.2rem;
@@ -138,7 +145,14 @@
   border-radius: 1.5rem;
   cursor: pointer;
 }
-/* Colors */
+/* Popaps */
+/* Extends the input field to the end of the container */
+.popup-input {
+  width: 96%;
+  margin-top: 0.1rem;
+  margin-bottom: 0.2rem;
+}
+/* End popaps */
 /* Main Container */
 .popup-text-input-content {
   display: flex;
@@ -153,11 +167,5 @@
   padding-left: 0.4rem;
   padding-right: 0.4rem;
   padding-bottom: 0.4rem;
-}
-/* Extends the input field to the end of the container */
-.popup-input {
-  width: 96%;
-  margin-top: 0.1rem;
-  margin-bottom: 0.2rem;
 }
 /*# sourceMappingURL=popupInputText.css.map */

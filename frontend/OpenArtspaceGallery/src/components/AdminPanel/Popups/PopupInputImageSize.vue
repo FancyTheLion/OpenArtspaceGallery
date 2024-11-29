@@ -95,29 +95,47 @@ import {maxLength, maxValue, minLength, minValue, required} from "@vuelidate/val
 
       <div class="popup">
 
-        <div class="popup-text-input-content">
+        <div class="popup-images-sizes-text-input">
 
-          <div>
+          <div class="header-text-centered">
             Add new image size
           </div>
 
-          Size name
-          <input
-            :class="(newImageSizeFormValidator.name.$error) ? 'form-invalid-field' : 'form-valid-field'"
-            class="popup-input"
-            v-model="newImageSizeFormData.name">
+          <div class="popup-images-sizes-form-row">
 
-          Width
-          <input
-            :class="(newImageSizeFormValidator.width.$error) ? 'form-invalid-field' : 'form-valid-field'"
-            class="popup-input"
-            v-model="newImageSizeFormData.width">
+            <label class="popup-images-sizes-form-label">
+              Size name
+            </label>
 
-          Height
-          <input
-            :class="(newImageSizeFormValidator.height.$error) ? 'form-invalid-field' : 'form-valid-field'"
-            class="popup-input"
-            v-model="newImageSizeFormData.height">
+            <input
+                :class="(newImageSizeFormValidator.name.$error) ? 'form-invalid-field' : 'form-valid-field'"
+                class="popup-images-sizes-form-input"
+                v-model="newImageSizeFormData.name">
+          </div>
+
+          <div class="popup-images-sizes-form-row">
+
+            <label class="popup-images-sizes-form-label">
+              Width
+            </label>
+
+            <input
+                :class="(newImageSizeFormValidator.width.$error) ? 'form-invalid-field' : 'form-valid-field'"
+                class="popup-images-sizes-form-input"
+                v-model="newImageSizeFormData.width">
+          </div>
+
+          <div class="popup-images-sizes-form-row">
+
+            <label class="popup-images-sizes-form-label">
+              Height
+            </label>
+
+            <input
+                :class="(newImageSizeFormValidator.height.$error) ? 'form-invalid-field' : 'form-valid-field'"
+                class="popup-images-sizes-form-input"
+                v-model="newImageSizeFormData.height">
+          </div>
 
           <div class="popup-button-separation-container">
 
