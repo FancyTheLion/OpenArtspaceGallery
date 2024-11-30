@@ -38,19 +38,19 @@ import { reactive, ref} from "vue";
     emit("ok")
   }
 
-  async function OnCancel()
+  function OnCancel()
   {
     emit("ok", valueFormData.value)
   }
 
-  async function ShowPopup()
+  function ShowPopup()
   {
     valueFormData.value = props.defaultValue
 
     isDisplayed.value = true
   }
 
-  async function HidePopup()
+  function HidePopup()
   {
     isDisplayed.value = false
   }
@@ -91,12 +91,12 @@ import { reactive, ref} from "vue";
           <div class="popup-button-separation-container">
 
             <button
-                @click="async () => await OnCancel()">
+                @click="OnCancel()">
               Cancel
             </button>
 
             <button
-                @click ="async () => await OnOk()">
+                @click ="OnOk()">
               Ok
             </button>
 

@@ -27,10 +27,10 @@ import {
 
   async function OnLoad()
   {
-    await RefreshImageSizesList()
+    await RefreshImageSizesListAsync()
   }
 
-  async function GetImagesSizesList()
+  async function GetImagesSizesListAsync()
   {
       return DecodeImagesSizesResponse((await (await WebClientSendGetRequest("/ImagesSizes/GetImagesSizesList")).json()))
         .imagesSizes
@@ -42,7 +42,7 @@ import {
   {
     const response = await WebClientSendDeleteRequest("/ImagesSizes/" + imageSizeToDelete.value)
 
-    await RefreshImageSizesList()
+    await RefreshImageSizesListAsync()
 
     if (!response.ok)
     {
@@ -62,7 +62,7 @@ import {
           }
         })
 
-    await RefreshImageSizesList()
+    await RefreshImageSizesListAsync()
 
     if (!request.ok)
     {
@@ -71,9 +71,9 @@ import {
     }
   }
 
-  async function RefreshImageSizesList()
+  async function RefreshImageSizesListAsync()
   {
-    imagesSizes.value = await GetImagesSizesList()
+    imagesSizes.value = await GetImagesSizesListAsync()
   }
 
   async function ShowImageSizeDeleteConfirmationAsync(id: string)
@@ -83,7 +83,7 @@ import {
     await deleteImageSizePopupRef.value!.Show()
   }
 
-  function ShowNewImageSizePopupAsync()
+  function ShowNewImageSizePopup()
   {
     addImageSizePopupRef.value!.Show()
   }
@@ -97,7 +97,7 @@ import {
     <div class="table-name-header">Sizes</div>
 
     <div class="pseudo-link"
-         @click="ShowNewImageSizePopupAsync()">
+         @click="ShowNewImageSizePopup()">
 
       Add new image size
 
@@ -144,7 +144,7 @@ import {
     </table>
 
     <div class="pseudo-link"
-      @click="ShowNewImageSizePopupAsync()">
+      @click="ShowNewImageSizePopup()">
 
       Add new image size
 

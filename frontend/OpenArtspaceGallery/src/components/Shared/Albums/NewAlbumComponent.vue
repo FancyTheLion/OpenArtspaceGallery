@@ -40,24 +40,24 @@ const props = defineProps({
     await newAlbumFormValidator.value.$validate()
   }
 
-  async function ShowNewAlbumPopup()
+  function ShowNewAlbumPopup()
   {
     isNewAlbumPopupVisible.value = true
   }
 
-  async function HideNewAlbumPopup()
+  function HideNewAlbumPopup()
   {
-    await ClearInputField()
+    ClearInputField()
 
     isNewAlbumPopupVisible.value = false
   }
 
-  async function ClearInputField()
+  function ClearInputField()
   {
     newAlbumFormData.name = "";
   }
 
-  async function CreateAlbum()
+  async function CreateAlbumAsync()
   {
     const response = await WebClientSendPostRequest(
       "/Albums/New",
@@ -88,7 +88,7 @@ const props = defineProps({
 
     <div
         class="new-album-button"
-        @click="async () => await ShowNewAlbumPopup()">
+        @click="ShowNewAlbumPopup()">
 
         <img class="new-album-button-image" src="/images/icons/addNewAlbum.webp" alt="Create new album" title="Create new album"/>
     </div>
@@ -121,7 +121,7 @@ const props = defineProps({
 
             <button
               type="button"
-              @click="async() => await HideNewAlbumPopup()">
+              @click="HideNewAlbumPopup()">
               Cancel
             </button>
 
@@ -129,7 +129,7 @@ const props = defineProps({
               class="new-album-form-buttons"
               type="button"
               :disabled="newAlbumFormValidator.$errors.length > 0"
-              @click="async() => await CreateAlbum()">
+              @click="async() => await CreateAlbumAsync()">
               Create
             </button>
 

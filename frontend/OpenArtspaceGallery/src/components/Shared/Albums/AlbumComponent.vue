@@ -31,7 +31,7 @@
     isButtonsToolbarVisible.value = false
   }
 
-  async function ShowAlbumDeleteConfirmationAsync()
+  function ShowAlbumDeleteConfirmation()
   {
     if (deleteAlbumPopupRef.value === undefined)
     {
@@ -39,10 +39,10 @@
       return
     }
 
-    await deleteAlbumPopupRef.value!.Show()
+    deleteAlbumPopupRef.value!.Show()
   }
 
-  async function ShowAlbumRenameConfirmationAsync()
+  function ShowAlbumRenameConfirmation()
   {
     if (renameAlbumPopupRef.value === undefined)
     {
@@ -50,7 +50,7 @@
       return
     }
 
-    await renameAlbumPopupRef.value!.Show()
+    renameAlbumPopupRef.value!.Show()
   }
 
   async function DeleteAlbumAsync()
@@ -127,14 +127,14 @@
             src="/images/icons/rename.webp"
             alt="Rename album"
             title="Rename album"
-            @click="async () => await ShowAlbumRenameConfirmationAsync()" />
+            @click="ShowAlbumRenameConfirmation()" />
 
         <img
             class="album-toolbar-delete-button"
             src="/images/icons/delete.webp"
             alt="Delete album"
             title="Delete album"
-            @click="async () => await ShowAlbumDeleteConfirmationAsync()" />
+            @click="ShowAlbumDeleteConfirmation()" />
 
       </div>
 

@@ -22,26 +22,26 @@
 
   const emit = defineEmits([ "no", "yes" ])
 
-  async function OnNo()
+  function OnNo()
   {
-    await HidePopup()
+    HidePopup()
 
     emit("no")
   }
 
-  async function OnYes()
+  function OnYes()
   {
-    await HidePopup()
+    HidePopup()
 
     emit("yes")
   }
 
-  async function ShowPopup()
+  function ShowPopup()
   {
     isDisplayed.value = true
   }
 
-  async function HidePopup()
+  function HidePopup()
   {
     isDisplayed.value = false
   }
@@ -71,12 +71,12 @@
             <div class="popup-button-separation-container">
 
               <button
-                  @click="async () => await OnNo()">
+                  @click="OnNo()">
                 No
               </button>
 
               <button
-                  @click ="async () => await OnYes()">
+                  @click ="OnYes()">
                 Yes
               </button>
 
