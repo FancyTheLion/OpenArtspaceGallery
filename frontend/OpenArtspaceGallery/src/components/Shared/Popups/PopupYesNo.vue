@@ -68,7 +68,7 @@
               {{props.text}}
             </div>
 
-            <div class="popup-button-separation-container">
+            <div class="popup-actions-buttons-container">
 
               <button
                   @click="OnNo()">

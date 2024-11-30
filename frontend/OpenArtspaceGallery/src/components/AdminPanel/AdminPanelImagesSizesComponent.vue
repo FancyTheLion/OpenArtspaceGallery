@@ -76,11 +76,11 @@ import {
     imagesSizes.value = await GetImagesSizesListAsync()
   }
 
-  async function ShowImageSizeDeleteConfirmationAsync(id: string)
+  function ShowImageSizeDeleteConfirmation(id: string)
   {
     imageSizeToDelete.value = id;
 
-    await deleteImageSizePopupRef.value!.Show()
+    deleteImageSizePopupRef.value!.Show()
   }
 
   function ShowNewImageSizePopup()
@@ -132,7 +132,7 @@ import {
               src="/public/images/icons/delete.webp"
               alt="Delete image size"
               title="Delete image size"
-              @click="async () => await ShowImageSizeDeleteConfirmationAsync(image.id)"
+              @click="ShowImageSizeDeleteConfirmation(image.id)"
             />
 
           </td>

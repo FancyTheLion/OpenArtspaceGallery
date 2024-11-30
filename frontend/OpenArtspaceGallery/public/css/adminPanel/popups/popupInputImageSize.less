@@ -1,1 +1,29 @@
 @import "../../shared/common.less";
+
+@form-label-size: 5rem;
+
+.popup-images-sizes-text-input {
+  text-align: left;
+
+  border: @border-width-thick @border-type-common-solid @popupInputText-color-border;
+  border-radius: @border-radius-normal;
+  background-color: @standard-background-color;
+
+  .mixin-padding-small-left-right-bottom();
+}
+
+.popup-images-sizes-form-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: @padding-normal;
+}
+
+.popup-images-sizes-form-label {
+  width: @form-label-size;
+  text-align: left;
+  margin-right: @margin-normal;
+}
+
+.popup-images-sizes-form-input {
+  flex: 1;
+}

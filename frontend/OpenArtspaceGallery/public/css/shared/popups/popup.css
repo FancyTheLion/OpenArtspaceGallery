@@ -191,7 +191,7 @@
   padding: 0.1rem;
 }
 /* Button separation */
-.popup-button-separation-container {
+.popup-actions-buttons-container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;

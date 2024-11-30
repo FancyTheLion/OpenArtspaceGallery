@@ -51,7 +51,7 @@ import {maxLength, maxValue, minLength, minValue, required} from "@vuelidate/val
     await newImageSizeFormValidator.value.$validate()
   }
 
-  function ClearInputField()
+  function ClearForm()
   {
     newImageSizeFormData.name = "";
     newImageSizeFormData.width = 0;
@@ -74,7 +74,7 @@ import {maxLength, maxValue, minLength, minValue, required} from "@vuelidate/val
 
   function ShowPopup()
   {
-    ClearInputField()
+    ClearForm()
 
     isDisplayed.value = true
   }
@@ -97,7 +97,7 @@ import {maxLength, maxValue, minLength, minValue, required} from "@vuelidate/val
 
         <div class="popup-images-sizes-text-input">
 
-          <div class="header-text-centered">
+          <div class="popup-title">
             Add new image size
           </div>
 
@@ -137,7 +137,7 @@ import {maxLength, maxValue, minLength, minValue, required} from "@vuelidate/val
                 v-model="newImageSizeFormData.height">
           </div>
 
-          <div class="popup-button-separation-container">
+          <div class="popup-actions-buttons-container">
 
             <button
                 @click="OnCancel()">
