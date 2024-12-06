@@ -126,11 +126,31 @@ public class ImagesSizesController : ControllerBase
     [Route("IsExistByName")]
     public async Task<ActionResult<ImageSizeNameExistenceResponse>> IsExistByNameAsync(ImageSizeNameExistenceRequest request)
     {
+        try
+        {
+            return Ok
+            (
+                new ImageSizeNameExistenceResponse
+                (
+                    new ExistenceDto(await _imagesSizesService.IsExistByNameAsync(request.ImageSizeName.Name))
+                )
+            );
+        }
+        catch (ArgumentException ex)
+        {
+            return Ok(ex.Message);
+        }
+    }
+
+    [HttpPost]
+    [Route("IsExistByDimensions")]
+    public async Task<ActionResult<ImageSizeDimensionsExistenceResponse>> IsExistByDimensionsAsync(ImageSizeDimensionsExistenceRequest request)
+    {
         return Ok
         (
-            new ImageSizeNameExistenceResponse
+            new ImageSizeDimensionsExistenceResponse
             (
-                new ExistenceDto(await _imagesSizesService.IsExistByNameAsync(request.ImageSizeName.Name))
+                new ExistenceDto(await _imagesSizesService.IsExistByDimensionsAsync(request.ImageSizeDimensionsExistence.Width, request.ImageSizeDimensionsExistence.Height))
             )
         );
     }

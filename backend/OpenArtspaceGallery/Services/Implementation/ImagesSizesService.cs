@@ -91,6 +91,20 @@ public class ImagesSizesService : IImagesSizesService
     
     public async Task<bool> IsExistByNameAsync(string imageSizeName)
     {
-        return await Task.FromResult(false);
+        bool exist = await _imagesSizesDao.IsImageSizeExistsByNameAsync(imageSizeName);
+
+        if (exist)
+        {
+            throw new ArgumentException($"Image size with name { imageSizeName } already exists.", nameof(imageSizeName));
+        }
+
+        return exist;
+    }
+
+    public async Task<bool> IsExistByDimensionsAsync(int width, int height)
+    {
+        bool exist = await _imagesSizesDao.IsImageSizeExistsByDimensionsAsync(width, height);
+        
+        return exist;
     }
 }

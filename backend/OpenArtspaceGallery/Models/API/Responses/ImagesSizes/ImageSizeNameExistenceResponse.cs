@@ -9,13 +9,13 @@ public class ImageSizeNameExistenceResponse
     /// Does it exist
     /// </summary>
     [JsonPropertyName("existence")]
-    public ExistenceDto Existence { get; set; }
+    public ExistenceDto NameExistence { get; set; }
     
     public ImageSizeNameExistenceResponse
     (
-        ExistenceDto existence
+        ExistenceDto nameExistence
     )
     {
-        Existence = existence ?? throw new ArgumentNullException(nameof(existence), "Image size can't be null.");
+        NameExistence = nameExistence ?? throw new ArgumentNullException(nameof(nameExistence), "Image size name can't be null.");
     }
 }
