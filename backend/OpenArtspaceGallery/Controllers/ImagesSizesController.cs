@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using OpenArtspaceGallery.Models.API.DTOs;
 using OpenArtspaceGallery.Models.API.DTOs.ImagesSizes;
+using OpenArtspaceGallery.Models.API.DTOs.Shared;
 using OpenArtspaceGallery.Models.API.Requests;
 using OpenArtspaceGallery.Models.API.Requests.ImagesSizes;
 using OpenArtspaceGallery.Models.API.Responses;
@@ -119,5 +120,18 @@ public class ImagesSizesController : ControllerBase
         {
             return BadRequest(ex.Message);
         }
+    }
+
+    [HttpPost]
+    [Route("IsExistByName")]
+    public async Task<ActionResult<ImageSizeNameExistenceResponse>> IsExistByNameAsync(ImageSizeNameExistenceRequest request)
+    {
+        return Ok
+        (
+            new ImageSizeNameExistenceResponse
+            (
+                new ExistenceDto(await _imagesSizesService.IsExistByNameAsync(request.ImageSizeName.Name))
+            )
+        );
     }
 }

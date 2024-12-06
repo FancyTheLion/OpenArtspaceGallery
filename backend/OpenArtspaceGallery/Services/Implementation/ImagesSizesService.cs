@@ -88,4 +88,9 @@ public class ImagesSizesService : IImagesSizesService
             throw new ArgumentException($"Image size with width { imageSize.Width } and height { imageSize.Height } already exists.");
         }
     }
+    
+    public async Task<bool> IsExistByNameAsync(string imageSizeName)
+    {
+        return await Task.FromResult(false);
+    }
 }

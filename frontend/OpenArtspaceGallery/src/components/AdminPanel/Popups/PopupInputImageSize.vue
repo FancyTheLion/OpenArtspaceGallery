@@ -20,19 +20,19 @@ import {maxLength, maxValue, minLength, minValue, required} from "@vuelidate/val
     name: {
       $autoDirty: true,
       required,
-      minLength: minLength(5),
+      minLength: minLength(1),
       maxLength: maxLength(50)
     },
     width: {
       $autoDirty: true,
       required,
-      minValue: minValue(100),
+      minValue: minValue(10),
       maxValue: maxValue(4000)
     },
     height: {
       $autoDirty: true,
       required,
-      minValue: minValue(100),
+      minValue: minValue(10),
       maxValue: maxValue(4000)
     }
   }
@@ -83,6 +83,7 @@ import {maxLength, maxValue, minLength, minValue, required} from "@vuelidate/val
   {
     isDisplayed.value = false
   }
+
 </script>
 
 <template>
@@ -110,7 +111,8 @@ import {maxLength, maxValue, minLength, minValue, required} from "@vuelidate/val
             <input
                 :class="(newImageSizeFormValidator.name.$error) ? 'form-invalid-field' : 'form-valid-field'"
                 class="popup-images-sizes-form-input"
-                v-model="newImageSizeFormData.name">
+                v-model="newImageSizeFormData.name"/>
+
           </div>
 
           <div class="popup-images-sizes-form-row">
@@ -122,7 +124,8 @@ import {maxLength, maxValue, minLength, minValue, required} from "@vuelidate/val
             <input
                 :class="(newImageSizeFormValidator.width.$error) ? 'form-invalid-field' : 'form-valid-field'"
                 class="popup-images-sizes-form-input"
-                v-model="newImageSizeFormData.width">
+                v-model="newImageSizeFormData.width"
+                type="number">
           </div>
 
           <div class="popup-images-sizes-form-row">
@@ -134,7 +137,8 @@ import {maxLength, maxValue, minLength, minValue, required} from "@vuelidate/val
             <input
                 :class="(newImageSizeFormValidator.height.$error) ? 'form-invalid-field' : 'form-valid-field'"
                 class="popup-images-sizes-form-input"
-                v-model="newImageSizeFormData.height">
+                v-model="newImageSizeFormData.height"
+                type="number">
           </div>
 
           <div class="popup-actions-buttons-container">

@@ -1,4 +1,5 @@
 using OpenArtspaceGallery.Models;
+using OpenArtspaceGallery.Models.API.DTOs.ImagesSizes;
 
 namespace OpenArtspaceGallery.Services.Abstract;
 
@@ -31,4 +32,9 @@ public interface IImagesSizesService
     /// Update image size
     /// </summary>
     Task<ImageSize> UpdateImageSizeAsync(ImageSize imageSize);
+    
+    /// <summary>
+    /// Is exist by name
+    /// </summary>
+    Task<bool> IsExistByNameAsync(string imageSizeName);
 }
