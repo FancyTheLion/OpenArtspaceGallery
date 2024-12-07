@@ -126,6 +126,11 @@ public class ImagesSizesController : ControllerBase
     [Route("IsExistByName")]
     public async Task<ActionResult<ImageSizeNameExistenceResponse>> IsExistByNameAsync(ImageSizeNameExistenceRequest request)
     {
+        if (request == null)
+        {
+            return BadRequest("Image size name mustn't be null!");
+        }
+        
         try
         {
             return Ok
@@ -146,6 +151,11 @@ public class ImagesSizesController : ControllerBase
     [Route("IsExistByDimensions")]
     public async Task<ActionResult<ImageSizeDimensionsExistenceResponse>> IsExistByDimensionsAsync(ImageSizeDimensionsExistenceRequest request)
     {
+        if (request == null)
+        {
+            return BadRequest("Image size Dimensions mustn't be null!");
+        }
+        
         return Ok
         (
             new ImageSizeDimensionsExistenceResponse

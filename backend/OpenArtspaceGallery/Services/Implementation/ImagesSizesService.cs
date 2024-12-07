@@ -91,6 +91,8 @@ public class ImagesSizesService : IImagesSizesService
     
     public async Task<bool> IsExistByNameAsync(string imageSizeName)
     {
+        _ = imageSizeName ?? throw new ArgumentNullException(nameof(imageSizeName), "Image size name cannot be null!");
+        
         bool exist = await _imagesSizesDao.IsImageSizeExistsByNameAsync(imageSizeName);
 
         if (exist)
@@ -100,7 +102,6 @@ public class ImagesSizesService : IImagesSizesService
 
         return exist;
     }
-
     public async Task<bool> IsExistByDimensionsAsync(int width, int height)
     {
         bool exist = await _imagesSizesDao.IsImageSizeExistsByDimensionsAsync(width, height);
