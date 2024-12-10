@@ -128,23 +128,16 @@ public class ImagesSizesController : ControllerBase
     {
         if (request == null)
         {
-            return BadRequest("Image size name mustn't be null!");
+            return BadRequest("Request mustn't be null!");
         }
         
-        try
-        {
-            return Ok
+        return Ok
+        (
+            new ImageSizeNameExistenceResponse
             (
-                new ImageSizeNameExistenceResponse
-                (
-                    new ExistenceDto(await _imagesSizesService.IsExistByNameAsync(request.ImageSizeName.Name))
-                )
-            );
-        }
-        catch (ArgumentException ex)
-        {
-            return Ok(ex.Message);
-        }
+                new ExistenceDto(await _imagesSizesService.IsExistByNameAsync(request.ImageSizeName.Name))
+            )
+        );
     }
 
     [HttpPost]
@@ -153,7 +146,7 @@ public class ImagesSizesController : ControllerBase
     {
         if (request == null)
         {
-            return BadRequest("Image size Dimensions mustn't be null!");
+            return BadRequest("Request mustn't be null!");
         }
         
         return Ok

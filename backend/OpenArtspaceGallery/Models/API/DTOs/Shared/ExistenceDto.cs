@@ -8,7 +8,7 @@ public class ExistenceDto
     /// Does it exist
     /// </summary>
     [JsonPropertyName("isExist")]
-    public bool IsExist { get; set; }
+    public bool IsExist { get; private set; }
     
     public ExistenceDto(bool isExist)
     {

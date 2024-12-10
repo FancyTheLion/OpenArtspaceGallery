@@ -8,14 +8,14 @@ public class ImageSizeDimensionsExistenceResponse
     /// <summary>
     /// Does it exist
     /// </summary>
-    [JsonPropertyName("existence")]
-    public ExistenceDto DimensionsExistence { get; set; }
+    [JsonPropertyName("dimensionsExistence")]
+    public ExistenceDto DimensionsExistence { get; private set; }
     
     public ImageSizeDimensionsExistenceResponse
     (
         ExistenceDto dimensionsExistence
     )
     {
-        DimensionsExistence = dimensionsExistence ?? throw new ArgumentNullException(nameof(dimensionsExistence), "Image size Dimensions can't be null.");
+        DimensionsExistence = dimensionsExistence ?? throw new ArgumentNullException(nameof(dimensionsExistence), "Dimensions are required and must not be null."); // TODO: Remove copypasta
     }
 }

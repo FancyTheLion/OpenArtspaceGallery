@@ -3,7 +3,7 @@ import {onMounted, ref} from "vue";
 import {
   DecodeImageSizeDto,
   DecodeImagesSizesResponse,
-  ImageSize, NewImageSize
+  ImageSize, ImageSizeName, NewImageSize
 } from "../../ts/imagesSizes/libImagesSizes.ts";
 import {
   WebClientSendDeleteRequest,
@@ -19,6 +19,8 @@ import {
   const addImageSizePopupRef = ref<InstanceType<typeof PopupInputImageSize>>()
 
   const imageSizeToDelete = ref<string>("")
+
+  let lastRequestId: string | null = null;
 
   onMounted(async () =>
   {
@@ -53,22 +55,60 @@ import {
 
   async function CreateImageSizeAsync(newImageSize: NewImageSize)
   {
-    const request = await WebClientSendPostRequest("/ImagesSizes/AddImageSize",
-        {
-          "imageSize": {
-            "name": newImageSize.name,
-            "width": newImageSize.width,
-            "height": newImageSize.height
-          }
-        })
+      const request = await WebClientSendPostRequest("/ImagesSizes/AddImageSize",
+          {
+            "imageSize": {
+              "name": newImageSize.name,
+              "width": newImageSize.width,
+              "height": newImageSize.height
+            }
+          })
+
+      if (!request.ok)
+      {
+        alert("An error happened. Try again later.")
+        return
+      }
 
     await RefreshImageSizesListAsync()
+  }
 
-    if (!request.ok)
+  /*async function ChecImageSizeNameAsync(imageSizeName: ImageSizeName): Promise<void>
+  {
+    const requestId = generateUniquedId()
+    lastRequestId = requestId
+
+    try {
+      const request = await WebClientSendPostRequest("/ImagesSizes/AddImageSize",
+          {
+            "imageSize": {
+              "id": requestId,
+              "name": imageSizeName.name,
+            }
+          })
+
+      if (!request.ok)
+      {
+        alert("An error happened. Try again later.")
+        return
+      }
+
+      if (requestId === lastRequestId)
+      {
+        alert("Соответсвует")
+      }
+      else
+      {
+        alert("Не соответствует")
+      }
+    }*/
+
+    catch (error)
     {
-      alert("An error happened. Try again later.")
-      return
+      alert("Ошибка отправки")
     }
+
+    await RefreshImageSizesListAsync()
   }
 
   async function RefreshImageSizesListAsync()
@@ -87,6 +127,12 @@ import {
   {
     addImageSizePopupRef.value!.Show()
   }
+
+function generateUniquedId(): string
+{
+  return `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
+}
+
 
 </script>
 

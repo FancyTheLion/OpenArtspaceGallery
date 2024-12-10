@@ -93,19 +93,10 @@ public class ImagesSizesService : IImagesSizesService
     {
         _ = imageSizeName ?? throw new ArgumentNullException(nameof(imageSizeName), "Image size name cannot be null!");
         
-        bool exist = await _imagesSizesDao.IsImageSizeExistsByNameAsync(imageSizeName);
-
-        if (exist)
-        {
-            throw new ArgumentException($"Image size with name { imageSizeName } already exists.", nameof(imageSizeName));
-        }
-
-        return exist;
+        return await _imagesSizesDao.IsImageSizeExistsByNameAsync(imageSizeName);
     }
     public async Task<bool> IsExistByDimensionsAsync(int width, int height)
     {
-        bool exist = await _imagesSizesDao.IsImageSizeExistsByDimensionsAsync(width, height);
-        
-        return exist;
+        return await _imagesSizesDao.IsImageSizeExistsByDimensionsAsync(width, height);
     }
 }

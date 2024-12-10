@@ -9,7 +9,7 @@ public class ImageSizeNameExistenceResponse
     /// Does it exist
     /// </summary>
     [JsonPropertyName("existence")]
-    public ExistenceDto NameExistence { get; set; }
+    public ExistenceDto NameExistence { get; private set; }
     
     public ImageSizeNameExistenceResponse
     (

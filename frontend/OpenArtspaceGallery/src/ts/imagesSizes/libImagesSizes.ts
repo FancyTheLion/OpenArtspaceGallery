@@ -50,7 +50,15 @@ export function DecodeImagesSizesResponse(response: ImagesSizesResponse) : Image
 /* Create new image size type model */
 export type NewImageSize =
     {
+        id: string;
         name: string;
         width: number;
         height: number;
+    }
+
+/* Create new image size type model */
+export type ImageSizeName =
+    {
+        id: string;
+        name: string;
     }
