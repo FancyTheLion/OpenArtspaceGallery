@@ -73,7 +73,7 @@ import {
     await RefreshImageSizesListAsync()
   }
 
-  /*async function ChecImageSizeNameAsync(imageSizeName: ImageSizeName): Promise<void>
+  async function ChecImageSizeNameAsync(imageSizeName: ImageSizeName): Promise<void>
   {
     const requestId = generateUniquedId()
     lastRequestId = requestId
@@ -101,7 +101,7 @@ import {
       {
         alert("Не соответствует")
       }
-    }*/
+    }
 
     catch (error)
     {
