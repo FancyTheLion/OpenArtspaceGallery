@@ -3,7 +3,7 @@ import {onMounted, ref} from "vue";
 import {
   DecodeImageSizeDto,
   DecodeImagesSizesResponse,
-  ImageSize, ImageSizeName,
+  ImageSize, NewImageSize,
 } from "../../ts/imagesSizes/libImagesSizes.ts";
 import {
   WebClientSendDeleteRequest,
@@ -19,8 +19,6 @@ import {
   const addImageSizePopupRef = ref<InstanceType<typeof PopupInputImageSize>>()
 
   const imageSizeToDelete = ref<string>("")
-
-  let lastRequestId: string | null = null;
 
   onMounted(async () =>
   {
@@ -53,7 +51,7 @@ import {
     }
   }
 
-/*  async function CreateImageSizeAsync(newImageSize: NewImageSize)
+  async function CreateImageSizeAsync(newImageSize: NewImageSize)
   {
       const request = await WebClientSendPostRequest("/ImagesSizes/AddImageSize",
           {
@@ -71,78 +69,7 @@ import {
       }
 
     await RefreshImageSizesListAsync()
-  }*/
-
-  async function TEST1CheckImageSizeNameAsync(imageSizeName: ImageSizeName): Promise<void> // Вместо метода CreateImageSizeAsync в компоненте ввода в шаблоне вставлен этот метод для проверки работоспособности
-  {
-    const requestId = generateUniquedId()
-    lastRequestId = requestId
-
-    try
-    {
-      await WebClientSendPostRequest("/ImagesSizes/AddImageSize",
-          {
-            "imageSize": {
-              "id": requestId,
-              "name": imageSizeName.name,
-            }
-          })
-
-          /*      if (!request.ok)
-      {
-        alert("An error happened. Try again later.")
-        return
-      }*/
-
-      if (requestId === lastRequestId)
-      {
-        alert("Соответсвует")
-      }
-      else
-      {
-        alert("Не соответствует")
-      }
-    }
-    catch (error)
-    {
-      alert("Ошибка отправки")
-    }
   }
-
-async function TEST2CheckImageSizeNameAsync(imageSizeName: ImageSizeName): Promise<void>
-{
-  const requestId = generateUniquedId()
-  lastRequestId = requestId
-
-    await WebClientSendPostRequest("/ImagesSizes/AddImageSize",
-        {
-          "imageSize": {
-            "id": requestId,
-            "name": imageSizeName.name,
-          }
-        })
-
-
-        .then(() => {
-          if (requestId === lastRequestId)
-          {
-            alert("Соответствует")
-          }
-          else
-          {
-            alert("Не соответствует")
-          }
-        })
-
-        .catch(() => {
-
-          alert("Ошибка отправки")
-        })
-
-    await RefreshImageSizesListAsync()
-
-
-}
 
   async function RefreshImageSizesListAsync()
   {
@@ -160,12 +87,6 @@ async function TEST2CheckImageSizeNameAsync(imageSizeName: ImageSizeName): Promi
   {
     addImageSizePopupRef.value!.Show()
   }
-
-function generateUniquedId(): string
-{
-  return `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
-}
-
 
 </script>
 
@@ -237,7 +158,7 @@ function generateUniquedId(): string
 
     <PopupInputImageSize
         ref="addImageSizePopupRef"
-        @ok="async (nIS) => await TEST2CheckImageSizeNameAsync(nIS)"/>
+        @ok="async (nIS) => await CreateImageSizeAsync(nIS)"/>
 
   </div>
 

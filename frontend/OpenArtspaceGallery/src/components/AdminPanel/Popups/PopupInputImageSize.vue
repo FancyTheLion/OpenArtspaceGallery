@@ -3,12 +3,16 @@
 import {onMounted, reactive, ref} from "vue";
 import useVuelidate from "@vuelidate/core";
 import {maxLength, maxValue, minLength, minValue, required} from "@vuelidate/validators";
+import {WebClientSendPostRequest} from "../../../ts/libWebClient.ts";
+import {DecodeImageSizeNameExistenceResponse} from "../../../ts/imagesSizes/libImagesSizes.ts";
 
   defineExpose({
     Show: ShowPopup
   })
 
   const isDisplayed = ref<boolean>(false)
+
+  const lastNameExistenceRequestId = ref<any>(null)
 
   const newImageSizeFormData = reactive({
     name: "",
@@ -84,6 +88,51 @@ import {maxLength, maxValue, minLength, minValue, required} from "@vuelidate/val
     isDisplayed.value = false
   }
 
+  async function OnTestAsync()
+  {
+    alert("Result: " + await IsNameExistAsync(newImageSizeFormData.name))
+  }
+
+  async function OnNameChangedAsync(name: string): boolean
+  {
+    lastNameExistenceRequestId.value = crypto.randomUUID();
+
+    QueryIsNameExistAsync(name, lastNameExistenceRequestId.value)
+    .then(result => {
+      if (result.requestId === lastNameExistenceRequestId)
+      {
+
+      }
+    })
+  }
+
+  type IsNameExistQueryResult =
+      {
+        isExist: boolean,
+        requestId: any
+      }
+
+  async function QueryIsNameExistAsync(name: string, requestId: any): Promise<IsNameExistQueryResult>
+  {
+    return {
+      isExist: await IsNameExistAsync(name),
+      requestId: requestId
+    }
+  }
+
+  async function IsNameExistAsync(name: string): Promise<boolean>
+  {
+    const response = await (await WebClientSendPostRequest("/ImagesSizes/IsExistByName",
+        {
+          "name": {
+            "name": name
+          }
+        }))
+        .json()
+
+      return DecodeImageSizeNameExistenceResponse(response)
+  }
+
 </script>
 
 <template>
@@ -153,6 +202,10 @@ import {maxLength, maxValue, minLength, minValue, required} from "@vuelidate/val
                 @click ="OnOk()">
               Ok
             </button>
+
+            <div @click="async () => await OnTestAsync()">
+              Test button
+            </div>
 
           </div>
 

@@ -1,4 +1,6 @@
 /* Private image size DTO */
+import {DecodeExistenceDto, ExistenceDto} from "../Shared/Libs/libSharedModels.ts";
+
 type ImageSizeDto =
 {
     id: string;
@@ -49,16 +51,21 @@ export function DecodeImagesSizesResponse(response: ImagesSizesResponse) : Image
 
 /* Create new image size type model */
 export type NewImageSize =
-    {
-        id: string;
-        name: string;
-        width: number;
-        height: number;
-    }
+{
+    id: string;
+    name: string;
+    width: number;
+    height: number;
+}
 
-/* Create new image size type model */
-export type ImageSizeName =
-    {
-        id: string;
-        name: string;
-    }
+/* Image name existence response */
+type ImageSizeNameExistenceResponse =
+{
+    existence: ExistenceDto
+}
+
+/* Decode image size existence by name response */
+export function DecodeImageSizeNameExistenceResponse(response: ImageSizeNameExistenceResponse) : boolean
+{
+    return DecodeExistenceDto(response.existence).isExist
+}
