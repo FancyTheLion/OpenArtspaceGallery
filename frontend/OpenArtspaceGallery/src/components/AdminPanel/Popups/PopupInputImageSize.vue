@@ -2,7 +2,7 @@
 
 import {onMounted, reactive, ref} from "vue";
 import useVuelidate from "@vuelidate/core";
-import {maxLength, maxValue, minLength, minValue, required} from "@vuelidate/validators";
+import {helpers, maxLength, maxValue, minLength, minValue, required} from "@vuelidate/validators";
 import {WebClientSendPostRequest} from "../../../ts/libWebClient.ts";
 import {DecodeImageSizeNameExistenceResponse} from "../../../ts/imagesSizes/libImagesSizes.ts";
 
@@ -11,8 +11,6 @@ import {DecodeImageSizeNameExistenceResponse} from "../../../ts/imagesSizes/libI
   })
 
   const isDisplayed = ref<boolean>(false)
-
-  const lastNameExistenceRequestId = ref<any>(null)
 
   const newImageSizeFormData = reactive({
     name: "",
@@ -25,7 +23,8 @@ import {DecodeImageSizeNameExistenceResponse} from "../../../ts/imagesSizes/libI
       $autoDirty: true,
       required,
       minLength: minLength(1),
-      maxLength: maxLength(50)
+      maxLength: maxLength(50),
+      isNameTaken: helpers.withAsync(ValidateNameAsync)
     },
     width: {
       $autoDirty: true,
@@ -88,36 +87,11 @@ import {DecodeImageSizeNameExistenceResponse} from "../../../ts/imagesSizes/libI
     isDisplayed.value = false
   }
 
-  async function OnTestAsync()
+  async function ValidateNameAsync(name: string): Promise<boolean>
   {
-    alert("Result: " + await IsNameExistAsync(newImageSizeFormData.name))
-  }
+    // !(await CheckSizes(width, newImageSizeFormData.height))
 
-  async function OnNameChangedAsync(name: string): boolean
-  {
-    lastNameExistenceRequestId.value = crypto.randomUUID();
-
-    QueryIsNameExistAsync(name, lastNameExistenceRequestId.value)
-    .then(result => {
-      if (result.requestId === lastNameExistenceRequestId)
-      {
-
-      }
-    })
-  }
-
-  type IsNameExistQueryResult =
-      {
-        isExist: boolean,
-        requestId: any
-      }
-
-  async function QueryIsNameExistAsync(name: string, requestId: any): Promise<IsNameExistQueryResult>
-  {
-    return {
-      isExist: await IsNameExistAsync(name),
-      requestId: requestId
-    }
+    return !(await IsNameExistAsync(name))
   }
 
   async function IsNameExistAsync(name: string): Promise<boolean>
@@ -158,7 +132,7 @@ import {DecodeImageSizeNameExistenceResponse} from "../../../ts/imagesSizes/libI
             </label>
 
             <input
-                :class="(newImageSizeFormValidator.name.$error) ? 'form-invalid-field' : 'form-valid-field'"
+                :class="(newImageSizeFormValidator.name.$error && !newImageSizeFormValidator.name.$pending) ? 'form-invalid-field' : 'form-valid-field'"
                 class="popup-images-sizes-form-input"
                 v-model="newImageSizeFormData.name"/>
 
@@ -198,14 +172,10 @@ import {DecodeImageSizeNameExistenceResponse} from "../../../ts/imagesSizes/libI
             </button>
 
             <button
-                :disabled="newImageSizeFormValidator.$errors.length > 0"
+                :disabled="(newImageSizeFormValidator.$errors.length > 0) || (newImageSizeFormValidator.$pending)"
                 @click ="OnOk()">
               Ok
             </button>
-
-            <div @click="async () => await OnTestAsync()">
-              Test button
-            </div>
 
           </div>
 
