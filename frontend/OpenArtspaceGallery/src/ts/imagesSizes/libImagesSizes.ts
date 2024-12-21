@@ -69,3 +69,15 @@ export function DecodeImageSizeNameExistenceResponse(response: ImageSizeNameExis
 {
     return DecodeExistenceDto(response.existence).isExist
 }
+
+/* Image dimensions existence response */
+type ImageSizeDimensionsExistenceResponse =
+    {
+        dimensionsExistence: ExistenceDto
+    }
+
+/* Decode image size existence by dimensions response */
+export function DecodeImageSizeDimensionsExistenceResponse(response: ImageSizeDimensionsExistenceResponse) : boolean
+{
+    return DecodeExistenceDto(response.dimensionsExistence).isExist
+}

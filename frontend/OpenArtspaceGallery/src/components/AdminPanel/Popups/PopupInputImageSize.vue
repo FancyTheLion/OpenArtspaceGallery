@@ -4,10 +4,13 @@ import {onMounted, reactive, ref} from "vue";
 import useVuelidate from "@vuelidate/core";
 import {helpers, maxLength, maxValue, minLength, minValue, required} from "@vuelidate/validators";
 import {WebClientSendPostRequest} from "../../../ts/libWebClient.ts";
-import {DecodeImageSizeNameExistenceResponse} from "../../../ts/imagesSizes/libImagesSizes.ts";
+import {
+  DecodeImageSizeDimensionsExistenceResponse,
+  DecodeImageSizeNameExistenceResponse
+} from "../../../ts/imagesSizes/libImagesSizes.ts";
 
   defineExpose({
-    Show: ShowPopup
+    ShowAsync: ShowPopupAsync
   })
 
   const isDisplayed = ref<boolean>(false)
@@ -24,19 +27,21 @@ import {DecodeImageSizeNameExistenceResponse} from "../../../ts/imagesSizes/libI
       required,
       minLength: minLength(1),
       maxLength: maxLength(50),
-      isNameTaken: helpers.withAsync(ValidateNameAsync)
+      isNameTaken: helpers.withAsync(async (name: string) => await ValidateNameAsync(name))
     },
     width: {
       $autoDirty: true,
       required,
       minValue: minValue(10),
-      maxValue: maxValue(4000)
+      maxValue: maxValue(4000),
+      isWidthTaken: helpers.withAsync(async (width: number) => await ValidateDimensionsAsync(width, newImageSizeFormData.height))
     },
     height: {
       $autoDirty: true,
       required,
       minValue: minValue(10),
-      maxValue: maxValue(4000)
+      maxValue: maxValue(4000),
+      isHeightTaken: helpers.withAsync(async (height: number) => await ValidateDimensionsAsync(newImageSizeFormData.width, height))
     }
   }
 
@@ -51,14 +56,15 @@ import {DecodeImageSizeNameExistenceResponse} from "../../../ts/imagesSizes/libI
 
   async function OnLoad()
   {
-    await newImageSizeFormValidator.value.$validate()
   }
 
-  function ClearForm()
+  async function ClearFormAsync()
   {
     newImageSizeFormData.name = "";
     newImageSizeFormData.width = 0;
     newImageSizeFormData.height = 0;
+
+    await newImageSizeFormValidator.value.$validate()
   }
 
   function OnOk()
@@ -75,9 +81,9 @@ import {DecodeImageSizeNameExistenceResponse} from "../../../ts/imagesSizes/libI
     emit("cancel")
   }
 
-  function ShowPopup()
+  async function ShowPopupAsync()
   {
-    ClearForm()
+    await ClearFormAsync()
 
     isDisplayed.value = true
   }
@@ -87,11 +93,14 @@ import {DecodeImageSizeNameExistenceResponse} from "../../../ts/imagesSizes/libI
     isDisplayed.value = false
   }
 
-  async function ValidateNameAsync(name: string): Promise<boolean>
+  async function ValidateNameAsync(name: string) : Promise<boolean>
   {
-    // !(await CheckSizes(width, newImageSizeFormData.height))
+    if (!isDisplayed.value)
+    {
+      return false
+    }
 
-    return !(await IsNameExistAsync(name))
+    return !await IsNameExistAsync(name)
   }
 
   async function IsNameExistAsync(name: string): Promise<boolean>
@@ -105,6 +114,30 @@ import {DecodeImageSizeNameExistenceResponse} from "../../../ts/imagesSizes/libI
         .json()
 
       return DecodeImageSizeNameExistenceResponse(response)
+  }
+
+  async function ValidateDimensionsAsync(width: number, height: number): Promise<boolean>
+  {
+    if (!isDisplayed.value)
+    {
+      return false
+    }
+
+    return !await IsDimensionsExistAsync(width, height)
+  }
+
+  async function IsDimensionsExistAsync(width: number, height: number): Promise<boolean>
+  {
+    const response = await (await WebClientSendPostRequest("/ImagesSizes/IsExistByDimensions",
+        {
+          "dimensions": {
+            "width": width,
+            "height": height
+          }
+        }))
+        .json()
+
+    return DecodeImageSizeDimensionsExistenceResponse(response)
   }
 
 </script>
@@ -144,8 +177,12 @@ import {DecodeImageSizeNameExistenceResponse} from "../../../ts/imagesSizes/libI
               Width
             </label>
 
+            <div v-if="newImageSizeFormValidator.width.$error">
+              Width failed!
+            </div>
+
             <input
-                :class="(newImageSizeFormValidator.width.$error) ? 'form-invalid-field' : 'form-valid-field'"
+                :class="((newImageSizeFormValidator.width.$error || newImageSizeFormValidator.height.$error) && !(newImageSizeFormValidator.width.$pending || newImageSizeFormValidator.height.$pending)) ? 'form-invalid-field' : 'form-valid-field'"
                 class="popup-images-sizes-form-input"
                 v-model="newImageSizeFormData.width"
                 type="number">
@@ -157,8 +194,12 @@ import {DecodeImageSizeNameExistenceResponse} from "../../../ts/imagesSizes/libI
               Height
             </label>
 
+            <div v-if="newImageSizeFormValidator.height.$error">
+              Height failed!
+            </div>
+
             <input
-                :class="(newImageSizeFormValidator.height.$error) ? 'form-invalid-field' : 'form-valid-field'"
+                :class="((newImageSizeFormValidator.width.$error || newImageSizeFormValidator.height.$error) && !(newImageSizeFormValidator.width.$pending || newImageSizeFormValidator.height.$pending)) ? 'form-invalid-field' : 'form-valid-field'"
                 class="popup-images-sizes-form-input"
                 v-model="newImageSizeFormData.height"
                 type="number">
