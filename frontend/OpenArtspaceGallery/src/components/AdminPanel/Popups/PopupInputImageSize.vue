@@ -67,8 +67,24 @@ import {
     await newImageSizeFormValidator.value.$validate()
   }
 
-  function OnOk()
+  async function OnOkAsync()
   {
+
+    const tmpWidth = newImageSizeFormValidator.value.width.$model
+    newImageSizeFormValidator.value.width.$model = 0
+    newImageSizeFormValidator.value.width.$model = tmpWidth
+
+    const tmpHeight = newImageSizeFormValidator.value.height.$model
+    newImageSizeFormValidator.value.height.$model = 0
+    newImageSizeFormValidator.value.height.$model = tmpHeight
+
+    await newImageSizeFormValidator.value.$validate()
+
+    if (newImageSizeFormValidator.value.$errors.length > 0) {
+      alert("Some fields aren't valid!")
+      return
+    }
+
     HidePopup()
 
     emit("ok", newImageSizeFormData)
@@ -177,10 +193,6 @@ import {
               Width
             </label>
 
-            <div v-if="newImageSizeFormValidator.width.$error">
-              Width failed!
-            </div>
-
             <input
                 :class="((newImageSizeFormValidator.width.$error || newImageSizeFormValidator.height.$error) && !(newImageSizeFormValidator.width.$pending || newImageSizeFormValidator.height.$pending)) ? 'form-invalid-field' : 'form-valid-field'"
                 class="popup-images-sizes-form-input"
@@ -193,10 +205,6 @@ import {
             <label class="popup-images-sizes-form-label">
               Height
             </label>
-
-            <div v-if="newImageSizeFormValidator.height.$error">
-              Height failed!
-            </div>
 
             <input
                 :class="((newImageSizeFormValidator.width.$error || newImageSizeFormValidator.height.$error) && !(newImageSizeFormValidator.width.$pending || newImageSizeFormValidator.height.$pending)) ? 'form-invalid-field' : 'form-valid-field'"
@@ -213,8 +221,7 @@ import {
             </button>
 
             <button
-                :disabled="(newImageSizeFormValidator.$errors.length > 0) || (newImageSizeFormValidator.$pending)"
-                @click ="OnOk()">
+                @click ="async() => await OnOkAsync()">
               Ok
             </button>
 
