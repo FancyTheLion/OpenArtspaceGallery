@@ -99,4 +99,9 @@ public class ImagesSizesService : IImagesSizesService
     {
         return await _imagesSizesDao.IsImageSizeExistsByDimensionsAsync(width, height);
     }
+
+    public async Task<bool> IsImageSizeExistsAsync(string name, int width, int height)
+    {
+        return await _imagesSizesDao.IsImageSizeExistsByFieldsAsync(name, width, height);
+    }
 }

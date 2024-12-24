@@ -87,4 +87,11 @@ public class ImagesSizesDao : IImagesSizesDao
 
         return imageSize;
     }
+
+    public async Task<bool> IsImageSizeExistsByFieldsAsync(string name, int width, int height)
+    {
+        return await _dbContext
+            .ImagesSizes
+            .AnyAsync(f  => f.Name == name && f.Width == width && f.Height == height);
+    }
 }

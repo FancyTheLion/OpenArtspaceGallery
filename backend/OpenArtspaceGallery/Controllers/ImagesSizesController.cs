@@ -1,3 +1,4 @@
+using System.Security.Cryptography;
 using Microsoft.AspNetCore.Mvc;
 using OpenArtspaceGallery.Models.API.DTOs;
 using OpenArtspaceGallery.Models.API.DTOs.ImagesSizes;
@@ -154,6 +155,24 @@ public class ImagesSizesController : ControllerBase
             new ImageSizeDimensionsExistenceResponse
             (
                 new ExistenceDto(await _imagesSizesService.IsExistByDimensionsAsync(request.ImageSizeDimensionsExistence.Width, request.ImageSizeDimensionsExistence.Height))
+            )
+        );
+    }
+
+    [HttpPost]
+    [Route("IsImageSizeExists")]
+    public async Task<ActionResult<ImageSizeExistenceResponse>> IsImageSizeExistsAsync(ImageSizeExistenceRequest request)
+    {
+        if (request == null)
+        {
+            return BadRequest("Request mustn't be null!");
+        }
+        
+        return Ok
+        (
+            new ImageSizeExistenceResponse
+            (
+                new ExistenceDto(await _imagesSizesService.IsImageSizeExistsAsync(request.ImageSizeExistence.Name, request.ImageSizeExistence.Width, request.ImageSizeExistence.Height))
             )
         );
     }

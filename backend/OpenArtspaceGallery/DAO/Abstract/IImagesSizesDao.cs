@@ -33,7 +33,7 @@ public interface IImagesSizesDao
     public Task DeleteImageSizeAsync(Guid sizeId);
 
     /// <summary>
-    /// Is image size exists
+    /// Is image size exists by ID
     /// </summary>
     public Task<bool> IsImageSizeExistsAsync(Guid sizeId);
     
@@ -41,4 +41,9 @@ public interface IImagesSizesDao
     /// Update image size
     /// </summary>
     Task<ImageSizeDbo> UpdateImageSizeAsync(ImageSizeDbo imageSize);
+    
+    /// <summary>
+    /// Is image size exists by name, width, height
+    /// </summary>
+    public Task<bool> IsImageSizeExistsByFieldsAsync(string name, int width, int height);
 }

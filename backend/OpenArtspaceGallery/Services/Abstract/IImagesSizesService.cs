@@ -42,4 +42,9 @@ public interface IImagesSizesService
     /// Is exist by name
     /// </summary>
     Task<bool> IsExistByDimensionsAsync(int width, int height);
+    
+    /// <summary>
+    /// Image size is exist
+    /// </summary>
+    Task<bool> IsImageSizeExistsAsync(string name, int width, int height);
 }
