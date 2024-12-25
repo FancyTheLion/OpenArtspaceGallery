@@ -78,7 +78,7 @@ public class ImagesSizesController : ControllerBase
     [Route("{sizeId:guid}")]
     public async Task<ActionResult> DeleteImageSizeAsync(Guid sizeId)
     {
-        if (!await _imagesSizesService.IsImageSizeExistsAsync(sizeId))
+        if (!await _imagesSizesService.IsImageSizeExistsByIdAsync(sizeId))
         {
             return NotFound();
         }
@@ -89,8 +89,8 @@ public class ImagesSizesController : ControllerBase
     }
 
     [HttpPost]
-    [Route("UpdateImageSize")]
-    public async Task<ActionResult<UpdateImageSizeResponse>> UpdateImageSizeAsync(UpdateImageSizeRequest request)
+    [Route("UpdateImageSizeById")]
+    public async Task<ActionResult<UpdateImageSizeByIdResponse>> UpdateImageSizeByIdAsync(UpdateImageSizeByIdRequest request)
     {
         if (request == null)
         {
@@ -102,7 +102,7 @@ public class ImagesSizesController : ControllerBase
             return BadRequest("When update image size, the size information must not be null.");
         }
         
-        if (!await _imagesSizesService.IsImageSizeExistsAsync(request.ImageSize.Id))
+        if (!await _imagesSizesService.IsImageSizeExistsByIdAsync(request.ImageSize.Id))
         {
             return NotFound();
         }
@@ -111,9 +111,9 @@ public class ImagesSizesController : ControllerBase
         {
             return Ok
             (
-                new UpdateImageSizeResponse
+                new UpdateImageSizeByIdResponse
                 (
-                    (await _imagesSizesService.UpdateImageSizeAsync(request.ImageSize.ToModel())).ToDto()
+                    (await _imagesSizesService.UpdateImageSizeByIdAsync(request.ImageSize.ToModel())).ToDto()
                 )
             );
         }
@@ -173,6 +173,19 @@ public class ImagesSizesController : ControllerBase
             new ImageSizeExistenceResponse
             (
                 new ExistenceDto(await _imagesSizesService.IsImageSizeExistsAsync(request.ImageSizeExistence.Name, request.ImageSizeExistence.Width, request.ImageSizeExistence.Height))
+            )
+        );
+    }
+    
+    [HttpPost]
+    [Route("UpdateImageSize")]
+    public async Task<ActionResult<UpdateImageSizeResponse>> UpdateImageSizeAsync(UpdateImageSizeRequest request)
+    {
+        return Ok
+        (
+            new UpdateImageSizeResponse
+            (
+                (await _imagesSizesService.UpdateImageSizeAsync(request.ImageSize.ToModel())).ToDto()
             )
         );
     }

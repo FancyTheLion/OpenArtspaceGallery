@@ -64,14 +64,14 @@ public class ImagesSizesDao : IImagesSizesDao
         await _dbContext.SaveChangesAsync();
     }
     
-    public async Task<bool> IsImageSizeExistsAsync(Guid sizeId)
+    public async Task<bool> IsImageSizeExistsByIdAsync(Guid sizeId)
     {
         return await _dbContext
             .ImagesSizes
             .AnyAsync(s => s.Id == sizeId);
     }
 
-    public async Task<ImageSizeDbo> UpdateImageSizeAsync(ImageSizeDbo updateImageSize)
+    public async Task<ImageSizeDbo> UpdateImageSizeByIdAsync(ImageSizeDbo updateImageSize)
     {
         _ = updateImageSize ?? throw new ArgumentNullException(nameof(updateImageSize), "Image size to update can't be null!");
         
@@ -93,5 +93,10 @@ public class ImagesSizesDao : IImagesSizesDao
         return await _dbContext
             .ImagesSizes
             .AnyAsync(f  => f.Name == name && f.Width == width && f.Height == height);
+    }
+
+    public async Task<UpdateImageSizeDbo> UpdateImageSizeAsync(UpdateImageSizeDbo imageSizeToUpdate)
+    {
+        
     }
 }

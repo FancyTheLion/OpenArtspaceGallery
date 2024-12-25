@@ -26,12 +26,12 @@ public interface IImagesSizesService
     /// <summary>
     /// Is image size exists
     /// </summary>
-    Task<bool> IsImageSizeExistsAsync(Guid sizeId);
+    Task<bool> IsImageSizeExistsByIdAsync(Guid sizeId);
     
     /// <summary>
-    /// Update image size
+    /// Update image size by id
     /// </summary>
-    Task<ImageSize> UpdateImageSizeAsync(ImageSize imageSize);
+    Task<ImageSize> UpdateImageSizeByIdAsync(ImageSize imageSize);
     
     /// <summary>
     /// Is exist by name
@@ -47,4 +47,9 @@ public interface IImagesSizesService
     /// Image size is exist
     /// </summary>
     Task<bool> IsImageSizeExistsAsync(string name, int width, int height);
+    
+    /// <summary>
+    /// Update image size by name, width and height
+    /// </summary>
+    Task<UpdateImageSize> UpdateImageSizeAsync(UpdateImageSize updateImageSize);
 }

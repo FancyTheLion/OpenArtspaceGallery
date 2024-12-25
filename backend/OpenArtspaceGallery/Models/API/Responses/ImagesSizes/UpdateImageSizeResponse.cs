@@ -1,21 +1,22 @@
 using System.Text.Json.Serialization;
 using OpenArtspaceGallery.Models.API.DTOs.ImagesSizes;
+using OpenArtspaceGallery.Models.API.DTOs.Shared;
 
 namespace OpenArtspaceGallery.Models.API.Responses.ImagesSizes;
 
 public class UpdateImageSizeResponse
 {
     /// <summary>
-    /// Image size to update
+    /// Image size to update by name, width, height
     /// </summary>
-    [JsonPropertyName("imageSize")]
-    public ImageSizeDto ImageSize { get; private set; }
-
+    [JsonPropertyName("updateImageSize")]
+    public UpdateImageSizeDto UpdateImageSize { get; private set; }
+    
     public UpdateImageSizeResponse
     (
-        ImageSizeDto imageSize
+        UpdateImageSizeDto updateImageSize
     )
     {
-        ImageSize = imageSize ?? throw new ArgumentNullException(nameof(imageSize), "Image size to update can't be null.");
+        UpdateImageSize = updateImageSize ?? throw new ArgumentNullException(nameof(updateImageSize), "Image size are required and must not be null.");
     }
 }

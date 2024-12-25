@@ -51,12 +51,12 @@ public class ImagesSizesService : IImagesSizesService
         await _imagesSizesDao.DeleteImageSizeAsync(sizeId);
     }
     
-    public async Task<bool> IsImageSizeExistsAsync(Guid sizeId)
+    public async Task<bool> IsImageSizeExistsByIdAsync(Guid sizeId)
     {
-        return await _imagesSizesDao.IsImageSizeExistsAsync(sizeId);
+        return await _imagesSizesDao.IsImageSizeExistsByIdAsync(sizeId);
     }
 
-    public async Task<ImageSize> UpdateImageSizeAsync(ImageSize imageSize)
+    public async Task<ImageSize> UpdateImageSizeByIdAsync(ImageSize imageSize)
     {
         _ = imageSize ?? throw new ArgumentNullException(nameof(imageSize), "Update data cannot be null!");
         
@@ -70,7 +70,7 @@ public class ImagesSizesService : IImagesSizesService
         
         await ValidateImageSizeAsync(imageSize);
         
-        return ImageSize.FromDbo(await _imagesSizesDao.UpdateImageSizeAsync(imageSizeToUpdate));
+        return ImageSize.FromDbo(await _imagesSizesDao.UpdateImageSizeByIdAsync(imageSizeToUpdate));
     }
 
     /// <summary>
@@ -103,5 +103,17 @@ public class ImagesSizesService : IImagesSizesService
     public async Task<bool> IsImageSizeExistsAsync(string name, int width, int height)
     {
         return await _imagesSizesDao.IsImageSizeExistsByFieldsAsync(name, width, height);
+    }
+
+    public async Task<UpdateImageSize> UpdateImageSizeAsync(UpdateImageSize imageSizeToUpdate)
+    {
+        var freshImageSize = new UpdateImageSizeDbo()
+        {
+            Name = imageSizeToUpdate.Name,
+            Width = imageSizeToUpdate.Width,
+            Height = imageSizeToUpdate.Height
+        };
+        
+        return UpdateImageSize.FromDbo(await _imagesSizesDao.UpdateImageSizeAsync(freshImageSize));
     }
 }

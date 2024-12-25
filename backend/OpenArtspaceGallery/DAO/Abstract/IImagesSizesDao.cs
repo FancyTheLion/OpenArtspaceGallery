@@ -35,15 +35,20 @@ public interface IImagesSizesDao
     /// <summary>
     /// Is image size exists by ID
     /// </summary>
-    public Task<bool> IsImageSizeExistsAsync(Guid sizeId);
+    public Task<bool> IsImageSizeExistsByIdAsync(Guid sizeId);
     
     /// <summary>
     /// Update image size
     /// </summary>
-    Task<ImageSizeDbo> UpdateImageSizeAsync(ImageSizeDbo imageSize);
+    Task<ImageSizeDbo> UpdateImageSizeByIdAsync(ImageSizeDbo imageSize);
     
     /// <summary>
     /// Is image size exists by name, width, height
     /// </summary>
     public Task<bool> IsImageSizeExistsByFieldsAsync(string name, int width, int height);
+    
+    /// <summary>
+    /// Update image size by name, width, height fields
+    /// </summary>
+    public Task<UpdateImageSizeDbo> UpdateImageSizeAsync(UpdateImageSizeDbo updateImageSizeDbo);
 }
