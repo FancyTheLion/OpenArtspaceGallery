@@ -47,9 +47,4 @@ public interface IImagesSizesService
     /// Image size is exist
     /// </summary>
     Task<bool> IsImageSizeExistsAsync(string name, int width, int height);
-    
-    /// <summary>
-    /// Update image size by name, width and height
-    /// </summary>
-    Task<UpdateImageSize> UpdateImageSizeAsync(UpdateImageSize updateImageSize);
 }

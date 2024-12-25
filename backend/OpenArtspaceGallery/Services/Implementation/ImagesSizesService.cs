@@ -68,7 +68,8 @@ public class ImagesSizesService : IImagesSizesService
             Height = imageSize.Height
         };
         
-        await ValidateImageSizeAsync(imageSize);
+        // TODO: Add correct validation
+        //await ValidateImageSizeAsync(imageSize);
         
         return ImageSize.FromDbo(await _imagesSizesDao.UpdateImageSizeByIdAsync(imageSizeToUpdate));
     }
@@ -102,18 +103,8 @@ public class ImagesSizesService : IImagesSizesService
 
     public async Task<bool> IsImageSizeExistsAsync(string name, int width, int height)
     {
-        return await _imagesSizesDao.IsImageSizeExistsByFieldsAsync(name, width, height);
-    }
-
-    public async Task<UpdateImageSize> UpdateImageSizeAsync(UpdateImageSize imageSizeToUpdate)
-    {
-        var freshImageSize = new UpdateImageSizeDbo()
-        {
-            Name = imageSizeToUpdate.Name,
-            Width = imageSizeToUpdate.Width,
-            Height = imageSizeToUpdate.Height
-        };
+        _ = name ?? throw new ArgumentNullException(nameof(name), "Image size name cannot be null!");
         
-        return UpdateImageSize.FromDbo(await _imagesSizesDao.UpdateImageSizeAsync(freshImageSize));
+        return await _imagesSizesDao.IsImageSizeExistsAsync(name, width, height);
     }
 }

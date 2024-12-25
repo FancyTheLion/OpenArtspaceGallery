@@ -172,20 +172,7 @@ public class ImagesSizesController : ControllerBase
         (
             new ImageSizeExistenceResponse
             (
-                new ExistenceDto(await _imagesSizesService.IsImageSizeExistsAsync(request.ImageSizeExistence.Name, request.ImageSizeExistence.Width, request.ImageSizeExistence.Height))
-            )
-        );
-    }
-    
-    [HttpPost]
-    [Route("UpdateImageSize")]
-    public async Task<ActionResult<UpdateImageSizeResponse>> UpdateImageSizeAsync(UpdateImageSizeRequest request)
-    {
-        return Ok
-        (
-            new UpdateImageSizeResponse
-            (
-                (await _imagesSizesService.UpdateImageSizeAsync(request.ImageSize.ToModel())).ToDto()
+                new ExistenceDto(await _imagesSizesService.IsImageSizeExistsAsync(request.ImageSize.Name, request.ImageSize.Width, request.ImageSize.Height))
             )
         );
     }

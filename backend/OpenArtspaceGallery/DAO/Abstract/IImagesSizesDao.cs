@@ -38,17 +38,12 @@ public interface IImagesSizesDao
     public Task<bool> IsImageSizeExistsByIdAsync(Guid sizeId);
     
     /// <summary>
-    /// Update image size
+    /// Update image size by id
     /// </summary>
     Task<ImageSizeDbo> UpdateImageSizeByIdAsync(ImageSizeDbo imageSize);
     
     /// <summary>
-    /// Is image size exists by name, width, height
+    /// Is image size exists by name, width, height fields
     /// </summary>
-    public Task<bool> IsImageSizeExistsByFieldsAsync(string name, int width, int height);
-    
-    /// <summary>
-    /// Update image size by name, width, height fields
-    /// </summary>
-    public Task<UpdateImageSizeDbo> UpdateImageSizeAsync(UpdateImageSizeDbo updateImageSizeDbo);
+    public Task<bool> IsImageSizeExistsAsync(string name, int width, int height);
 }

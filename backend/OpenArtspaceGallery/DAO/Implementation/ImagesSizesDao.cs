@@ -88,15 +88,12 @@ public class ImagesSizesDao : IImagesSizesDao
         return imageSize;
     }
 
-    public async Task<bool> IsImageSizeExistsByFieldsAsync(string name, int width, int height)
+    public async Task<bool> IsImageSizeExistsAsync(string name, int width, int height)
     {
+        _ = name ?? throw new ArgumentNullException(nameof(name), "Name can't be null!");
+        
         return await _dbContext
             .ImagesSizes
-            .AnyAsync(f  => f.Name == name && f.Width == width && f.Height == height);
-    }
-
-    public async Task<UpdateImageSizeDbo> UpdateImageSizeAsync(UpdateImageSizeDbo imageSizeToUpdate)
-    {
-        
+            .AnyAsync(f => f.Name.ToLower() == name.ToLower() && f.Width == width && f.Height == height);
     }
 }

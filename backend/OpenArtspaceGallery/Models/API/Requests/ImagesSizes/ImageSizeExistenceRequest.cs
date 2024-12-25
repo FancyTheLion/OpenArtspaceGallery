@@ -6,8 +6,8 @@ namespace OpenArtspaceGallery.Models.API.Requests.ImagesSizes;
 public class ImageSizeExistenceRequest
 {
     /// <summary>
-    /// Image size existence
+    /// Image size
     /// </summary>
     [JsonPropertyName("imageSize")]
-    public ImageSizeExistenceDto ImageSizeExistence { get; set; }
+    public ImageSizeDto ImageSize { get; set; }
 }
