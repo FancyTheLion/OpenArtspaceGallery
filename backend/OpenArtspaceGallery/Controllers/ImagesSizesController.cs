@@ -74,6 +74,9 @@ public class ImagesSizesController : ControllerBase
         }
     }
     
+    /// <summary>
+    /// Delete image size 
+    /// </summary>
     [HttpDelete]
     [Route("{sizeId:guid}")]
     public async Task<ActionResult> DeleteImageSizeAsync(Guid sizeId)
@@ -88,6 +91,9 @@ public class ImagesSizesController : ControllerBase
         return Ok();
     }
 
+    /// <summary>
+    /// Update image size fields: name, width, height
+    /// </summary>
     [HttpPost]
     [Route("UpdateImageSizeById")]
     public async Task<ActionResult<UpdateImageSizeByIdResponse>> UpdateImageSizeByIdAsync(UpdateImageSizeByIdRequest request)
@@ -123,6 +129,9 @@ public class ImagesSizesController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Is there an image size by name
+    /// </summary>
     [HttpPost]
     [Route("IsExistByName")]
     public async Task<ActionResult<ImageSizeNameExistenceResponse>> IsExistByNameAsync(ImageSizeNameExistenceRequest request)
@@ -141,6 +150,9 @@ public class ImagesSizesController : ControllerBase
         );
     }
 
+    /// <summary>
+    /// Is there an image size by name by dimensions
+    /// </summary>
     [HttpPost]
     [Route("IsExistByDimensions")]
     public async Task<ActionResult<ImageSizeDimensionsExistenceResponse>> IsExistByDimensionsAsync(ImageSizeDimensionsExistenceRequest request)
@@ -159,6 +171,9 @@ public class ImagesSizesController : ControllerBase
         );
     }
 
+    /// <summary>
+    /// Is there an image size (by name and image dimensions)
+    /// </summary>
     [HttpPost]
     [Route("IsImageSizeExists")]
     public async Task<ActionResult<ImageSizeExistenceResponse>> IsImageSizeExistsAsync(ImageSizeExistenceRequest request)

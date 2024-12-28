@@ -58,6 +58,9 @@ public class AlbumsController : ControllerBase
         );
     }
 
+    /// <summary>
+    /// Get album hierarchy
+    /// </summary>
     [HttpGet]
     [Route("Hierarchy/{albumId:guid}")]
     public async Task<ActionResult<AlbumHierarchyResponse>> GetListAlbumsInHierarchy(Guid albumId)
@@ -75,6 +78,9 @@ public class AlbumsController : ControllerBase
         );
     }
 
+    /// <summary>
+    /// Add album
+    /// </summary>
     [HttpPost]
     [Route("New")]
     public async Task<ActionResult<NewAlbumResponse>> AddAlbumAsync(NewAlbumRequest request)
@@ -95,6 +101,9 @@ public class AlbumsController : ControllerBase
         );
     }
 
+    /// <summary>
+    /// Delete album
+    /// </summary>
     [HttpDelete]
     [Route("{albumId:guid}")]
     public async Task<ActionResult> DeleteAlbumAsync(Guid albumId)
@@ -109,6 +118,9 @@ public class AlbumsController : ControllerBase
         return Ok();
     }
 
+    /// <summary>
+    /// Rename album
+    /// </summary>
     [HttpPost]
     [Route("{albumId:guid}/Rename")]
     public async Task<ActionResult> RenameAlbumAsync(Guid albumId, RenameAlbumRequest request)
