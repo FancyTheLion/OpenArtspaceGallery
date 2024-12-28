@@ -8,30 +8,21 @@ namespace OpenArtspaceGallery.Services.Abstract;
 /// </summary>
 public interface IImagesSizesService
 {
+    #region Collection Getters 
+
     /// <summary>
     /// Get the images sizes
     /// </summary>
     Task<IReadOnlyCollection<ImageSize>> GetImagesSizesAsync();
     
-    /// <summary>
-    /// Add new image size
-    /// </summary>
-    Task<ImageSize> AddImageSizeAsync(ImageSize imageSize);
+    #endregion
+    
+    #region Is exists
 
     /// <summary>
-    /// Delete image size
-    /// </summary>
-    Task DeleteImageSizeAsync(Guid sizeId);
-
-    /// <summary>
-    /// Is image size exists
+    /// Is image size exists by id
     /// </summary>
     Task<bool> IsImageSizeExistsByIdAsync(Guid sizeId);
-    
-    /// <summary>
-    /// Update image size by id
-    /// </summary>
-    Task<ImageSize> UpdateImageSizeByIdAsync(ImageSize imageSize);
     
     /// <summary>
     /// Is exist by name
@@ -39,7 +30,7 @@ public interface IImagesSizesService
     Task<bool> IsExistByNameAsync(string imageSizeName);
     
     /// <summary>
-    /// Is exist by name
+    /// Is exist by dimensions
     /// </summary>
     Task<bool> IsExistByDimensionsAsync(int width, int height);
     
@@ -47,4 +38,33 @@ public interface IImagesSizesService
     /// Image size is exist
     /// </summary>
     Task<bool> IsImageSizeExistsAsync(string name, int width, int height);
+
+    #endregion
+    
+    #region Create
+
+    /// <summary>
+    /// Add new image size
+    /// </summary>
+    Task<ImageSize> AddImageSizeAsync(ImageSize imageSize);
+
+    #endregion
+    
+    #region Delete
+
+    /// <summary>
+    /// Delete image size
+    /// </summary>
+    Task DeleteImageSizeAsync(Guid sizeId);
+
+    #endregion
+    
+    #region Update
+
+    /// <summary>
+    /// Update image size by id
+    /// </summary>
+    Task<ImageSize> UpdateImageSizeByIdAsync(ImageSize imageSize);
+
+    #endregion
 }
