@@ -96,4 +96,25 @@ public class ImagesSizesDao : IImagesSizesDao
             .ImagesSizes
             .AnyAsync(f => f.Name.ToLower() == name.ToLower() && f.Width == width && f.Height == height);
     }
+    
+    public async Task<bool> IsImageSizeMatchingAsync(Guid sizeId, string name, int width, int height)
+    {
+        var existingImageSize = await _dbContext
+            .ImagesSizes
+            .FirstOrDefaultAsync(f => f.Name.ToLower() == name.ToLower() && f.Width == width && f.Height == height);
+        
+        return existingImageSize == null || existingImageSize.Id == sizeId;
+        
+        /*if(existingImageSize == null)
+        {
+            return true; // If it does not exist with such parameters (this is necessary?)
+        }
+        
+        if(existingImageSize.Id == sizeId)
+        {
+            return true; // If a picture with the same parameters exists and has the same ID
+        }
+        
+        return false;*/
+    }
 }
