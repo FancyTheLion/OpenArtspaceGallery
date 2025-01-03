@@ -26,7 +26,7 @@ public class ImagesSizesController : ControllerBase
     }
 
     /// <summary>
-    /// Get Images Sizes List 
+    /// Get images sizes list 
     /// </summary>
     [HttpGet]
     [Route("GetImagesSizesList")]
@@ -172,7 +172,7 @@ public class ImagesSizesController : ControllerBase
     }
 
     /// <summary>
-    /// Is there an image size (by name and image dimensions)
+    /// Is there an image size 
     /// </summary>
     [HttpPost]
     [Route("IsImageSizeExists")]
