@@ -3,7 +3,7 @@ using OpenArtspaceGallery.Helpers.Validators;
 
 namespace OpenArtspaceGallery.Models.API.DTOs.ImagesSizes;
 
-public class ImageSizeViseOutIdDto
+public class ImageSizeBaseDto
 {
     /// <summary>
     /// Size name (large, medium and others)
@@ -23,7 +23,7 @@ public class ImageSizeViseOutIdDto
     [JsonPropertyName("height")]
     public int Height { get; private set; }
 
-    public ImageSizeViseOutIdDto
+    public ImageSizeBaseDto
     (
         string name,
         int width,

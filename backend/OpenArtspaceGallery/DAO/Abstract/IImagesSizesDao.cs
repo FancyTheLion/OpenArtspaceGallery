@@ -36,12 +36,12 @@ public interface IImagesSizesDao
     /// <summary>
     /// Is image size exists by name, width, height fields
     /// </summary>
-    public Task<bool> IsImageSizeExistsAsync(string name, int width, int height);
+    public Task<bool> IsImageSizeExistsByPropertiesAsync(string name, int width, int height);
     
-    /// <summary>
+    /*/// <summary>
     /// Is image size exists by id
     /// </summary>
-    public Task<bool> IsImageSizeMatchingAsync(Guid sizeId, string name, int width, int height);
+    public Task<bool> IsImageSizeExistsAsync(Guid sizeId, string name, int width, int height);*/
 
     #endregion
     

@@ -105,6 +105,6 @@ public class ImagesSizesService : IImagesSizesService
     {
         _ = name ?? throw new ArgumentNullException(nameof(name), "Image size name cannot be null!");
         
-        return await _imagesSizesDao.IsImageSizeExistsAsync(name, width, height);
+        return await _imagesSizesDao.IsImageSizeExistsByPropertiesAsync(name, width, height);
     }
 }

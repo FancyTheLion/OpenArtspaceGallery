@@ -9,5 +9,5 @@ public class ImageSizeExistenceRequest
     /// Image size
     /// </summary>
     [JsonPropertyName("imageSize")]
-    public ImageSizeDto ImageSize { get; set; }
+    public ImageSizeBaseDto ImageSize { get; set; }
 }

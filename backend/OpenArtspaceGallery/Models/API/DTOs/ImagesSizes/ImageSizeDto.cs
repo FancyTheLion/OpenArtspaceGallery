@@ -3,7 +3,7 @@ using OpenArtspaceGallery.Helpers.Validators;
 
 namespace OpenArtspaceGallery.Models.API.DTOs.ImagesSizes;
 
-public class ImageSizeDto : ImageSizeViseOutIdDto
+public class ImageSizeDto : ImageSizeBaseDto
 {
     /// <summary>
     /// Image size id
