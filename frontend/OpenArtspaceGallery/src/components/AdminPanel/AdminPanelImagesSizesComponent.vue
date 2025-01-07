@@ -11,7 +11,6 @@ import {
 } from "../../ts/libWebClient.ts";
   import PopupYesNo from "../Shared/Popups/PopupYesNo.vue";
   import PopupInputImageSize from "./Popups/PopupInputImageSize.vue";
-import PopupUniversalInput from "../Shared/Popups/PopupUniversalInput.vue";
 
   const imagesSizes = ref<ImageSize[]>([])
 
@@ -157,12 +156,7 @@ import PopupUniversalInput from "../Shared/Popups/PopupUniversalInput.vue";
         ref="deleteImageSizePopupRef"
         @yes="async () => await DeleteImageSizeAsync()" />
 
-<!--    <PopupInputImageSize
-        ref="addImageSizePopupRef"
-        @ok="async (nIS) => await CreateImageSizeAsync(nIS)"/>-->
-
-    <PopupUniversalInput
-        title="Add new image size"
+    <PopupInputImageSize
         ref="addImageSizePopupRef"
         @ok="async (nIS) => await CreateImageSizeAsync(nIS)"/>
 

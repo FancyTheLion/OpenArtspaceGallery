@@ -382,28 +382,6 @@
   padding-right: 0.4rem;
   padding-bottom: 0.4rem;
 }
-.popup-images-sizes-text-input {
-  text-align: left;
-  border: 0.3rem solid hsl(180, 97%, 50%);
-  border-radius: 0.5rem;
-  background-color: hsl(0, 0%, 100%);
-  padding-left: 0.4rem;
-  padding-right: 0.4rem;
-  padding-bottom: 0.4rem;
-}
-.popup-images-sizes-form-row {
-  display: flex;
-  align-items: center;
-  margin-bottom: 0.5rem;
-}
-.popup-images-sizes-form-label {
-  width: 100%;
-  text-align: left;
-  margin-right: 0.5rem;
-}
-.popup-images-sizes-form-input {
-  flex: 1;
-}
 /* Album container settings */
 /* Album creation date */
 /* Delete album button */
