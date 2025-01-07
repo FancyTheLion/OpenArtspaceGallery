@@ -10,15 +10,19 @@ import {
   WebClientSendGetRequest, WebClientSendPostRequest,
 } from "../../ts/libWebClient.ts";
   import PopupYesNo from "../Shared/Popups/PopupYesNo.vue";
-  import PopupInputImageSize from "./Popups/PopupInputImageSize.vue";
+  import PopupAddEditImageSize from "./Popups/PopupAddEditImageSize.vue";
 
   const imagesSizes = ref<ImageSize[]>([])
 
   const deleteImageSizePopupRef = ref<InstanceType<typeof PopupYesNo>>()
 
-  const addImageSizePopupRef = ref<InstanceType<typeof PopupInputImageSize>>()
+  const addImageSizePopupRef = ref<InstanceType<typeof PopupAddEditImageSize>>()
 
-  const imageSizeToDelete = ref<string>("")
+  const imageSizeToDeleteId = ref<string>("")
+
+  const imageSizeToEditId = ref<string>("")
+
+  const editImageSizePopupRef = ref<InstanceType<typeof PopupAddEditImageSize>>()
 
   onMounted(async () =>
   {
@@ -40,7 +44,7 @@ import {
 
   async function DeleteImageSizeAsync()
   {
-    const response = await WebClientSendDeleteRequest("/ImagesSizes/" + imageSizeToDelete.value)
+    const response = await WebClientSendDeleteRequest("/ImagesSizes/" + imageSizeToDeleteId.value)
 
     await RefreshImageSizesListAsync()
 
@@ -71,21 +75,49 @@ import {
     await RefreshImageSizesListAsync()
   }
 
+  async function EditImageSizeAsync(newImageSize: NewImageSize)
+  {
+    const request = await WebClientSendPostRequest("/ImagesSizes/UpdateImageSizeById",
+        {
+          "imageSize": {
+            "id": imageSizeToEditId.value,
+            "name": newImageSize.name,
+            "width": newImageSize.width,
+            "height": newImageSize.height
+          }
+        })
+
+    if (!request.ok)
+    {
+      alert("An error happened. Try again later.")
+      return
+    }
+
+    await RefreshImageSizesListAsync()
+  }
+
   async function RefreshImageSizesListAsync()
   {
     imagesSizes.value = await GetImagesSizesListAsync()
   }
 
-  function ShowImageSizeDeleteConfirmation(id: string)
+  function ShowDeleteImageSizeConfirmation(id: string)
   {
-    imageSizeToDelete.value = id;
+    imageSizeToDeleteId.value = id;
 
     deleteImageSizePopupRef.value!.Show()
   }
 
   async function ShowNewImageSizePopupAsync()
   {
-    await addImageSizePopupRef.value!.ShowAsync()
+    await addImageSizePopupRef.value!.ShowAsync("", 0, 0)
+  }
+
+  async function ShowEditImageSizeAsync(id: string, imageData: NewImageSize)
+  {
+    imageSizeToEditId.value = id;
+
+    await editImageSizePopupRef.value!.ShowAsync(imageData.name, imageData.width, imageData.height)
   }
 
 </script>
@@ -98,9 +130,7 @@ import {
 
     <div class="pseudo-link"
          @click="async () => await ShowNewImageSizePopupAsync()">
-
       Add new image size
-
     </div>
 
     <table
@@ -127,12 +157,17 @@ import {
           <td class="table-cells">{{ image.height }}</td>
           <td class="table-actions-cells">
 
+            <div
+              @click="async () => await ShowEditImageSizeAsync(image.id, { name: image.name, width: image.width, height: image.height })">
+              Редактировать
+            </div>
+
             <img
               class="table-close-button"
               src="/public/images/icons/delete.webp"
               alt="Delete image size"
               title="Delete image size"
-              @click="ShowImageSizeDeleteConfirmation(image.id)"
+              @click="ShowDeleteImageSizeConfirmation(image.id)"
             />
 
           </td>
@@ -145,9 +180,7 @@ import {
 
     <div class="pseudo-link"
       @click="async () => await ShowNewImageSizePopupAsync()">
-
       Add new image size
-
     </div>
 
     <PopupYesNo
@@ -156,9 +189,19 @@ import {
         ref="deleteImageSizePopupRef"
         @yes="async () => await DeleteImageSizeAsync()" />
 
-    <PopupInputImageSize
+    <PopupAddEditImageSize
         ref="addImageSizePopupRef"
+
+        :isNewImageSize="true"
+
         @ok="async (nIS) => await CreateImageSizeAsync(nIS)"/>
+
+    <PopupAddEditImageSize
+        ref="editImageSizePopupRef"
+
+        :isNewImageSize="false"
+
+        @ok="async (nIS) => await EditImageSizeAsync(nIS)"/>
 
   </div>
 

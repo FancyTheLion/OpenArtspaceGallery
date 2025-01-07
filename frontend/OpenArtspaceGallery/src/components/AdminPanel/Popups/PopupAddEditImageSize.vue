@@ -13,6 +13,13 @@ import {
     ShowAsync: ShowPopupAsync
   })
 
+  const props = defineProps({
+    isNewImageSize: {
+      type: Boolean,
+      required: true
+    }
+  })
+
   const isDisplayed = ref<boolean>(false)
 
   const newImageSizeFormData = reactive({
@@ -58,11 +65,11 @@ import {
   {
   }
 
-  async function ClearFormAsync()
+  async function InitFormAsync(name: string, width: number, height: number)
   {
-    newImageSizeFormData.name = "";
-    newImageSizeFormData.width = 0;
-    newImageSizeFormData.height = 0;
+    newImageSizeFormData.name = name;
+    newImageSizeFormData.width = width;
+    newImageSizeFormData.height = height;
 
     await newImageSizeFormValidator.value.$validate()
   }
@@ -97,9 +104,9 @@ import {
     emit("cancel")
   }
 
-  async function ShowPopupAsync()
+  async function ShowPopupAsync(name: string, width: number, height: number)
   {
-    await ClearFormAsync()
+    await InitFormAsync(name, width, height)
 
     isDisplayed.value = true
   }
@@ -170,8 +177,15 @@ import {
 
         <div class="popup-images-sizes-text-input">
 
-          <div class="popup-title">
+          <div
+              v-if="props.isNewImageSize"
+              class="popup-title">
             Add new image size
+          </div>
+          <div
+              v-else
+              class="popup-title">
+            Edit image size
           </div>
 
           <div class="popup-images-sizes-form-row">
@@ -221,7 +235,7 @@ import {
             </button>
 
             <button
-                @click ="async() => await OnOkAsync()">
+                @click="async() => await OnOkAsync()">
               Ok
             </button>
 
