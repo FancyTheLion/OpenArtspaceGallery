@@ -157,10 +157,13 @@ import {
           <td class="table-cells">{{ image.height }}</td>
           <td class="table-actions-cells">
 
-            <div
-              @click="async () => await ShowEditImageSizeAsync(image.id, { name: image.name, width: image.width, height: image.height })">
-              Редактировать
-            </div>
+            <img
+                class="table-update-button"
+                src="/public/images/icons/update.webp"
+                alt="Update image size"
+                title="Update image size"
+                @click="async () => await ShowEditImageSizeAsync(image.id, { name: image.name, width: image.width, height: image.height })"
+            />
 
             <img
               class="table-close-button"

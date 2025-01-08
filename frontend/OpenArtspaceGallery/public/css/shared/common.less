@@ -235,13 +235,21 @@
 
 .table-actions-cells {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: flex-end;
-
+  justify-content: flex-end;
   padding: @padding-small @padding-medium @padding-small;
+  gap: @gap-normal;
 }
 
 .table-close-button {
+  width: @image-size-normal;
+  height: @image-size-normal;
+  border-radius: @image-size-normal;
+  cursor: pointer;
+}
+
+.table-update-button {
   width: @image-size-normal;
   height: @image-size-normal;
   border-radius: @image-size-normal;
