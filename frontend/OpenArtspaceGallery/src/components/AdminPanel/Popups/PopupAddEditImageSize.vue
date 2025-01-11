@@ -13,13 +13,6 @@ import {
     ShowAsync: ShowPopupAsync
   })
 
-  const props = defineProps({
-    isNewImageSize: {
-      type: Boolean,
-      required: true
-    }
-  })
-
   const isDisplayed = ref<boolean>(false)
 
   const newImageSizeFormData = reactive({
@@ -28,12 +21,12 @@ import {
     height: 0
   })
 
-// Adding the originalData variable to keep the original values while editing
-  const originalData = reactive({
+  // Adding the originalData variable to keep the original values while editing
+  const originalData = {
     name: "",
     width: 0,
     height: 0
-  });
+  }
 
   // I supplement the validation rules taking into account the editing modes and adding the image size
   const newImageSizeRules = {
@@ -42,9 +35,18 @@ import {
       required,
       minLength: minLength(1),
       maxLength: maxLength(50),
-      isNameTaken: helpers.withAsync(async (name: string) => {
-        if (!props.isNewImageSize) return true
-        return await ValidateNameAsync(name)
+      isNameTaken: helpers.withAsync(async (name: string) =>
+      {
+        if (isAddMode.value)
+        {
+          // Add
+          return await ValidateNameAsync(name)
+        }
+        else
+        {
+          // Edit
+          return true // TODO: Add validation for editing
+        }
       })
     },
     width: {
@@ -53,7 +55,7 @@ import {
       minValue: minValue(10),
       maxValue: maxValue(4000),
       isWidthTaken: helpers.withAsync(async (width: number) => {
-        if (!props.isNewImageSize) return true
+        if (!isAddMode) return true
         return await ValidateDimensionsAsync(width, newImageSizeFormData.height)
       })
     },
@@ -63,13 +65,27 @@ import {
       minValue: minValue(10),
       maxValue: maxValue(4000),
       isHeightTaken: helpers.withAsync(async (height: number) => {
-        if (!props.isNewImageSize) return true
+        if (!isAddMode) return true
         return await ValidateDimensionsAsync(newImageSizeFormData.width, height);
       })
     }
   }
 
+  // A computed property that will return true if the form data is different from the original.
+  const isFormChanged = computed(() =>
+  {
+    return (
+        newImageSizeFormData.name !== originalData.name
+        ||
+        newImageSizeFormData.width !== originalData.width
+        ||
+        newImageSizeFormData.height !== originalData.height
+    );
+  });
+
   const newImageSizeFormValidator = useVuelidate(newImageSizeRules, newImageSizeFormData)
+
+  const isAddMode = ref<boolean>(false)
 
   const emit = defineEmits([ "cancel", "ok" ])
 
@@ -93,56 +109,32 @@ import {
     originalData.width = width;
     originalData.height = height;
 
+    // TODO: Investigate: originalData = newImageSizeFormData
 
     await newImageSizeFormValidator.value.$validate()
   }
-
-  // Method that checks if changes have occurred
-  function IsEdited() {
-    return (
-        newImageSizeFormData.name !== originalData.name ||
-        newImageSizeFormData.width !== originalData.width ||
-        newImageSizeFormData.height !== originalData.height
-    );
-  }
-
-  // A computed property that will return true if the form data is different from the original.
-  const isFormChanged = computed(() => {
-    return (
-        newImageSizeFormData.name !== originalData.name ||
-        newImageSizeFormData.width !== originalData.width ||
-        newImageSizeFormData.height !== originalData.height
-    );
-  });
 
   // Adding verification logic
   // Now the validator recalculates itself better
   async function OnOkAsync()
   {
-    if (!props.isNewImageSize && !IsEdited()) {
-      alert("No changes made. Cannot save.");
-      return;
+    if (!isAddMode.value && !isFormChanged)
+    {
+      alert("No changes made. Cannot save.")
+      return
     }
-
-    // Replaced, now reset is not needed
-/*    const tmpWidth = newImageSizeFormValidator.value.width.$model
-    newImageSizeFormValidator.value.width.$model = 0
-    newImageSizeFormValidator.value.width.$model = tmpWidth
-
-    const tmpHeight = newImageSizeFormValidator.value.height.$model
-    newImageSizeFormValidator.value.height.$model = 0
-    newImageSizeFormValidator.value.height.$model = tmpHeight*/
 
     await newImageSizeFormValidator.value.$validate()
 
-    if (newImageSizeFormValidator.value.$errors.length > 0) {
+    if (newImageSizeFormValidator.value.$errors.length > 0)
+    {
       alert("Some fields aren't valid!")
       return
     }
 
     HidePopup()
 
-    emit("ok", newImageSizeFormData)
+    emit("ok", isAddMode.value, newImageSizeFormData)
   }
 
   function OnCancel()
@@ -152,8 +144,9 @@ import {
     emit("cancel")
   }
 
-  async function ShowPopupAsync(name: string, width: number, height: number)
+  async function ShowPopupAsync(isAdd: boolean, name: string, width: number, height: number)
   {
+    isAddMode.value = isAdd
     await InitFormAsync(name, width, height)
 
     isDisplayed.value = true
@@ -226,7 +219,7 @@ import {
         <div class="popup-images-sizes-text-input">
 
           <div
-              v-if="props.isNewImageSize"
+              v-if="isAddMode"
               class="popup-title">
             Add new image size
           </div>
@@ -284,7 +277,7 @@ import {
 
           <!-- If the form has not changed or there is a mistake, the button becomes unavailable. -->
             <button
-                :disabled="newImageSizeFormValidator.$errors.length > 0 || !isFormChanged"
+                :disabled="newImageSizeFormValidator.$errors.length > 0 || (!isAddMode && !isFormChanged)"
                 @click="async() => await OnOkAsync()">
               Ok
             </button>

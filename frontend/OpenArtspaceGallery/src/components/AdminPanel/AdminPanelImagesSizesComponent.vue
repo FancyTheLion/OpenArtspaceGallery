@@ -16,13 +16,11 @@ import {
 
   const deleteImageSizePopupRef = ref<InstanceType<typeof PopupYesNo>>()
 
-  const addImageSizePopupRef = ref<InstanceType<typeof PopupAddEditImageSize>>()
+  const addEditImageSizePopupRef = ref<InstanceType<typeof PopupAddEditImageSize>>()
 
   const imageSizeToDeleteId = ref<string>("")
 
   const imageSizeToEditId = ref<string>("")
-
-  const editImageSizePopupRef = ref<InstanceType<typeof PopupAddEditImageSize>>()
 
   onMounted(async () =>
   {
@@ -110,14 +108,14 @@ import {
 
   async function ShowNewImageSizePopupAsync()
   {
-    await addImageSizePopupRef.value!.ShowAsync("", 0, 0)
+    await addEditImageSizePopupRef.value!.ShowAsync(true,"", 0, 0)
   }
 
   async function ShowEditImageSizeAsync(id: string, imageData: NewImageSize)
   {
     imageSizeToEditId.value = id;
 
-    await editImageSizePopupRef.value!.ShowAsync(imageData.name, imageData.width, imageData.height)
+    await addEditImageSizePopupRef.value!.ShowAsync(false, imageData.name, imageData.width, imageData.height)
   }
 
 </script>
@@ -193,18 +191,19 @@ import {
         @yes="async () => await DeleteImageSizeAsync()" />
 
     <PopupAddEditImageSize
-        ref="addImageSizePopupRef"
+        ref="addEditImageSizePopupRef"
 
-        :isNewImageSize="true"
-
-        @ok="async (nIS) => await CreateImageSizeAsync(nIS)"/>
-
-    <PopupAddEditImageSize
-        ref="editImageSizePopupRef"
-
-        :isNewImageSize="false"
-
-        @ok="async (nIS) => await EditImageSizeAsync(nIS)"/>
+        @ok="async (isAdd, nIS) =>
+        {
+          if (isAdd)
+          {
+            await CreateImageSizeAsync(nIS)
+          }
+          else
+          {
+            await EditImageSizeAsync(nIS)
+          }
+        }"/>
 
   </div>
 
