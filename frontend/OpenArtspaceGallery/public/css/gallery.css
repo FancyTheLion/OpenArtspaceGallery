@@ -36,7 +36,7 @@
   border-radius: 0.1rem;
   padding: 0.4rem;
 }
-.popup-images-sizes-text-input {
+.popup-text-input {
   text-align: left;
   border: 0.3rem solid hsl(180, 97%, 50%);
   border-radius: 0.5rem;
@@ -45,17 +45,17 @@
   padding-right: 0.4rem;
   padding-bottom: 0.4rem;
 }
-.popup-images-sizes-form-row {
+.popup-form-row {
   display: flex;
   align-items: center;
   margin-bottom: 0.5rem;
 }
-.popup-images-sizes-form-label {
+.popup-form-label {
   width: 100%;
   text-align: left;
   margin-right: 0.5rem;
 }
-.popup-images-sizes-form-input {
+.popup-form-input {
   flex: 1;
 }
 /* Album navigation panel */

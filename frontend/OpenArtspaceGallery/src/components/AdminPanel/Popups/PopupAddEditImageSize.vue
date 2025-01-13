@@ -15,7 +15,7 @@ import {
 
   const isDisplayed = ref<boolean>(false)
 
-  const newImageSizeFormData = reactive({
+  const addEditFormData = reactive({
     name: "",
     width: 0,
     height: 0
@@ -27,7 +27,7 @@ import {
     height: 0
   }
 
-  const newImageSizeRules = {
+  const addEditRules = {
     name: {
       $autoDirty: true,
       required,
@@ -54,7 +54,7 @@ import {
       {
         if (!isAddMode)
         {
-          return await ValidateDimensionsAsync(width, newImageSizeFormData.height)
+          return await ValidateDimensionsAsync(width, addEditFormData.height)
         }
         else
         {
@@ -71,7 +71,7 @@ import {
       {
         if (!isAddMode)
         {
-          return await ValidateDimensionsAsync(newImageSizeFormData.width, height);
+          return await ValidateDimensionsAsync(addEditFormData.width, height);
         }
         else
         {
@@ -84,15 +84,15 @@ import {
   const isFormChanged = computed(() =>
   {
     return (
-        newImageSizeFormData.name !== originalData.name
+        addEditFormData.name !== originalData.name
         ||
-        newImageSizeFormData.width !== originalData.width
+        addEditFormData.width !== originalData.width
         ||
-        newImageSizeFormData.height !== originalData.height
+        addEditFormData.height !== originalData.height
     );
   });
 
-  const newImageSizeFormValidator = useVuelidate(newImageSizeRules, newImageSizeFormData)
+  const addEditFormValidator = useVuelidate(addEditRules, addEditFormData)
 
   const isAddMode = ref<boolean>(false)
 
@@ -109,17 +109,15 @@ import {
 
   async function InitFormAsync(name: string, width: number, height: number)
   {
-    newImageSizeFormData.name = name;
-    newImageSizeFormData.width = width;
-    newImageSizeFormData.height = height;
+    addEditFormData.name = name;
+    addEditFormData.width = width;
+    addEditFormData.height = height;
 
     originalData.name = name;
     originalData.width = width;
     originalData.height = height;
 
-    // TODO: Investigate: originalData = newImageSizeFormData
-
-    await newImageSizeFormValidator.value.$validate()
+    await addEditFormValidator.value.$validate()
   }
 
   async function OnOkAsync()
@@ -130,9 +128,9 @@ import {
       return
     }
 
-    await newImageSizeFormValidator.value.$validate()
+    await addEditFormValidator.value.$validate()
 
-    if (newImageSizeFormValidator.value.$errors.length > 0)
+    if (addEditFormValidator.value.$errors.length > 0)
     {
       alert("Some fields aren't valid!")
       return
@@ -140,7 +138,7 @@ import {
 
     HidePopup()
 
-    emit("ok", isAddMode.value, newImageSizeFormData)
+    emit("ok", isAddMode.value, addEditFormData)
   }
 
   function OnCancel()
@@ -222,7 +220,7 @@ import {
 
       <div class="popup">
 
-        <div class="popup-images-sizes-text-input">
+        <div class="popup-text-input">
 
           <div
               v-if="isAddMode"
@@ -236,42 +234,42 @@ import {
             Edit image size
           </div>
 
-          <div class="popup-images-sizes-form-row">
+          <div class="popup-form-row">
 
-            <label class="popup-images-sizes-form-label">
+            <label class="popup-form-label">
               Size name
             </label>
 
             <input
-                :class="(newImageSizeFormValidator.name.$error && !newImageSizeFormValidator.name.$pending) ? 'form-invalid-field' : 'form-valid-field'"
-                class="popup-images-sizes-form-input"
-                v-model="newImageSizeFormData.name"/>
+                :class="(addEditFormValidator.name.$error && !addEditFormValidator.name.$pending) ? 'form-invalid-field' : 'form-valid-field'"
+                class="popup-form-input"
+                v-model="addEditFormData.name"/>
 
           </div>
 
-          <div class="popup-images-sizes-form-row">
+          <div class="popup-form-row">
 
-            <label class="popup-images-sizes-form-label">
+            <label class="popup-form-label">
               Width
             </label>
 
             <input
-                :class="((newImageSizeFormValidator.width.$error || newImageSizeFormValidator.height.$error) && !(newImageSizeFormValidator.width.$pending || newImageSizeFormValidator.height.$pending)) ? 'form-invalid-field' : 'form-valid-field'"
-                class="popup-images-sizes-form-input"
-                v-model="newImageSizeFormData.width"
+                :class="((addEditFormValidator.width.$error || addEditFormValidator.height.$error) && !(addEditFormValidator.width.$pending || addEditFormValidator.height.$pending)) ? 'form-invalid-field' : 'form-valid-field'"
+                class="popup-form-input"
+                v-model="addEditFormData.width"
                 type="number">
           </div>
 
-          <div class="popup-images-sizes-form-row">
+          <div class="popup-form-row">
 
-            <label class="popup-images-sizes-form-label">
+            <label class="popup-form-label">
               Height
             </label>
 
             <input
-                :class="((newImageSizeFormValidator.width.$error || newImageSizeFormValidator.height.$error) && !(newImageSizeFormValidator.width.$pending || newImageSizeFormValidator.height.$pending)) ? 'form-invalid-field' : 'form-valid-field'"
-                class="popup-images-sizes-form-input"
-                v-model="newImageSizeFormData.height"
+                :class="((addEditFormValidator.width.$error || addEditFormValidator.height.$error) && !(addEditFormValidator.width.$pending || addEditFormValidator.height.$pending)) ? 'form-invalid-field' : 'form-valid-field'"
+                class="popup-form-input"
+                v-model="addEditFormData.height"
                 type="number">
           </div>
 
@@ -283,7 +281,7 @@ import {
             </button>
 
             <button
-                :disabled="newImageSizeFormValidator.$valid || (!isAddMode && !isFormChanged)"
+                :disabled="addEditFormValidator.$valid || (!isAddMode && !isFormChanged)"
                 @click="async() => await OnOkAsync()">
               Ok
             </button>
