@@ -21,14 +21,12 @@ import {
     height: 0
   })
 
-  // Adding the originalData variable to keep the original values while editing
   const originalData = {
     name: "",
     width: 0,
     height: 0
   }
 
-  // I supplement the validation rules taking into account the editing modes and adding the image size
   const newImageSizeRules = {
     name: {
       $autoDirty: true,
@@ -39,13 +37,11 @@ import {
       {
         if (isAddMode.value)
         {
-          // Add
           return await ValidateNameAsync(name)
         }
         else
         {
-          // Edit
-          return true // TODO: Add validation for editing
+          return true
         }
       })
     },
@@ -54,9 +50,16 @@ import {
       required,
       minValue: minValue(10),
       maxValue: maxValue(4000),
-      isWidthTaken: helpers.withAsync(async (width: number) => {
-        if (!isAddMode) return true
-        return await ValidateDimensionsAsync(width, newImageSizeFormData.height)
+      isWidthTaken: helpers.withAsync(async (width: number) =>
+      {
+        if (!isAddMode)
+        {
+          return await ValidateDimensionsAsync(width, newImageSizeFormData.height)
+        }
+        else
+        {
+          return true
+        }
       })
     },
     height: {
@@ -64,14 +67,20 @@ import {
       required,
       minValue: minValue(10),
       maxValue: maxValue(4000),
-      isHeightTaken: helpers.withAsync(async (height: number) => {
-        if (!isAddMode) return true
-        return await ValidateDimensionsAsync(newImageSizeFormData.width, height);
+      isHeightTaken: helpers.withAsync(async (height: number) =>
+      {
+        if (!isAddMode)
+        {
+          return await ValidateDimensionsAsync(newImageSizeFormData.width, height);
+        }
+        else
+        {
+          return true
+        }
       })
     }
   }
 
-  // A computed property that will return true if the form data is different from the original.
   const isFormChanged = computed(() =>
   {
     return (
@@ -98,7 +107,6 @@ import {
   {
   }
 
-  // Adding the originalData variable to keep the original values while editing
   async function InitFormAsync(name: string, width: number, height: number)
   {
     newImageSizeFormData.name = name;
@@ -114,8 +122,6 @@ import {
     await newImageSizeFormValidator.value.$validate()
   }
 
-  // Adding verification logic
-  // Now the validator recalculates itself better
   async function OnOkAsync()
   {
     if (!isAddMode.value && !isFormChanged)
@@ -223,6 +229,7 @@ import {
               class="popup-title">
             Add new image size
           </div>
+
           <div
               v-else
               class="popup-title">
@@ -275,9 +282,8 @@ import {
               Cancel
             </button>
 
-          <!-- If the form has not changed or there is a mistake, the button becomes unavailable. -->
             <button
-                :disabled="newImageSizeFormValidator.$errors.length > 0 || (!isAddMode && !isFormChanged)"
+                :disabled="newImageSizeFormValidator.$valid || (!isAddMode && !isFormChanged)"
                 @click="async() => await OnOkAsync()">
               Ok
             </button>
