@@ -73,19 +73,27 @@ public class ImagesSizesDao : IImagesSizesDao
 
     public async Task<ImageSizeDbo> UpdateImageSizeByIdAsync(ImageSizeDbo updateImageSize)
     {
-        _ = updateImageSize ?? throw new ArgumentNullException(nameof(updateImageSize), "Image size to update can't be null!");
+            _ = updateImageSize ?? throw new ArgumentNullException(nameof(updateImageSize), "Image size to update can't be null!");
         
-        var imageSize = await _dbContext
-            .ImagesSizes
-            .SingleAsync(s => s.Id == updateImageSize.Id);
-        
-        imageSize.Name = updateImageSize.Name;
-        imageSize.Width = updateImageSize.Width;
-        imageSize.Height = updateImageSize.Height;
-        
-        await _dbContext.SaveChangesAsync();
+            var duplicateImageSizeName = await _dbContext
+                .ImagesSizes
+                .AnyAsync(n => n.Name == updateImageSize.Name && n.Id != updateImageSize.Id);
+            if (duplicateImageSizeName)
+            {
+                throw new ArgumentException($"Image size with the name '{updateImageSize.Name}' already exists.");
+            }
 
-        return imageSize;
+            var imageSize = await _dbContext
+                .ImagesSizes
+                .SingleAsync(s => s.Id == updateImageSize.Id);
+        
+            imageSize.Name = updateImageSize.Name;
+            imageSize.Width = updateImageSize.Width;
+            imageSize.Height = updateImageSize.Height;
+        
+            await _dbContext.SaveChangesAsync();
+
+            return imageSize;
     }
 
     public async Task<bool> IsImageSizeExistsByPropertiesAsync(string name, int width, int height)
