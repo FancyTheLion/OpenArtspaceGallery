@@ -105,7 +105,7 @@ public class ImagesSizesController : ControllerBase
         
         if (request.ImageSize == null)
         {
-            return BadRequest("When update image size, the size information must not be null.");
+            return BadRequest("When updating image size, the size information must not be null.");
         }
         
         if (!await _imagesSizesService.IsImageSizeExistsByIdAsync(request.ImageSize.Id))
@@ -130,11 +130,11 @@ public class ImagesSizesController : ControllerBase
     }
 
     /// <summary>
-    /// Is there an image size by name
+    /// Is there an image size by name having different id
     /// </summary>
     [HttpPost]
-    [Route("IsExistByName")]
-    public async Task<ActionResult<ImageSizeNameExistenceResponse>> IsExistByNameAsync(ImageSizeNameExistenceRequest request)
+    [Route("IsAnotherExistByName")]
+    public async Task<ActionResult<ImageSizeNameExistenceResponse>> IsAnotherExistByNameAsync(AnotherImageSizeNameExistenceRequest request)
     {
         if (request == null)
         {
@@ -145,7 +145,7 @@ public class ImagesSizesController : ControllerBase
         (
             new ImageSizeNameExistenceResponse
             (
-                new ExistenceDto(await _imagesSizesService.IsExistByNameAsync(request.ImageSizeName.Name))
+                new ExistenceDto(await _imagesSizesService.IsAnotherExistByNameAsync(request.AnotherImageSizeExistenceByName.Id, request.AnotherImageSizeExistenceByName.Name))
             )
         );
     }

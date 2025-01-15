@@ -21,12 +21,12 @@ public interface IImagesSizesDao
     /// <summary>
     /// Check if image size with given name exists
     /// </summary>
-    Task<bool> IsImageSizeExistsByNameAsync(string name);
+    Task<bool> IsAnotherImageSizeExistsByNameAsync(Guid id, string name);
     
     /// <summary>
     /// Check if image size with given dimensions exists
     /// </summary>
-    Task<bool> IsImageSizeExistsByDimensionsAsync(int sizeWidth, int sizeHeight);
+    Task<bool> IsAnotherImageSizeExistsByDimensionsAsync(Guid id, int sizeWidth, int sizeHeight);
     
     /// <summary>
     /// Is image size exists by ID

@@ -27,7 +27,7 @@ public interface IImagesSizesService
     /// <summary>
     /// Is exist by name
     /// </summary>
-    Task<bool> IsExistByNameAsync(string imageSizeName);
+    Task<bool> IsAnotherExistByNameAsync(Guid id, string imageSizeName);
     
     /// <summary>
     /// Is exist by dimensions
