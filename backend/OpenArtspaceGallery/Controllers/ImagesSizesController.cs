@@ -145,7 +145,7 @@ public class ImagesSizesController : ControllerBase
         (
             new ImageSizeNameExistenceResponse
             (
-                new ExistenceDto(await _imagesSizesService.IsAnotherExistByNameAsync(request.AnotherImageSizeExistenceByName.Id, request.AnotherImageSizeExistenceByName.Name))
+                new ExistenceDto(await _imagesSizesService.IsAnotherExistByNameAsync(request.AnotherImageSizeExistenceByName.Name))
             )
         );
     }

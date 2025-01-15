@@ -37,20 +37,20 @@ public class ImagesSizesDao : IImagesSizesDao
          return imageSizeToInsert;
     }
 
-    public async Task<bool> IsAnotherImageSizeExistsByNameAsync(Guid id, string name)
+    public async Task<bool> IsAnotherImageSizeExistsByNameAsync(string name)
     {
         _ = name ?? throw new ArgumentNullException(nameof(name), "Name can't be null!");
         
         return await _dbContext
             .ImagesSizes
-            .AnyAsync(n => n.Name.ToLower() == name.ToLower() && n.Id != id);
+            .AnyAsync(n => n.Name.ToLower() == name.ToLower());
     }
 
-    public async Task<bool> IsAnotherImageSizeExistsByDimensionsAsync(Guid id, int sizeWidth, int sizeHeight)
+    public async Task<bool> IsAnotherImageSizeExistsByDimensionsAsync(int sizeWidth, int sizeHeight)
     {
         return await _dbContext
             .ImagesSizes
-            .AnyAsync(s => s.Width == sizeWidth && s.Height == sizeHeight && s.Id != id);
+            .AnyAsync(s => s.Width == sizeWidth && s.Height == sizeHeight);
     }
 
     public async Task DeleteImageSizeAsync(Guid sizeId)
