@@ -108,14 +108,14 @@ import {
 
   async function ShowNewImageSizePopupAsync()
   {
-    await addEditImageSizePopupRef.value!.ShowAsync(true,"", 0, 0)
+    await addEditImageSizePopupRef.value!.ShowAsync(true, "00000000-0000-0000-0000-000000000000", "", 0, 0)
   }
 
   async function ShowEditImageSizeAsync(id: string, imageData: NewImageSize)
   {
     imageSizeToEditId.value = id;
 
-    await addEditImageSizePopupRef.value!.ShowAsync(false, imageData.name, imageData.width, imageData.height)
+    await addEditImageSizePopupRef.value!.ShowAsync(false, imageSizeToEditId.value, imageData.name, imageData.width, imageData.height)
   }
 
 </script>

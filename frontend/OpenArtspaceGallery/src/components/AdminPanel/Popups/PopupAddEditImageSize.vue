@@ -22,6 +22,7 @@ import {
   })
 
   const originalData = {
+    id: "00000000-0000-0000-0000-000000000000",
     name: "",
     width: 0,
     height: 0
@@ -37,11 +38,11 @@ import {
       {
         if (isAddMode.value)
         {
-          return await ValidateNameAsync(name)
+          return await ValidateNameAsync("00000000-0000-0000-0000-000000000000", name)
         }
         else
         {
-          return true
+          return await ValidateNameAsync(originalData.id, name)
         }
       })
     },
@@ -107,12 +108,14 @@ import {
   {
   }
 
-  async function InitFormAsync(name: string, width: number, height: number)
+  async function InitFormAsync(id: string, name: string, width: number, height: number)
   {
+    // TODO: Think about compactification (to write everything in one line)
     addEditFormData.name = name;
     addEditFormData.width = width;
     addEditFormData.height = height;
 
+    originalData.id = id;
     originalData.name = name;
     originalData.width = width;
     originalData.height = height;
@@ -148,10 +151,10 @@ import {
     emit("cancel")
   }
 
-  async function ShowPopupAsync(isAdd: boolean, name: string, width: number, height: number)
+  async function ShowPopupAsync(isAdd: boolean, id: string, name: string, width: number, height: number)
   {
     isAddMode.value = isAdd
-    await InitFormAsync(name, width, height)
+    await InitFormAsync(id, name, width, height)
 
     isDisplayed.value = true
   }
@@ -161,21 +164,22 @@ import {
     isDisplayed.value = false
   }
 
-  async function ValidateNameAsync(name: string) : Promise<boolean>
+  async function ValidateNameAsync(id: string, name: string) : Promise<boolean>
   {
     if (!isDisplayed.value)
     {
       return false
     }
 
-    return !await IsNameExistAsync(name)
+    return !await IsAnotherExistAsync(id, name)
   }
 
-  async function IsNameExistAsync(name: string): Promise<boolean>
+  async function IsAnotherExistAsync(id: string, name: string): Promise<boolean>
   {
-    const response = await (await WebClientSendPostRequest("/ImagesSizes/IsExistByName",
+    const response = await (await WebClientSendPostRequest("/ImagesSizes/IsAnotherExistByName",
         {
-          "name": {
+          "imageSize": {
+            "id": id,
             "name": name
           }
         }))
