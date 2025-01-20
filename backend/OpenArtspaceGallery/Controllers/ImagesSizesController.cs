@@ -1,6 +1,8 @@
+using System.Security.Cryptography;
 using Microsoft.AspNetCore.Mvc;
 using OpenArtspaceGallery.Models.API.DTOs;
 using OpenArtspaceGallery.Models.API.DTOs.ImagesSizes;
+using OpenArtspaceGallery.Models.API.DTOs.Shared;
 using OpenArtspaceGallery.Models.API.Requests;
 using OpenArtspaceGallery.Models.API.Requests.ImagesSizes;
 using OpenArtspaceGallery.Models.API.Responses;
@@ -24,7 +26,7 @@ public class ImagesSizesController : ControllerBase
     }
 
     /// <summary>
-    /// Get Images Sizes List 
+    /// Get images sizes list 
     /// </summary>
     [HttpGet]
     [Route("GetImagesSizesList")]
@@ -72,23 +74,29 @@ public class ImagesSizesController : ControllerBase
         }
     }
     
+    /// <summary>
+    /// Delete image size 
+    /// </summary>
     [HttpDelete]
     [Route("{sizeId:guid}")]
     public async Task<ActionResult> DeleteImageSizeAsync(Guid sizeId)
     {
-        if (!await _imagesSizesService.IsImageSizeExistsAsync(sizeId))
+        if (!await _imagesSizesService.IsImageSizeExistsByIdAsync(sizeId))
         {
             return NotFound();
         }
-        
+
         await _imagesSizesService.DeleteImageSizeAsync(sizeId);
 
         return Ok();
     }
 
+    /// <summary>
+    /// Update image size fields: name, width, height
+    /// </summary>
     [HttpPost]
-    [Route("UpdateImageSize")]
-    public async Task<ActionResult<UpdateImageSizeResponse>> UpdateImageSizeAsync(UpdateImageSizeRequest request)
+    [Route("UpdateImageSizeById")]
+    public async Task<ActionResult<UpdateImageSizeByIdResponse>> UpdateImageSizeByIdAsync(UpdateImageSizeByIdRequest request)
     {
         if (request == null)
         {
@@ -97,10 +105,10 @@ public class ImagesSizesController : ControllerBase
         
         if (request.ImageSize == null)
         {
-            return BadRequest("When update image size, the size information must not be null.");
+            return BadRequest("When updating image size, the size information must not be null.");
         }
         
-        if (!await _imagesSizesService.IsImageSizeExistsAsync(request.ImageSize.Id))
+        if (!await _imagesSizesService.IsImageSizeExistsByIdAsync(request.ImageSize.Id))
         {
             return NotFound();
         }
@@ -109,9 +117,9 @@ public class ImagesSizesController : ControllerBase
         {
             return Ok
             (
-                new UpdateImageSizeResponse
+                new UpdateImageSizeByIdResponse
                 (
-                    (await _imagesSizesService.UpdateImageSizeAsync(request.ImageSize.ToModel())).ToDto()
+                    (await _imagesSizesService.UpdateImageSizeByIdAsync(request.ImageSize.ToModel())).ToDto()
                 )
             );
         }
@@ -119,5 +127,68 @@ public class ImagesSizesController : ControllerBase
         {
             return BadRequest(ex.Message);
         }
+    }
+
+    /// <summary>
+    /// Is there an image size by name having different id
+    /// </summary>
+    [HttpPost]
+    [Route("IsExistByName")]
+    public async Task<ActionResult<ImageSizeNameExistenceResponse>> IsExistByNameAsync(ImageSizeNameExistenceRequest request)
+    {
+        if (request == null)
+        {
+            return BadRequest("Request mustn't be null!");
+        }
+        
+        return Ok
+        (
+            new ImageSizeNameExistenceResponse
+            (
+                new ExistenceDto(await _imagesSizesService.IsExistByNameAsync(request.ImageSizeExistenceByName.Name))
+            )
+        );
+    }
+
+    /// <summary>
+    /// Is there an image size by name by dimensions
+    /// </summary>
+    [HttpPost]
+    [Route("IsExistByDimensions")]
+    public async Task<ActionResult<ImageSizeDimensionsExistenceResponse>> IsExistByDimensionsAsync(ImageSizeDimensionsExistenceRequest request)
+    {
+        if (request == null)
+        {
+            return BadRequest("Request mustn't be null!");
+        }
+        
+        return Ok
+        (
+            new ImageSizeDimensionsExistenceResponse
+            (
+                new ExistenceDto(await _imagesSizesService.IsExistByDimensionsAsync(request.ImageSizeDimensionsExistence.Width, request.ImageSizeDimensionsExistence.Height))
+            )
+        );
+    }
+
+    /// <summary>
+    /// Is there an image size 
+    /// </summary>
+    [HttpPost]
+    [Route("IsImageSizeExists")]
+    public async Task<ActionResult<ImageSizeExistenceResponse>> IsImageSizeExistsAsync(ImageSizeExistenceRequest request)
+    {
+        if (request == null)
+        {
+            return BadRequest("Request mustn't be null!");
+        }
+        
+        return Ok
+        (
+            new ImageSizeExistenceResponse
+            (
+                new ExistenceDto(await _imagesSizesService.IsImageSizeExistsAsync(request.ImageSize.Name, request.ImageSize.Width, request.ImageSize.Height))
+            )
+        );
     }
 }

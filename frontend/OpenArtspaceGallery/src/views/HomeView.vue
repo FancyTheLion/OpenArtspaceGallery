@@ -6,7 +6,7 @@
 
 <template>
 
-    <HeaderComponent/>
+    <HeaderComponent />
 
     <HomePageComponent />
 

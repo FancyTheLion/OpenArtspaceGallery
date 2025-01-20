@@ -1,8 +1,5 @@
 @import "../common";
 
-/* Colors */
-@popupInputText-color-border: hsla(52, 81%, 48%, 0.5);
-
 /* Main Container */
 .popup-text-input-content {
   .mixin-flex-vertically-and-horizontally-centered();
@@ -10,16 +7,9 @@
   flex-wrap: nowrap;
   gap: 0;
 
-  border: @border-width-thick @border-type-common @popupInputText-color-border;
+  border: @border-width-thick @border-type-common-solid @popupInputText-color-border;
   border-radius: @border-radius-normal;
-  background-color: @standart-backgraund-color;
+  background-color: @standard-background-color;
 
-  .mixin-padding-small-left-right-bottom
-}
-
-/* Extends the input field to the end of the container */
-.popup-input {
-  width: 96%;
-  margin-top: @margin-micro;
-  margin-bottom: @margin-small;
+  .mixin-padding-small-left-right-bottom();
 }

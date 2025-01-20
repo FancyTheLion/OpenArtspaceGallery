@@ -2,7 +2,7 @@
   import {PropType, ref} from "vue";
   import {Album} from "../../../ts/Albums/libAlbums.ts";
   import moment from "moment";
-  import {WebClientSendDeletRequest, WebClientSendPostRequest} from "../../../ts/libWebClient.ts";
+  import {WebClientSendDeleteRequest, WebClientSendPostRequest} from "../../../ts/libWebClient.ts";
   import PopupYesNo from "../Popups/PopupYesNo.vue";
   import PopupTextInput from "../Popups/PopupTextInput.vue";
 
@@ -18,6 +18,7 @@
   const isButtonsToolbarVisible = ref<boolean>(false)
 
   const deleteAlbumPopupRef = ref<InstanceType<typeof PopupYesNo>>()
+
   const renameAlbumPopupRef = ref<InstanceType<typeof PopupTextInput>>()
 
   function ShowAlbumToolbar()
@@ -30,7 +31,7 @@
     isButtonsToolbarVisible.value = false
   }
 
-  async function ShowAlbumDeletionConfirmationAsync()
+  function ShowAlbumDeleteConfirmation()
   {
     if (deleteAlbumPopupRef.value === undefined)
     {
@@ -38,10 +39,10 @@
       return
     }
 
-    await deleteAlbumPopupRef.value!.Show()
+    deleteAlbumPopupRef.value!.Show()
   }
 
-  async function ShowAlbumRenameConfirmationAsync()
+  function ShowAlbumRenameConfirmation()
   {
     if (renameAlbumPopupRef.value === undefined)
     {
@@ -49,17 +50,14 @@
       return
     }
 
-    await renameAlbumPopupRef.value!.Show()
+    renameAlbumPopupRef.value!.Show()
   }
 
   async function DeleteAlbumAsync()
   {
-    const request = await WebClientSendDeletRequest("/Albums/"  + props.info.id,
-        {
-          "albumId": props.info.id
-        })
+    const response = await WebClientSendDeleteRequest("/Albums/"  + props.info.id)
 
-    if (!request.ok)
+    if (!response.ok)
     {
       alert("An error happened. Try again later.")
       return
@@ -70,14 +68,14 @@
 
   async function RenameAlbumAsync(newName: string)
   {
-    const request = await WebClientSendPostRequest("/Albums/" + props.info.id + "/Rename",
+    const response = await WebClientSendPostRequest("/Albums/" + props.info.id + "/Rename",
         {
             "renameAlbumInfo": {
               "newName": newName
             }
         })
 
-    if (!request.ok)
+    if (!response.ok)
     {
       alert("An error happened. Try again later.")
       return
@@ -127,12 +125,16 @@
         <img
             class="album-toolbar-rename-button"
             src="/images/icons/rename.webp"
-            @click="async () => await ShowAlbumRenameConfirmationAsync()" />
+            alt="Rename album"
+            title="Rename album"
+            @click="ShowAlbumRenameConfirmation()" />
 
         <img
             class="album-toolbar-delete-button"
             src="/images/icons/delete.webp"
-            @click="async () => await ShowAlbumDeletionConfirmationAsync()" />
+            alt="Delete album"
+            title="Delete album"
+            @click="ShowAlbumDeleteConfirmation()" />
 
       </div>
 

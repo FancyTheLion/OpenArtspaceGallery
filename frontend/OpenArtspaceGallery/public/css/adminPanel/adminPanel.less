@@ -1,0 +1,37 @@
+@import "../shared/common.less";
+
+@admin-panel-width: 20rem;
+@admin-panel-height: 77vh;
+
+/* Admin panel main container */
+.admin-panel-main-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  flex-wrap: wrap;
+  gap: @gap-normal;
+}
+
+/* Admin action panel */
+.admin-panel-menu-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: @admin-panel-width;
+  height: @admin-panel-height;
+}
+
+/* Info admin panel */
+.admin-panel-info {
+  flex: 1;
+  height: @admin-panel-height;
+}
+
+.admin-panel-menu-list
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: @gap-normal;
+  width: 100%;
+}

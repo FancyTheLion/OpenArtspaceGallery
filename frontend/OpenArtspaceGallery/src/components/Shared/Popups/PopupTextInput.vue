@@ -35,22 +35,22 @@ import { reactive, ref} from "vue";
   {
     await HidePopup()
 
-    emit("cancel")
+    emit("ok")
   }
 
-  async function OnCancel()
+  function OnCancel()
   {
     emit("ok", valueFormData.value)
   }
 
-  async function ShowPopup()
+  function ShowPopup()
   {
     valueFormData.value = props.defaultValue
 
     isDisplayed.value = true
   }
 
-  async function HidePopup()
+  function HidePopup()
   {
     isDisplayed.value = false
   }
@@ -61,7 +61,7 @@ import { reactive, ref} from "vue";
 
   <div v-if="isDisplayed">
 
-    <div class="popup-lower-layer"></div>
+    <div class="popup-lower-layer"/>
 
     <div class="popup-upper-layer">
 
@@ -88,21 +88,19 @@ import { reactive, ref} from "vue";
 
           </div>
 
-          <div class="popup-button-separation-container">
+          <div class="popup-actions-buttons-container">
 
             <button
-                @click="async () => await OnCancel()">
+                @click="OnCancel()">
               Cancel
             </button>
 
             <button
-                @click ="async () => await OnOk()">
+                @click ="OnOk()">
               Ok
             </button>
 
           </div>
-
-
 
         </div>
 

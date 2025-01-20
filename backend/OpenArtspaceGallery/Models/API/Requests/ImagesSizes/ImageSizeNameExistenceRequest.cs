@@ -3,11 +3,8 @@ using OpenArtspaceGallery.Models.API.DTOs.ImagesSizes;
 
 namespace OpenArtspaceGallery.Models.API.Requests.ImagesSizes;
 
-public class UpdateImageSizeRequest
+public class ImageSizeNameExistenceRequest
 {
-    /// <summary>
-    /// Image size to update
-    /// </summary>
     [JsonPropertyName("imageSize")]
-    public ImageSizeDto ImageSize { get; set; }
+    public ImageSizeExistenceByNameDto ImageSizeExistenceByName { get; set; }
 }

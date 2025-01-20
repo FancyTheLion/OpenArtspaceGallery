@@ -3,7 +3,7 @@ using OpenArtspaceGallery.Models.API.DTOs.ImagesSizes;
 
 namespace OpenArtspaceGallery.Models.API.Responses.ImagesSizes;
 
-public class UpdateImageSizeResponse
+public class UpdateImageSizeByIdResponse
 {
     /// <summary>
     /// Image size to update
@@ -11,7 +11,7 @@ public class UpdateImageSizeResponse
     [JsonPropertyName("imageSize")]
     public ImageSizeDto ImageSize { get; private set; }
 
-    public UpdateImageSizeResponse
+    public UpdateImageSizeByIdResponse
     (
         ImageSizeDto imageSize
     )

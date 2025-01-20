@@ -1,0 +1,27 @@
+@import "../../shared/common.less";
+
+.popup-text-input {
+  text-align: left;
+
+  border: @border-width-thick @border-type-common-solid @popupInputText-color-border;
+  border-radius: @border-radius-normal;
+  background-color: @standard-background-color;
+
+  .mixin-padding-small-left-right-bottom();
+}
+
+.popup-form-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: @padding-normal;
+}
+
+.popup-form-label {
+  width: 100%;
+  text-align: left;
+  margin-right: @margin-normal;
+}
+
+.popup-form-input {
+  flex: 1;
+}

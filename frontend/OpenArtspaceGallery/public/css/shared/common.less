@@ -3,14 +3,34 @@
 /* Text colors */
 @color-text-not-important: hsl(0, 0%, 56%);
 @color-text-not-important-hovered-link: hsl(219, 39%, 59%);
-@color-album-text: hsl(0, 0%, 100%);
+@color-text-inverted: hsl(0, 0%, 100%);
 @alert-color: hsl(0, 75%, 47%);
-@standart-backgraund-color: hsl(0, 0%, 100%);
+@standard-background-color: hsl(0, 0%, 100%);
+
+/* Link colors */
+@color-link-hover-visited: hsl(240, 100%, 50%);
+@color-link-hover: hsl(240, 100%, 50%);
+@color-link-hover-active: hsl(240, 100%, 50%);
+@color-link-active: hsl(10, 75%, 47%);
+
+@color-pseudolink: hsl(240, 100%, 50%);
+@color-pseudolink-active: hsl(10, 75%, 47%);
+
+/* Table colors */
+@table-color-borders: hsl(179, 0%, 0%);
+@table-header-color: hsl(240, 100%, 50%);
+@table-color-background-odd: hsl(231, 91.9%, 43.3%);
+@table-color-background-even: hsl(215, 66%, 50%);
+
+/* Popaps colors */
+@popupInputText-color-border: hsl(180, 97%, 50%);
 
 /* Text size */
 @text-size-smallest: 0.9rem;
 @text-size-smaller: 1.2rem;
 @text-size-medium: 1.5rem;
+
+@header-text-size: 1.3rem;
 
 /* Text boldness */
 
@@ -21,6 +41,16 @@
 @margin-micro: 0.1rem;
 @margin-small: 0.2rem;
 @margin-normal: 0.5rem;
+@margin-medium: 1rem;
+
+/*
+@margin-large: ;
+@margin-xlarge: ;
+@margin-xxlarge: ;
+@margin-xxxlarge: ;
+@margin-huge: ;
+@margin-xxhuge: ;
+@margin-max: ;*/
 
 /* End margins */
 
@@ -28,15 +58,20 @@
 /* Paddings */
 @padding-micro: 0.1rem;
 @padding-smaller: 0.2rem;
-@padding-small: 0.4;
+@padding-small: 0.4rem;
 @padding-normal: 0.5rem;
+@padding-medium: 1rem;
 
 /* End paddings */
 
 
 /* Borders */
 
-@border-type-common: solid;
+@border-type-common-solid: solid;
+
+@border-type-common-dotted: dotted;
+
+@border-radius-smaller: 0.1rem;
 
 @border-width-thick: 0.3rem;
 
@@ -50,10 +85,15 @@
 
 /* Gaps */
 
+@gap-smaller: 0.3rem;
 @gap-small: 0.5rem;
+@gap-normal: 0.1rem;
 
 /* End gaps */
 
+/* Images */
+
+@image-size-normal: 1.5rem;
 
 /* Mixins */
 
@@ -71,6 +111,11 @@
   padding-bottom: @padding-small;
 }
 
+.mixin-table-borders {
+  border: @border-radius-smaller @border-type-common-solid @table-color-borders;
+  padding: @padding-small;
+}
+
 /* Centered item */
 .flex-vertically-and-horizontally-centered {
   .mixin-flex-vertically-and-horizontally-centered();
@@ -81,6 +126,42 @@
 /* Text centered */
 .text-centered {
   text-align: center;
+}
+
+/* Header */
+
+.header-text-centered {
+  display: flex;
+  justify-content: center;
+}
+
+/* End header */
+
+/* Container with header */
+.link {
+  margin-bottom: @margin-small;
+
+  padding-bottom: @padding-smaller;
+
+  color: @color-link-hover;
+}
+
+/* Container with header */
+.link:visited {
+  margin-bottom: @margin-small;
+
+  padding-bottom: @padding-smaller;
+
+  color: @color-link-hover-visited;
+}
+
+/* Container with header */
+.link:active {
+  margin-bottom: @margin-small;
+
+  padding-bottom: @padding-smaller;
+
+  color: @color-link-active;
 }
 
 /* link not important */
@@ -95,9 +176,21 @@
   font-size: @text-size-smallest;
 }
 
+.pseudo-link {
+  color: @color-pseudolink;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.pseudo-link:active {
+  color: @color-pseudolink-active;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 /* Form invalid field */
 .form-invalid-field {
-  border: @alert-color @border-type-common @border-alert;
+  border: @alert-color @border-type-common-solid @border-alert;
   border-radius: @border-width-thick;
 }
 
@@ -105,3 +198,71 @@
 .form-valid-field {
 
 }
+
+.table-name-header {
+  text-align: center;
+  font-weight: @font-boldness-bold;
+  font-size: @header-text-size;
+  padding-bottom: @padding-smaller;
+}
+
+.table {
+  .mixin-table-borders();
+  border-collapse: collapse;
+}
+
+.table-cells-header {
+  .mixin-table-borders();
+  background: @table-header-color;
+  color: @color-text-inverted;
+}
+
+.table-row:nth-child(odd) {
+  .mixin-table-borders();
+  background: @table-color-background-odd;
+  color: @color-text-inverted;
+}
+
+.table-row:nth-child(even) {
+  .mixin-table-borders();
+  background: @table-color-background-even;
+  color: @color-text-inverted;
+}
+
+.table-cells {
+  .mixin-table-borders();
+}
+
+.table-actions-cells {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: @padding-small @padding-medium @padding-small;
+  gap: @gap-normal;
+}
+
+.table-close-button {
+  width: @image-size-normal;
+  height: @image-size-normal;
+  border-radius: @image-size-normal;
+  cursor: pointer;
+}
+
+.table-update-button {
+  width: @image-size-normal;
+  height: @image-size-normal;
+  border-radius: @image-size-normal;
+  cursor: pointer;
+}
+
+/* Popaps */
+
+/* Extends the input field to the end of the container */
+.popup-input {
+  width: 96%;
+  margin-top: @margin-micro;
+  margin-bottom: @margin-small;
+}
+/* End popaps */
+

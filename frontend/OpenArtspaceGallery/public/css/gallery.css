@@ -1,3 +1,63 @@
+/* Admin panel main container */
+.admin-panel-main-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  flex-wrap: wrap;
+  gap: 0.1rem;
+}
+/* Admin action panel */
+.admin-panel-menu-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 20rem;
+  height: 77vh;
+}
+/* Info admin panel */
+.admin-panel-info {
+  flex: 1;
+  height: 77vh;
+}
+.admin-panel-menu-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1rem;
+  width: 100%;
+}
+.admin-panel-images-sizes-container {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 1rem 1rem;
+}
+.admin-panel-images-sizes-content {
+  border: 0.1rem solid;
+  border-radius: 0.1rem;
+  padding: 0.4rem;
+}
+.popup-text-input {
+  text-align: left;
+  border: 0.3rem solid hsl(180, 97%, 50%);
+  border-radius: 0.5rem;
+  background-color: hsl(0, 0%, 100%);
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+  padding-bottom: 0.4rem;
+}
+.popup-form-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+.popup-form-label {
+  width: 100%;
+  text-align: left;
+  margin-right: 0.5rem;
+}
+.popup-form-input {
+  flex: 1;
+}
 /* Album navigation panel */
 .albums-hierarchy-container {
   padding-bottom: 0.2rem;
@@ -18,9 +78,20 @@
 }
 /* Colors */
 /* Text colors */
+/* Link colors */
+/* Table colors */
+/* Popaps colors */
 /* Text size */
 /* Text boldness */
 /* Margins */
+/*
+@margin-large: ;
+@margin-xlarge: ;
+@margin-xxlarge: ;
+@margin-xxxlarge: ;
+@margin-huge: ;
+@margin-xxhuge: ;
+@margin-max: ;*/
 /* End margins */
 /* Paddings */
 /* End paddings */
@@ -28,6 +99,7 @@
 /* End borders */
 /* Gaps */
 /* End gaps */
+/* Images */
 /* Mixins */
 /* Centered flex (vertically and horizontally) */
 .mixin-flex-vertically-and-horizontally-centered {
@@ -37,9 +109,13 @@
 }
 /* Mixin for indentation everywhere except the top */
 .mixin-padding-small-left-right-bottom {
-  padding-left: 0.4;
-  padding-right: 0.4;
-  padding-bottom: 0.4;
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+  padding-bottom: 0.4rem;
+}
+.mixin-table-borders {
+  border: 0.1rem solid hsl(0, 0%, 0%);
+  padding: 0.4rem;
 }
 /* Centered item */
 .flex-vertically-and-horizontally-centered {
@@ -52,6 +128,30 @@
 .text-centered {
   text-align: center;
 }
+/* Header */
+.header-text-centered {
+  display: flex;
+  justify-content: center;
+}
+/* End header */
+/* Container with header */
+.link {
+  margin-bottom: 0.2rem;
+  padding-bottom: 0.2rem;
+  color: hsl(240, 100%, 50%);
+}
+/* Container with header */
+.link:visited {
+  margin-bottom: 0.2rem;
+  padding-bottom: 0.2rem;
+  color: hsl(240, 100%, 50%);
+}
+/* Container with header */
+.link:active {
+  margin-bottom: 0.2rem;
+  padding-bottom: 0.2rem;
+  color: hsl(10, 75%, 47%);
+}
 /* link not important */
 .link-not-important {
   color: hsl(0, 0%, 56%);
@@ -62,12 +162,122 @@
   color: hsl(219, 39%, 59%);
   font-size: 0.9rem;
 }
+.pseudo-link {
+  color: hsl(240, 100%, 50%);
+  text-decoration: underline;
+  cursor: pointer;
+}
+.pseudo-link:active {
+  color: hsl(10, 75%, 47%);
+  text-decoration: underline;
+  cursor: pointer;
+}
 /* Form invalid field */
 .form-invalid-field {
   border: hsl(0, 75%, 47%) solid 0.2rem;
   border-radius: 0.3rem;
 }
 /* Form valid field. Dont touch */
+.table-name-header {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.3rem;
+  padding-bottom: 0.2rem;
+}
+.table {
+  border: 0.1rem solid hsl(0, 0%, 0%);
+  padding: 0.4rem;
+  border-collapse: collapse;
+}
+.table-cells-header {
+  border: 0.1rem solid hsl(0, 0%, 0%);
+  padding: 0.4rem;
+  background: hsl(240, 100%, 50%);
+  color: hsl(0, 0%, 100%);
+}
+.table-row:nth-child(odd) {
+  border: 0.1rem solid hsl(0, 0%, 0%);
+  padding: 0.4rem;
+  background: hsl(231, 91.9%, 43.3%);
+  color: hsl(0, 0%, 100%);
+}
+.table-row:nth-child(even) {
+  border: 0.1rem solid hsl(0, 0%, 0%);
+  padding: 0.4rem;
+  background: hsl(215, 66%, 50%);
+  color: hsl(0, 0%, 100%);
+}
+.table-cells {
+  border: 0.1rem solid hsl(0, 0%, 0%);
+  padding: 0.4rem;
+}
+.table-actions-cells {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 0.4rem 1rem 0.4rem;
+  gap: 0.1rem;
+}
+.table-close-button {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 1.5rem;
+  cursor: pointer;
+}
+.table-update-button {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 1.5rem;
+  cursor: pointer;
+}
+/* Popaps */
+/* Extends the input field to the end of the container */
+.popup-input {
+  width: 96%;
+  margin-top: 0.1rem;
+  margin-bottom: 0.2rem;
+}
+/* End popaps */
+/* Colors */
+.mixin-button-base {
+  background-color: deepskyblue;
+  color: white;
+  text-align: center;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0.5rem 1rem;
+}
+.simple-button {
+  background-color: deepskyblue;
+  color: white;
+  text-align: center;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0.5rem 1rem;
+}
+.simple-button:hover {
+  background-color: gold;
+}
+.simple-button-active {
+  background-color: deepskyblue;
+  color: white;
+  text-align: center;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0.5rem 1rem;
+  background-color: darkmagenta;
+}
+.multibutton {
+  margin: 0.5rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
 /* Footer container */
 .footer-container {
   margin-top: 0.5rem;
@@ -90,6 +300,14 @@
   border-bottom-style: solid;
   margin-bottom: 0.2rem;
   padding-bottom: 0.2rem;
+}
+/* Header menu */
+.header-menu-container {
+  display: flex;
+  justify-content: left;
+  gap: 10rem;
+  padding: 0 1rem;
+  margin: 0.5rem;
 }
 /* Loading symbol size */
 /* Loading symbol image */
@@ -135,7 +353,7 @@
   padding: 0.1rem;
 }
 /* Button separation */
-.popup-button-separation-container {
+.popup-actions-buttons-container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -153,11 +371,10 @@
   border: 0.3rem solid hsl(180, 97%, 50%);
   border-radius: 0.5rem;
   background-color: hsl(0, 0%, 100%);
-  padding-left: 0.4;
-  padding-right: 0.4;
-  padding-bottom: 0.4;
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+  padding-bottom: 0.4rem;
 }
-/* Colors */
 /* Main Container */
 .popup-text-input-content {
   display: flex;
@@ -166,18 +383,12 @@
   flex-direction: column;
   flex-wrap: nowrap;
   gap: 0;
-  border: 0.3rem solid hsla(52, 81%, 48%, 0.5);
+  border: 0.3rem solid hsl(180, 97%, 50%);
   border-radius: 0.5rem;
   background-color: hsl(0, 0%, 100%);
-  padding-left: 0.4;
-  padding-right: 0.4;
-  padding-bottom: 0.4;
-}
-/* Extends the input field to the end of the container */
-.popup-input {
-  width: 96%;
-  margin-top: 0.1rem;
-  margin-bottom: 0.2rem;
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+  padding-bottom: 0.4rem;
 }
 /* Album container settings */
 /* Album creation date */
@@ -248,7 +459,7 @@
   flex-wrap: nowrap;
   justify-content: end;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.1rem;
   height: 100%;
   margin-left: 0.5rem;
   margin-right: 0.5rem;
@@ -273,7 +484,7 @@
   flex-direction: row;
   justify-content: left;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.1rem;
 }
 .new-album-button {
   border: 0.3rem solid hsl(219, 67%, 66%);
@@ -310,7 +521,7 @@
   background-color: white;
 }
 /* New album form button container */
-new-album-form-button-container .new-album-form-button-container {
+.new-album-form-button-container {
   padding: 0.2rem;
 }
 /* For function buttons in a form */

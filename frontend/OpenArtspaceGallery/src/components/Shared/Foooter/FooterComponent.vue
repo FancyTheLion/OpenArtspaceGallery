@@ -14,20 +14,20 @@
 
   async function OnLoad()
   {
-    backendVersion.value = await GetBackendVersion()
-    sourcesLink.value = await GetSourcesLink()
+    backendVersion.value = await GetBackendVersionAsync()
+    sourcesLink.value = await GetSourcesLinkAsync()
 
     isLoading.value = false
   }
 
-  async function GetBackendVersion()
+  async function GetBackendVersionAsync()
   {
     return (await (await WebClientSendGetRequest("/SiteInfo/GetBackendVersion")).json())
         .backendVersion
         .backendVersion
   }
 
-  async function GetSourcesLink()
+  async function GetSourcesLinkAsync()
   {
     return (await (await WebClientSendGetRequest("/SiteInfo/GetSourcesLink")).json())
         .sourcesLink

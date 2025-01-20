@@ -1,6 +1,5 @@
 @import "../common.less";
 
-@color-album-link-hover: hsl(240, 100%, 50%);
 @color-album-container-border: hsl(221, 47%, 43%);
 @color-album-info-background: hsl(240, 100%, 27%);
 
@@ -31,7 +30,7 @@
 .album-container {
   position: relative;
 
-  border: @border-width-thick @border-type-common @color-album-container-border;
+  border: @border-width-thick @border-type-common-solid @color-album-container-border;
   border-radius: @border-radius-normal;
   width: @album-container-width;
   height: @album-container-height;
@@ -71,14 +70,14 @@
 
 /* Text with albums name */
 .album-name {
-  color: @color-album-text;
+  color: @color-text-inverted;
   text-align: center;
   font-weight: @font-boldness-bold;
 }
 
 /* Album creation date */
 .album-creation-date {
-  color: @color-album-text;
+  color: @color-text-inverted;
 
   font-size: @album-creation-date-font-size;
 }
@@ -104,7 +103,7 @@
   flex-wrap: nowrap;
   justify-content: end;
   align-items: center;
-  gap: @gap-small;
+  gap: @gap-normal;
 
   height: 100%;
 

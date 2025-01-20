@@ -24,18 +24,18 @@
 
   async function OnLoad()
   {
-    albums.value = await GetAlbumsList(props.currentAlbumId)
+    albums.value = await GetAlbumsListAsync(props.currentAlbumId)
 
     isLoading.value = false
   }
 
-  async function GetAlbumsList(currentAlbumId: String | undefined | null)
+  async function GetAlbumsListAsync(currentAlbumId: String | undefined | null)
   {
     let albumsList: Album[]
 
     if (currentAlbumId === undefined || currentAlbumId === null)
     {
-      // Showing root albums's children
+      // Showing root albums' children
       albumsList = (await (await WebClientSendGetRequest("/Albums/TopLevel")).json())
           .albums
           .map(DecodeAlbumDto)
@@ -52,28 +52,28 @@
         .sort(function(a: Album, b: Album) { return a.creationTime.getTime() - b.creationTime.getTime() })
   }
 
-  async function RefreshAlbumsList()
+  async function RefreshAlbumsListAsync() // I don't know :(
   {
     isLoading.value = true
 
-    albums.value = await GetAlbumsList(props.currentAlbumId)
+    albums.value = await GetAlbumsListAsync(props.currentAlbumId)
 
     isLoading.value = false
   }
 
-  async function OnAlbumAdded()
+  async function OnAlbumAddedAsync()
   {
-    await RefreshAlbumsList()
+    await RefreshAlbumsListAsync()
   }
 
-  async function OnAlbumDeleted()
+  async function OnAlbumDeletedAsync()
   {
-    await RefreshAlbumsList()
+    await RefreshAlbumsListAsync()
   }
 
-  async function OnAlbumRenamed()
+  async function OnAlbumRenamedAsync()
   {
-    await RefreshAlbumsList()
+    await RefreshAlbumsListAsync()
   }
 </script>
 
@@ -95,12 +95,12 @@
           v-for="album in albums"
           :key="album.id"
           :info="album"
-          @albumDeleted="async () => await OnAlbumDeleted()"
-          @albumRenamed="async () => await OnAlbumRenamed()"/>
+          @albumDeleted="async () => await OnAlbumDeletedAsync()"
+          @albumRenamed="async () => await OnAlbumRenamedAsync()"/>
 
       <NewAlbumComponent
           :currentAlbumId="props.currentAlbumId"
-          @newAlbumCreated="async () => await OnAlbumAdded()"/>
+          @newAlbumCreated="async () => await OnAlbumAddedAsync()"/>
 
     </div>
 
