@@ -37,20 +37,20 @@ public class ImagesSizesDao : IImagesSizesDao
          return imageSizeToInsert;
     }
 
-    public async Task<bool> IsAnotherImageSizeExistsByNameAsync(string name)
+    public async Task<bool> IsAnotherImageSizeExistsByNameAsync(Guid thisImageId, string name)
     {
         _ = name ?? throw new ArgumentNullException(nameof(name), "Name can't be null!");
         
         return await _dbContext
             .ImagesSizes
-            .AnyAsync(n => n.Name.ToLower() == name.ToLower());
+            .AnyAsync(s => s.Name.ToLower() == name.ToLower() && s.Id != thisImageId);
     }
 
-    public async Task<bool> IsAnotherImageSizeExistsByDimensionsAsync(int sizeWidth, int sizeHeight)
+    public async Task<bool> IsAnotherImageSizeExistsByDimensionsAsync(Guid thisImageId, int sizeWidth, int sizeHeight)
     {
         return await _dbContext
             .ImagesSizes
-            .AnyAsync(s => s.Width == sizeWidth && s.Height == sizeHeight);
+            .AnyAsync(s => s.Width == sizeWidth && s.Height == sizeHeight && s.Id != thisImageId);
     }
 
     public async Task DeleteImageSizeAsync(Guid sizeId)
@@ -96,11 +96,4 @@ public class ImagesSizesDao : IImagesSizesDao
             .ImagesSizes
             .AnyAsync(f => f.Name.ToLower() == name.ToLower() && f.Width == width && f.Height == height);
     }
-    
-    /*public async Task<bool> IsImageSizeExistsAsync(Guid sizeId, string name, int width, int height)
-    {
-        return await _dbContext
-            .ImagesSizes
-            .AnyAsync(i => i.Id == sizeId && i.Name.ToLower() == name.ToLower() && i.Width == width && i.Height == height);
-    }*/
 }

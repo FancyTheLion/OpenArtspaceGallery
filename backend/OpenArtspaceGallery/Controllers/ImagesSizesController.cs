@@ -133,8 +133,8 @@ public class ImagesSizesController : ControllerBase
     /// Is there an image size by name having different id
     /// </summary>
     [HttpPost]
-    [Route("IsAnotherExistByName")]
-    public async Task<ActionResult<ImageSizeNameExistenceResponse>> IsAnotherExistByNameAsync(AnotherImageSizeNameExistenceRequest request)
+    [Route("IsExistByName")]
+    public async Task<ActionResult<ImageSizeNameExistenceResponse>> IsExistByNameAsync(ImageSizeNameExistenceRequest request)
     {
         if (request == null)
         {
@@ -145,7 +145,7 @@ public class ImagesSizesController : ControllerBase
         (
             new ImageSizeNameExistenceResponse
             (
-                new ExistenceDto(await _imagesSizesService.IsAnotherExistByNameAsync(request.AnotherImageSizeExistenceByName.Name))
+                new ExistenceDto(await _imagesSizesService.IsExistByNameAsync(request.ImageSizeExistenceByName.Name))
             )
         );
     }

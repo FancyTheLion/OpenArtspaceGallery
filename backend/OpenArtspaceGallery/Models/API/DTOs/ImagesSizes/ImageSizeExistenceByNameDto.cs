@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace OpenArtspaceGallery.Models.API.DTOs.ImagesSizes;
 
-public class AnotherImageSizeExistenceByNameDto
+public class ImageSizeExistenceByNameDto
 {
     /// <summary>
     /// Size name 

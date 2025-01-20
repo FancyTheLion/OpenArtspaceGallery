@@ -19,14 +19,14 @@ public interface IImagesSizesDao
     #region Is exists
 
     /// <summary>
-    /// Check if image size with given name exists
+    /// Check if another image size with given name exists
     /// </summary>
-    Task<bool> IsAnotherImageSizeExistsByNameAsync(string name);
+    Task<bool> IsAnotherImageSizeExistsByNameAsync(Guid thisImageId, string name);
     
     /// <summary>
-    /// Check if image size with given dimensions exists
+    /// Check if another image size with given dimensions exists
     /// </summary>
-    Task<bool> IsAnotherImageSizeExistsByDimensionsAsync(int sizeWidth, int sizeHeight);
+    Task<bool> IsAnotherImageSizeExistsByDimensionsAsync(Guid thisImageId, int sizeWidth, int sizeHeight);
     
     /// <summary>
     /// Is image size exists by ID
@@ -38,11 +38,6 @@ public interface IImagesSizesDao
     /// </summary>
     public Task<bool> IsImageSizeExistsByPropertiesAsync(string name, int width, int height);
     
-    /*/// <summary>
-    /// Is image size exists by id
-    /// </summary>
-    public Task<bool> IsImageSizeExistsAsync(Guid sizeId, string name, int width, int height);*/
-
     #endregion
     
     #region Create

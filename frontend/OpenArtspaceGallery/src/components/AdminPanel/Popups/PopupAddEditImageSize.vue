@@ -33,51 +33,21 @@ import {
       required,
       minLength: minLength(1),
       maxLength: maxLength(50),
-      isNameTaken: helpers.withAsync(async (name: string) =>
-      {
-        if (isAddMode.value)
-        {
-          return await ValidateNameAsync(name)
-        }
-        else
-        {
-          return await ValidateNameAsync(name)
-        }
-      })
+      isNameTaken: helpers.withAsync(async (name: string) => await ValidateNameAsync(name))
     },
     width: {
       $autoDirty: true,
       required,
       minValue: minValue(10),
       maxValue: maxValue(4000),
-      isWidthTaken: helpers.withAsync(async (width: number) =>
-      {
-        if (!isAddMode)
-        {
-          return await ValidateDimensionsAsync(width, addEditFormData.height)
-        }
-        else
-        {
-          return await ValidateDimensionsAsync(width, addEditFormData.height)
-        }
-      })
+      isWidthTaken: helpers.withAsync(async (width: number) => await ValidateDimensionsAsync(width, addEditFormData.height))
     },
     height: {
       $autoDirty: true,
       required,
       minValue: minValue(10),
       maxValue: maxValue(4000),
-      isHeightTaken: helpers.withAsync(async (height: number) =>
-      {
-        if (!isAddMode)
-        {
-          return await ValidateDimensionsAsync(addEditFormData.width, height)
-        }
-        else
-        {
-          return await ValidateDimensionsAsync(addEditFormData.width, height)
-        }
-      })
+      isHeightTaken: helpers.withAsync(async (height: number) => await ValidateDimensionsAsync(addEditFormData.width, height))
     }
   }
 
@@ -107,7 +77,7 @@ import {
   {
   }
 
-  async function InitFormAsync(name: string, width: number, height: number)
+  function InitForm(name: string, width: number, height: number)
   {
     // TODO: Think about compactification (to write everything in one line)
     addEditFormData.name = name;
@@ -117,8 +87,6 @@ import {
     originalData.name = name;
     originalData.width = width;
     originalData.height = height;
-
-    await addEditFormValidator.value.$validate()
   }
 
   async function OnOkAsync()
@@ -152,9 +120,9 @@ import {
   async function ShowPopupAsync(isAdd: boolean, name: string, width: number, height: number)
   {
     isAddMode.value = isAdd
-    await InitFormAsync(name, width, height)
-
     isDisplayed.value = true
+
+    InitForm(name, width, height)
   }
 
   function HidePopup()
@@ -169,17 +137,19 @@ import {
       return false
     }
 
-/*    if (name === originalData.name)
-    {
-      return true;
-    }*/
+    // TODO: Add universal checks here (like check for "$@#" in name)
 
-    return !await IsAnotherExistAsync(name)
+    if (!isAddMode.value && name === originalData.name)
+    {
+      return true
+    }
+
+    return !await IsExistAsync(name)
   }
 
-  async function IsAnotherExistAsync(name: string): Promise<boolean>
+  async function IsExistAsync(name: string): Promise<boolean>
   {
-    const response = await (await WebClientSendPostRequest("/ImagesSizes/IsAnotherExistByName",
+    const response = await (await WebClientSendPostRequest("/ImagesSizes/IsExistByName",
         {
           "imageSize": {
             "name": name
@@ -195,6 +165,13 @@ import {
     if (!isDisplayed.value)
     {
       return false
+    }
+
+    // TODO: Add universal checks here (like check for negative numbers in dimensions)
+
+    if (!isAddMode.value && width === originalData.width && height === originalData.height)
+    {
+      return true
     }
 
     return !await IsDimensionsExistAsync(width, height)
@@ -287,7 +264,7 @@ import {
             </button>
 
             <button
-                :disabled="addEditFormValidator.$valid || (!isAddMode && !isFormChanged)"
+                :disabled="addEditFormValidator.$errors.length > 0 || (!isAddMode && !isFormChanged)"
                 @click="async() => await OnOkAsync()">
               Ok
             </button>
