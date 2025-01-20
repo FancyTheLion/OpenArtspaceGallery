@@ -58,7 +58,7 @@ import {
         }
         else
         {
-          return true
+          return await ValidateDimensionsAsync(width, addEditFormData.height)
         }
       })
     },
@@ -71,11 +71,11 @@ import {
       {
         if (!isAddMode)
         {
-          return await ValidateDimensionsAsync(addEditFormData.width, height);
+          return await ValidateDimensionsAsync(addEditFormData.width, height)
         }
         else
         {
-          return true
+          return await ValidateDimensionsAsync(addEditFormData.width, height)
         }
       })
     }
@@ -168,6 +168,11 @@ import {
     {
       return false
     }
+
+/*    if (name === originalData.name)
+    {
+      return true;
+    }*/
 
     return !await IsAnotherExistAsync(name)
   }
