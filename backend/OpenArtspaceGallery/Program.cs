@@ -17,7 +17,6 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddScoped<IImagesSizesService, ImagesSizesService>();
     builder.Services.AddScoped<IImagesSizesDao, ImagesSizesDao>();
 
-
     #endregion
             
 #endregion
@@ -66,15 +65,32 @@ builder.Services.AddCors(options =>
 
 #region  DB Contexts
 
-// Main
-builder.Services.AddDbContext<MainDbContext>
-(
-    options
-        =>
-        options.UseNpgsql(builder.Configuration.GetConnectionString("MainConnection"),
-          o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)),
-          ServiceLifetime.Transient
-);
+//if (builder.Environment.IsEnvironment("Testing"))
+//{
+    // Test mode
+    #region Main
+    
+    builder.Services.AddDbContext<MainDbContext>(options => options.UseInMemoryDatabase("TestingDB"));
+    
+    #endregion
+//}
+//else
+//{
+//    // Normal mode
+//    
+//    #region Main
+//    
+//    builder.Services.AddDbContext<MainDbContext>
+//    (
+//        options
+//            =>
+//            options.UseNpgsql(builder.Configuration.GetConnectionString("MainConnection"),
+//                o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)),
+//        ServiceLifetime.Transient
+//    );
+//    
+//    #endregion
+//}
 
 #endregion
 
