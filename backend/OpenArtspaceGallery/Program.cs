@@ -65,32 +65,32 @@ builder.Services.AddCors(options =>
 
 #region  DB Contexts
 
-//if (builder.Environment.IsEnvironment("Testing"))
-//{
+if (builder.Environment.IsEnvironment("Testing"))
+{
     // Test mode
     #region Main
     
     builder.Services.AddDbContext<MainDbContext>(options => options.UseInMemoryDatabase("TestingDB"));
     
     #endregion
-//}
-//else
-//{
-//    // Normal mode
-//    
-//    #region Main
-//    
-//    builder.Services.AddDbContext<MainDbContext>
-//    (
-//        options
-//            =>
-//            options.UseNpgsql(builder.Configuration.GetConnectionString("MainConnection"),
-//                o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)),
-//        ServiceLifetime.Transient
-//    );
-//    
-//    #endregion
-//}
+}
+else
+{
+    // Normal mode
+    
+    #region Main
+    
+    builder.Services.AddDbContext<MainDbContext>
+    (
+        options
+            =>
+            options.UseNpgsql(builder.Configuration.GetConnectionString("MainConnection"),
+                o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)),
+        ServiceLifetime.Transient
+    );
+    
+    #endregion
+}
 
 #endregion
 
@@ -112,3 +112,6 @@ app.UseCors();
 app.MapControllers();
 
 app.Run();
+
+// Make the implicit Program class public so test projects can access it
+public partial class Program { }

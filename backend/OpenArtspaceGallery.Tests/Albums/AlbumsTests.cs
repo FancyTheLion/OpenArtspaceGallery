@@ -1,9 +1,11 @@
 using System.Net;
 using System.Net.Http.Json;
+using System.Text.Json;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.VisualStudio.TestPlatform.TestHost;
 using OpenArtspaceGallery.Models.API.DTOs;
 using OpenArtspaceGallery.Models.API.Requests;
+using OpenArtspaceGallery.Models.API.Responses;
 
 namespace OpenArtspaceGallery.Tests.Albums;
 
@@ -25,9 +27,11 @@ public class AlbumsTests : IClassFixture<TestsFactory<Program>>
     public async Task Post_AddNewAlbum_ReturnsSuccess_WhenAllDataIsCorrect()
     {
         // Arrange
+        string albumName = $"Test Album { Guid.NewGuid() }";
+        
         var dto = new NewAlbumDto
         {
-            Name = "AlbumToBeCreated",
+            Name = albumName,
             ParentId = null
         };
 
@@ -42,9 +46,12 @@ public class AlbumsTests : IClassFixture<TestsFactory<Program>>
         // Assert
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         
-        // A ModelState failure returns to Page (200-OK) and doesn't redirect.
-        //response.EnsureSuccessStatusCode();
-        //Assert.Null(response.Headers.Location?.OriginalString);
+        var responseData = JsonSerializer.Deserialize<NewAlbumResponse>(await response.Content.ReadAsStringAsync());
+        
+        Assert.NotNull(responseData); // Did we get request?
+        Assert.NotNull(responseData.NewAlbum); // Did we get DTO?
+        Assert.Equal(albumName, responseData.NewAlbum.Name); // Name
+        Assert.Null(responseData.NewAlbum.Parent); // Must have no parent
     }
     
 }
