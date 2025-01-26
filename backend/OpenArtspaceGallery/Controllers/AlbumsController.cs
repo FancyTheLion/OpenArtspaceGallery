@@ -94,6 +94,18 @@ public class AlbumsController : ControllerBase
         {
             return BadRequest("When adding an album, information about the album must not be null.");
         }
+
+        // TODO: Kostyl'
+        if (string.Equals(request.AlbumToAdd.Name, string.Empty))
+        {
+            return BadRequest("Name mustn't be empty!");
+        }
+
+        if (request.AlbumToAdd.Name.Length > 200)
+        {
+            return BadRequest("Album name too long!");
+        }
+        // TODO: End of kostyl'
         
         return new NewAlbumResponse
         (
