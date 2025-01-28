@@ -20,9 +20,14 @@ public class NewAlbum
         string name
     )
     {
-        AlbumValidator.Validate(name);
+        var trimmedName = name.Trim();
+
+        if (!AlbumValidator.Validate(trimmedName))
+        {
+            throw new ArgumentException($"'{nameof(name)}' is invalid.", nameof(name));
+        }
         
         ParentAlbumId = parentAlbumId;
-        Name = name;
+        Name = trimmedName;
     }
 }

@@ -87,7 +87,7 @@ public class AlbumsController : ControllerBase
     {
         if (request == null)
         {
-            return BadRequest("Add album request mustn't be null!");
+            return BadRequest("Add album request mustn't be null.");
         }
 
         if (request.AlbumToAdd == null)
@@ -95,17 +95,10 @@ public class AlbumsController : ControllerBase
             return BadRequest("When adding an album, information about the album must not be null.");
         }
 
-        // TODO: Kostyl'
-        if (string.Equals(request.AlbumToAdd.Name, string.Empty))
+        if (!request.AlbumToAdd.Validate())
         {
-            return BadRequest("Name mustn't be empty!");
+            return BadRequest("Invalid new album data was provided.");
         }
-
-        if (request.AlbumToAdd.Name.Length > 200)
-        {
-            return BadRequest("Album name too long!");
-        }
-        // TODO: End of kostyl'
         
         return new NewAlbumResponse
         (

@@ -39,7 +39,10 @@ public class AlbumDto
         DateTime creationTime
     )
     {
-        AlbumValidator.Validate(name);
+        if (!AlbumValidator.Validate(name))
+        {
+            throw new ArgumentException($"'{nameof(name)}' is invalid.", nameof(name));
+        }
         
         Id = id;
         Parent = parent;

@@ -19,21 +19,36 @@ public class AlbumsTests : IClassFixture<TestsFactory<Program>>
             AllowAutoRedirect = false
         });
     }
-
-    [Fact]
-    public async Task Post_AddNewAlbum_ReturnsSuccess_WhenAllDataIsCorrect()
+    
+    public static IEnumerable<object[]> Post_AddNewAlbum_CheckNameTrim_DataGenerator()
     {
-        // Arrange
-        string albumName = $"Test Album {Guid.NewGuid()}";
-
-        var response = await CreateAlbumAsync(albumName, null);
+        var baseName = $"Megaalbum!{ Guid.NewGuid() }";
         
-        Assert.Equal(albumName, response.NewAlbum.Name); // Name
+        return new List<object[]>
+        {
+            new object[] { baseName, baseName},
+            new object[] { $"    { baseName }", baseName},
+            new object[] { $"{ baseName }    ", baseName},
+            new object[] { $"    { baseName }    ", baseName},
+            new object[] { $"Prefix { baseName }", $"Prefix { baseName }"}
+        };
+    }
+    
+    [Theory]
+    [MemberData(nameof(Post_AddNewAlbum_CheckNameTrim_DataGenerator))]
+    public async Task Post_AddNewAlbum_CheckNameTrim(string givenName, string expectedName)
+    {
+        // Act
+        var response = await CreateAlbumAsync(givenName, null);
+        
+        // Assert
+        Assert.Equal(expectedName, response.NewAlbum.Name); // Name
         Assert.Null(response.NewAlbum.Parent); // Must have no parent
     }
 
     [Theory]
     [InlineData("", false)] // Empty string
+    [InlineData("      ", false)] // Some whitespace
     [InlineData(@"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eget eros vitae ante maximus euismod. Aliquam maximus sodales sem et pulvinar. Suspendisse nec mi eu sem finibus tempus. Donec lacinia quam ut est auctor efficitur. Curabitur vitae arcu sapien. Fusce vestibulum lobortis mollis. Ut at tincidunt eros, quis accumsan eros. Ut egestas odio sed commodo dictum. Nullam sed vehicula quam. Aliquam sit amet ex in neque rhoncus vestibulum. Praesent dolor turpis, tempus et massa sed, hendrerit lobortis nunc. Donec dolor justo, laoreet eget dapibus ut, porttitor vehicula nulla.
 Quisque tristique lectus id felis imperdiet, a tempor nisl efficitur. Morbi lectus massa, ullamcorper ac nunc non, tincidunt consectetur nisi. Vivamus molestie enim sed enim tempus, at finibus est lobortis. Cras hendrerit enim sed condimentum dapibus. Vivamus finibus pretium libero, id maximus felis congue et. Curabitur sed nunc libero. Cras vitae euismod urna, ac viverra turpis. Donec euismod faucibus sem eu ullamcorper. Mauris blandit enim ac eros cursus, eu malesuada augue tristique. In lobortis vehicula lacus sed fermentum. Cras egestas commodo magna, quis condimentum quam scelerisque nec. Nam blandit enim et magna hendrerit, in ullamcorper arcu ultrices. Curabitur iaculis lacus diam, at tincidunt ex laoreet non. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus ornare et enim egestas malesuada.
 Donec consectetur neque nec erat imperdiet sagittis. Donec nec porttitor lectus. Suspendisse auctor euismod egestas. In quis risus massa. Nam sollicitudin finibus leo sit amet mollis. Suspendisse eu ante in nisi laoreet ultricies. Sed a libero leo. Donec dapibus eros non ligula ultricies rhoncus. Morbi feugiat rutrum metus, eget rhoncus quam viverra vitae. Vestibulum vulputate porta nulla sit amet accumsan. Integer finibus augue et congue egestas. Donec ac fermentum augue, a fringilla elit.
