@@ -28,15 +28,8 @@ public class SiteInfoTests  : IClassFixture<TestsFactory<Program>>
         _expectedVersion = configuration["SiteInfoSettings:Version"] ?? throw new InvalidOperationException("BackendVersion not found in appsettings.Testing.json");
     }
     
-    [Theory]
-    [InlineData("0.0.2")]
-    [InlineData("0.0.3")]
-    [InlineData("")]
-    [InlineData("0.0.2   ")]
-    [InlineData("   0.0.2")]
-    [InlineData("   ")]
-    [InlineData("0.0    .2")]
-    public async Task Get_GetBackendVersion_CheckVersion(string version)
+    [Fact]
+    public async Task GetBackendVersion_ShouldReturnCorrectVersion()
     {
         // Arrange
         var expectedVersion = _expectedVersion;
@@ -52,11 +45,35 @@ public class SiteInfoTests  : IClassFixture<TestsFactory<Program>>
         Assert.NotNull(responseData); 
         Assert.NotNull(responseData.BackendVersion); 
         Assert.Equal(expectedVersion, responseData.BackendVersion.Version);
-        Assert.IsType<string>(responseData.BackendVersion.Version);
+    }
+    
+    [Theory]
+    [InlineData("0.0.2")]
+    [InlineData("0.0.3")]
+    [InlineData("")]
+    [InlineData("0.0.2   ")]
+    [InlineData("   0.0.2")]
+    [InlineData("   ")]
+    [InlineData("0.0    .2")]
+    public async Task GetBackendVersion_TestingProcessingVariousInputData(string version)
+    {
+        // Arrange
+        var expectedVersion = _expectedVersion;
+        
+        // Act
+        var response = await _client.GetAsync("/api/SiteInfo/GetBackendVersion");
+        
+        response.EnsureSuccessStatusCode();
+        
+        // Assert
+        var responseData = JsonSerializer.Deserialize<BackendVersionResponse>(await response.Content.ReadAsStringAsync());
+        
+        Assert.NotNull(responseData); 
+        Assert.NotNull(responseData.BackendVersion); 
     }
 
     [Fact]
-    public async Task Get_GetBackendVersion_CheckTypeVersion()
+    public async Task GetBackendVersion_CheckTypeVersion()
     {
         // Act
         var response = await _client.GetAsync("/api/SiteInfo/GetBackendVersion");

@@ -20,7 +20,7 @@ public class AlbumsTests : IClassFixture<TestsFactory<Program>>
         });
     }
     
-    public static IEnumerable<object[]> Post_AddNewAlbum_CheckNameTrim_DataGenerator()
+    public static IEnumerable<object[]> AddNewAlbum_CheckNameTrim_DataGenerator()
     {
         var baseName = $"Megaalbum!{ Guid.NewGuid() }";
         
@@ -35,8 +35,8 @@ public class AlbumsTests : IClassFixture<TestsFactory<Program>>
     }
     
     [Theory]
-    [MemberData(nameof(Post_AddNewAlbum_CheckNameTrim_DataGenerator))]
-    public async Task Post_AddNewAlbum_CheckNameTrim(string givenName, string expectedName)
+    [MemberData(nameof(AddNewAlbum_CheckNameTrim_DataGenerator))]
+    public async Task AddNewAlbum_CheckNameTrim(string givenName, string expectedName)
     {
         // Act
         var response = await CreateAlbumAsync(givenName, null);
@@ -56,7 +56,7 @@ Duis eget erat porta, semper purus quis, vehicula metus. Ut elit tortor, egestas
 Pellentesque porttitor dictum leo, ac interdum risus ullamcorper vitae. Mauris mauris nibh, feugiat eget dolor et, placerat venenatis purus. Vestibulum elementum erat in dapibus dignissim. Pellentesque cursus id tellus non euismod. Vestibulum sapien nisl, elementum eget turpis sed, suscipit sagittis felis. Aliquam faucibus mollis fringilla. Maecenas id dignissim leo. Maecenas venenatis magna eu malesuada fringilla. Duis vehicula, nunc at sollicitudin dapibus, arcu sapien vehicula quam, eu sodales neque orci at nisi. Mauris aliquet ut ligula non lacinia. Etiam sit amet ex posuere, pretium purus ut, scelerisque diam. Curabitur in vulputate sapien, sed cursus nisi. Donec eu est nisi. Nunc eget tempor ante. Cras ac enim elit. "
         , false)] // Too long name
     [InlineData("4f8c2c6f-1302-408b-b887-19ac1e982736", true)] // Correct
-    public async Task Post_AddNewAlbum_CheckNameCorrectness(string name, bool isMustBeSuccessful)
+    public async Task AddNewAlbum_CheckNameCorrectness(string name, bool isMustBeSuccessful)
     {
         await CreateAlbumAsync(name, null, isMustBeSuccessful ? HttpStatusCode.OK : HttpStatusCode.BadRequest, true);
     }
