@@ -131,7 +131,9 @@ public class SiteInfoTests  : IClassFixture<TestsFactory<Program>>
             new object[] { "0.0.2   " },
             new object[] { "   0.0.2" },
             new object[] { "   " },
-            new object[] { "0.0    .2" }
+            new object[] { "0.0    .2" },
+            new object[] { new string('a', 10000)},
+            new object[] { new string('0', 10000)}
         };
     }
 
@@ -168,7 +170,9 @@ public class SiteInfoTests  : IClassFixture<TestsFactory<Program>>
             new object[] { "https://github.com/FancyTheLion/OpenArtspaceGallery.git   " },
             new object[] { "   https://github.com/FancyTheLion/OpenArtspaceGallery.git" },
             new object[] { "   " },
-            new object[] { "https:   //github.com/FancyTheLion/   OpenArtspaceGallery.git" }
+            new object[] { "https:   //github.com/FancyTheLion/   OpenArtspaceGallery.git" },
+            new object[] { new string('a', 10000)},
+            new object[] { new string('0', 10000)}
         };
     }
     
