@@ -36,7 +36,7 @@ public class SiteInfoController : ControllerBase
     /// </summary>
     [Route("GetSourcesLink")]
     [HttpGet]
-    public async Task<ActionResult<SourcesLinkResponse>> GeSourcesLink()
+    public async Task<ActionResult<SourcesLinkResponse>> GetSourcesLink()
     {
         return Ok(new SourcesLinkResponse(new SourcesLinkDto(_siteInfoSettings.SourcesUrl)));
     }

@@ -10,8 +10,11 @@ namespace OpenArtspaceGallery.Tests.SiteInfo;
 
 public class SiteInfoTests  : IClassFixture<TestsFactory<Program>>
 {
+    #region Initialization
+
     private readonly HttpClient _client;
     private readonly string _expectedVersion;
+    private readonly string _expectedSourcesLink;
     
     public SiteInfoTests(TestsFactory<Program> factory)
     {
@@ -26,8 +29,16 @@ public class SiteInfoTests  : IClassFixture<TestsFactory<Program>>
             .Build();
         
         _expectedVersion = configuration["SiteInfoSettings:Version"] ?? throw new InvalidOperationException("BackendVersion not found in appsettings.Testing.json");
+        _expectedSourcesLink = configuration["SiteInfoSettings:SourcesUrl"] ?? throw new InvalidOperationException("SourcesLink not found in appsettings.Testing.json");
     }
-    
+
+    #endregion
+
+    #region Backend version
+
+    /// <summary>
+    /// Testing the received version with the expected one
+    /// </summary>
     [Fact]
     public async Task GetBackendVersion_ShouldReturnCorrectVersion()
     {
@@ -36,14 +47,22 @@ public class SiteInfoTests  : IClassFixture<TestsFactory<Program>>
 
         var responseData = await GetBackendVersionAsync();
         Assert.Equal(expectedVersion, responseData.BackendVersion.Version);
+        
+        //I wanted to make both tests check different things, without a signature version 
+        //"I check the correctness of the incoming version + different variations of the entered version".
+        //But in its current form it turns out that I need to remove the second method GetBackendVersion_TestingProcessingVariousInputData(Same thing with the link)
     }
 
+    /// <summary>
+    /// Testing different incoming data
+    /// </summary>
     [Theory]
     [MemberData(nameof(GetVersionsData))]
-
     public async Task GetBackendVersion_TestingProcessingVariousInputData(string version)
     {
+        var expectedVersion = _expectedVersion;
         var responseData = await GetBackendVersionAsync();
+        Assert.Equal(expectedVersion, responseData.BackendVersion.Version);
     }
 
     [Fact]
@@ -53,6 +72,64 @@ public class SiteInfoTests  : IClassFixture<TestsFactory<Program>>
         Assert.IsType<string>(responseData.BackendVersion.Version);
     }
 
+    #endregion
+    
+    
+
+    #region Sources link
+
+    /// <summary>
+    /// Checking the received sources link against the expected one
+    /// </summary>
+    [Fact]
+    public async Task GetSourcesLink_ShouldReturnCorrectLink()
+    {
+        var expectedLink = _expectedSourcesLink;
+        
+        var responseData = await GetSourcesLinkAsync();
+        Assert.Equal(expectedLink, responseData.SourcesLink.SourcesLink);
+        
+        //I wanted to make both tests check different things, without a signature version 
+        //"I check the correctness of the incoming version + different variations of the entered version".
+        //But in its current form it turns out that I need to remove the second method GetBackendVersion_TestingProcessingVariousInputData(Same thing with the link)
+    }
+    
+    /// <summary>
+    /// Testing different incoming data
+    /// </summary>
+    [Theory]
+    [MemberData(nameof(GetVersionsData))]
+    public async Task GetSourcesLink_TestingProcessingVariousInputData(string version)
+    {
+        var expectedLink = _expectedSourcesLink;
+
+        var responseData = await GetSourcesLinkAsync();
+        Assert.Equal(expectedLink, responseData.SourcesLink.SourcesLink);
+    }
+    
+    [Fact]
+    public async Task GetSourcesLink_CheckTypeSourcesLink()
+    {
+        var response = await _client.GetAsync("/api/SiteInfo/GetSourcesLink");
+        
+        response.EnsureSuccessStatusCode();
+        
+        var responseData = JsonSerializer.Deserialize<SourcesLinkResponse>(await response.Content.ReadAsStringAsync());
+        
+        Assert.NotNull(responseData);
+        Assert.NotNull(responseData.SourcesLink);
+        Assert.IsType<string>(responseData.SourcesLink.SourcesLink);
+    }
+
+    #endregion
+
+    #region Helpers
+
+    #region Backend version
+
+    /// <summary>
+    /// A repository of options for what might come
+    /// </summary>
     public static IEnumerable<object[]> GetVersionsData()
     {
         return new List<object[]>
@@ -67,6 +144,9 @@ public class SiteInfoTests  : IClassFixture<TestsFactory<Program>>
         };
     }
 
+    /// <summary>
+    /// Template code for getting version
+    /// </summary>
     private async Task<BackendVersionResponse> GetBackendVersionAsync()
     {
         var response = await _client.GetAsync("/api/SiteInfo/GetBackendVersion");
@@ -79,4 +159,24 @@ public class SiteInfoTests  : IClassFixture<TestsFactory<Program>>
         Assert.NotNull(responseData.BackendVersion);
         return responseData;
     }
+
+    #endregion
+
+    #region Sources link
+    private async Task<SourcesLinkResponse> GetSourcesLinkAsync()
+    {
+        var response = await _client.GetAsync("/api/SiteInfo/GetSourcesLink");
+        
+        response.EnsureSuccessStatusCode();
+        
+        var responseData = JsonSerializer.Deserialize<SourcesLinkResponse>(await response.Content.ReadAsStringAsync());
+        
+        Assert.NotNull(responseData);
+        Assert.NotNull(responseData.SourcesLink);
+        return responseData;
+    }
+
+    #endregion
+
+    #endregion
 }
