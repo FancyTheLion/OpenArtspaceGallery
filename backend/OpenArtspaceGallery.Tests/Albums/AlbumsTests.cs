@@ -10,14 +10,11 @@ namespace OpenArtspaceGallery.Tests.Albums;
 
 public class AlbumsTests : IClassFixture<TestsFactory<Program>>
 {
-    private readonly HttpClient _client;
+    private readonly TestsFactory<Program> _factory;
 
     public AlbumsTests(TestsFactory<Program> factory)
     {
-        _client = factory.CreateClient(new WebApplicationFactoryClientOptions
-        {
-            AllowAutoRedirect = false
-        });
+        _factory = factory;
     }
     
     public static IEnumerable<object[]> AddNewAlbum_CheckNameTrim_DataGenerator()
@@ -91,7 +88,7 @@ Pellentesque porttitor dictum leo, ac interdum risus ullamcorper vitae. Mauris m
         };
 
         // Act
-        var response = await _client.PostAsJsonAsync("/api/Albums/New", request);
+        var response = await _factory.HttpClient.PostAsJsonAsync("/api/Albums/New", request);
 
         // Assert
         Assert.Equal(expectedStatusCode, response.StatusCode);
