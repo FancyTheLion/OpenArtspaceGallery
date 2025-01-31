@@ -71,6 +71,32 @@ public class SiteInfoTests  : IClassFixture<TestsFactory<Program>>
         var responseData = await GetBackendVersionAsync();
         Assert.IsType<string>(responseData.BackendVersion.Version);
     }
+    
+    /// <summary>
+    /// Checking the test version format
+    /// </summary>
+    [Fact]
+    public async Task GetBackendVersion_CheckVersionExpectedFormat()
+    {
+        var versionPattern = @"^\d+\.\d+\.\d+$";
+        var responseData = await GetBackendVersionAsync();
+        Assert.Matches(versionPattern, responseData.BackendVersion.Version);
+    }
+    
+    /// <summary>
+    /// Checking the test format for json
+    /// </summary>
+    [Fact]
+    public async Task GetBackendVersion_CheckTypeResponse()
+    {
+        var response = await _client.GetAsync("/api/SiteInfo/GetBackendVersion");
+        
+        response.EnsureSuccessStatusCode();
+        
+        Assert.NotNull(response);
+        Assert.NotNull(response.Content.Headers.ContentType);
+        Assert.Equal("application/json", response.Content.Headers.ContentType.MediaType);
+    }
 
     #endregion
     
@@ -111,6 +137,33 @@ public class SiteInfoTests  : IClassFixture<TestsFactory<Program>>
         var responseData = await GetSourcesLinkAsync();
         Assert.IsType<string>(responseData.SourcesLink.SourcesLink);
     }
+    
+    /// <summary>
+    /// Checking the test url format
+    /// </summary>
+    [Fact]
+    public async Task GetSourcesLink_CheckUrlExpectedFormat()
+    {
+        var gitUrlPattern = @"^https:\/\/github\.com\/[a-zA-Z0-9\-]+\/[a-zA-Z0-9\-]+\.git$";
+
+        var responseData = await GetSourcesLinkAsync();
+        Assert.Matches(gitUrlPattern, responseData.SourcesLink.SourcesLink);
+    }
+    
+    /// <summary>
+    /// Checking the test format for json
+    /// </summary>
+    [Fact]
+    public async Task GetSourcesLink_CheckTypeResponse()
+    {
+        var response = await _client.GetAsync("/api/SiteInfo/GetSourcesLink");
+        
+        response.EnsureSuccessStatusCode();
+        
+        Assert.NotNull(response);
+        Assert.NotNull(response.Content.Headers.ContentType);
+        Assert.Equal("application/json", response.Content.Headers.ContentType.MediaType);
+    }
 
     #endregion
 
@@ -132,6 +185,7 @@ public class SiteInfoTests  : IClassFixture<TestsFactory<Program>>
             new object[] { "   0.0.2" },
             new object[] { "   " },
             new object[] { "0.0    .2" },
+            new object[] { null },
             new object[] { new string('a', 10000)},
             new object[] { new string('0', 10000)}
         };
