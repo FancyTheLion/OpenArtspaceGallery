@@ -98,7 +98,7 @@ public class SiteInfoTests  : IClassFixture<TestsFactory<Program>>
     /// Testing different incoming data
     /// </summary>
     [Theory]
-    [MemberData(nameof(GetVersionsData))]
+    [MemberData(nameof(GetSourcesLinkData))]
     public async Task GetSourcesLink_TestingProcessingVariousInputData(string version)
     {
         var expectedLink = _expectedSourcesLink;
@@ -163,6 +163,24 @@ public class SiteInfoTests  : IClassFixture<TestsFactory<Program>>
     #endregion
 
     #region Sources link
+    
+    /// <summary>
+    /// A repository of options for what might come
+    /// </summary>
+    public static IEnumerable<object[]> GetSourcesLinkData()
+    {
+        return new List<object[]>
+        {
+            new object[] { "https://github.com/FancyTheLion/OpenArtspaceGallery.git" },
+            new object[] { "   https://github.com/FancyTheLion/OpenArtspaceGallery.git" },
+            new object[] { "" },
+            new object[] { "https://github.com/FancyTheLion/OpenArtspaceGallery.git   " },
+            new object[] { "   https://github.com/FancyTheLion/OpenArtspaceGallery.git" },
+            new object[] { "   " },
+            new object[] { "https:   //github.com/FancyTheLion/   OpenArtspaceGallery.git" }
+        };
+    }
+    
     private async Task<SourcesLinkResponse> GetSourcesLinkAsync()
     {
         var response = await _client.GetAsync("/api/SiteInfo/GetSourcesLink");
