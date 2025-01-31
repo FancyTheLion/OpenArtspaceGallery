@@ -33,59 +33,50 @@ public class SiteInfoTests  : IClassFixture<TestsFactory<Program>>
     {
         // Arrange
         var expectedVersion = _expectedVersion;
-        
-        // Act
-        var response = await _client.GetAsync("/api/SiteInfo/GetBackendVersion");
-        
-        response.EnsureSuccessStatusCode();
-        
-        // Assert
-        var responseData = JsonSerializer.Deserialize<BackendVersionResponse>(await response.Content.ReadAsStringAsync());
-        
-        Assert.NotNull(responseData); 
-        Assert.NotNull(responseData.BackendVersion); 
+
+        var responseData = await GetBackendVersionAsync();
         Assert.Equal(expectedVersion, responseData.BackendVersion.Version);
     }
-    
+
     [Theory]
-    [InlineData("0.0.2")]
-    [InlineData("0.0.3")]
-    [InlineData("")]
-    [InlineData("0.0.2   ")]
-    [InlineData("   0.0.2")]
-    [InlineData("   ")]
-    [InlineData("0.0    .2")]
+    [MemberData(nameof(GetVersionsData))]
+
     public async Task GetBackendVersion_TestingProcessingVariousInputData(string version)
     {
-        // Arrange
-        var expectedVersion = _expectedVersion;
-        
-        // Act
-        var response = await _client.GetAsync("/api/SiteInfo/GetBackendVersion");
-        
-        response.EnsureSuccessStatusCode();
-        
-        // Assert
-        var responseData = JsonSerializer.Deserialize<BackendVersionResponse>(await response.Content.ReadAsStringAsync());
-        
-        Assert.NotNull(responseData); 
-        Assert.NotNull(responseData.BackendVersion); 
+        var responseData = await GetBackendVersionAsync();
     }
 
     [Fact]
     public async Task GetBackendVersion_CheckTypeVersion()
     {
-        // Act
+        var responseData = await GetBackendVersionAsync();
+        Assert.IsType<string>(responseData.BackendVersion.Version);
+    }
+
+    public static IEnumerable<object[]> GetVersionsData()
+    {
+        return new List<object[]>
+        {
+            new object[] { "0.0.2" },
+            new object[] { "0.0.3" },
+            new object[] { "" },
+            new object[] { "0.0.2   " },
+            new object[] { "   0.0.2" },
+            new object[] { "   " },
+            new object[] { "0.0    .2" }
+        };
+    }
+
+    private async Task<BackendVersionResponse> GetBackendVersionAsync()
+    {
         var response = await _client.GetAsync("/api/SiteInfo/GetBackendVersion");
         
         response.EnsureSuccessStatusCode();
         
-        // Assert
         var responseData = JsonSerializer.Deserialize<BackendVersionResponse>(await response.Content.ReadAsStringAsync());
         
-        Assert.NotNull(responseData); 
-        Assert.NotNull(responseData.BackendVersion); 
-        Assert.IsType<string>(responseData.BackendVersion.Version);
+        Assert.NotNull(responseData);
+        Assert.NotNull(responseData.BackendVersion);
+        return responseData;
     }
-
 }
