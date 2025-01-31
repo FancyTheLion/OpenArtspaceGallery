@@ -28,7 +28,7 @@ public class SiteInfoController : ControllerBase
     [Route("GetBackendVersion")]
     public async Task<ActionResult<BackendVersionResponse>> GetBackendVersion()
     {
-        return new BackendVersionResponse(new BackendVersionDto("0.0.2"));
+        return new BackendVersionResponse(new BackendVersionDto(_siteInfoSettings.Version));
     }
     
     /// <summary>
