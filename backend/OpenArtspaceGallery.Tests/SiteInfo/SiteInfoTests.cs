@@ -74,8 +74,6 @@ public class SiteInfoTests  : IClassFixture<TestsFactory<Program>>
 
     #endregion
     
-    
-
     #region Sources link
 
     /// <summary>
@@ -110,14 +108,7 @@ public class SiteInfoTests  : IClassFixture<TestsFactory<Program>>
     [Fact]
     public async Task GetSourcesLink_CheckTypeSourcesLink()
     {
-        var response = await _client.GetAsync("/api/SiteInfo/GetSourcesLink");
-        
-        response.EnsureSuccessStatusCode();
-        
-        var responseData = JsonSerializer.Deserialize<SourcesLinkResponse>(await response.Content.ReadAsStringAsync());
-        
-        Assert.NotNull(responseData);
-        Assert.NotNull(responseData.SourcesLink);
+        var responseData = await GetSourcesLinkAsync();
         Assert.IsType<string>(responseData.SourcesLink.SourcesLink);
     }
 
