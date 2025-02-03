@@ -45,7 +45,7 @@ public class AlbumsController : ControllerBase
     [Route("ChildrenOf/{albumId:guid}")]
     public async Task<ActionResult<AlbumsListResponse>> GetChildrenAlbumsListAsync(Guid albumId)
     {
-        if (!await _albumsService.IsAlbumExistsAsync(albumId))    
+        if (!await _albumsService.IsExistsAsync(albumId))    
         {
             return NotFound();
         }
@@ -65,7 +65,7 @@ public class AlbumsController : ControllerBase
     [Route("Hierarchy/{albumId:guid}")]
     public async Task<ActionResult<AlbumHierarchyResponse>> GetListAlbumsInHierarchy(Guid albumId)
     {
-        if (!await _albumsService.IsAlbumExistsAsync(albumId))
+        if (!await _albumsService.IsExistsAsync(albumId))
         {
             return NotFound();
         }
@@ -102,7 +102,7 @@ public class AlbumsController : ControllerBase
         
         return new NewAlbumResponse
         (
-            (await _albumsService.CreateNewAlbumAsync(request.AlbumToAdd.ToModel())).ToDto()
+            (await _albumsService.CreateAsync(request.AlbumToAdd.ToModel())).ToDto()
         );
     }
 
@@ -113,12 +113,12 @@ public class AlbumsController : ControllerBase
     [Route("{albumId:guid}")]
     public async Task<ActionResult> DeleteAlbumAsync(Guid albumId)
     {
-        if (!await _albumsService.IsAlbumExistsAsync(albumId))
+        if (!await _albumsService.IsExistsAsync(albumId))
         {
             return NotFound();
         }
 
-        await _albumsService.DeleteAlbumAsync(albumId);
+        await _albumsService.DeleteAsync(albumId);
         
         return Ok();
     }
@@ -142,7 +142,7 @@ public class AlbumsController : ControllerBase
 
         try
         {
-            await _albumsService.RenameAlbumAsync(albumId, request.RenameAlbumInfo.NewName);
+            await _albumsService.RenameAsync(albumId, request.RenameAlbumInfo.NewName);
         }
         catch (ArgumentException ex)
         {

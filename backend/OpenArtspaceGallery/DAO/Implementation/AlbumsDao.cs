@@ -55,14 +55,14 @@ public class AlbumsDao : IAlbumsDao
         return result;
     }
 
-    public async Task<bool> IsAlbumExistsAsync(Guid albumId)
+    public async Task<bool> IsExistsAsync(Guid albumId)
     {
         return await _dbContext
             .Albums
             .AnyAsync(a => a.Id == albumId);
     }
 
-    public async Task<AlbumDbo> CreateNewAlbumAsync(AlbumDbo albumToInsert)
+    public async Task<AlbumDbo> CreateAsync(AlbumDbo albumToInsert)
     {
         _ = albumToInsert ?? throw new ArgumentNullException(nameof(albumToInsert), "Album can't be null!");
         
@@ -77,7 +77,7 @@ public class AlbumsDao : IAlbumsDao
         return albumToInsert;
     }
 
-    public async Task DeleteAlbumAsync(Guid albumToDelete)
+    public async Task DeleteAsync(Guid albumToDelete)
     {
         var album = await _dbContext
             .Albums
@@ -97,7 +97,7 @@ public class AlbumsDao : IAlbumsDao
             .ToListAsync();
     }
 
-    public async Task RenameAlbumAsync(Guid albumId, string newName)
+    public async Task RenameAsync(Guid albumId, string newName)
     {
         if (string.IsNullOrWhiteSpace(newName))
         {

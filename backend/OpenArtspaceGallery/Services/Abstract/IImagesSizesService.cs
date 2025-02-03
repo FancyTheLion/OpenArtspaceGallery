@@ -11,9 +11,9 @@ public interface IImagesSizesService
     #region Collection Getters 
 
     /// <summary>
-    /// Get the images sizes
+    /// Get the images sizes list
     /// </summary>
-    Task<IReadOnlyCollection<ImageSize>> GetImagesSizesAsync();
+    Task<IReadOnlyCollection<ImageSize>> GetListAsync();
     
     #endregion
     
@@ -22,7 +22,7 @@ public interface IImagesSizesService
     /// <summary>
     /// Is image size exists by id
     /// </summary>
-    Task<bool> IsImageSizeExistsByIdAsync(Guid sizeId);
+    Task<bool> IsExistsByIdAsync(Guid sizeId);
     
     /// <summary>
     /// Is exist by name
@@ -46,7 +46,7 @@ public interface IImagesSizesService
     /// <summary>
     /// Add new image size
     /// </summary>
-    Task<ImageSize> AddImageSizeAsync(ImageSize imageSize);
+    Task<ImageSize> AddAsync(ImageSize imageSize);
 
     #endregion
     
@@ -55,7 +55,7 @@ public interface IImagesSizesService
     /// <summary>
     /// Delete image size
     /// </summary>
-    Task DeleteImageSizeAsync(Guid sizeId);
+    Task DeleteAsync(Guid sizeId);
 
     #endregion
     
@@ -64,7 +64,7 @@ public interface IImagesSizesService
     /// <summary>
     /// Update image size by id
     /// </summary>
-    Task<ImageSize> UpdateImageSizeByIdAsync(ImageSize imageSize);
+    Task<ImageSize> UpdateByIdAsync(ImageSize imageSize);
 
     #endregion
 }

@@ -19,14 +19,14 @@ public class ImagesSizesService : IImagesSizesService
         _imagesSizesDao = imagesSizesDao;
     }
 
-    public async Task<IReadOnlyCollection<ImageSize>> GetImagesSizesAsync()
+    public async Task<IReadOnlyCollection<ImageSize>> GetListAsync()
     {
-        return (await _imagesSizesDao.GetImagesSizesAsync())
+        return (await _imagesSizesDao.GetListAsync())
             .Select(i => ImageSize.FromDbo(i))
             .ToList();
     }
 
-    public async Task<ImageSize> AddImageSizeAsync(ImageSize imageSize)
+    public async Task<ImageSize> AddAsync(ImageSize imageSize)
     {
         if (imageSize == null)
         {
@@ -43,20 +43,20 @@ public class ImagesSizesService : IImagesSizesService
             Height = imageSize.Height
         };
         
-        return ImageSize.FromDbo(await _imagesSizesDao.AddImageSizeAsync(newImageSize));
+        return ImageSize.FromDbo(await _imagesSizesDao.AddAsync(newImageSize));
     }
 
-    public async Task DeleteImageSizeAsync(Guid sizeId)
+    public async Task DeleteAsync(Guid sizeId)
     {
-        await _imagesSizesDao.DeleteImageSizeAsync(sizeId);
+        await _imagesSizesDao.DeleteAsync(sizeId);
     }
     
-    public async Task<bool> IsImageSizeExistsByIdAsync(Guid sizeId)
+    public async Task<bool> IsExistsByIdAsync(Guid sizeId)
     {
-        return await _imagesSizesDao.IsImageSizeExistsByIdAsync(sizeId);
+        return await _imagesSizesDao.IsExistsByIdAsync(sizeId);
     }
 
-    public async Task<ImageSize> UpdateImageSizeByIdAsync(ImageSize imageSize)
+    public async Task<ImageSize> UpdateByIdAsync(ImageSize imageSize)
     {
         _ = imageSize ?? throw new ArgumentNullException(nameof(imageSize), "Update data cannot be null!");
         
@@ -70,7 +70,7 @@ public class ImagesSizesService : IImagesSizesService
             Height = imageSize.Height
         };
         
-        return ImageSize.FromDbo(await _imagesSizesDao.UpdateImageSizeByIdAsync(imageSizeToUpdate));
+        return ImageSize.FromDbo(await _imagesSizesDao.UpdateByIdAsync(imageSizeToUpdate));
     }
 
     /// <summary>
@@ -78,12 +78,12 @@ public class ImagesSizesService : IImagesSizesService
     /// </summary>
     private async Task ValidateImageSizeAsync(ImageSize imageSize)
     {
-        if (await _imagesSizesDao.IsAnotherImageSizeExistsByNameAsync(imageSize.Id, imageSize.Name))
+        if (await _imagesSizesDao.IsAnotherExistsByNameAsync(imageSize.Id, imageSize.Name))
         {
             throw new ArgumentException($"Image size with name { imageSize.Name } already exists.", nameof(imageSize.Name));
         }
         
-        if (await _imagesSizesDao.IsAnotherImageSizeExistsByDimensionsAsync(imageSize.Id, imageSize.Width, imageSize.Height))
+        if (await _imagesSizesDao.IsAnotherExistsByDimensionsAsync(imageSize.Id, imageSize.Width, imageSize.Height))
         {
             throw new ArgumentException($"Image size with width { imageSize.Width } and height { imageSize.Height } already exists.");
         }
@@ -93,17 +93,17 @@ public class ImagesSizesService : IImagesSizesService
     {
         _ = imageSizeName ?? throw new ArgumentNullException(nameof(imageSizeName), "Image size name cannot be null!");
         
-        return await _imagesSizesDao.IsAnotherImageSizeExistsByNameAsync(Guid.Empty, imageSizeName);
+        return await _imagesSizesDao.IsAnotherExistsByNameAsync(Guid.Empty, imageSizeName);
     }
     public async Task<bool> IsExistByDimensionsAsync(int width, int height)
     {
-        return await _imagesSizesDao.IsAnotherImageSizeExistsByDimensionsAsync(Guid.Empty, width, height);
+        return await _imagesSizesDao.IsAnotherExistsByDimensionsAsync(Guid.Empty, width, height);
     }
 
     public async Task<bool> IsImageSizeExistsAsync(string name, int width, int height)
     {
         _ = name ?? throw new ArgumentNullException(nameof(name), "Image size name cannot be null!");
         
-        return await _imagesSizesDao.IsImageSizeExistsByPropertiesAsync(name, width, height);
+        return await _imagesSizesDao.IsExistsByPropertiesAsync(name, width, height);
     }
 }

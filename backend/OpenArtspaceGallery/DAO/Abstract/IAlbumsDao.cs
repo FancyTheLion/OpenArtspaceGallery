@@ -31,7 +31,7 @@ public interface IAlbumsDao
     /// <summary>
     /// Does album exists?
     /// </summary>
-    Task<bool> IsAlbumExistsAsync(Guid albumId);
+    Task<bool> IsExistsAsync(Guid albumId);
 
     #endregion
     
@@ -40,7 +40,7 @@ public interface IAlbumsDao
     /// <summary>
     /// Add new album
     /// </summary>
-    Task<AlbumDbo> CreateNewAlbumAsync(AlbumDbo albumToInsert);
+    Task<AlbumDbo> CreateAsync(AlbumDbo albumToInsert);
 
     #endregion
     
@@ -49,7 +49,7 @@ public interface IAlbumsDao
     /// <summary>
     /// Delete album
     /// </summary>
-    Task DeleteAlbumAsync(Guid albumToDelete);
+    Task DeleteAsync(Guid albumToDelete);
 
     #endregion
     
@@ -58,7 +58,7 @@ public interface IAlbumsDao
     /// <summary>
     /// Rename album
     /// </summary>
-    Task RenameAlbumAsync(Guid albumId, string newName);
+    Task RenameAsync(Guid albumId, string newName);
 
     #endregion
 }

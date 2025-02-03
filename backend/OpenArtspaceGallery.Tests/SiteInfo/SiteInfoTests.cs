@@ -2,9 +2,11 @@ using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using OpenArtspaceGallery.Models.API.DTOs;
 using OpenArtspaceGallery.Models.API.Responses;
+using OpenArtspaceGallery.Models.Settings;
 
 namespace OpenArtspaceGallery.Tests.SiteInfo;
 

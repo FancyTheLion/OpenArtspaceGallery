@@ -29,10 +29,10 @@ public class ImagesSizesController : ControllerBase
     /// Get images sizes list 
     /// </summary>
     [HttpGet]
-    [Route("GetImagesSizesList")]
-    public async Task<ActionResult<ImagesSizesResponse>> GetImageSizesListAsync()
+    [Route("GetList")]
+    public async Task<ActionResult<ImagesSizesResponse>> GetListAsync()
     {
-        var imagesSizes = await _imagesSizesService.GetImagesSizesAsync();
+        var imagesSizes = await _imagesSizesService.GetListAsync();
 
         var imagesSizesDtos = imagesSizes
             .Select(i => i.ToDto())
@@ -45,8 +45,8 @@ public class ImagesSizesController : ControllerBase
     /// Add Image Size entry
     /// </summary>
     [HttpPost]
-    [Route("AddImageSize")]
-    public async Task<ActionResult<AddImageSizeResponse>> AddImageSizeAsync(AddImageSizeRequest request)
+    [Route("Add")]
+    public async Task<ActionResult<AddImageSizeResponse>> AddAsync(AddImageSizeRequest request)
     {
         if (request == null)
         {
@@ -64,7 +64,7 @@ public class ImagesSizesController : ControllerBase
             (
                 new AddImageSizeResponse
                 (
-                    (await _imagesSizesService.AddImageSizeAsync(request.ImageSize.ToModel())).ToDto()
+                    (await _imagesSizesService.AddAsync(request.ImageSize.ToModel())).ToDto()
                 )
             );
         }
@@ -79,14 +79,14 @@ public class ImagesSizesController : ControllerBase
     /// </summary>
     [HttpDelete]
     [Route("{sizeId:guid}")]
-    public async Task<ActionResult> DeleteImageSizeAsync(Guid sizeId)
+    public async Task<ActionResult> DeleteAsync(Guid sizeId)
     {
-        if (!await _imagesSizesService.IsImageSizeExistsByIdAsync(sizeId))
+        if (!await _imagesSizesService.IsExistsByIdAsync(sizeId))
         {
             return NotFound();
         }
 
-        await _imagesSizesService.DeleteImageSizeAsync(sizeId);
+        await _imagesSizesService.DeleteAsync(sizeId);
 
         return Ok();
     }
@@ -95,8 +95,8 @@ public class ImagesSizesController : ControllerBase
     /// Update image size fields: name, width, height
     /// </summary>
     [HttpPost]
-    [Route("UpdateImageSizeById")]
-    public async Task<ActionResult<UpdateImageSizeByIdResponse>> UpdateImageSizeByIdAsync(UpdateImageSizeByIdRequest request)
+    [Route("UpdateById")]
+    public async Task<ActionResult<UpdateImageSizeByIdResponse>> UpdateByIdAsync(UpdateImageSizeByIdRequest request)
     {
         if (request == null)
         {
@@ -108,7 +108,7 @@ public class ImagesSizesController : ControllerBase
             return BadRequest("When updating image size, the size information must not be null.");
         }
         
-        if (!await _imagesSizesService.IsImageSizeExistsByIdAsync(request.ImageSize.Id))
+        if (!await _imagesSizesService.IsExistsByIdAsync(request.ImageSize.Id))
         {
             return NotFound();
         }
@@ -119,7 +119,7 @@ public class ImagesSizesController : ControllerBase
             (
                 new UpdateImageSizeByIdResponse
                 (
-                    (await _imagesSizesService.UpdateImageSizeByIdAsync(request.ImageSize.ToModel())).ToDto()
+                    (await _imagesSizesService.UpdateByIdAsync(request.ImageSize.ToModel())).ToDto()
                 )
             );
         }
@@ -175,8 +175,8 @@ public class ImagesSizesController : ControllerBase
     /// Is there an image size 
     /// </summary>
     [HttpPost]
-    [Route("IsImageSizeExists")]
-    public async Task<ActionResult<ImageSizeExistenceResponse>> IsImageSizeExistsAsync(ImageSizeExistenceRequest request)
+    [Route("IsExists")]
+    public async Task<ActionResult<ImageSizeExistenceResponse>> IsExistsAsync(ImageSizeExistenceRequest request)
     {
         if (request == null)
         {
