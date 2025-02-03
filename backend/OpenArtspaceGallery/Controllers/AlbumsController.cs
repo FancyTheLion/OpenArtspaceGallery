@@ -30,12 +30,11 @@ public class AlbumsController : ControllerBase
     [Route("TopLevel")]
     public async Task<ActionResult<AlbumsListResponse>> GetTopLevelAlbumsListAsync()
     {
-        return  new AlbumsListResponse
-        (
-            (await _albumsService.GetChildrenAsync(null))
+        var albums = (await _albumsService.GetChildrenAsync(null))
             .Select(a => a.ToDto())
-            .ToList()
-        );
+            .ToList();
+        
+            return Ok(new AlbumsListResponse(albums));
     }
     
     /// <summary>

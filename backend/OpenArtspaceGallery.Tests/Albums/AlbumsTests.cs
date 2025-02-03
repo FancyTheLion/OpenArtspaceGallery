@@ -1,23 +1,35 @@
 using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Moq;
+using OpenArtspaceGallery.Controllers;
+using OpenArtspaceGallery.Models;
 using OpenArtspaceGallery.Models.API.DTOs;
 using OpenArtspaceGallery.Models.API.Requests;
 using OpenArtspaceGallery.Models.API.Responses;
+using OpenArtspaceGallery.Services.Abstract;
 
 namespace OpenArtspaceGallery.Tests.Albums;
 
+
+
 public class AlbumsTests : IClassFixture<TestsFactory<Program>>
 {
+    #region Initialization
     private readonly TestsFactory<Program> _factory;
 
     public AlbumsTests(TestsFactory<Program> factory)
     {
         _factory = factory;
     }
-    
-    public static IEnumerable<object[]> AddNewAlbum_CheckNameTrim_DataGenerator()
+
+#endregion
+
+    #region Create album
+
+     public static IEnumerable<object[]> AddNewAlbum_CheckNameTrim_DataGenerator()
     {
         var baseName = $"Megaalbum!{ Guid.NewGuid() }";
         
@@ -57,6 +69,39 @@ Pellentesque porttitor dictum leo, ac interdum risus ullamcorper vitae. Mauris m
     {
         await CreateAlbumAsync(name, null, isMustBeSuccessful ? HttpStatusCode.OK : HttpStatusCode.BadRequest, true);
     }
+    
+
+    #endregion
+    
+#region Get top level albums
+
+[Fact]
+public async Task GetTopLevelAlbumsListAsync_ReturnsOkResultWithCorrectStatusCode()
+{
+    var mockAlbumsService = new Mock<IAlbumsService>();
+
+    var albums = new List<Album>
+    {
+        new Album(Guid.NewGuid(), null, "Album1", DateTime.UtcNow),
+        new Album(Guid.NewGuid(), null, "Album2", DateTime.UtcNow)
+    };
+    
+    mockAlbumsService
+        .Setup(service => service.GetChildrenAsync(null))
+        .ReturnsAsync(albums);
+
+    var controller = new AlbumsController(mockAlbumsService.Object);
+    
+    var result = await controller.GetTopLevelAlbumsListAsync();
+    
+    var actionResult = Assert.IsType<ActionResult<AlbumsListResponse>>(result);
+    var okResult = Assert.IsType<OkObjectResult>(actionResult.Result);
+    
+    Assert.Equal(200, okResult.StatusCode);
+}
+
+
+#endregion
 
     #region Albums-related helpers
 
