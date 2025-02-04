@@ -73,35 +73,55 @@ Pellentesque porttitor dictum leo, ac interdum risus ullamcorper vitae. Mauris m
 
     #endregion
     
-#region Get top level albums
+    #region Get top level albums
 
-[Fact]
-public async Task GetTopLevelAlbumsListAsync_ReturnsOkResultWithCorrectStatusCode()
-{
-    var mockAlbumsService = new Mock<IAlbumsService>();
-
-    var albums = new List<Album>
+    [Fact]
+    public async Task GetTopLevelAlbumsListAsync_ReturnsOkResultWithCorrectStatusCode()
     {
-        new Album(Guid.NewGuid(), null, "Album1", DateTime.UtcNow),
-        new Album(Guid.NewGuid(), null, "Album2", DateTime.UtcNow)
-    };
-    
-    mockAlbumsService
-        .Setup(service => service.GetChildrenAsync(null))
-        .ReturnsAsync(albums);
+        var mockAlbumsService = new Mock<IAlbumsService>();
 
-    var controller = new AlbumsController(mockAlbumsService.Object);
-    
-    var result = await controller.GetTopLevelAlbumsListAsync();
-    
-    var actionResult = Assert.IsType<ActionResult<AlbumsListResponse>>(result);
-    var okResult = Assert.IsType<OkObjectResult>(actionResult.Result);
-    
-    Assert.Equal(200, okResult.StatusCode);
-}
+        var albums = new List<Album>
+        {
+            new Album(Guid.NewGuid(), null, "Album1", DateTime.UtcNow),
+            new Album(Guid.NewGuid(), null, "Album2", DateTime.UtcNow)
+        };
+        
+        mockAlbumsService
+            .Setup(service => service.GetChildrenAsync(null))
+            .ReturnsAsync(albums);
 
+        var controller = new AlbumsController(mockAlbumsService.Object);
+        
+        var result = await controller.GetTopLevelAlbumsListAsync();
+        
+        var actionResult = Assert.IsType<ActionResult<AlbumsListResponse>>(result);
+        var okResult = Assert.IsType<OkObjectResult>(actionResult.Result);
+        
+        Assert.Equal(200, okResult.StatusCode);
+    }
 
-#endregion
+    [Fact]
+    public async Task GetTopLevelAlbumsListAsync_ReturnsEmptyList()
+    {
+        var mockAlbumsService = new Mock<IAlbumsService>();
+        var albums = new List<Album>(); 
+
+        mockAlbumsService
+            .Setup(service => service.GetChildrenAsync(null))
+            .ReturnsAsync(albums);
+
+        var controller = new AlbumsController(mockAlbumsService.Object);
+        
+        var result = await controller.GetTopLevelAlbumsListAsync();
+        
+        var okResult = Assert.IsType<OkObjectResult>(result.Result);
+        var response = Assert.IsType<AlbumsListResponse>(okResult.Value);
+        Assert.Empty(response.Albums); 
+    }
+    
+    
+
+    #endregion
 
     #region Albums-related helpers
 
