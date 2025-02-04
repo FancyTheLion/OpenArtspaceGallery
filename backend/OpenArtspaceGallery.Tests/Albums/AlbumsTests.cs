@@ -135,6 +135,32 @@ Pellentesque porttitor dictum leo, ac interdum risus ullamcorper vitae. Mauris m
         Assert.Equal("Test exception", exception.Message);
     }
 
+    [Fact]
+    public async Task GetTopLevelAlbumsListAsync_ReturnsCorrectData()
+    {
+        var mockAlbumsService = new Mock<IAlbumsService>();
+        var albums = new List<Album>
+        {
+            new Album(Guid.NewGuid(), null, "Album1", DateTime.UtcNow),
+            new Album(Guid.NewGuid(), null, "Album2", DateTime.UtcNow)
+        };
+        
+        mockAlbumsService
+            .Setup(service => service.GetChildrenAsync(null))
+            .ReturnsAsync(albums);
+        
+        var controller = new AlbumsController(mockAlbumsService.Object);
+        
+        var result = await controller.GetTopLevelAlbumsListAsync();
+        
+        var actionResult = Assert.IsType<OkObjectResult>(result.Result);
+        var response = Assert.IsType<AlbumsListResponse>(actionResult.Value);
+        
+        Assert.Equal(2, response.Albums.Count);
+        Assert.Equal(albums[0].Name, response.Albums.ElementAt(0).Name);
+        Assert.Equal(albums[1].Name, response.Albums.ElementAt(1).Name);
+    }
+
     #endregion
 
     #region Albums-related helpers
