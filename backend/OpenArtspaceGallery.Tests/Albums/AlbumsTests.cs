@@ -1,15 +1,16 @@
 using System.Net;
 using System.Net.Http.Json;
-using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Moq;
+using Newtonsoft.Json;
 using OpenArtspaceGallery.Controllers;
 using OpenArtspaceGallery.Models;
 using OpenArtspaceGallery.Models.API.DTOs;
 using OpenArtspaceGallery.Models.API.Requests;
 using OpenArtspaceGallery.Models.API.Responses;
 using OpenArtspaceGallery.Services.Abstract;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace OpenArtspaceGallery.Tests.Albums;
 
@@ -159,6 +160,19 @@ Pellentesque porttitor dictum leo, ac interdum risus ullamcorper vitae. Mauris m
         Assert.Equal(2, response.Albums.Count);
         Assert.Equal(albums[0].Name, response.Albums.ElementAt(0).Name);
         Assert.Equal(albums[1].Name, response.Albums.ElementAt(1).Name);
+    }
+
+    [Fact]
+    public async Task GetTopLevelAlbumsListAsync_ReturnsAlbums()
+    {
+        var client = _factory.CreateClient();
+        
+        var response = await client.GetAsync("/api/albums/TopLevel");
+        
+        response.EnsureSuccessStatusCode();
+        var content = await response.Content.ReadAsStringAsync();
+        var albums = JsonConvert.DeserializeObject<AlbumsListResponse>(content);
+        Assert.NotNull(albums);
     }
 
     #endregion
