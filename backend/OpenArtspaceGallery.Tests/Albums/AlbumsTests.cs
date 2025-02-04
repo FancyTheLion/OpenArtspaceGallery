@@ -14,16 +14,18 @@ using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace OpenArtspaceGallery.Tests.Albums;
 
-
-
 public class AlbumsTests : IClassFixture<TestsFactory<Program>>
 {
     #region Initialization
+    
     private readonly TestsFactory<Program> _factory;
-
+    private readonly Mock<IAlbumsService> _mockAlbumsService;
+    
     public AlbumsTests(TestsFactory<Program> factory)
     {
         _factory = factory;
+        
+        _mockAlbumsService = new Mock<IAlbumsService>();
     }
 
 #endregion
@@ -79,19 +81,11 @@ Pellentesque porttitor dictum leo, ac interdum risus ullamcorper vitae. Mauris m
     [Fact]
     public async Task GetTopLevelAlbumsListAsync_ReturnsCorrectStatusCode()
     {
-        var mockAlbumsService = new Mock<IAlbumsService>();
-
-        var albums = new List<Album>
-        {
-            new Album(Guid.NewGuid(), null, "Album1", DateTime.UtcNow),
-            new Album(Guid.NewGuid(), null, "Album2", DateTime.UtcNow)
-        };
+        var albums = GetTestAlbums();
         
-        mockAlbumsService
-            .Setup(service => service.GetChildrenAsync(null))
-            .ReturnsAsync(albums);
+        SetupMockAlbumService(albums); 
 
-        var controller = new AlbumsController(mockAlbumsService.Object);
+        var controller = CreateController();
         
         var result = await controller.GetTopLevelAlbumsListAsync();
         
@@ -104,14 +98,11 @@ Pellentesque porttitor dictum leo, ac interdum risus ullamcorper vitae. Mauris m
     [Fact]
     public async Task GetTopLevelAlbumsListAsync_ReturnsEmptyList()
     {
-        var mockAlbumsService = new Mock<IAlbumsService>();
         var albums = new List<Album>(); 
 
-        mockAlbumsService
-            .Setup(service => service.GetChildrenAsync(null))
-            .ReturnsAsync(albums);
+        SetupMockAlbumService(albums); 
 
-        var controller = new AlbumsController(mockAlbumsService.Object);
+        var controller = CreateController();
         
         var result = await controller.GetTopLevelAlbumsListAsync();
         
@@ -123,13 +114,11 @@ Pellentesque porttitor dictum leo, ac interdum risus ullamcorper vitae. Mauris m
     [Fact]
     public async Task GetTopLevelAlbumsListAsync_ThrowsException()
     {
-        var mockAlbumsService = new Mock<IAlbumsService>();
-
-        mockAlbumsService
+        _mockAlbumsService
             .Setup(service => service.GetChildrenAsync(null))
             .ThrowsAsync(new Exception("Test exception"));
 
-        var controller = new AlbumsController(mockAlbumsService.Object);
+        var controller = CreateController();
 
         var exception = await Assert.ThrowsAsync<Exception>(() => controller.GetTopLevelAlbumsListAsync());
 
@@ -139,18 +128,11 @@ Pellentesque porttitor dictum leo, ac interdum risus ullamcorper vitae. Mauris m
     [Fact]
     public async Task GetTopLevelAlbumsListAsync_ReturnsCorrectData()
     {
-        var mockAlbumsService = new Mock<IAlbumsService>();
-        var albums = new List<Album>
-        {
-            new Album(Guid.NewGuid(), null, "Album1", DateTime.UtcNow),
-            new Album(Guid.NewGuid(), null, "Album2", DateTime.UtcNow)
-        };
+        var albums = GetTestAlbums();
         
-        mockAlbumsService
-            .Setup(service => service.GetChildrenAsync(null))
-            .ReturnsAsync(albums);
+        SetupMockAlbumService(albums); 
         
-        var controller = new AlbumsController(mockAlbumsService.Object);
+        var controller = CreateController();
         
         var result = await controller.GetTopLevelAlbumsListAsync();
         
@@ -165,7 +147,7 @@ Pellentesque porttitor dictum leo, ac interdum risus ullamcorper vitae. Mauris m
     [Fact]
     public async Task GetTopLevelAlbumsListAsync_ReturnsAlbums()
     {
-        var client = _factory.CreateClient();
+        var client = CreateClient();
         
         var response = await client.GetAsync("/api/albums/TopLevel");
         
@@ -180,12 +162,12 @@ Pellentesque porttitor dictum leo, ac interdum risus ullamcorper vitae. Mauris m
     [Fact]
     public async Task GetTopLevelAlbumsListAsync_ReturnsExpectedDataStructure()
     {
-        var client = _factory.CreateClient();
+        var client = CreateClient();
         
         var response = await client.GetAsync("/api/albums/TopLevel");
+        
         response.EnsureSuccessStatusCode();
-
-        var content = await response.Content.ReadAsStringAsync();
+        
         var albumsList = JsonSerializer.Deserialize<AlbumsListResponse>(await response.Content.ReadAsStringAsync());
         
         Assert.NotNull(albumsList);
@@ -196,6 +178,8 @@ Pellentesque porttitor dictum leo, ac interdum risus ullamcorper vitae. Mauris m
 
     #region Albums-related helpers
 
+    #region Create
+    
     /// <summary>
     /// Create new album
     /// </summary>
@@ -241,6 +225,42 @@ Pellentesque porttitor dictum leo, ac interdum risus ullamcorper vitae. Mauris m
 
         return responseData;
     }
+    
+    #endregion
 
+    #region Get top level list
+
+    private List<Album> GetTestAlbums()
+    {
+        return new List<Album>
+        {
+            new Album(Guid.NewGuid(), null, "Album1", DateTime.UtcNow),
+            new Album(Guid.NewGuid(), null, "Album2", DateTime.UtcNow)
+        };
+    }
+    
+    private AlbumsController CreateController()
+    {
+        return new AlbumsController(_mockAlbumsService.Object);
+    }
+    
+    private void SetupMockAlbumService(List<Album> albums)
+    {
+        _mockAlbumsService
+            .Setup(service => service.GetChildrenAsync(null))
+            .ReturnsAsync(albums);
+    }
+
+    #endregion
+
+    #region Another
+
+    private HttpClient CreateClient()
+    {
+        return _factory.CreateClient();
+    }
+
+    #endregion
+    
     #endregion
 }
