@@ -76,7 +76,7 @@ Pellentesque porttitor dictum leo, ac interdum risus ullamcorper vitae. Mauris m
     #region Get top level albums
 
     [Fact]
-    public async Task GetTopLevelAlbumsListAsync_ReturnsOkResultWithCorrectStatusCode()
+    public async Task GetTopLevelAlbumsListAsync_ReturnsCorrectStatusCode()
     {
         var mockAlbumsService = new Mock<IAlbumsService>();
 
@@ -118,8 +118,22 @@ Pellentesque porttitor dictum leo, ac interdum risus ullamcorper vitae. Mauris m
         var response = Assert.IsType<AlbumsListResponse>(okResult.Value);
         Assert.Empty(response.Albums); 
     }
-    
-    
+
+    [Fact]
+    public async Task GetTopLevelAlbumsListAsync_ThrowsException()
+    {
+        var mockAlbumsService = new Mock<IAlbumsService>();
+
+        mockAlbumsService
+            .Setup(service => service.GetChildrenAsync(null))
+            .ThrowsAsync(new Exception("Test exception"));
+
+        var controller = new AlbumsController(mockAlbumsService.Object);
+
+        var exception = await Assert.ThrowsAsync<Exception>(() => controller.GetTopLevelAlbumsListAsync());
+
+        Assert.Equal("Test exception", exception.Message);
+    }
 
     #endregion
 
