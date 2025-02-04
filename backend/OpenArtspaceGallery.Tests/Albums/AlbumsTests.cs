@@ -170,9 +170,26 @@ Pellentesque porttitor dictum leo, ac interdum risus ullamcorper vitae. Mauris m
         var response = await client.GetAsync("/api/albums/TopLevel");
         
         response.EnsureSuccessStatusCode();
+        
         var content = await response.Content.ReadAsStringAsync();
         var albums = JsonConvert.DeserializeObject<AlbumsListResponse>(content);
+        
         Assert.NotNull(albums);
+    }
+
+    [Fact]
+    public async Task GetTopLevelAlbumsListAsync_ReturnsExpectedDataStructure()
+    {
+        var client = _factory.CreateClient();
+        
+        var response = await client.GetAsync("/api/albums/TopLevel");
+        response.EnsureSuccessStatusCode();
+
+        var content = await response.Content.ReadAsStringAsync();
+        var albumsList = JsonSerializer.Deserialize<AlbumsListResponse>(await response.Content.ReadAsStringAsync());
+        
+        Assert.NotNull(albumsList);
+        Assert.Empty(albumsList.Albums);
     }
 
     #endregion
