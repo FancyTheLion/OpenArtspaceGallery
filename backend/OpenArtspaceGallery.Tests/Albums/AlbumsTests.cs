@@ -59,21 +59,12 @@ public class AlbumsTests : IClassFixture<TestsFactory<Program>>
     }
 
     [Theory]
-    [InlineData("", false)] // Empty string
-    [InlineData("      ", false)] // Some whitespace
-    [InlineData(@"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eget eros vitae ante maximus euismod. Aliquam maximus sodales sem et pulvinar. Suspendisse nec mi eu sem finibus tempus. Donec lacinia quam ut est auctor efficitur. Curabitur vitae arcu sapien. Fusce vestibulum lobortis mollis. Ut at tincidunt eros, quis accumsan eros. Ut egestas odio sed commodo dictum. Nullam sed vehicula quam. Aliquam sit amet ex in neque rhoncus vestibulum. Praesent dolor turpis, tempus et massa sed, hendrerit lobortis nunc. Donec dolor justo, laoreet eget dapibus ut, porttitor vehicula nulla.
-Quisque tristique lectus id felis imperdiet, a tempor nisl efficitur. Morbi lectus massa, ullamcorper ac nunc non, tincidunt consectetur nisi. Vivamus molestie enim sed enim tempus, at finibus est lobortis. Cras hendrerit enim sed condimentum dapibus. Vivamus finibus pretium libero, id maximus felis congue et. Curabitur sed nunc libero. Cras vitae euismod urna, ac viverra turpis. Donec euismod faucibus sem eu ullamcorper. Mauris blandit enim ac eros cursus, eu malesuada augue tristique. In lobortis vehicula lacus sed fermentum. Cras egestas commodo magna, quis condimentum quam scelerisque nec. Nam blandit enim et magna hendrerit, in ullamcorper arcu ultrices. Curabitur iaculis lacus diam, at tincidunt ex laoreet non. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus ornare et enim egestas malesuada.
-Donec consectetur neque nec erat imperdiet sagittis. Donec nec porttitor lectus. Suspendisse auctor euismod egestas. In quis risus massa. Nam sollicitudin finibus leo sit amet mollis. Suspendisse eu ante in nisi laoreet ultricies. Sed a libero leo. Donec dapibus eros non ligula ultricies rhoncus. Morbi feugiat rutrum metus, eget rhoncus quam viverra vitae. Vestibulum vulputate porta nulla sit amet accumsan. Integer finibus augue et congue egestas. Donec ac fermentum augue, a fringilla elit.
-Duis eget erat porta, semper purus quis, vehicula metus. Ut elit tortor, egestas blandit nibh vitae, malesuada elementum diam. Cras aliquam ex velit, nec vehicula mauris pharetra non. Integer egestas nunc nisl, sed congue justo euismod sed. Pellentesque lacinia suscipit nisl, ac convallis velit accumsan ac. Etiam tincidunt urna augue, eget dignissim turpis aliquam vel. Maecenas sed urna fringilla, imperdiet augue sed, lacinia nisi. Suspendisse potenti. Fusce vel lorem vitae nibh elementum dapibus in et mi.
-Pellentesque porttitor dictum leo, ac interdum risus ullamcorper vitae. Mauris mauris nibh, feugiat eget dolor et, placerat venenatis purus. Vestibulum elementum erat in dapibus dignissim. Pellentesque cursus id tellus non euismod. Vestibulum sapien nisl, elementum eget turpis sed, suscipit sagittis felis. Aliquam faucibus mollis fringilla. Maecenas id dignissim leo. Maecenas venenatis magna eu malesuada fringilla. Duis vehicula, nunc at sollicitudin dapibus, arcu sapien vehicula quam, eu sodales neque orci at nisi. Mauris aliquet ut ligula non lacinia. Etiam sit amet ex posuere, pretium purus ut, scelerisque diam. Curabitur in vulputate sapien, sed cursus nisi. Donec eu est nisi. Nunc eget tempor ante. Cras ac enim elit. "
-        , false)] // Too long name
-    [InlineData("4f8c2c6f-1302-408b-b887-19ac1e982736", true)] // Correct
+    [MemberData(nameof(CreateAlbumData))]
     public async Task AddNewAlbum_CheckNameCorrectness(string name, bool isMustBeSuccessful)
     {
         await CreateAlbumAsync(name, null, isMustBeSuccessful ? HttpStatusCode.OK : HttpStatusCode.BadRequest, true);
     }
     
-
     #endregion
     
     #region Get top level albums
@@ -159,7 +150,9 @@ Pellentesque porttitor dictum leo, ac interdum risus ullamcorper vitae. Mauris m
         Assert.NotNull(albums);
     }
 
-    [Fact]
+    
+    //If a test is run in a batch of tests, it sees that the list is not empty. If it is the only one running, the list is empty.
+    /*[Fact]
     public async Task GetTopLevelAlbumsListAsync_ReturnsExpectedDataStructure()
     {
         var client = CreateClient();
@@ -172,8 +165,33 @@ Pellentesque porttitor dictum leo, ac interdum risus ullamcorper vitae. Mauris m
         
         Assert.NotNull(albumsList);
         Assert.Empty(albumsList.Albums);
-    }
+    }*/
 
+    #endregion
+    
+    #region Get children albums list
+    
+    /*[Fact]
+    public async Task GetChildrenAlbumsListAsync_ReturnsChildren_WhenAlbumExists()
+    {
+        var client = _factory.CreateClient();
+        var existingAlbumId = Guid.NewGuid();
+
+
+        var response = await client.GetAsync($"/api/Albums/ChildrenOf/{existingAlbumId}");
+    
+
+        response.EnsureSuccessStatusCode();
+    
+        var content = await response.Content.ReadAsStringAsync();
+        var albumsList = JsonSerializer.Deserialize<AlbumsListResponse>(content);
+    
+        Assert.NotNull(albumsList);
+        Assert.NotEmpty(albumsList.Albums);
+    }*/
+    
+    
+    
     #endregion
 
     #region Albums-related helpers
@@ -224,6 +242,21 @@ Pellentesque porttitor dictum leo, ac interdum risus ullamcorper vitae. Mauris m
         Assert.NotNull(responseData.NewAlbum); // Did we get DTO?
 
         return responseData;
+    }
+    
+    /// <summary>
+    /// A repository of options for what might come
+    /// </summary>
+    public static IEnumerable<object[]> CreateAlbumData()
+    {
+        return new List<object[]>
+        {
+            new object[] { "", false },
+            new object[] { "      ", false },
+            new object[] { new string('a', 10000) , false },
+            new object[] { new string('0', 10000), false },
+            new object[] { "4f8c2c6f-1302-408b-b887-19ac1e982736", true },
+        };
     }
     
     #endregion
