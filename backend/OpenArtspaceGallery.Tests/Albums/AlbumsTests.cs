@@ -19,18 +19,15 @@ public class AlbumsTests : IClassFixture<TestsFactory<Program>>
     #region Initialization
     
     private readonly TestsFactory<Program> _factory;
-    private readonly Mock<IAlbumsService> _mockAlbumsService;
     
     public AlbumsTests(TestsFactory<Program> factory)
     {
         _factory = factory;
-        
-        _mockAlbumsService = new Mock<IAlbumsService>();
     }
 
 #endregion
 
-    #region Create album
+    #region Create an album
 
      public static IEnumerable<object[]> AddNewAlbum_CheckNameTrim_DataGenerator()
     {
@@ -58,6 +55,21 @@ public class AlbumsTests : IClassFixture<TestsFactory<Program>>
         Assert.Null(response.NewAlbum.Parent); // Must have no parent
     }
 
+    /// <summary>
+    /// A repository of options for what might come
+    /// </summary>
+    public static IEnumerable<object[]> CreateAlbumData()
+    {
+        return new List<object[]>
+        {
+            new object[] { "", false },
+            new object[] { "      ", false },
+            new object[] { new string('a', 10000) , false },
+            new object[] { new string('0', 10000), false },
+            new object[] { "4f8c2c6f-1302-408b-b887-19ac1e982736", true },
+        };
+    }
+    
     [Theory]
     [MemberData(nameof(CreateAlbumData))]
     public async Task AddNewAlbum_CheckNameCorrectness(string name, bool isMustBeSuccessful)
@@ -68,129 +80,93 @@ public class AlbumsTests : IClassFixture<TestsFactory<Program>>
     #endregion
     
     #region Get top level albums
-
-    [Fact]
-    public async Task GetTopLevelAlbumsListAsync_ReturnsCorrectStatusCode()
-    {
-        var albums = GetTestAlbums();
-        
-        SetupMockAlbumService(albums); 
-
-        var controller = CreateController();
-        
-        var result = await controller.GetTopLevelAlbumsListAsync();
-        
-        var actionResult = Assert.IsType<ActionResult<AlbumsListResponse>>(result);
-        var okResult = Assert.IsType<OkObjectResult>(actionResult.Result);
-        
-        Assert.Equal(200, okResult.StatusCode);
-    }
-
-    [Fact]
-    public async Task GetTopLevelAlbumsListAsync_ReturnsEmptyList()
-    {
-        var albums = new List<Album>(); 
-
-        SetupMockAlbumService(albums); 
-
-        var controller = CreateController();
-        
-        var result = await controller.GetTopLevelAlbumsListAsync();
-        
-        var okResult = Assert.IsType<OkObjectResult>(result.Result);
-        var response = Assert.IsType<AlbumsListResponse>(okResult.Value);
-        Assert.Empty(response.Albums); 
-    }
-
-    [Fact]
-    public async Task GetTopLevelAlbumsListAsync_ThrowsException()
-    {
-        _mockAlbumsService
-            .Setup(service => service.GetChildrenAsync(null))
-            .ThrowsAsync(new Exception("Test exception"));
-
-        var controller = CreateController();
-
-        var exception = await Assert.ThrowsAsync<Exception>(() => controller.GetTopLevelAlbumsListAsync());
-
-        Assert.Equal("Test exception", exception.Message);
-    }
-
-    [Fact]
-    public async Task GetTopLevelAlbumsListAsync_ReturnsCorrectData()
-    {
-        var albums = GetTestAlbums();
-        
-        SetupMockAlbumService(albums); 
-        
-        var controller = CreateController();
-        
-        var result = await controller.GetTopLevelAlbumsListAsync();
-        
-        var actionResult = Assert.IsType<OkObjectResult>(result.Result);
-        var response = Assert.IsType<AlbumsListResponse>(actionResult.Value);
-        
-        Assert.Equal(2, response.Albums.Count);
-        Assert.Equal(albums[0].Name, response.Albums.ElementAt(0).Name);
-        Assert.Equal(albums[1].Name, response.Albums.ElementAt(1).Name);
-    }
-
+    
     [Fact]
     public async Task GetTopLevelAlbumsListAsync_ReturnsAlbums()
     {
-        var client = CreateClient();
+        // Arrange: creating some top-level albums
+        var topLevelAlbumNames = new string[]
+        {
+            $"Top Level Album { Guid.NewGuid() }",
+            $"Top Level Album { Guid.NewGuid() }",
+            $"Top Level Album { Guid.NewGuid() }"
+        };
         
-        var response = await client.GetAsync("/api/albums/TopLevel");
+        foreach (var topLevelAlbumName in topLevelAlbumNames)
+        {
+            await CreateAlbumAsync(topLevelAlbumName, null);
+        }
         
-        response.EnsureSuccessStatusCode();
+        // Act: get top level albums
+        var response = await _factory.HttpClient.GetAsync("/api/albums/TopLevel");
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         
-        var content = await response.Content.ReadAsStringAsync();
-        var albums = JsonConvert.DeserializeObject<AlbumsListResponse>(content);
+        var topLevelAlbumsResult = JsonConvert.DeserializeObject<AlbumsListResponse>(await response.Content.ReadAsStringAsync());
+
+        // Assert: check created albums
+        foreach (var topLevelAlbumName in topLevelAlbumNames)
+        {
+            var topLevelAlbum = topLevelAlbumsResult
+                .Albums
+                .Single(a => a.Name == topLevelAlbumName);
         
-        Assert.NotNull(albums);
+            Assert.Null(topLevelAlbum.Parent);
+        }
     }
-
     
-    //If a test is run in a batch of tests, it sees that the list is not empty. If it is the only one running, the list is empty.
-    /*[Fact]
-    public async Task GetTopLevelAlbumsListAsync_ReturnsExpectedDataStructure()
-    {
-        var client = CreateClient();
-        
-        var response = await client.GetAsync("/api/albums/TopLevel");
-        
-        response.EnsureSuccessStatusCode();
-        
-        var albumsList = JsonSerializer.Deserialize<AlbumsListResponse>(await response.Content.ReadAsStringAsync());
-        
-        Assert.NotNull(albumsList);
-        Assert.Empty(albumsList.Albums);
-    }*/
-
     #endregion
     
     #region Get children albums list
     
-    /*[Fact]
+    [Fact]
     public async Task GetChildrenAlbumsListAsync_ReturnsChildren_WhenAlbumExists()
     {
-        var client = _factory.CreateClient();
-        var existingAlbumId = Guid.NewGuid();
-
-
-        var response = await client.GetAsync($"/api/Albums/ChildrenOf/{existingAlbumId}");
-    
-
+        //Arrange
+        
+        // Parent album
+        var parentAlbumName = $"Top level album with child { Guid.NewGuid() }";
+        var parentId = (await CreateAlbumAsync(parentAlbumName, null))
+            .NewAlbum
+            .Id;
+        
+        // Level 1 child album
+        var level1ChildAlbumName = $"Level 1 child album { Guid.NewGuid() }";
+        var level1ChildAlbumId = (await CreateAlbumAsync(level1ChildAlbumName, parentId))
+            .NewAlbum
+            .Id;
+        
+        // Level 2 child album
+        var level2ChildAlbumName = $"Level 2 child album { Guid.NewGuid() }";
+        var level2ChildAlbumId = (await CreateAlbumAsync(level2ChildAlbumName, level1ChildAlbumId))
+            .NewAlbum
+            .Id;
+        
+        // Act and assert: get parent's children
+        
+        // Level 1
+        var response = await _factory.HttpClient.GetAsync($"/api/Albums/ChildrenOf/{ parentId }");
         response.EnsureSuccessStatusCode();
-    
-        var content = await response.Content.ReadAsStringAsync();
-        var albumsList = JsonSerializer.Deserialize<AlbumsListResponse>(content);
-    
-        Assert.NotNull(albumsList);
-        Assert.NotEmpty(albumsList.Albums);
-    }*/
-    
-    
+        
+        var level1AlbumsList = JsonSerializer.Deserialize<AlbumsListResponse>(await response.Content.ReadAsStringAsync());
+        var level1ChildAlbum = level1AlbumsList
+            .Albums
+            .Single(a => a.Id == level1ChildAlbumId);
+        
+        Assert.Equal(parentId, level1ChildAlbum.Parent);
+        Assert.Equal(level1ChildAlbumName, level1ChildAlbum.Name);
+        
+        // Level 2
+        response = await _factory.HttpClient.GetAsync($"/api/Albums/ChildrenOf/{ level1ChildAlbumId }");
+        response.EnsureSuccessStatusCode();
+        
+        var level2AlbumsList = JsonSerializer.Deserialize<AlbumsListResponse>(await response.Content.ReadAsStringAsync());
+        var level2ChildAlbum = level2AlbumsList
+            .Albums
+            .Single(a => a.Id == level2ChildAlbumId);
+        
+        Assert.Equal(level1ChildAlbumId, level2ChildAlbum.Parent);
+        Assert.Equal(level2ChildAlbumName, level2ChildAlbum.Name);
+    }
     
     #endregion
 
@@ -244,55 +220,6 @@ public class AlbumsTests : IClassFixture<TestsFactory<Program>>
         return responseData;
     }
     
-    /// <summary>
-    /// A repository of options for what might come
-    /// </summary>
-    public static IEnumerable<object[]> CreateAlbumData()
-    {
-        return new List<object[]>
-        {
-            new object[] { "", false },
-            new object[] { "      ", false },
-            new object[] { new string('a', 10000) , false },
-            new object[] { new string('0', 10000), false },
-            new object[] { "4f8c2c6f-1302-408b-b887-19ac1e982736", true },
-        };
-    }
-    
-    #endregion
-
-    #region Get top level list
-
-    private List<Album> GetTestAlbums()
-    {
-        return new List<Album>
-        {
-            new Album(Guid.NewGuid(), null, "Album1", DateTime.UtcNow),
-            new Album(Guid.NewGuid(), null, "Album2", DateTime.UtcNow)
-        };
-    }
-    
-    private AlbumsController CreateController()
-    {
-        return new AlbumsController(_mockAlbumsService.Object);
-    }
-    
-    private void SetupMockAlbumService(List<Album> albums)
-    {
-        _mockAlbumsService
-            .Setup(service => service.GetChildrenAsync(null))
-            .ReturnsAsync(albums);
-    }
-
-    #endregion
-
-    #region Another
-
-    private HttpClient CreateClient()
-    {
-        return _factory.CreateClient();
-    }
-
     #endregion
     
     #endregion
