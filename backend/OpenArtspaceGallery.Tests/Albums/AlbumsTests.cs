@@ -1,5 +1,6 @@
 using System.Net;
 using System.Net.Http.Json;
+using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Moq;
@@ -168,6 +169,100 @@ public class AlbumsTests : IClassFixture<TestsFactory<Program>>
         Assert.Equal(level2ChildAlbumName, level2ChildAlbum.Name);
     }
     
+    #endregion
+
+    #region Get list albums in hierarchy
+
+    /*[Fact]
+    public async Task GetListAlbumsInHierarchy_ReturnsAllAlbumsInHierarchy()
+    {
+        var parentAlbumName = $"Parent Album {Guid.NewGuid()}";
+        var parentResponse = await CreateAlbumAsync(parentAlbumName, null);
+        Assert.NotNull(parentResponse?.NewAlbum);
+        var parentId = parentResponse.NewAlbum.Id;
+        
+        var level1ChildAlbumName = $"Level 1 Album {Guid.NewGuid()}";
+        var level1Response = await CreateAlbumAsync(level1ChildAlbumName, parentId);
+        Assert.NotNull(level1Response?.NewAlbum);
+        var level1ChildAlbumId = level1Response.NewAlbum.Id;
+        
+        var level2ChildAlbumName = $"Level 2 Album {Guid.NewGuid()}";
+        var level2Response = await CreateAlbumAsync(level2ChildAlbumName, level1ChildAlbumId);
+        Assert.NotNull(level2Response?.NewAlbum);
+        var level2ChildAlbumId = level2Response.NewAlbum.Id;
+        
+        // Act
+        var response = await _factory.HttpClient.GetAsync($"/api/Albums/Hierarchy/{parentId}");
+        response.EnsureSuccessStatusCode();
+
+        var responseContent = await response.Content.ReadAsStringAsync();
+        Assert.False(string.IsNullOrWhiteSpace(responseContent), "Response content is empty");
+        
+        var hierarchyResponse = JsonSerializer.Deserialize<AlbumHierarchyResponse>(responseContent);
+        Assert.NotNull(hierarchyResponse);
+        Assert.NotNull(hierarchyResponse.AlbumHierarchy);
+
+        // Assert
+        var parentAlbum = hierarchyResponse.AlbumHierarchy.SingleOrDefault(a => a.Id == parentId);
+        Assert.NotNull(parentAlbum);
+        Assert.Equal(parentAlbumName, parentAlbum.Name);
+
+        var level1Album = hierarchyResponse.AlbumHierarchy.SingleOrDefault(a => a.Id == level1ChildAlbumId);
+        Assert.NotNull(level1Album);
+        Assert.Equal(level1ChildAlbumName, level1Album.Name);
+
+        var level2Album = hierarchyResponse.AlbumHierarchy.SingleOrDefault(a => a.Id == level2ChildAlbumId);
+        Assert.NotNull(level2Album);
+        Assert.Equal(level2ChildAlbumName, level2Album.Name);
+    }*/
+
+    #endregion
+
+    #region Delete
+
+    [Fact]
+    public async Task DeleteAlbumAsync_RemovesAlbumSuccessfully()
+    {
+        var albumName = $"Test Album {Guid.NewGuid()}";
+        var createResponse = await CreateAlbumAsync(albumName, null);
+    
+        Assert.NotNull(createResponse?.NewAlbum);
+        var albumId = createResponse.NewAlbum.Id;
+        
+        var deleteResponse = await _factory.HttpClient.DeleteAsync($"/api/Albums/{albumId}");
+        Assert.Equal(HttpStatusCode.OK, deleteResponse.StatusCode);
+        
+        var deleteAgainResponse = await _factory.HttpClient.DeleteAsync($"/api/Albums/{albumId}");
+        Assert.Equal(HttpStatusCode.NotFound, deleteAgainResponse.StatusCode);
+    }
+
+    #endregion
+
+    #region Rename
+
+    [Fact]
+    public async Task RenameAlbum_ReturnsOk_WhenValidData()
+    {
+        var albumName = "Old Album Name";
+        var newAlbumResponse = await CreateAlbumAsync(albumName, parentId: null);
+        var albumId = newAlbumResponse.NewAlbum.Id;
+        
+        var renameRequest = new RenameAlbumRequest
+        {
+            RenameAlbumInfo = new RenameAlbumDto { NewName = "New Album Name" }
+        };
+
+        var content = new StringContent(JsonSerializer.Serialize(renameRequest), Encoding.UTF8, "application/json");
+
+        // Act
+        var response = await _factory.HttpClient.PostAsync($"/api/albums/{albumId}/Rename", content);
+
+        // Assert
+        response.EnsureSuccessStatusCode();
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+    }
+
+
     #endregion
 
     #region Albums-related helpers
