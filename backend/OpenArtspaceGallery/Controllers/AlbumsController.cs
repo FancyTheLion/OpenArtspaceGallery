@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using OpenArtspaceGallery.Models;
 using OpenArtspaceGallery.Models.API.DTOs;
+using OpenArtspaceGallery.Models.API.DTOs.Shared;
 using OpenArtspaceGallery.Models.API.Requests;
 using OpenArtspaceGallery.Models.API.Responses;
 using OpenArtspaceGallery.Services.Abstract;
@@ -62,7 +63,7 @@ public class AlbumsController : ControllerBase
     /// </summary>
     [HttpGet]
     [Route("Hierarchy/{albumId:guid}")]
-    public async Task<ActionResult<AlbumHierarchyResponse>> GetListAlbumsInHierarchy(Guid albumId)
+    public async Task<ActionResult<AlbumHierarchyResponse>> GetListAlbumsInHierarchyAsync(Guid albumId)
     {
         if (!await _albumsService.IsExistsAsync(albumId))
         {
@@ -75,6 +76,23 @@ public class AlbumsController : ControllerBase
             .Select(ah => ah.ToDto())
             .ToList()
         );
+    }
+
+    /// <summary>
+    /// Get album info
+    /// </summary>
+    [HttpGet]
+    [Route("{albumId:guid}")]
+    public async Task<ActionResult<AlbumInfoResponse>> GetAlbumInfoAsync(Guid albumId)
+    {
+        var album = await _albumsService.GetAlbumByIdAsync(albumId);
+
+        if (album == null)
+        {
+            return NotFound();
+        }
+        
+        return new AlbumInfoResponse(album.ToDto());
     }
 
     /// <summary>
@@ -149,5 +167,15 @@ public class AlbumsController : ControllerBase
         }
         
         return Ok();
+    }
+    
+    /// <summary>
+    /// Is album exists?
+    /// </summary>
+    [HttpGet]
+    [Route("{albumId:guid}/IsExists")]
+    public async Task<ActionResult<AlbumExistenceResponse>> IsAlbumExists(Guid albumId)
+    {
+        return new AlbumExistenceResponse(new ExistenceDto(await _albumsService.IsExistsAsync(albumId)));
     }
 }

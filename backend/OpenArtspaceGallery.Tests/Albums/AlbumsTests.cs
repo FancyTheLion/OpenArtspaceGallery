@@ -223,17 +223,15 @@ public class AlbumsTests : IClassFixture<TestsFactory<Program>>
     [Fact]
     public async Task DeleteAlbumAsync_RemovesAlbumSuccessfully()
     {
-        var albumName = $"Test Album {Guid.NewGuid()}";
-        var createResponse = await CreateAlbumAsync(albumName, null);
-    
-        Assert.NotNull(createResponse?.NewAlbum);
-        var albumId = createResponse.NewAlbum.Id;
+        var albumId = (await CreateAlbumAsync($"Test Album {Guid.NewGuid()}", null))
+            .NewAlbum
+            .Id;
         
-        var deleteResponse = await _factory.HttpClient.DeleteAsync($"/api/Albums/{albumId}");
-        Assert.Equal(HttpStatusCode.OK, deleteResponse.StatusCode);
+        Assert.True(await IsAlbumExistsAsync(albumId));
         
-        var deleteAgainResponse = await _factory.HttpClient.DeleteAsync($"/api/Albums/{albumId}");
-        Assert.Equal(HttpStatusCode.NotFound, deleteAgainResponse.StatusCode);
+        await DeleteAlbumAsync(albumId);
+        
+        Assert.False(await IsAlbumExistsAsync(albumId));
     }
 
     #endregion
@@ -243,25 +241,21 @@ public class AlbumsTests : IClassFixture<TestsFactory<Program>>
     [Fact]
     public async Task RenameAlbum_ReturnsOk_WhenValidData()
     {
-        var albumName = "Old Album Name";
-        var newAlbumResponse = await CreateAlbumAsync(albumName, parentId: null);
-        var albumId = newAlbumResponse.NewAlbum.Id;
+        // Arrange
+        var albumId = (await CreateAlbumAsync($"Old Album Name { Guid.NewGuid() }", parentId: null))
+            .NewAlbum
+            .Id;
         
-        var renameRequest = new RenameAlbumRequest
-        {
-            RenameAlbumInfo = new RenameAlbumDto { NewName = "New Album Name" }
-        };
-
-        var content = new StringContent(JsonSerializer.Serialize(renameRequest), Encoding.UTF8, "application/json");
-
+        var expectedAlbumName = $"New Album { Guid.NewGuid() }";
+        
         // Act
-        var response = await _factory.HttpClient.PostAsync($"/api/albums/{albumId}/Rename", content);
-
+        await RenameAlbumAsync(albumId, expectedAlbumName);
+        
+        var actualAlbumName = (await GetAlbumByIdAsync(albumId))?.Name;
+        
         // Assert
-        response.EnsureSuccessStatusCode();
-        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        Assert.Equal(expectedAlbumName, actualAlbumName);
     }
-
 
     #endregion
 
@@ -314,8 +308,64 @@ public class AlbumsTests : IClassFixture<TestsFactory<Program>>
 
         return responseData;
     }
+ 
+    /// <summary>
+    /// Rename given album
+    /// </summary>
+    /// <param name="albumId">Album ID</param>
+    /// <param name="newName">New name</param>
+    private async Task RenameAlbumAsync(Guid albumId, string newName)
+    {
+        var renameRequest = new RenameAlbumRequest
+        {
+            RenameAlbumInfo = new RenameAlbumDto { NewName = newName }
+        };
+        
+        var response = await _factory.HttpClient.PostAsJsonAsync($"/api/albums/{albumId}/Rename", renameRequest);
+        
+        response.EnsureSuccessStatusCode();
+    }
+
+    /// <summary>
+    /// Get album info
+    /// </summary>
+    /// <param name="albumId">Album ID</param>
+    /// <returns></returns>
+    private async Task<AlbumDto?> GetAlbumByIdAsync(Guid albumId)
+    {
+        var response = await _factory.HttpClient.GetAsync($"/api/albums/{albumId}");
+        response.EnsureSuccessStatusCode();
+        
+        return (JsonSerializer.Deserialize<AlbumInfoResponse>(await response.Content.ReadAsStringAsync()))
+            .Album; 
+    }
+
+    /// <summary>
+    /// Check album existence
+    /// </summary>
+    /// <param name="albumId">Album ID</param>
+    /// <returns>True if album exists</returns>
+    private async Task<bool> IsAlbumExistsAsync(Guid albumId)
+    {
+        var response = await _factory.HttpClient.GetAsync($"/api/albums/{albumId}/IsExists");
+        response.EnsureSuccessStatusCode();
+        
+        return (JsonSerializer.Deserialize<AlbumExistenceResponse>(await response.Content.ReadAsStringAsync()))
+            .Existence
+            .IsExist;
+    }
     
+    /// <summary>
+    /// Delete album
+    /// </summary>
+    /// <param name="albumId">Album ID</param>
+    private async Task DeleteAlbumAsync(Guid albumId)
+    {
+        var deleteResponse = await _factory.HttpClient.DeleteAsync($"/api/Albums/{albumId}");
+        deleteResponse.EnsureSuccessStatusCode();
+    }
+
     #endregion
-    
+
     #endregion
 }

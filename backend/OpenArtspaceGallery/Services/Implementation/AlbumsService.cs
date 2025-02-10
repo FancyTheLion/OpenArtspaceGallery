@@ -20,6 +20,11 @@ public class AlbumsService : IAlbumsService
         _albumsDao = albumsDao;
     }
 
+    public async Task<Album?> GetAlbumByIdAsync(Guid id)
+    {
+        return (await _albumsDao.GetAlbumByIdAsync(id))?.ToModel();
+    }
+
     public async Task<bool> IsExistsAsync(Guid albumId)
     {
         return await _albumsDao.IsExistsAsync(albumId);
