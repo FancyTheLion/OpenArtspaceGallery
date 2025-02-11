@@ -3,7 +3,6 @@ using System.Net.Http.Json;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Moq;
 using Newtonsoft.Json;
 using OpenArtspaceGallery.Controllers;
 using OpenArtspaceGallery.Models;
