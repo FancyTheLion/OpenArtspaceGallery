@@ -358,7 +358,6 @@ Copy
 **/bin/
 **/obj/
 *.dll
-*.json
 *.cache
 *.txt
 *.info
