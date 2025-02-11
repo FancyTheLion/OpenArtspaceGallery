@@ -8,6 +8,7 @@ using OpenArtspaceGallery.Models.API.Requests;
 using OpenArtspaceGallery.Models.API.Requests.Albums;
 using OpenArtspaceGallery.Models.API.Responses;
 using OpenArtspaceGallery.Models.API.Responses.Albums;
+using OpenArtspaceGallery.Models.API.Responses.Shared;
 using OpenArtspaceGallery.Services.Abstract;
 
 namespace OpenArtspaceGallery.Controllers;
@@ -176,8 +177,8 @@ public class AlbumsController : ControllerBase
     /// </summary>
     [HttpGet]
     [Route("{albumId:guid}/IsExists")]
-    public async Task<ActionResult<AlbumExistenceResponse>> IsAlbumExists(Guid albumId)
+    public async Task<ActionResult<ExistenceResponse>> IsAlbumExists(Guid albumId)
     {
-        return new AlbumExistenceResponse(new ExistenceDto(await _albumsService.IsExistsAsync(albumId)));
+        return new ExistenceResponse(new ExistenceDto(await _albumsService.IsExistsAsync(albumId)));
     }
 }

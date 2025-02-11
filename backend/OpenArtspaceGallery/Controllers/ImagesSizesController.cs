@@ -7,6 +7,7 @@ using OpenArtspaceGallery.Models.API.Requests;
 using OpenArtspaceGallery.Models.API.Requests.ImagesSizes;
 using OpenArtspaceGallery.Models.API.Responses;
 using OpenArtspaceGallery.Models.API.Responses.ImagesSizes;
+using OpenArtspaceGallery.Models.API.Responses.Shared;
 using OpenArtspaceGallery.Services.Abstract;
 
 namespace OpenArtspaceGallery.Controllers;
@@ -176,7 +177,7 @@ public class ImagesSizesController : ControllerBase
     /// </summary>
     [HttpPost]
     [Route("IsExists")]
-    public async Task<ActionResult<ImageSizeExistenceResponse>> IsExistsAsync(ImageSizeExistenceRequest request)
+    public async Task<ActionResult<ExistenceResponse>> IsExistsAsync(ImageSizeExistenceRequest request)
     {
         if (request == null)
         {
@@ -185,7 +186,7 @@ public class ImagesSizesController : ControllerBase
         
         return Ok
         (
-            new ImageSizeExistenceResponse
+            new ExistenceResponse
             (
                 new ExistenceDto(await _imagesSizesService.IsImageSizeExistsAsync(request.ImageSize.Name, request.ImageSize.Width, request.ImageSize.Height))
             )

@@ -12,6 +12,7 @@ using OpenArtspaceGallery.Models.API.Requests;
 using OpenArtspaceGallery.Models.API.Requests.Albums;
 using OpenArtspaceGallery.Models.API.Responses;
 using OpenArtspaceGallery.Models.API.Responses.Albums;
+using OpenArtspaceGallery.Models.API.Responses.Shared;
 using OpenArtspaceGallery.Services.Abstract;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
@@ -352,7 +353,7 @@ public class AlbumsTests : IClassFixture<TestsFactory<Program>>
         var response = await _factory.HttpClient.GetAsync($"/api/albums/{albumId}/IsExists");
         response.EnsureSuccessStatusCode();
         
-        return (JsonSerializer.Deserialize<AlbumExistenceResponse>(await response.Content.ReadAsStringAsync()))
+        return (JsonSerializer.Deserialize<ExistenceResponse>(await response.Content.ReadAsStringAsync()))
             .Existence
             .IsExist;
     }
