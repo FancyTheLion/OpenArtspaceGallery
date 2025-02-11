@@ -7,7 +7,7 @@ namespace OpenArtspaceGallery.Services.Abstract;
 /// </summary>
 public interface IAlbumsService
 {
-    #region Collection Getters 
+    #region Get 
 
     /// <summary>
     /// Get a list of child albums
@@ -18,6 +18,11 @@ public interface IAlbumsService
     /// Getting the album hierarchy
     /// </summary>
     Task<IReadOnlyCollection<AlbumInHierarchy>> GetAlbumsHierarchyAsync(Guid albumId);
+    
+    /// <summary>
+    /// Get album info (will return null if there is no such album)
+    /// </summary>
+    Task<Album?> GetAlbumByIdAsync(Guid id);
 
     #endregion
     

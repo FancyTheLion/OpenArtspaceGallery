@@ -1,5 +1,6 @@
 using OpenArtspaceGallery.Helpers.Validators;
 using OpenArtspaceGallery.Models.API.DTOs;
+using OpenArtspaceGallery.Models.API.DTOs.Albums;
 
 namespace OpenArtspaceGallery.Models;
 

@@ -1,7 +1,8 @@
 using System.Text.Json.Serialization;
 using OpenArtspaceGallery.Models.API.DTOs;
+using OpenArtspaceGallery.Models.API.DTOs.Albums;
 
-namespace OpenArtspaceGallery.Models.API.Requests;
+namespace OpenArtspaceGallery.Models.API.Requests.Albums;
 
 public class RenameAlbumRequest
 {

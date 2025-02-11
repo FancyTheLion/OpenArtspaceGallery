@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using OpenArtspaceGallery.Models.API.DTOs;
 using OpenArtspaceGallery.Models.API.Responses;
+using OpenArtspaceGallery.Models.API.Responses.SiteInfo;
 using OpenArtspaceGallery.Models.Settings;
 
 namespace OpenArtspaceGallery.Tests.SiteInfo;

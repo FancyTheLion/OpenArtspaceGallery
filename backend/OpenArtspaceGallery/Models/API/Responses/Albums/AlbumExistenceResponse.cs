@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
 using OpenArtspaceGallery.Models.API.DTOs.Shared;
 
-namespace OpenArtspaceGallery.Models.API.Responses;
+namespace OpenArtspaceGallery.Models.API.Responses.Albums;
 
 public class AlbumExistenceResponse
 {

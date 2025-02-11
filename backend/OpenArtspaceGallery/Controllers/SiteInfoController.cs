@@ -2,7 +2,9 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using OpenArtspaceGallery.Models.API.DTOs;
+using OpenArtspaceGallery.Models.API.DTOs.SiteInfo;
 using OpenArtspaceGallery.Models.API.Responses;
+using OpenArtspaceGallery.Models.API.Responses.SiteInfo;
 using OpenArtspaceGallery.Models.Settings;
 
 namespace OpenArtspaceGallery.Controllers;

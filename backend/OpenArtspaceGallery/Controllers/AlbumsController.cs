@@ -5,7 +5,9 @@ using OpenArtspaceGallery.Models;
 using OpenArtspaceGallery.Models.API.DTOs;
 using OpenArtspaceGallery.Models.API.DTOs.Shared;
 using OpenArtspaceGallery.Models.API.Requests;
+using OpenArtspaceGallery.Models.API.Requests.Albums;
 using OpenArtspaceGallery.Models.API.Responses;
+using OpenArtspaceGallery.Models.API.Responses.Albums;
 using OpenArtspaceGallery.Services.Abstract;
 
 namespace OpenArtspaceGallery.Controllers;

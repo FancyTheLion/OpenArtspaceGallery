@@ -1,9 +1,7 @@
-using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using OpenArtspaceGallery.DAO.Models.Albums;
 using OpenArtspaceGallery.Helpers.Validators;
 
-namespace OpenArtspaceGallery.Models.API.DTOs;
+namespace OpenArtspaceGallery.Models.API.DTOs.Albums;
 
 public class AlbumDto
 {

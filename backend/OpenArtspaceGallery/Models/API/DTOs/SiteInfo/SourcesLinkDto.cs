@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace OpenArtspaceGallery.Models.API.DTOs;
+namespace OpenArtspaceGallery.Models.API.DTOs.SiteInfo;
 
 public class SourcesLinkDto
 {

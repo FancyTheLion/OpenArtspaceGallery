@@ -1,7 +1,8 @@
 using System.Text.Json.Serialization;
 using OpenArtspaceGallery.Models.API.DTOs;
+using OpenArtspaceGallery.Models.API.DTOs.SiteInfo;
 
-namespace OpenArtspaceGallery.Models.API.Responses;
+namespace OpenArtspaceGallery.Models.API.Responses.SiteInfo;
 
 public class BackendVersionResponse
 {

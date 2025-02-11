@@ -7,7 +7,7 @@ namespace OpenArtspaceGallery.DAO.Abstract;
 /// </summary>
 public interface IAlbumsDao
 {
-    #region Collection Getters
+    #region Get
 
     /// <summary>
     /// Get albums by parent Id
@@ -24,6 +24,11 @@ public interface IAlbumsDao
     /// </summary>
     Task<IReadOnlyCollection<Guid>> GetChildrenAlbumbsGuidsAsync(Guid albumId);
 
+    /// <summary>
+    /// Get album info (returns null if there is no such album)
+    /// </summary>
+    Task<AlbumDbo?> GetAlbumByIdAsync(Guid albumId);
+    
     #endregion
     
     #region Is exists
@@ -40,7 +45,7 @@ public interface IAlbumsDao
     /// <summary>
     /// Add new album
     /// </summary>
-    Task<AlbumDbo> CreateAsync(AlbumDbo albumToInsert);
+    Task<AlbumDbo?> CreateAsync(AlbumDbo? albumToInsert);
 
     #endregion
     

@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
 using OpenArtspaceGallery.Helpers.Validators;
 
-namespace OpenArtspaceGallery.Models.API.DTOs;
+namespace OpenArtspaceGallery.Models.API.DTOs.Albums;
 
 public class AlbumInHierarchyDto
 {
