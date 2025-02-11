@@ -351,3 +351,14 @@ MigrationBackup/
 
 # Junk, created by Jet Brains
 .idea/
+
+Copy
+
+# Ignore config and build files
+**/bin/
+**/obj/
+*.dll
+*.json
+*.cache
+*.txt
+*.info
