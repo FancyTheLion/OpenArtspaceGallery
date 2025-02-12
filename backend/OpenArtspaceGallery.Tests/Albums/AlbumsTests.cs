@@ -262,6 +262,28 @@ public class AlbumsTests : IClassFixture<TestsFactory<Program>>
 
     #endregion
 
+    #region Is there an album
+
+    [Fact]
+    public async Task IsAlbumExistsAsync_ReturnsTrue_WhenAlbumExists()
+    {
+        var albumId = (await CreateAlbumAsync($"Test Album {Guid.NewGuid()}", null))
+            .NewAlbum
+            .Id;
+        
+        Assert.True(await IsAlbumExistsAsync(albumId));
+    }
+    
+    [Fact]
+    public async Task IsAlbumExistsAsync_ReturnsFalse_DoesNotExist()
+    {
+        var albumId = Guid.NewGuid();
+        
+        Assert.False(await IsAlbumExistsAsync(albumId));
+    }
+
+    #endregion
+
     #region Albums-related helpers
 
     #region Create
@@ -311,7 +333,25 @@ public class AlbumsTests : IClassFixture<TestsFactory<Program>>
 
         return responseData;
     }
- 
+
+    #endregion
+
+    #region Delete
+
+    /// <summary>
+    /// Delete album
+    /// </summary>
+    /// <param name="albumId">Album ID</param>
+    private async Task DeleteAlbumAsync(Guid albumId)
+    {
+        var deleteResponse = await _factory.HttpClient.DeleteAsync($"/api/Albums/{albumId}");
+        deleteResponse.EnsureSuccessStatusCode();
+    }
+
+    #endregion
+
+    #region Rename
+
     /// <summary>
     /// Rename given album
     /// </summary>
@@ -329,6 +369,10 @@ public class AlbumsTests : IClassFixture<TestsFactory<Program>>
         response.EnsureSuccessStatusCode();
     }
 
+    #endregion
+
+    #region Get album by id
+
     /// <summary>
     /// Get album info
     /// </summary>
@@ -343,6 +387,10 @@ public class AlbumsTests : IClassFixture<TestsFactory<Program>>
             .Album; 
     }
 
+    #endregion
+
+    #region Existence
+
     /// <summary>
     /// Check album existence
     /// </summary>
@@ -356,16 +404,6 @@ public class AlbumsTests : IClassFixture<TestsFactory<Program>>
         return (JsonSerializer.Deserialize<ExistenceResponse>(await response.Content.ReadAsStringAsync()))
             .Existence
             .Exists;
-    }
-    
-    /// <summary>
-    /// Delete album
-    /// </summary>
-    /// <param name="albumId">Album ID</param>
-    private async Task DeleteAlbumAsync(Guid albumId)
-    {
-        var deleteResponse = await _factory.HttpClient.DeleteAsync($"/api/Albums/{albumId}");
-        deleteResponse.EnsureSuccessStatusCode();
     }
 
     #endregion
