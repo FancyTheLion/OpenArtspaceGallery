@@ -284,6 +284,32 @@ public class AlbumsTests : IClassFixture<TestsFactory<Program>>
 
     #endregion
 
+    #region Get information about the album
+    
+    [Fact]
+    public async Task GetAlbumInfoAsync_ReturnInfo_WhenAlbumExists()
+    {
+        var albumId = (await CreateAlbumAsync($"Test Album {Guid.NewGuid()}", null))
+            .NewAlbum
+            .Id;
+
+        var actualAlbumId = (await GetAlbumByIdAsync(albumId))?.Id;
+        
+        Assert.Equal(albumId, actualAlbumId);
+    }
+    
+    [Fact]
+    public async Task GetAlbumInfoAsync_ReturnNotFound_DoesNotExist()
+    {
+        var albumId = Guid.NewGuid();
+
+        var response = await _factory.HttpClient.GetAsync($"/api/albums/{albumId}");
+        
+        Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+    }
+
+    #endregion
+
     #region Albums-related helpers
 
     #region Create
