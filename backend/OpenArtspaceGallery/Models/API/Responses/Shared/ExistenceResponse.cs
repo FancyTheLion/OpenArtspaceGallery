@@ -6,7 +6,7 @@ namespace OpenArtspaceGallery.Models.API.Responses.Shared;
 public class ExistenceResponse
 {
     /// <summary>
-    /// Does image size exist
+    /// Does anything exist
     /// </summary>
     [JsonPropertyName("existence")]
     public ExistenceDto Existence { get; private set; }
@@ -16,6 +16,6 @@ public class ExistenceResponse
         ExistenceDto existence
     )
     {
-        Existence = existence ?? throw new ArgumentNullException(nameof(existence), "Image size are required and must not be null.");
+        Existence = existence ?? throw new ArgumentNullException(nameof(existence), "Existence is required and must not be null.");
     }
 }

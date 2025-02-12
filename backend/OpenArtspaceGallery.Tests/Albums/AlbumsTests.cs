@@ -355,7 +355,7 @@ public class AlbumsTests : IClassFixture<TestsFactory<Program>>
         
         return (JsonSerializer.Deserialize<ExistenceResponse>(await response.Content.ReadAsStringAsync()))
             .Existence
-            .IsExist;
+            .Exists;
     }
     
     /// <summary>
