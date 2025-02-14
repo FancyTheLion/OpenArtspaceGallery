@@ -4,6 +4,7 @@ using System.Text.Json;
 using OpenArtspaceGallery.Models.API.DTOs.ImagesSizes;
 using OpenArtspaceGallery.Models.API.Requests.ImagesSizes;
 using OpenArtspaceGallery.Models.API.Responses.ImagesSizes;
+using Xunit.Abstractions;
 
 namespace OpenArtspaceGallery.Tests.ImagesSizes;
 
@@ -12,18 +13,54 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
     #region Initialization
     
     private readonly TestsFactory<Program> _factory;
+    private readonly ITestOutputHelper _output;
     
-    public ImagesSizesTests(TestsFactory<Program> factory)
+    public ImagesSizesTests(TestsFactory<Program> factory, ITestOutputHelper output)
     {
         _factory = factory;
+        _output = output;
     }
 
     #endregion
 
     #region Create image size
 
+    [Fact]
+    public async Task AddImageSize_WithValidData_ReturnsCreatedImageSize()
+    {
+        var name = $"Test size {Guid.NewGuid()}";
+        var width = Random.Shared.Next(10, 16999); // TODO: Constants in appsettings.json
+        var height = Random.Shared.Next(10, 16999); // TODO: Constants in appsettings.json
+        
+        var response = await AddAsync(name, width, height);
     
+        Assert.Equal(name, response.ImageSize.Name);
+        Assert.Equal(width, response.ImageSize.Width);
+        Assert.Equal(height, response.ImageSize.Height); // TODO: Add a method to the controller and here GetInfo
+    }
+    
+    public static IEnumerable<object[]> AddTestDimensionsData()
+    {
+        return new List<object[]>
+        {
+            new object[] { "InvalidSize1", 0, $"{ Random.Shared.Next(10, 16999) }" },
+            new object[] { "InvalidSize2", $"{ Random.Shared.Next(10, 16999) }", 0 },
+            new object[] { "InvalidSize3", $"{ Random.Shared.Next(-100, -1) }", 200},
+            new object[] {"InvalidSize4", 200, $"{ Random.Shared.Next(-200, -101) }" },
+        };
+    }
 
+    [Theory]
+    [MemberData(nameof(AddTestDimensionsData))]
+    public async Task AddImageSize_WithInvalidDimensions_ReturnsBadRequest(string name, int width, int height)
+    {
+        var response = await AddAsync(name, width, height, HttpStatusCode.BadRequest, exitAfterResponseCodeCheck: true);
+        
+        Assert.Null(response);
+    }
+    
+    
+    
     #endregion
 
     #region Helpers
