@@ -262,7 +262,7 @@ public class AlbumsTests : IClassFixture<TestsFactory<Program>>
 
     #endregion
 
-    #region Is there an album
+    #region Existence
 
     [Fact]
     public async Task IsAlbumExistsAsync_ReturnsTrue_WhenAlbumExists()
