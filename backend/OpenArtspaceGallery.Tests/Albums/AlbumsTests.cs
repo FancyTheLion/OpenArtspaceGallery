@@ -14,6 +14,7 @@ using OpenArtspaceGallery.Models.API.Responses;
 using OpenArtspaceGallery.Models.API.Responses.Albums;
 using OpenArtspaceGallery.Models.API.Responses.Shared;
 using OpenArtspaceGallery.Services.Abstract;
+using Xunit.Abstractions;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace OpenArtspaceGallery.Tests.Albums;
@@ -23,10 +24,13 @@ public class AlbumsTests : IClassFixture<TestsFactory<Program>>
     #region Initialization
     
     private readonly TestsFactory<Program> _factory;
+    private readonly ITestOutputHelper _output;
+
     
-    public AlbumsTests(TestsFactory<Program> factory)
+    public AlbumsTests(TestsFactory<Program> factory, ITestOutputHelper output)
     {
         _factory = factory;
+        _output = output;
     }
 
 #endregion
@@ -148,7 +152,7 @@ public class AlbumsTests : IClassFixture<TestsFactory<Program>>
         // Act and assert: get parent's children
         
         // Level 1
-        var response = await _factory.HttpClient.GetAsync($"/api/Albums/ChildrenOf/{ parentId }");
+        var response = await _factory.HttpClient.GetAsync($"/api/Albums/ChildrenOf/{ level2ChildAlbumId }");
         response.EnsureSuccessStatusCode();
         
         var level1AlbumsList = JsonSerializer.Deserialize<AlbumsListResponse>(await response.Content.ReadAsStringAsync());
@@ -176,48 +180,47 @@ public class AlbumsTests : IClassFixture<TestsFactory<Program>>
 
     #region Get list albums in hierarchy
 
-    /*[Fact]
-    public async Task GetListAlbumsInHierarchy_ReturnsAllAlbumsInHierarchy()
+[Fact]
+    public async Task GetListAlbumsInHierarchy_ReturnsCorrectHierarchy()
     {
-        var parentAlbumName = $"Parent Album {Guid.NewGuid()}";
-        var parentResponse = await CreateAlbumAsync(parentAlbumName, null);
+        var parentName = $"Parent Album {Guid.NewGuid()}";
+        var parentResponse = await CreateAlbumAsync(parentName, null);
         Assert.NotNull(parentResponse?.NewAlbum);
         var parentId = parentResponse.NewAlbum.Id;
         
-        var level1ChildAlbumName = $"Level 1 Album {Guid.NewGuid()}";
-        var level1Response = await CreateAlbumAsync(level1ChildAlbumName, parentId);
+        var level1Name = $"Level 1 Album {Guid.NewGuid()}";
+        var level1Response = await CreateAlbumAsync(level1Name, parentId);
         Assert.NotNull(level1Response?.NewAlbum);
-        var level1ChildAlbumId = level1Response.NewAlbum.Id;
+        var level1Id = level1Response.NewAlbum.Id;
         
-        var level2ChildAlbumName = $"Level 2 Album {Guid.NewGuid()}";
-        var level2Response = await CreateAlbumAsync(level2ChildAlbumName, level1ChildAlbumId);
+        var level2Name = $"Level 2 Album {Guid.NewGuid()}";
+        var level2Response = await CreateAlbumAsync(level2Name, level1Id);
         Assert.NotNull(level2Response?.NewAlbum);
-        var level2ChildAlbumId = level2Response.NewAlbum.Id;
+        var level2Id = level2Response.NewAlbum.Id;
         
-        // Act
-        var response = await _factory.HttpClient.GetAsync($"/api/Albums/Hierarchy/{parentId}");
+        var response = await _factory.HttpClient.GetAsync($"/api/Albums/Hierarchy/{level2Id}");
         response.EnsureSuccessStatusCode();
 
         var responseContent = await response.Content.ReadAsStringAsync();
-        Assert.False(string.IsNullOrWhiteSpace(responseContent), "Response content is empty");
-        
+        _output.WriteLine($"Response content: {responseContent}");
+
         var hierarchyResponse = JsonSerializer.Deserialize<AlbumHierarchyResponse>(responseContent);
         Assert.NotNull(hierarchyResponse);
         Assert.NotNull(hierarchyResponse.AlbumHierarchy);
-
-        // Assert
+        Assert.NotEmpty(hierarchyResponse.AlbumHierarchy);
+        
         var parentAlbum = hierarchyResponse.AlbumHierarchy.SingleOrDefault(a => a.Id == parentId);
         Assert.NotNull(parentAlbum);
-        Assert.Equal(parentAlbumName, parentAlbum.Name);
+        Assert.Equal(parentName, parentAlbum.Name);
 
-        var level1Album = hierarchyResponse.AlbumHierarchy.SingleOrDefault(a => a.Id == level1ChildAlbumId);
+        var level1Album = hierarchyResponse.AlbumHierarchy.SingleOrDefault(a => a.Id == level1Id);
         Assert.NotNull(level1Album);
-        Assert.Equal(level1ChildAlbumName, level1Album.Name);
+        Assert.Equal(level1Name, level1Album.Name);
 
-        var level2Album = hierarchyResponse.AlbumHierarchy.SingleOrDefault(a => a.Id == level2ChildAlbumId);
+        var level2Album = hierarchyResponse.AlbumHierarchy.SingleOrDefault(a => a.Id == level2Id);
         Assert.NotNull(level2Album);
-        Assert.Equal(level2ChildAlbumName, level2Album.Name);
-    }*/
+        Assert.Equal(level2Name, level2Album.Name);
+    }
 
     #endregion
 
