@@ -152,7 +152,7 @@ public class AlbumsTests : IClassFixture<TestsFactory<Program>>
         // Act and assert: get parent's children
         
         // Level 1
-        var response = await _factory.HttpClient.GetAsync($"/api/Albums/ChildrenOf/{ level2ChildAlbumId }");
+        var response = await _factory.HttpClient.GetAsync($"/api/Albums/ChildrenOf/{ parentId }");
         response.EnsureSuccessStatusCode();
         
         var level1AlbumsList = JsonSerializer.Deserialize<AlbumsListResponse>(await response.Content.ReadAsStringAsync());
@@ -180,7 +180,7 @@ public class AlbumsTests : IClassFixture<TestsFactory<Program>>
 
     #region Get list albums in hierarchy
 
-[Fact]
+    [Fact]
     public async Task GetListAlbumsInHierarchy_ReturnsCorrectHierarchy()
     {
         var parentName = $"Parent Album {Guid.NewGuid()}";
@@ -220,6 +220,19 @@ public class AlbumsTests : IClassFixture<TestsFactory<Program>>
         var level2Album = hierarchyResponse.AlbumHierarchy.SingleOrDefault(a => a.Id == level2Id);
         Assert.NotNull(level2Album);
         Assert.Equal(level2Name, level2Album.Name);
+    }
+    
+    [Fact]
+    public async Task GetListAlbumsInHierarchy_ReturnsNotFound()
+    {
+        var parenId = Guid.NewGuid();
+        
+        var response = await _factory.HttpClient.GetAsync($"/api/Albums/Hierarchy/{parenId}");
+
+        var responseContent = await response.Content.ReadAsStringAsync();
+        _output.WriteLine($"Response content: {responseContent}");
+        
+        Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
     }
 
     #endregion
