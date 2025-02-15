@@ -43,10 +43,10 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
     {
         return new List<object[]>
         {
-            new object[] { "InvalidSize1", 0, $"{ Random.Shared.Next(10, 16999) }" },
-            new object[] { "InvalidSize2", $"{ Random.Shared.Next(10, 16999) }", 0 },
-            new object[] { "InvalidSize3", $"{ Random.Shared.Next(-100, -1) }", 200},
-            new object[] {"InvalidSize4", 200, $"{ Random.Shared.Next(-200, -101) }" },
+            new object[] { $"InvalidSize1 { Guid.NewGuid() }", 0, $"{ Random.Shared.Next(10, 16999) }" },
+            new object[] { $"InvalidSize2 { Guid.NewGuid() }", $"{ Random.Shared.Next(10, 16999) }", 0 },
+            new object[] { $"InvalidSize3 { Guid.NewGuid() }", $"{ Random.Shared.Next(-100, -1) }", 200 },
+            new object[] { $"InvalidSize4 { Guid.NewGuid() }", 200, $"{ Random.Shared.Next(-200, -101) }" }
         };
     }
 
@@ -54,12 +54,8 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
     [MemberData(nameof(AddTestDimensionsData))]
     public async Task AddImageSize_WithInvalidDimensions_ReturnsBadRequest(string name, int width, int height)
     {
-        var response = await AddAsync(name, width, height, HttpStatusCode.BadRequest, exitAfterResponseCodeCheck: true);
-        
-        Assert.Null(response);
+        await AddAsync(name, width, height, HttpStatusCode.BadRequest, exitAfterResponseCodeCheck: true);
     }
-    
-    
     
     #endregion
 
