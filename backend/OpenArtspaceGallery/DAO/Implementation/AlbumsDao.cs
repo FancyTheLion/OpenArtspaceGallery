@@ -59,6 +59,9 @@ public class AlbumsDao : IAlbumsDao
     {
         return await _dbContext
             .Albums
+                
+            .Include(a => a.Parent)
+                
             .SingleOrDefaultAsync(a => a.Id == albumId);
     }
 
