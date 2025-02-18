@@ -73,20 +73,19 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
         await AddAsync(imageSize2.Name, imageSize2.Width, imageSize2.Height);
         await AddAsync(imageSize3.Name, imageSize3.Width, imageSize3.Height);
 
-        var response = _factory.HttpClient.GetAsync("api/ImagesSizes/GetList");
-        response.Result.EnsureSuccessStatusCode();
+        var response = (await GetListAsync());
         
-        var listResponse = JsonSerializer.Deserialize<ImagesSizesResponse>(await response.Result.Content.ReadAsStringAsync());
-        
-        Assert.NotNull(listResponse);
-        Assert.NotNull(listResponse.ImagesSizes);
-        
-        Assert.Contains(listResponse.ImagesSizes, x => x.Name == imageSize1.Name && x.Width == imageSize1.Width && x.Height == imageSize1.Height);
-        Assert.Contains(listResponse.ImagesSizes, x => x.Name == imageSize2.Name && x.Width == imageSize2.Width && x.Height == imageSize2.Height);
-        Assert.Contains(listResponse.ImagesSizes, x => x.Name == imageSize3.Name && x.Width == imageSize3.Width && x.Height == imageSize3.Height);
+        Assert.Contains(response.ImagesSizes, x => x.Name == imageSize1.Name && x.Width == imageSize1.Width && x.Height == imageSize1.Height);
+        Assert.Contains(response.ImagesSizes, x => x.Name == imageSize2.Name && x.Width == imageSize2.Width && x.Height == imageSize2.Height);
+        Assert.Contains(response.ImagesSizes, x => x.Name == imageSize3.Name && x.Width == imageSize3.Width && x.Height == imageSize3.Height);
     }
     
-
+    [Fact]
+    public async Task GetListAsync_WithNoData_ReturnsEmptyList()
+    {
+        Assert.Empty((await GetListAsync()).ImagesSizes);
+    }
+    
     #endregion
     
     #region Helpers
@@ -133,6 +132,26 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
         return responseData;
     }
 
+
+    #endregion
+
+    #region Get list
+    
+    /// <summary>
+    /// Get a list of image sizes
+    /// </summary>
+    private async Task<ImagesSizesResponse> GetListAsync()
+    {
+        var response = _factory.HttpClient.GetAsync("api/ImagesSizes/GetList");
+        response.Result.EnsureSuccessStatusCode();
+        
+        var listResponse = JsonSerializer.Deserialize<ImagesSizesResponse>(await response.Result.Content.ReadAsStringAsync());
+        
+        Assert.NotNull(listResponse);
+        Assert.NotNull(listResponse.ImagesSizes);
+
+        return listResponse;
+    }
 
     #endregion
 
