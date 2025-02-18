@@ -26,6 +26,11 @@ public class ImagesSizesService : IImagesSizesService
             .ToList();
     }
 
+    public async Task<ImageSize> GetImageSizeByIdAsync(Guid id)
+    {
+        return await _imagesSizesDao.GetImageSizeByIdAsync(id);
+    }
+
     public async Task<ImageSize> AddAsync(ImageSize imageSize)
     {
         if (imageSize == null)

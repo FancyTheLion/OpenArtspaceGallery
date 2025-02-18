@@ -8,12 +8,17 @@ namespace OpenArtspaceGallery.Services.Abstract;
 /// </summary>
 public interface IImagesSizesService
 {
-    #region Collection Getters 
+    #region Get
 
     /// <summary>
     /// Get the images sizes list
     /// </summary>
     Task<IReadOnlyCollection<ImageSize>> GetListAsync();
+    
+    /// <summary>
+    /// Get image size
+    /// </summary>
+    Task<ImageSize> GetImageSizeByIdAsync(Guid id);
     
     #endregion
     

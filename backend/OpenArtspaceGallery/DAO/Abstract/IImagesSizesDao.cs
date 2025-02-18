@@ -7,12 +7,17 @@ namespace OpenArtspaceGallery.DAO.Abstract;
 // DAO to work with images sizes
 public interface IImagesSizesDao
 {
-    #region Collection Getters
+    #region Get
 
     /// <summary>
     /// Getting images sizes list
     /// </summary>
     Task<IReadOnlyCollection<ImageSizeDbo>> GetListAsync();
+
+    /// <summary>
+    /// Get image size
+    /// </summary>
+    public Task<ImageSize?> GetImageSizeByIdAsync(Guid id);
 
     #endregion
     
