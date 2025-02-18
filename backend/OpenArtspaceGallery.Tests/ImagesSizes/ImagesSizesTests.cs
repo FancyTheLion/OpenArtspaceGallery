@@ -59,6 +59,35 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
     
     #endregion
 
+    #region Get list
+
+    [Fact]
+    public async Task GetListAsync_WithValidData_ReturnsImagesSizes()
+    {
+        var imageSize1 = new { Name = $"Image size 1 {Guid.NewGuid()}", Width = Random.Shared.Next(10, 16999), Height = Random.Shared.Next(10, 16999) };
+        var imageSize2 = new { Name = $"Image size 2 {Guid.NewGuid()}", Width = Random.Shared.Next(10, 16999), Height = Random.Shared.Next(10, 16999) };
+        var imageSize3 = new { Name = $"Image size 3 {Guid.NewGuid()}", Width = Random.Shared.Next(10, 16999), Height = Random.Shared.Next(10, 16999) };
+        
+        // Is it possible to do this, "bare" requests
+        await AddAsync(imageSize1.Name, imageSize1.Width, imageSize1.Height);
+        await AddAsync(imageSize2.Name, imageSize2.Width, imageSize2.Height);
+        await AddAsync(imageSize3.Name, imageSize3.Width, imageSize3.Height);
+
+        var response = _factory.HttpClient.GetAsync("api/ImagesSizes/GetList");
+        response.Result.EnsureSuccessStatusCode();
+        
+        var listResponse = JsonSerializer.Deserialize<ImagesSizesResponse>(await response.Result.Content.ReadAsStringAsync());
+        
+        Assert.NotNull(listResponse);
+        Assert.NotNull(listResponse.ImagesSizes);
+        
+        Assert.Contains(listResponse.ImagesSizes, x => x.Name == imageSize1.Name && x.Width == imageSize1.Width && x.Height == imageSize1.Height);
+        Assert.Contains(listResponse.ImagesSizes, x => x.Name == imageSize2.Name && x.Width == imageSize2.Width && x.Height == imageSize2.Height);
+        Assert.Contains(listResponse.ImagesSizes, x => x.Name == imageSize3.Name && x.Width == imageSize3.Width && x.Height == imageSize3.Height);
+    }
+
+    #endregion
+    
     #region Helpers
 
     #region Create
