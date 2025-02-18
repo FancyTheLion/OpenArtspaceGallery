@@ -85,6 +85,7 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
         Assert.Contains(listResponse.ImagesSizes, x => x.Name == imageSize2.Name && x.Width == imageSize2.Width && x.Height == imageSize2.Height);
         Assert.Contains(listResponse.ImagesSizes, x => x.Name == imageSize3.Name && x.Width == imageSize3.Width && x.Height == imageSize3.Height);
     }
+    
 
     #endregion
     
