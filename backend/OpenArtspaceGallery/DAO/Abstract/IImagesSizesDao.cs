@@ -14,10 +14,10 @@ public interface IImagesSizesDao
     /// </summary>
     Task<IReadOnlyCollection<ImageSizeDbo>> GetListAsync();
 
-    /// <summary>
+    /*/// <summary>
     /// Get image size
     /// </summary>
-    public Task<ImageSize?> GetImageSizeByIdAsync(Guid id);
+    public Task<ImageSize?> GetImageSizeByIdAsync(Guid id);*/
 
     #endregion
     

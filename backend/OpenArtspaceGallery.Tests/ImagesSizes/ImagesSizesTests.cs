@@ -4,6 +4,7 @@ using System.Text.Json;
 using OpenArtspaceGallery.Models.API.DTOs.ImagesSizes;
 using OpenArtspaceGallery.Models.API.Requests.ImagesSizes;
 using OpenArtspaceGallery.Models.API.Responses.ImagesSizes;
+using OpenArtspaceGallery.Models.API.Responses.Shared;
 using Xunit.Abstractions;
 
 namespace OpenArtspaceGallery.Tests.ImagesSizes;
@@ -87,6 +88,33 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
     }
     
     #endregion
+
+    #region Delete
+
+    //TODO: I can't write this method until I have a method to get information about the existence of the image size (add the method to the controller)
+    // But I have methods with existence check, but which work either by name, or by size, or by both. But none by id works. I should write a method purely for tests to check id or use what is there?
+    /*[Fact]
+    public async Task DeleteAsync_WithValidData(Guid id)
+    {
+        var imageSize1 = new { Name = $"Image size 1 {Guid.NewGuid()}", Width = Random.Shared.Next(10, 16999), Height = Random.Shared.Next(10, 16999) };
+        await AddAsync(imageSize1.Name, imageSize1.Width, imageSize1.Height);
+        
+    }*/
+
+    #endregion
+
+    #region Is exist
+
+    /*[Fact]
+    public async Task IsExistAsync_WithValidData()
+    {
+        var imageSize1 = new { Name = $"Image size 1 {Guid.NewGuid()}", Width = Random.Shared.Next(10, 16999), Height = Random.Shared.Next(10, 16999) };
+        await AddAsync(imageSize1.Name, imageSize1.Width, imageSize1.Height);
+        
+        Assert.True(await IsExistsAsync(imageSize1.Name, imageSize1.Width, imageSize1.Height));
+    }*/
+
+    #endregion
     
     #region Helpers
 
@@ -152,6 +180,21 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
 
         return listResponse;
     }
+
+    #endregion
+
+    #region Delete
+
+    private async Task DeleteAsync(Guid id)
+    {
+        var deleteResponse = _factory.HttpClient.DeleteAsync($"api/ImagesSizes/{id}");
+        deleteResponse.Result.EnsureSuccessStatusCode();
+    }
+
+    #endregion
+
+    #region Is exist
+
 
     #endregion
 

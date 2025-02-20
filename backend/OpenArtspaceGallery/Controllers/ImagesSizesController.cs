@@ -42,7 +42,7 @@ public class ImagesSizesController : ControllerBase
         return Ok(new ImagesSizesResponse(imagesSizesDtos));
     }
 
-    /// <summary>
+    /*/// <summary>
     /// Get image size info
     /// </summary>
     [HttpGet]
@@ -57,7 +57,7 @@ public class ImagesSizesController : ControllerBase
         }
 
         return Ok(new ImageSizeResponse(imageSize.ToDto()));
-    }
+    }*/
 
     /// <summary>
     /// Add Image Size entry

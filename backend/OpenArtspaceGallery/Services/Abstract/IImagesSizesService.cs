@@ -15,10 +15,10 @@ public interface IImagesSizesService
     /// </summary>
     Task<IReadOnlyCollection<ImageSize>> GetListAsync();
     
-    /// <summary>
+    /*/// <summary>
     /// Get image size
     /// </summary>
-    Task<ImageSize> GetImageSizeByIdAsync(Guid id);
+    Task<ImageSize> GetImageSizeByIdAsync(Guid id);*/
     
     #endregion
     
