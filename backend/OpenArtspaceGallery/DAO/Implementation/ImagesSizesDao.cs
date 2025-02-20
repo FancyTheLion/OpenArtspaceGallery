@@ -25,12 +25,12 @@ public class ImagesSizesDao : IImagesSizesDao
             .ToListAsync();
     }
 
-    /*public async Task<ImageSizeDbo?> GetImageSizeByIdAsync(Guid id)
+    public async Task<ImageSizeDbo?> GetImageSizeByIdAsync(Guid id)
     {
         return await _dbContext
             .ImagesSizes
             .SingleOrDefaultAsync(ims => ims.Id == id);
-    }*/
+    }
 
     public async Task<ImageSizeDbo> AddAsync(ImageSizeDbo imageSizeToInsert)
     {

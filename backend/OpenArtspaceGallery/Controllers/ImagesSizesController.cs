@@ -42,22 +42,22 @@ public class ImagesSizesController : ControllerBase
         return Ok(new ImagesSizesResponse(imagesSizesDtos));
     }
 
-    /*/// <summary>
+    /// <summary>
     /// Get image size info
     /// </summary>
     [HttpGet]
-    [Route("GetInfo")]
+    [Route("{id:Guid}")]
     public async Task<ActionResult<ImageSizeResponse>> GetInfoAsync(Guid id)
     {
         var imageSize = await _imagesSizesService.GetImageSizeByIdAsync(id);
     
         if (imageSize == null)
         {
-            return NotFound($"Размер изображения с ID {id} не найден.");
+            return NotFound();
         }
 
         return Ok(new ImageSizeResponse(imageSize.ToDto()));
-    }*/
+    }
 
     /// <summary>
     /// Add Image Size entry

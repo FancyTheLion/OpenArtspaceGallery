@@ -19,17 +19,17 @@ public class ImagesSizesService : IImagesSizesService
         _imagesSizesDao = imagesSizesDao;
     }
 
-    public async Task<IReadOnlyCollection<ImageSize>> GetListAsync()
+    public async Task<IReadOnlyCollection<ImageSize?>> GetListAsync()
     {
         return (await _imagesSizesDao.GetListAsync())
             .Select(i => ImageSize.FromDbo(i))
             .ToList();
     }
 
-    /*public async Task<ImageSize> GetImageSizeByIdAsync(Guid id)
+    public async Task<ImageSize?> GetImageSizeByIdAsync(Guid id)
     {
-        return await _imagesSizesDao.GetImageSizeByIdAsync(id);
-    }*/
+        return ImageSize.FromDbo(await _imagesSizesDao.GetImageSizeByIdAsync(id));
+    }
 
     public async Task<ImageSize> AddAsync(ImageSize imageSize)
     {

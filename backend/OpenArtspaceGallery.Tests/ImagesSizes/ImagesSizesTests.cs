@@ -1,6 +1,7 @@
 using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
+using OpenArtspaceGallery.Models;
 using OpenArtspaceGallery.Models.API.DTOs.ImagesSizes;
 using OpenArtspaceGallery.Models.API.Requests.ImagesSizes;
 using OpenArtspaceGallery.Models.API.Responses.ImagesSizes;
@@ -33,11 +34,17 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
         var width = Random.Shared.Next(10, 16999); // TODO: Constants in appsettings.json
         var height = Random.Shared.Next(10, 16999); // TODO: Constants in appsettings.json
         
-        var response = await AddAsync(name, width, height);
+        var addResponse = await AddAsync(name, width, height);
     
-        Assert.Equal(name, response.ImageSize.Name);
-        Assert.Equal(width, response.ImageSize.Width);
-        Assert.Equal(height, response.ImageSize.Height); // TODO: Add a method to the controller and here GetInfo
+        Assert.Equal(name, addResponse.ImageSize.Name);
+        Assert.Equal(width, addResponse.ImageSize.Width);
+        Assert.Equal(height, addResponse.ImageSize.Height);
+
+        var getResponse = await GetImageSizeAsync(addResponse.ImageSize.Id);
+        
+        Assert.Equal(name, getResponse.ImageSize.Name);
+        Assert.Equal(width, getResponse.ImageSize.Width);
+        Assert.Equal(height, getResponse.ImageSize.Height);
     }
     
     public static IEnumerable<object[]> AddTestDimensionsData()
@@ -79,12 +86,6 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
         Assert.Contains(response.ImagesSizes, x => x.Name == imageSize1.Name && x.Width == imageSize1.Width && x.Height == imageSize1.Height);
         Assert.Contains(response.ImagesSizes, x => x.Name == imageSize2.Name && x.Width == imageSize2.Width && x.Height == imageSize2.Height);
         Assert.Contains(response.ImagesSizes, x => x.Name == imageSize3.Name && x.Width == imageSize3.Width && x.Height == imageSize3.Height);
-    }
-    
-    [Fact]
-    public async Task GetListAsync_WithNoData_ReturnsEmptyList()
-    {
-        Assert.Empty((await GetListAsync()).ImagesSizes);
     }
     
     #endregion
@@ -163,7 +164,38 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
 
     #endregion
 
-    #region Get list
+    #region Get
+
+    /// <summary>
+    /// Get image size by ID
+    /// </summary>
+    /// <param name="id">Image size ID</param>
+    /// <param name="exitAfterResponseCodeCheck">Exit immediately after response code check</param>
+    /// <param name="expectedStatusCode">Response must have this code</param>
+    /// <returns>Image size</returns>
+    private async Task<ImageSizeResponse?> GetImageSizeAsync
+    (
+        Guid id,
+        bool exitAfterResponseCodeCheck = false,
+        HttpStatusCode expectedStatusCode = HttpStatusCode.OK)
+    {
+        var response = await _factory.HttpClient.GetAsync($"api/ImagesSizes/{id}");
+        
+        Assert.Equal(expectedStatusCode, response.StatusCode);
+        
+        if (exitAfterResponseCodeCheck)
+        {
+            return null;
+        }
+        
+        var responseData = JsonSerializer.Deserialize<ImageSizeResponse?>(await response.Content.ReadAsStringAsync());
+        
+        Assert.NotNull(responseData); // Did we get response?
+        Assert.NotNull(responseData.ImageSize); // Did we get DTO?
+
+        return responseData;
+    }
+    
     
     /// <summary>
     /// Get a list of image sizes

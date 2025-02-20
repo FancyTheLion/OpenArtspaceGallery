@@ -43,11 +43,16 @@ public class ImageSize
         Height = height;
     }
 
-    public static ImageSize FromDbo
+    public static ImageSize? FromDbo
     (
-        ImageSizeDbo imageSize
+        ImageSizeDbo? imageSize
     )
     {
+        if (imageSize == null)
+        {
+            return null;
+        }
+        
         ImageSizeValidator.Validate(imageSize.Name, imageSize.Width, imageSize.Height);
         
         return new ImageSize
