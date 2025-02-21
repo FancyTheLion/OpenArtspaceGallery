@@ -32,7 +32,7 @@ public class AlbumsController : ControllerBase
     /// </summary>
     [HttpGet]
     [Route("TopLevel")]
-    public async Task<ActionResult<AlbumsListResponse>> GetTopLevelAlbumsListAsync()
+    public async Task<ActionResult<AlbumsListResponse>> GetTopLevelListAsync()
     {
         var albums = (await _albumsService.GetChildrenAsync(null))
             .Select(a => a.ToDto())
@@ -46,7 +46,7 @@ public class AlbumsController : ControllerBase
     /// </summary>
     [HttpGet]
     [Route("ChildrenOf/{albumId:guid}")]
-    public async Task<ActionResult<AlbumsListResponse>> GetChildrenAlbumsListAsync(Guid albumId)
+    public async Task<ActionResult<AlbumsListResponse>> GetChildrenListAsync(Guid albumId)
     {
         if (!await _albumsService.IsExistsAsync(albumId))    
         {
@@ -66,7 +66,7 @@ public class AlbumsController : ControllerBase
     /// </summary>
     [HttpGet]
     [Route("Hierarchy/{albumId:guid}")]
-    public async Task<ActionResult<AlbumHierarchyResponse>> GetListAlbumsInHierarchyAsync(Guid albumId)
+    public async Task<ActionResult<AlbumHierarchyResponse>> GetListInHierarchyAsync(Guid albumId)
     {
         if (!await _albumsService.IsExistsAsync(albumId))
         {
@@ -86,7 +86,7 @@ public class AlbumsController : ControllerBase
     /// </summary>
     [HttpGet]
     [Route("{albumId:guid}")]
-    public async Task<ActionResult<AlbumInfoResponse>> GetAlbumInfoAsync(Guid albumId)
+    public async Task<ActionResult<AlbumInfoResponse>> GetInfoAsync(Guid albumId)
     {
         var album = await _albumsService.GetAlbumByIdAsync(albumId);
 
@@ -103,7 +103,7 @@ public class AlbumsController : ControllerBase
     /// </summary>
     [HttpPost]
     [Route("New")]
-    public async Task<ActionResult<NewAlbumResponse>> AddAlbumAsync(NewAlbumRequest request)
+    public async Task<ActionResult<NewAlbumResponse>> AddAsync(NewAlbumRequest request)
     {
         if (request == null)
         {
@@ -131,7 +131,7 @@ public class AlbumsController : ControllerBase
     /// </summary>
     [HttpDelete]
     [Route("{albumId:guid}")]
-    public async Task<ActionResult> DeleteAlbumAsync(Guid albumId)
+    public async Task<ActionResult> DeleteAsync(Guid albumId)
     {
         if (!await _albumsService.IsExistsAsync(albumId))
         {
@@ -148,7 +148,7 @@ public class AlbumsController : ControllerBase
     /// </summary>
     [HttpPost]
     [Route("{albumId:guid}/Rename")]
-    public async Task<ActionResult> RenameAlbumAsync(Guid albumId, RenameAlbumRequest request)
+    public async Task<ActionResult> RenameAsync(Guid albumId, RenameAlbumRequest request)
     {
         if (request == null)
         {
@@ -177,7 +177,7 @@ public class AlbumsController : ControllerBase
     /// </summary>
     [HttpGet]
     [Route("{albumId:guid}/IsExists")]
-    public async Task<ActionResult<ExistenceResponse>> IsAlbumExists(Guid albumId)
+    public async Task<ActionResult<ExistenceResponse>> IsExists(Guid albumId)
     {
         return new ExistenceResponse(new ExistenceDto(await _albumsService.IsExistsAsync(albumId)));
     }
