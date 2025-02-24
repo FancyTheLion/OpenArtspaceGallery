@@ -42,7 +42,7 @@ public class SiteInfoTests  : IClassFixture<TestsFactory<Program>>
     {
         Assert.Equal
         (
-            _factory.Configuration["SiteInfoSettings:Version"] ?? throw new InvalidOperationException("BackendVersion not found in appsettings.Testing.json"),
+            _factory.Configuration["SiteInfoSettings:BackendVersion"] ?? throw new InvalidOperationException("BackendVersion not found in appsettings.Testing.json"),
             (await GetBackendVersionAsync()).BackendVersion.Version
         );
     }

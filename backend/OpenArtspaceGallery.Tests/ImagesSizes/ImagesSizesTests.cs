@@ -40,7 +40,7 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
         Assert.Equal(width, addResponse.ImageSize.Width);
         Assert.Equal(height, addResponse.ImageSize.Height);
 
-        var getResponse = await GetImageSizeAsync(addResponse.ImageSize.Id);
+        var getResponse = await GetInfoAsync(addResponse.ImageSize.Id);
         
         Assert.Equal(name, getResponse.ImageSize.Name);
         Assert.Equal(width, getResponse.ImageSize.Width);
@@ -67,6 +67,23 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
     
     #endregion
 
+    #region Get info
+
+    [Fact]
+    public async Task GetInfoAsync_WithValidData_ReturnsImageSize()
+    {
+        var imageSize1 = new { Name = $"Image size 1 {Guid.NewGuid()}", Width = Random.Shared.Next(10, 16999), Height = Random.Shared.Next(10, 16999) };
+        var addResponse = await AddAsync(imageSize1.Name, imageSize1.Width, imageSize1.Height);
+
+        var response = await GetInfoAsync(addResponse.ImageSize.Id);
+        
+        Assert.Equal(imageSize1.Name, response.ImageSize.Name);
+        Assert.Equal(imageSize1.Width, response.ImageSize.Width);
+        Assert.Equal(imageSize1.Height, response.ImageSize.Height);
+    }
+
+    #endregion
+
     #region Get list
 
     [Fact]
@@ -91,29 +108,38 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
     #endregion
 
     #region Delete
-
-    //TODO: I can't write this method until I have a method to get information about the existence of the image size (add the method to the controller)
-    // But I have methods with existence check, but which work either by name, or by size, or by both. But none by id works. I should write a method purely for tests to check id or use what is there?
-    /*[Fact]
-    public async Task DeleteAsync_WithValidData(Guid id)
+    
+    [Fact]
+    public async Task DeleteAsync_WithValidData()
     {
         var imageSize1 = new { Name = $"Image size 1 {Guid.NewGuid()}", Width = Random.Shared.Next(10, 16999), Height = Random.Shared.Next(10, 16999) };
-        await AddAsync(imageSize1.Name, imageSize1.Width, imageSize1.Height);
+        var response = await AddAsync(imageSize1.Name, imageSize1.Width, imageSize1.Height);
         
-    }*/
+        Assert.True(await IsExistsAsync(imageSize1.Name, imageSize1.Width, imageSize1.Height));
+
+        await DeleteAsync(response.ImageSize.Id);
+        
+        Assert.False(await IsExistsAsync(imageSize1.Name, imageSize1.Width, imageSize1.Height));
+    }
 
     #endregion
 
-    #region Is exist
+    #region Existence
 
-    /*[Fact]
-    public async Task IsExistAsync_WithValidData()
+    [Fact]
+    public async Task IsExistAsync_ReturnsTrue_WhenImageSizeExists()
     {
         var imageSize1 = new { Name = $"Image size 1 {Guid.NewGuid()}", Width = Random.Shared.Next(10, 16999), Height = Random.Shared.Next(10, 16999) };
         await AddAsync(imageSize1.Name, imageSize1.Width, imageSize1.Height);
         
         Assert.True(await IsExistsAsync(imageSize1.Name, imageSize1.Width, imageSize1.Height));
-    }*/
+    }
+    
+    [Fact]
+    public async Task IsExistAsync_ReturnsFalse_DoesNotExist()
+    {
+        Assert.False(await IsExistsAsync($"Image size 1 {Guid.NewGuid()}",Random.Shared.Next(10, 16999),Random.Shared.Next(10, 16999)));
+    }
 
     #endregion
     
@@ -173,7 +199,7 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
     /// <param name="exitAfterResponseCodeCheck">Exit immediately after response code check</param>
     /// <param name="expectedStatusCode">Response must have this code</param>
     /// <returns>Image size</returns>
-    private async Task<ImageSizeResponse?> GetImageSizeAsync
+    private async Task<ImageSizeResponse?> GetInfoAsync
     (
         Guid id,
         bool exitAfterResponseCodeCheck = false,
@@ -227,7 +253,29 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
 
     #region Is exist
 
-
+    private async Task<bool> IsExistsAsync(string name, int width, int height)
+    {
+        var dto = new ImageSizeBaseDto
+        (
+             name,
+             width,
+             height
+        );
+        
+        var request = new ImageSizeExistenceRequest
+        {
+            ImageSize = dto
+        };
+        
+        var isExistResponse = _factory.HttpClient.PostAsJsonAsync("api/ImagesSizes/IsExists", request);
+        
+        isExistResponse.Result.EnsureSuccessStatusCode();
+        
+        return JsonSerializer.Deserialize<ExistenceResponse>(await isExistResponse.Result.Content.ReadAsStringAsync())
+            .Existence
+            .Exists;
+    }
+    
     #endregion
 
     #endregion
