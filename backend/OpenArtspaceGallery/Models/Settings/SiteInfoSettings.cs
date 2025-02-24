@@ -13,6 +13,6 @@ public class SiteInfoSettings
     /// <summary>
     /// Site version are here
     /// </summary>
-    [JsonPropertyName("Version")]
-    public string Version { get; set; }
+    [JsonPropertyName("BackendVersion")]
+    public string BackendVersion { get; set; }
 }

@@ -34,7 +34,7 @@ import {
 
   async function GetImagesSizesListAsync()
   {
-      return DecodeImagesSizesResponse((await (await WebClientSendGetRequest("/ImagesSizes/GetImagesSizesList")).json()))
+      return DecodeImagesSizesResponse((await (await WebClientSendGetRequest("/ImagesSizes/GetList")).json()))
         .imagesSizes
         .map(DecodeImageSizeDto)
         .sort((a: ImageSize, b: ImageSize) => a.name.localeCompare(b.name))
@@ -55,7 +55,7 @@ import {
 
   async function CreateImageSizeAsync(newImageSize: NewImageSize)
   {
-      const request = await WebClientSendPostRequest("/ImagesSizes/AddImageSize",
+      const request = await WebClientSendPostRequest("/ImagesSizes/Add",
           {
             "imageSize": {
               "name": newImageSize.name,
@@ -75,7 +75,7 @@ import {
 
   async function EditImageSizeAsync(newImageSize: NewImageSize)
   {
-    const request = await WebClientSendPostRequest("/ImagesSizes/UpdateImageSizeById",
+    const request = await WebClientSendPostRequest("/ImagesSizes/UpdateById",
         {
           "imageSize": {
             "id": imageSizeToEditId.value,

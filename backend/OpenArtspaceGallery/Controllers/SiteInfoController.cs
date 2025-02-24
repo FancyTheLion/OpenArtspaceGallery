@@ -30,7 +30,7 @@ public class SiteInfoController : ControllerBase
     [Route("GetBackendVersion")]
     public async Task<ActionResult<BackendVersionResponse>> GetBackendVersion()
     {
-        return new BackendVersionResponse(new BackendVersionDto(_siteInfoSettings.Version));
+        return new BackendVersionResponse(new BackendVersionDto(_siteInfoSettings.BackendVersion));
     }
     
     /// <summary>
