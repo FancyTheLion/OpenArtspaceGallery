@@ -1,5 +1,6 @@
 using System.Net;
 using System.Net.Http.Json;
+using System.Text;
 using System.Text.Json;
 using OpenArtspaceGallery.Models;
 using OpenArtspaceGallery.Models.API.DTOs.ImagesSizes;
@@ -120,6 +121,50 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
         await DeleteAsync(response.ImageSize.Id);
         
         Assert.False(await IsExistsAsync(imageSize1.Name, imageSize1.Width, imageSize1.Height));
+    }
+
+    #endregion
+
+    #region Update
+
+    [Fact]
+    public async Task UpdateAsync_WithValidData()
+    {
+        var imageSize1 = new { Name = $"Image size 1 {Guid.NewGuid()}", Width = Random.Shared.Next(10, 16999), Height = Random.Shared.Next(10, 16999) };
+        var addResponse = await AddAsync(imageSize1.Name, imageSize1.Width, imageSize1.Height);
+        Assert.True(await IsExistsAsync(imageSize1.Name, imageSize1.Width, imageSize1.Height));
+        
+        var imageSize2 = new { Name = $"Image size 2 {Guid.NewGuid()}", Width = Random.Shared.Next(10, 16999), Height = Random.Shared.Next(10, 16999) };
+        
+        var imageSize2Dto = new ImageSizeDto (addResponse.ImageSize.Id, imageSize2.Name, imageSize2.Width,  imageSize2.Height);
+
+        var request = new UpdateImageSizeByIdRequest { ImageSize = imageSize2Dto };
+        
+        var updateResponse = await _factory.HttpClient.PostAsJsonAsync("api/ImagesSizes/UpdateById", request);
+        updateResponse.EnsureSuccessStatusCode();
+        
+        Assert.True(await IsExistsAsync(imageSize2.Name, imageSize2.Width, imageSize2.Height));
+    }
+    
+    [Fact]
+    public async Task UpdateAsync_WithNotExistenceData_ReturnNotFound()
+    {
+        var imageSize2Dto = new ImageSizeDto (Guid.NewGuid(), $"Image size 1 {Guid.NewGuid()}", Random.Shared.Next(10, 16999), Random.Shared.Next(10, 16999));
+        var request = new UpdateImageSizeByIdRequest { ImageSize = imageSize2Dto };
+        
+        var updateResponse = await _factory.HttpClient.PostAsJsonAsync("api/ImagesSizes/UpdateById", request);
+        
+        Assert.Equal(HttpStatusCode.NotFound, updateResponse.StatusCode);
+    }
+    
+    [Fact]
+    public async Task UpdateAsync_WithNullValue_ReturnBadRequest()
+    {
+        var request = new StringContent("null", Encoding.UTF8, "application/json");
+
+        var updateResponse = await _factory.HttpClient.PostAsync("api/ImagesSizes/UpdateById", request);
+        
+        Assert.Equal(HttpStatusCode.BadRequest, updateResponse.StatusCode);
     }
 
     #endregion
