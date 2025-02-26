@@ -188,6 +188,40 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
 
     #endregion
     
+    #region Existence by name 
+    
+    [Fact]
+    public async Task IsExistByNameAsync()
+    {
+        var imageSize1 = new { Name = $"Image size 1 {Guid.NewGuid()}", Width = Random.Shared.Next(10, 16999), Height = Random.Shared.Next(10, 16999) };
+        var response = await AddAsync(imageSize1.Name, imageSize1.Width, imageSize1.Height);
+        
+        Assert.True(await IsExistsByNameAsync(imageSize1.Name));
+        
+        await DeleteAsync(response.ImageSize.Id);
+        
+        Assert.False(await IsExistsByNameAsync(imageSize1.Name));
+    }
+
+    #endregion
+
+    #region Existence by dimensions
+
+    [Fact]
+    public async Task IsExistByDimensionsAsync()
+    {
+        var imageSize1 = new { Name = $"Image size 1 {Guid.NewGuid()}", Width = Random.Shared.Next(10, 16999), Height = Random.Shared.Next(10, 16999) };
+        var response = await AddAsync(imageSize1.Name, imageSize1.Width, imageSize1.Height);
+        
+        Assert.True(await IsExistsByDimensionsAsync(imageSize1.Width, imageSize1.Height));
+        
+        await DeleteAsync(response.ImageSize.Id);
+        
+        Assert.False(await IsExistsByDimensionsAsync(imageSize1.Width, imageSize1.Height));
+    }
+
+    #endregion
+    
     #region Helpers
 
     #region Create
@@ -318,6 +352,51 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
         
         return JsonSerializer.Deserialize<ExistenceResponse>(await isExistResponse.Result.Content.ReadAsStringAsync())
             .Existence
+            .Exists;
+    }
+    
+    private async Task<bool> IsExistsByNameAsync(string name)
+    {
+        var dto = new ImageSizeExistenceByNameDto
+        {
+            Name = name
+        };
+        
+        var request = new ImageSizeNameExistenceRequest
+        {
+            ImageSizeExistenceByName = dto
+        };
+        
+        var isExistResponse = _factory.HttpClient.PostAsJsonAsync("api/ImagesSizes/IsExistByName", request);
+        
+        isExistResponse.Result.EnsureSuccessStatusCode();
+
+        return JsonSerializer
+            .Deserialize<ImageSizeNameExistenceResponse>(await isExistResponse.Result.Content.ReadAsStringAsync())
+            .NameExistence
+            .Exists;
+    }
+    
+    private async Task<bool> IsExistsByDimensionsAsync(int width, int height)
+    {
+        var dto = new ImageSizeDimensionsDto
+        {
+            Width = width,
+            Height = height
+        };
+        
+        var request = new ImageSizeDimensionsExistenceRequest
+        {
+            ImageSizeDimensionsExistence = dto
+        };
+        
+        var isExistResponse = _factory.HttpClient.PostAsJsonAsync("api/ImagesSizes/IsExistByDimensions", request);
+        
+        isExistResponse.Result.EnsureSuccessStatusCode();
+
+        return JsonSerializer
+            .Deserialize<ImageSizeDimensionsExistenceResponse>(await isExistResponse.Result.Content.ReadAsStringAsync())
+            .DimensionsExistence
             .Exists;
     }
     
