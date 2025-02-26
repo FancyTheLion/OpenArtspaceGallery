@@ -16,12 +16,10 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
     #region Initialization
     
     private readonly TestsFactory<Program> _factory;
-    private readonly ITestOutputHelper _output;
     
     public ImagesSizesTests(TestsFactory<Program> factory, ITestOutputHelper output)
     {
         _factory = factory;
-        _output = output;
     }
 
     #endregion
@@ -148,8 +146,8 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
     [Fact]
     public async Task UpdateAsync_WithNotExistenceData_ReturnNotFound()
     {
-        var imageSize2Dto = new ImageSizeDto (Guid.NewGuid(), $"Image size 1 {Guid.NewGuid()}", Random.Shared.Next(10, 16999), Random.Shared.Next(10, 16999));
-        var request = new UpdateImageSizeByIdRequest { ImageSize = imageSize2Dto };
+        var imageSizeDto = new ImageSizeDto (Guid.NewGuid(), $"Image size 1 {Guid.NewGuid()}", Random.Shared.Next(10, 16999), Random.Shared.Next(10, 16999));
+        var request = new UpdateImageSizeByIdRequest { ImageSize = imageSizeDto };
         
         var updateResponse = await _factory.HttpClient.PostAsJsonAsync("api/ImagesSizes/UpdateById", request);
         
