@@ -73,14 +73,13 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
     [Fact]
     public async Task GetInfoAsync_WithValidData_ReturnsImageSize()
     {
-        var imageSize1 = new { Name = $"Image size 1 {Guid.NewGuid()}", Width = Random.Shared.Next(10, 16999), Height = Random.Shared.Next(10, 16999) };
-        var addResponse = await AddAsync(imageSize1.Name, imageSize1.Width, imageSize1.Height);
+        var addResponse = await AddAsync($"Image size 1 {Guid.NewGuid()}", Random.Shared.Next(10, 16999), Random.Shared.Next(10, 16999));
 
         var response = await GetInfoAsync(addResponse.ImageSize.Id);
         
-        Assert.Equal(imageSize1.Name, response.ImageSize.Name);
-        Assert.Equal(imageSize1.Width, response.ImageSize.Width);
-        Assert.Equal(imageSize1.Height, response.ImageSize.Height);
+        Assert.Equal(addResponse.ImageSize.Name, response.ImageSize.Name);
+        Assert.Equal(addResponse.ImageSize.Width, response.ImageSize.Width);
+        Assert.Equal(addResponse.ImageSize.Height, response.ImageSize.Height);
     }
 
     #endregion
