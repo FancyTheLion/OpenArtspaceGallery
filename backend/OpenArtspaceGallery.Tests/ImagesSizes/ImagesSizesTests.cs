@@ -79,6 +79,12 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
         Assert.Equal(addResponse.ImageSize.Width, response.ImageSize.Width);
         Assert.Equal(addResponse.ImageSize.Height, response.ImageSize.Height);
     }
+    
+    [Fact]
+    public async Task GetInfoAsync_WithInvalidId_ReturnsNotFound()
+    {
+        await GetInfoAsync(Guid.NewGuid(), true, HttpStatusCode.NotFound);
+    }
 
     #endregion
 
@@ -132,22 +138,28 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
         Assert.True(await IsExistsAsync(imageSize1.Name, imageSize1.Width, imageSize1.Height));
         
         var imageSize2 = new { Name = $"Image size 2 {Guid.NewGuid()}", Width = Random.Shared.Next(10, 16999), Height = Random.Shared.Next(10, 16999) };
+        var updateRequest = new UpdateImageSizeByIdRequest
+        {
+            ImageSize = new ImageSizeDto(addResponse.ImageSize.Id, imageSize2.Name, imageSize2.Width,  imageSize2.Height)
+        };
         
-        var imageSize2Dto = new ImageSizeDto (addResponse.ImageSize.Id, imageSize2.Name, imageSize2.Width,  imageSize2.Height);
-
-        var request = new UpdateImageSizeByIdRequest { ImageSize = imageSize2Dto };
-        
-        var updateResponse = await _factory.HttpClient.PostAsJsonAsync("api/ImagesSizes/UpdateById", request);
+        var updateResponse = await _factory.HttpClient.PostAsJsonAsync("api/ImagesSizes/UpdateById", updateRequest);
         updateResponse.EnsureSuccessStatusCode();
         
-        Assert.True(await IsExistsAsync(imageSize2.Name, imageSize2.Width, imageSize2.Height));
+        var afterUpdateReadback = await GetInfoAsync(addResponse.ImageSize.Id);
+        
+        Assert.Equal(imageSize2.Name, afterUpdateReadback.ImageSize.Name);
+        Assert.Equal(imageSize2.Width, afterUpdateReadback.ImageSize.Width);
+        Assert.Equal(imageSize2.Height, afterUpdateReadback.ImageSize.Height);
     }
     
     [Fact]
     public async Task UpdateAsync_WithNotExistenceData_ReturnNotFound()
     {
-        var imageSizeDto = new ImageSizeDto (Guid.NewGuid(), $"Image size 1 {Guid.NewGuid()}", Random.Shared.Next(10, 16999), Random.Shared.Next(10, 16999));
-        var request = new UpdateImageSizeByIdRequest { ImageSize = imageSizeDto };
+        var request = new UpdateImageSizeByIdRequest
+        {
+            ImageSize = new ImageSizeDto (Guid.NewGuid(), $"Image size 1 {Guid.NewGuid()}", Random.Shared.Next(10, 16999), Random.Shared.Next(10, 16999))
+        };
         
         var updateResponse = await _factory.HttpClient.PostAsJsonAsync("api/ImagesSizes/UpdateById", request);
         
@@ -331,16 +343,14 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
 
     private async Task<bool> IsExistsAsync(string name, int width, int height)
     {
-        var dto = new ImageSizeBaseDto
-        (
-             name,
-             width,
-             height
-        );
-        
         var request = new ImageSizeExistenceRequest
         {
-            ImageSize = dto
+            ImageSize = new ImageSizeBaseDto
+            (
+                name,
+                width,
+                height
+            )
         };
         
         var isExistResponse = _factory.HttpClient.PostAsJsonAsync("api/ImagesSizes/IsExists", request);
@@ -354,14 +364,12 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
     
     private async Task<bool> IsExistsByNameAsync(string name)
     {
-        var dto = new ImageSizeExistenceByNameDto
-        {
-            Name = name
-        };
-        
         var request = new ImageSizeNameExistenceRequest
         {
-            ImageSizeExistenceByName = dto
+            ImageSizeExistenceByName = new ImageSizeExistenceByNameDto
+            {
+                Name = name
+            }
         };
         
         var isExistResponse = _factory.HttpClient.PostAsJsonAsync("api/ImagesSizes/IsExistByName", request);
@@ -376,15 +384,13 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
     
     private async Task<bool> IsExistsByDimensionsAsync(int width, int height)
     {
-        var dto = new ImageSizeDimensionsDto
-        {
-            Width = width,
-            Height = height
-        };
-        
         var request = new ImageSizeDimensionsExistenceRequest
         {
-            ImageSizeDimensionsExistence = dto
+            ImageSizeDimensionsExistence = new ImageSizeDimensionsDto
+            {
+                Width = width,
+                Height = height
+            }
         };
         
         var isExistResponse = _factory.HttpClient.PostAsJsonAsync("api/ImagesSizes/IsExistByDimensions", request);
