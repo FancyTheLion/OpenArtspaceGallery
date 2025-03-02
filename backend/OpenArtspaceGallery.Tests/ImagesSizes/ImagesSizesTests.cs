@@ -30,8 +30,8 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
     public async Task AddImageSize_WithValidData_ReturnsCreatedImageSize()
     {
         var name = $"Test size {Guid.NewGuid()}";
-        var width = Random.Shared.Next(10, 16999); // TODO: Constants in appsettings.json
-        var height = Random.Shared.Next(10, 16999); // TODO: Constants in appsettings.json
+        var width = Random.Shared.Next(10, 16999);
+        var height = Random.Shared.Next(10, 16999);
         
         var addResponse = await AddAsync(name, width, height);
     

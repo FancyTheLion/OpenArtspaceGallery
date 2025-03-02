@@ -65,8 +65,7 @@ public class AlbumsService : IAlbumsService
     public async Task DeleteAsync(Guid albumId)
     {
         var albumChildrenIdList = await _albumsDao.GetChildrenAlbumbsGuidsAsync(albumId);
-
-        // TODO: To study - read about N+1 problem
+        
         foreach (var childId in albumChildrenIdList)
         {
             await DeleteAsync(childId);
