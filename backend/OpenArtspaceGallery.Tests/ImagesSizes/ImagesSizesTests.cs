@@ -2,11 +2,14 @@ using System.Net;
 using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Configuration;
 using OpenArtspaceGallery.Models;
 using OpenArtspaceGallery.Models.API.DTOs.ImagesSizes;
 using OpenArtspaceGallery.Models.API.Requests.ImagesSizes;
 using OpenArtspaceGallery.Models.API.Responses.ImagesSizes;
 using OpenArtspaceGallery.Models.API.Responses.Shared;
+using OpenArtspaceGallery.Models.Settings;
 using OpenArtspaceGallery.Tests.Helpers;
 using Xunit.Abstractions;
 
@@ -18,7 +21,11 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
     
     #region Initialization
     
-    public ImagesSizesTests(TestsFactory<Program> factory, ITestOutputHelper output)
+    public ImagesSizesTests
+    (
+        TestsFactory<Program> factory,
+        ITestOutputHelper output
+    )
     {
         _factory = factory;
     }
@@ -30,7 +37,7 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
     [Fact]
     public async Task AddImageSize_WithValidData_ReturnsCreatedImageSize()
     {
-        var imageSize1 = ImagesSizesHelper.GetNextImageSize();
+        var imageSize1 = _factory.ImagesSizesHelper.GetNextImageSize();
         var addResponse = await AddAsync(imageSize1.Name, imageSize1.Width, imageSize1.Height);
     
         Assert.Equal(imageSize1.Name, addResponse.ImageSize.Name);
@@ -43,35 +50,24 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
         Assert.Equal(imageSize1.Width, getResponse.ImageSize.Width);
         Assert.Equal(imageSize1.Height, getResponse.ImageSize.Height);
     }
-    
-    public static IEnumerable<object[]> AddInvalidData()
+
+    [Fact]
+    public async Task AddImageSize_WithInvalidDimensions_ReturnsBadRequest()
     {
-        return new List<object[]>
+        var settings = _factory.Configuration.GetSection("ImageSizeSettings").Get<ImageSizeSettings>();
+        
+        var testCases = new List<Tuple<string, int, int>>
         {
-            new object[] { $"InvalidSize1 { Guid.NewGuid() }", 0, $"{ Random.Shared.Next(10, 16999) }" },
-            new object[] { $"InvalidSize2 { Guid.NewGuid() }", $"{ Random.Shared.Next(10, 16999) }", 0 },
-            new object[] { $"InvalidSize3 { Guid.NewGuid() }", $"{ Random.Shared.Next(-100, -1) }", 200 },
-            new object[] { $"InvalidSize4 { Guid.NewGuid() }", 200, $"{ Random.Shared.Next(-200, -101) }" }
+            new ($"InvalidSize1 { Guid.NewGuid() }", settings.MinWidth - 1, settings.MinHeight + 1),
+            new ($"InvalidSize2 { Guid.NewGuid() }", settings.MinWidth + 1, settings.MinHeight - 1),
+            new ($"InvalidSize3 { Guid.NewGuid() }", settings.MaxWidth + 1, settings.MinHeight + 1),
+            new ($"InvalidSize4 { Guid.NewGuid() }", settings.MinWidth + 1, settings.MaxHeight + 1)
         };
-    }
 
-    [Theory]
-    [MemberData(nameof(AddInvalidData))]
-    public async Task AddImageSize_WithInvalidDimensions_ReturnsBadRequest(string name, int width, int height)
-    {
-        await AddAsync(name, width, height, HttpStatusCode.BadRequest, exitAfterResponseCodeCheck: true);
-    }
-    
-    [Theory]
-    [InlineData(29, 100001)]
-    [InlineData(31, 29)]
-    [InlineData(100001, 31)]
-    [InlineData(31, 100001)]
-    public async Task AddImageSize_WithInvalidDimensions(int width, int height)
-    {
-        var response = await AddAsync($"Name {Guid.NewGuid()}", width, height, HttpStatusCode.BadRequest, exitAfterResponseCodeCheck: true);
-
-        Assert.Null(response);
+        foreach (var testCase in testCases)
+        {
+            await AddAsync(testCase.Item1, testCase.Item2, testCase.Item3, HttpStatusCode.BadRequest, exitAfterResponseCodeCheck: true);
+        }
     }
     
     #endregion
@@ -81,7 +77,7 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
     [Fact]
     public async Task GetInfoAsync_WithValidData_ReturnsImageSize()
     {
-        var imageSize1 = ImagesSizesHelper.GetNextImageSize();
+        var imageSize1 = _factory.ImagesSizesHelper.GetNextImageSize();
         var addResponse = await AddAsync(imageSize1.Name, imageSize1.Width, imageSize1.Height);
 
         var response = await GetInfoAsync(addResponse.ImageSize.Id);
@@ -104,9 +100,9 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
     [Fact]
     public async Task GetListAsync_WithValidData_ReturnsImagesSizes()
     {
-        var imageSize1 = ImagesSizesHelper.GetNextImageSize();
-        var imageSize2 = ImagesSizesHelper.GetNextImageSize();
-        var imageSize3 = ImagesSizesHelper.GetNextImageSize();
+        var imageSize1 = _factory.ImagesSizesHelper.GetNextImageSize();
+        var imageSize2 = _factory.ImagesSizesHelper.GetNextImageSize();
+        var imageSize3 = _factory.ImagesSizesHelper.GetNextImageSize();
         
         // Is it possible to do this, "bare" requests?
         await AddAsync(imageSize1.Name, imageSize1.Width, imageSize1.Height);
@@ -127,7 +123,7 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
     [Fact]
     public async Task DeleteAsync_WithValidData()
     {
-        var imageSize1 = ImagesSizesHelper.GetNextImageSize();
+        var imageSize1 = _factory.ImagesSizesHelper.GetNextImageSize();
         var response = await AddAsync(imageSize1.Name, imageSize1.Width, imageSize1.Height);
         
         Assert.True(await IsExistsAsync(imageSize1.Name, imageSize1.Width, imageSize1.Height));
@@ -144,11 +140,11 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
     [Fact]
     public async Task UpdateAsync_WithValidData()
     {
-        var imageSize1 = ImagesSizesHelper.GetNextImageSize();
+        var imageSize1 = _factory.ImagesSizesHelper.GetNextImageSize();
         var addResponse = await AddAsync(imageSize1.Name, imageSize1.Width, imageSize1.Height);
         Assert.True(await IsExistsAsync(imageSize1.Name, imageSize1.Width, imageSize1.Height));
         
-        var imageSize2 = ImagesSizesHelper.GetNextImageSize();
+        var imageSize2 = _factory.ImagesSizesHelper.GetNextImageSize();
 
         var updateResponse = await UpdateAsync(addResponse.ImageSize.Id, imageSize2.Name, imageSize2.Width,  imageSize2.Height);
         
@@ -162,7 +158,7 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
     [Fact]
     public async Task UpdateAsync_WithNotExistenceData_ReturnNotFound()
     {
-        var ImageSize = ImagesSizesHelper.GetNextImageSize().ToDto();
+        var ImageSize = _factory.ImagesSizesHelper.GetNextImageSize().ToDto();
         
         var updateResponse = await UpdateAsync(ImageSize.Id, ImageSize.Name, ImageSize.Width,  ImageSize.Height, exitAfterResponseCodeCheck: true, HttpStatusCode.NotFound);
     }
@@ -189,7 +185,7 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
     [Fact]
     public async Task IsExistAsync_ReturnsTrue_WhenImageSizeExists()
     {
-        var imageSize1 = ImagesSizesHelper.GetNextImageSize();
+        var imageSize1 = _factory.ImagesSizesHelper.GetNextImageSize();
         await AddAsync(imageSize1.Name, imageSize1.Width, imageSize1.Height);
         
         Assert.True(await IsExistsAsync(imageSize1.Name, imageSize1.Width, imageSize1.Height));
@@ -198,7 +194,7 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
     [Fact]
     public async Task IsExistAsync_ReturnsFalse_DoesNotExist()
     {
-        var imageSize1 = ImagesSizesHelper.GetNextImageSize();
+        var imageSize1 = _factory.ImagesSizesHelper.GetNextImageSize();
         Assert.False(await IsExistsAsync(imageSize1.Name,imageSize1.Width, imageSize1.Height));
     }
 
@@ -209,7 +205,7 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
     [Fact]
     public async Task IsExistByNameAsync()
     {
-        var imageSize1 = ImagesSizesHelper.GetNextImageSize();
+        var imageSize1 = _factory.ImagesSizesHelper.GetNextImageSize();
         var response = await AddAsync(imageSize1.Name, imageSize1.Width, imageSize1.Height);
         
         Assert.True(await IsExistsByNameAsync(imageSize1.Name));
@@ -226,7 +222,7 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
     [Fact]
     public async Task IsExistByDimensionsAsync()
     {
-        var imageSize1 = ImagesSizesHelper.GetNextImageSize();
+        var imageSize1 = _factory.ImagesSizesHelper.GetNextImageSize();
         var response = await AddAsync(imageSize1.Name, imageSize1.Width, imageSize1.Height);
         
         Assert.True(await IsExistsByDimensionsAsync(imageSize1.Width, imageSize1.Height));

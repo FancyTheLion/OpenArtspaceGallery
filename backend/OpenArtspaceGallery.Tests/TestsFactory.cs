@@ -2,6 +2,7 @@ using System.Data.Common;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Configuration;
+using OpenArtspaceGallery.Tests.Helpers;
 
 namespace OpenArtspaceGallery.Tests;
 
@@ -15,6 +16,8 @@ public class TestsFactory<TProgram> : WebApplicationFactory<TProgram> where TPro
         .Build();
     
     public readonly HttpClient HttpClient;
+    
+    public readonly ImagesSizesHelper ImagesSizesHelper;
 
     public TestsFactory()
     {
@@ -22,6 +25,8 @@ public class TestsFactory<TProgram> : WebApplicationFactory<TProgram> where TPro
         {
             AllowAutoRedirect = false
         });
+
+        ImagesSizesHelper = new ImagesSizesHelper(Configuration);
     }
     
     protected override void ConfigureWebHost(IWebHostBuilder builder)

@@ -7,28 +7,20 @@ namespace OpenArtspaceGallery.Tests.Helpers;
 /// <summary>
 /// Helper class for testing ImagesSizes
 /// </summary>
-public static class ImagesSizesHelper
+public class ImagesSizesHelper
 {
-    
-    private static readonly ImageSizeSettings _imageSizeSettings;
+    private readonly IConfiguration _configuration;
+    private readonly ImageSizeSettings _imageSizeSettings;
+    private readonly IEnumerator<ImageSize> _imagesSizesEnumerator;
 
-    static ImagesSizesHelper()
+    public ImagesSizesHelper(IConfiguration configuration)
     {
-        var config = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-            .AddJsonFile("appsettings.Development.json", optional: true)
-            .Build();
-
-        _imageSizeSettings = config.GetSection("ImageSizeSettings").Get<ImageSizeSettings>();
+        _configuration = configuration;
+        _imageSizeSettings = _configuration.GetSection("ImageSizeSettings").Get<ImageSizeSettings>();
+        _imagesSizesEnumerator = CreateNextImageSize().GetEnumerator();
     }
-
-    public static ImageSizeSettings GetSettings() => _imageSizeSettings;
     
-    
-    private static IEnumerator<ImageSize> _imagesSizesEnumerator = CreateNextImageSize().GetEnumerator();
-    
-    private static IEnumerable<ImageSize> CreateNextImageSize()
+    private IEnumerable<ImageSize> CreateNextImageSize()
     {
         for (int height = _imageSizeSettings.MinHeight; height < _imageSizeSettings.MaxHeight; height++)
         {
@@ -44,7 +36,7 @@ public static class ImagesSizesHelper
     /// <summary>
     /// Call this method to get next valid Image Size
     /// </summary>
-    public static ImageSize GetNextImageSize()
+    public ImageSize GetNextImageSize()
     {
         _imagesSizesEnumerator.MoveNext();
         return _imagesSizesEnumerator.Current;

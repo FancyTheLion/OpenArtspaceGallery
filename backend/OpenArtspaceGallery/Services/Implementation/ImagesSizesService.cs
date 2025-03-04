@@ -1,22 +1,27 @@
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.Extensions.Options;
 using OpenArtspaceGallery.DAO.Abstract;
 using OpenArtspaceGallery.DAO.Models.Images;
 using OpenArtspaceGallery.Models;
 using OpenArtspaceGallery.Models.API.DTOs.ImagesSizes;
+using OpenArtspaceGallery.Models.Settings;
 using OpenArtspaceGallery.Services.Abstract;
 
 namespace OpenArtspaceGallery.Services.Implementation;
 
 public class ImagesSizesService : IImagesSizesService
 {
+    private readonly ImageSizeSettings _imageSizeSettings;
     private readonly IImagesSizesDao _imagesSizesDao;
 
     public ImagesSizesService
     (
-        IImagesSizesDao imagesSizesDao
+        IImagesSizesDao imagesSizesDao,
+        IOptions<ImageSizeSettings> imageSizeSettings
     )
     {
         _imagesSizesDao = imagesSizesDao;
+        _imageSizeSettings = imageSizeSettings.Value;
     }
 
     public async Task<IReadOnlyCollection<ImageSize?>> GetListAsync()
@@ -83,7 +88,16 @@ public class ImagesSizesService : IImagesSizesService
     /// </summary>
     private async Task ValidateImageSizeAsync(ImageSize imageSize)
     {
-        if (imageSize.Width < 30 || imageSize.Width > 100000 || imageSize.Height < 30 || imageSize.Height > 100000)
+        if
+        (
+            imageSize.Width < _imageSizeSettings.MinWidth
+            ||
+            imageSize.Width > _imageSizeSettings.MaxWidth
+            ||
+            imageSize.Height < _imageSizeSettings.MinHeight
+            ||
+            imageSize.Height > _imageSizeSettings.MaxHeight
+        )
         {
             throw new ArgumentException("Width and Height must be between 30 and 100000.");
         }
