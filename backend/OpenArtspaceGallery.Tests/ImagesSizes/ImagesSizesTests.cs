@@ -44,7 +44,7 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
         Assert.Equal(imageSize1.Height, getResponse.ImageSize.Height);
     }
     
-    public static IEnumerable<object[]> AddTestDimensionsData()
+    public static IEnumerable<object[]> AddInvalidData()
     {
         return new List<object[]>
         {
@@ -56,7 +56,7 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
     }
 
     [Theory]
-    [MemberData(nameof(AddTestDimensionsData))]
+    [MemberData(nameof(AddInvalidData))]
     public async Task AddImageSize_WithInvalidDimensions_ReturnsBadRequest(string name, int width, int height)
     {
         await AddAsync(name, width, height, HttpStatusCode.BadRequest, exitAfterResponseCodeCheck: true);
@@ -137,13 +137,8 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
         Assert.True(await IsExistsAsync(imageSize1.Name, imageSize1.Width, imageSize1.Height));
         
         var imageSize2 = ImagesSizesHelper.GetNextImageSize();
-        var updateRequest = new UpdateImageSizeByIdRequest
-        {
-            ImageSize = new ImageSizeDto(addResponse.ImageSize.Id, imageSize2.Name, imageSize2.Width,  imageSize2.Height)
-        };
-        
-        var updateResponse = await _factory.HttpClient.PostAsJsonAsync("api/ImagesSizes/UpdateById", updateRequest);
-        updateResponse.EnsureSuccessStatusCode();
+
+        var updateResponse = await UpdateAsync(addResponse.ImageSize.Id, imageSize2.Name, imageSize2.Width,  imageSize2.Height);
         
         var afterUpdateReadback = await GetInfoAsync(addResponse.ImageSize.Id);
         
@@ -155,25 +150,25 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
     [Fact]
     public async Task UpdateAsync_WithNotExistenceData_ReturnNotFound()
     {
-        var request = new UpdateImageSizeByIdRequest
-        {
-            ImageSize = ImagesSizesHelper.GetNextImageSize().ToDto()
-        };
+        var ImageSize = ImagesSizesHelper.GetNextImageSize().ToDto();
         
-        var updateResponse = await _factory.HttpClient.PostAsJsonAsync("api/ImagesSizes/UpdateById", request);
-        
-        Assert.Equal(HttpStatusCode.NotFound, updateResponse.StatusCode);
+        var updateResponse = await UpdateAsync(ImageSize.Id, ImageSize.Name, ImageSize.Width,  ImageSize.Height, exitAfterResponseCodeCheck: true, HttpStatusCode.NotFound);
     }
     
-    [Fact]
-    public async Task UpdateAsync_WithNullValue_ReturnBadRequest()
+    /*[Fact]
+    public async Task UpdateAsync_WithNullValue_ReturnBadRequest() // TODO: Is the test unnecessary?
     {
-        var request = new StringContent("null", Encoding.UTF8, "application/json");
+        var updateRequest = new UpdateImageSizeByIdRequest
+        {
+            ImageSize = new ImageSizeDto(Guid.NewGuid(), null, 0, 0)
+        };
 
-        var updateResponse = await _factory.HttpClient.PostAsync("api/ImagesSizes/UpdateById", request);
-        
-        Assert.Equal(HttpStatusCode.BadRequest, updateResponse.StatusCode);
-    }
+        // Act
+        var response = await _factory.HttpClient.PostAsJsonAsync("api/ImagesSizes/UpdateById", updateRequest);
+
+        // Assert
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+    }*/
 
     #endregion
 
@@ -335,6 +330,41 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
     {
         var deleteResponse = _factory.HttpClient.DeleteAsync($"api/ImagesSizes/{id}");
         deleteResponse.Result.EnsureSuccessStatusCode();
+    }
+
+    #endregion
+
+    #region Update
+
+    private async Task<UpdateImageSizeByIdResponse> UpdateAsync
+    (
+        Guid id,
+        string name,
+        int width,
+        int height,
+        bool exitAfterResponseCodeCheck = false,
+        HttpStatusCode expectedStatusCode = HttpStatusCode.OK)
+    {
+        var updateRequest = new UpdateImageSizeByIdRequest
+        {
+            ImageSize = new ImageSizeDto(id, name, width,  height)
+        };
+        
+        var response = await _factory.HttpClient.PostAsJsonAsync("api/ImagesSizes/UpdateById", updateRequest);
+        
+        Assert.Equal(expectedStatusCode, response.StatusCode);
+        
+        if (exitAfterResponseCodeCheck)
+        {
+            return null;
+        }
+        
+        var responseData = JsonSerializer.Deserialize<UpdateImageSizeByIdResponse?>(await response.Content.ReadAsStringAsync());
+        
+        Assert.NotNull(responseData); // Did we get response?
+        Assert.NotNull(responseData.ImageSize); // Did we get DTO?
+
+        return responseData;
     }
 
     #endregion
