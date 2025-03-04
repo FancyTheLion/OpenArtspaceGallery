@@ -7,7 +7,7 @@ namespace OpenArtspaceGallery.Services.Abstract;
 /// </summary>
 public interface IAlbumsService
 {
-    #region Collection Getters 
+    #region Get 
 
     /// <summary>
     /// Get a list of child albums
@@ -18,6 +18,11 @@ public interface IAlbumsService
     /// Getting the album hierarchy
     /// </summary>
     Task<IReadOnlyCollection<AlbumInHierarchy>> GetAlbumsHierarchyAsync(Guid albumId);
+    
+    /// <summary>
+    /// Get album info (will return null if there is no such album)
+    /// </summary>
+    Task<Album?> GetAlbumByIdAsync(Guid id);
 
     #endregion
     
@@ -26,7 +31,7 @@ public interface IAlbumsService
     /// <summary>
     /// Does album exists?
     /// </summary>
-    Task<bool> IsAlbumExistsAsync(Guid albumId);
+    Task<bool> IsExistsAsync(Guid albumId);
     
     #endregion
 
@@ -35,7 +40,7 @@ public interface IAlbumsService
     /// <summary>
     /// Create a new album
     /// </summary>
-    Task<Album> CreateNewAlbumAsync(NewAlbum newAlbum);
+    Task<Album> CreateAsync(NewAlbum newAlbum);
 
     #endregion
 
@@ -44,7 +49,7 @@ public interface IAlbumsService
     /// <summary>
     /// Delete album
     /// </summary>
-    Task DeleteAlbumAsync (Guid albumId);
+    Task DeleteAsync (Guid albumId);
 
     #endregion
 
@@ -53,7 +58,7 @@ public interface IAlbumsService
     /// <summary>
     /// Rename albom
     /// </summary>
-    Task RenameAlbumAsync(Guid albumId, string newName);
+    Task RenameAsync(Guid albumId, string newName);
 
     #endregion
 }

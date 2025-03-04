@@ -20,9 +20,14 @@ public class AlbumsService : IAlbumsService
         _albumsDao = albumsDao;
     }
 
-    public async Task<bool> IsAlbumExistsAsync(Guid albumId)
+    public async Task<Album?> GetAlbumByIdAsync(Guid id)
     {
-        return await _albumsDao.IsAlbumExistsAsync(albumId);
+        return (await _albumsDao.GetAlbumByIdAsync(id))?.ToModel();
+    }
+
+    public async Task<bool> IsExistsAsync(Guid albumId)
+    {
+        return await _albumsDao.IsExistsAsync(albumId);
     }
 
     public async Task<IReadOnlyCollection<Album>> GetChildrenAsync(Guid? parentAlbumId)
@@ -39,7 +44,7 @@ public class AlbumsService : IAlbumsService
             .ToList();
     }
 
-    public async Task<Album> CreateNewAlbumAsync(NewAlbum newAlbum)
+    public async Task<Album> CreateAsync(NewAlbum newAlbum)
     {
         if (newAlbum == null)
         {
@@ -54,29 +59,28 @@ public class AlbumsService : IAlbumsService
             CreationTime = DateTime.UtcNow
         };
 
-        return (await _albumsDao.CreateNewAlbumAsync(albumToInsert)).ToModel();
+        return (await _albumsDao.CreateAsync(albumToInsert)).ToModel();
     }
 
-    public async Task DeleteAlbumAsync(Guid albumId)
+    public async Task DeleteAsync(Guid albumId)
     {
         var albumChildrenIdList = await _albumsDao.GetChildrenAlbumbsGuidsAsync(albumId);
-
-        // TODO: To study - read about N+1 problem
+        
         foreach (var childId in albumChildrenIdList)
         {
-            await DeleteAlbumAsync(childId);
+            await DeleteAsync(childId);
         }
         
-        await _albumsDao.DeleteAlbumAsync(albumId);
+        await _albumsDao.DeleteAsync(albumId);
     }
 
-    public async Task RenameAlbumAsync(Guid albumId, string newName)
+    public async Task RenameAsync(Guid albumId, string newName)
     {
         if (string.IsNullOrWhiteSpace(newName))
         {
             throw new ArgumentException("The new name cannot be empty.", nameof(newName));
         }
         
-        await _albumsDao.RenameAlbumAsync(albumId, newName);
+        await _albumsDao.RenameAsync(albumId, newName);
     }
 }

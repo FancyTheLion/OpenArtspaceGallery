@@ -9,4 +9,10 @@ public class SiteInfoSettings
     /// </summary>
     [JsonPropertyName("SourcesUrl")]
     public string SourcesUrl { get; set; }
+    
+    /// <summary>
+    /// Site version are here
+    /// </summary>
+    [JsonPropertyName("BackendVersion")]
+    public string BackendVersion { get; set; }
 }

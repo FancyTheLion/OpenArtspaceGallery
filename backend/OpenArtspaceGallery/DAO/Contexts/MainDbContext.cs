@@ -14,7 +14,7 @@ public class MainDbContext : DbContext
     /// <summary>
     /// Albums
     /// </summary>
-    public DbSet<AlbumDbo> Albums { get; set; }
+    public DbSet<AlbumDbo?> Albums { get; set; }
     
     /// <summary>
     /// File types

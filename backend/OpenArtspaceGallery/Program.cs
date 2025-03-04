@@ -17,7 +17,6 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddScoped<IImagesSizesService, ImagesSizesService>();
     builder.Services.AddScoped<IImagesSizesDao, ImagesSizesDao>();
 
-
     #endregion
             
 #endregion
@@ -31,6 +30,8 @@ builder.Services.AddSwaggerGen();
 
     builder.Services.Configure<SiteInfoSettings>(builder.Configuration.GetSection(nameof(SiteInfoSettings)));
     builder.Services.Configure<CorsSettings>(builder.Configuration.GetSection(nameof(CorsSettings)));
+    builder.Services.Configure<AlbumSettings>(builder.Configuration.GetSection(nameof(AlbumSettings)));
+    builder.Services.Configure<ImageSizeSettings>(builder.Configuration.GetSection(nameof(ImageSizeSettings)));
 
 #endregion
 
@@ -66,15 +67,32 @@ builder.Services.AddCors(options =>
 
 #region  DB Contexts
 
-// Main
-builder.Services.AddDbContext<MainDbContext>
-(
-    options
-        =>
-        options.UseNpgsql(builder.Configuration.GetConnectionString("MainConnection"),
-          o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)),
-          ServiceLifetime.Transient
-);
+if (builder.Environment.IsEnvironment("Testing"))
+{
+    // Test mode
+    #region Main
+    
+    builder.Services.AddDbContext<MainDbContext>(options => options.UseInMemoryDatabase("TestingDB"));
+    
+    #endregion
+}
+else
+{
+    // Normal mode
+    
+    #region Main
+    
+    builder.Services.AddDbContext<MainDbContext>
+    (
+        options
+            =>
+            options.UseNpgsql(builder.Configuration.GetConnectionString("MainConnection"),
+                o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)),
+        ServiceLifetime.Transient
+    );
+    
+    #endregion
+}
 
 #endregion
 
@@ -96,3 +114,6 @@ app.UseCors();
 app.MapControllers();
 
 app.Run();
+
+// Make the implicit Program class public so test projects can access it
+public partial class Program { }

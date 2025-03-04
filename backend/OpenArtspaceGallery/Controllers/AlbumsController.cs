@@ -3,8 +3,12 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using OpenArtspaceGallery.Models;
 using OpenArtspaceGallery.Models.API.DTOs;
+using OpenArtspaceGallery.Models.API.DTOs.Shared;
 using OpenArtspaceGallery.Models.API.Requests;
+using OpenArtspaceGallery.Models.API.Requests.Albums;
 using OpenArtspaceGallery.Models.API.Responses;
+using OpenArtspaceGallery.Models.API.Responses.Albums;
+using OpenArtspaceGallery.Models.API.Responses.Shared;
 using OpenArtspaceGallery.Services.Abstract;
 
 namespace OpenArtspaceGallery.Controllers;
@@ -28,14 +32,13 @@ public class AlbumsController : ControllerBase
     /// </summary>
     [HttpGet]
     [Route("TopLevel")]
-    public async Task<ActionResult<AlbumsListResponse>> GetTopLevelAlbumsListAsync()
+    public async Task<ActionResult<AlbumsListResponse>> GetTopLevelListAsync()
     {
-        return  new AlbumsListResponse
-        (
-            (await _albumsService.GetChildrenAsync(null))
+        var albums = (await _albumsService.GetChildrenAsync(null))
             .Select(a => a.ToDto())
-            .ToList()
-        );
+            .ToList();
+        
+            return Ok(new AlbumsListResponse(albums));
     }
     
     /// <summary>
@@ -43,9 +46,9 @@ public class AlbumsController : ControllerBase
     /// </summary>
     [HttpGet]
     [Route("ChildrenOf/{albumId:guid}")]
-    public async Task<ActionResult<AlbumsListResponse>> GetChildrenAlbumsListAsync(Guid albumId)
+    public async Task<ActionResult<AlbumsListResponse>> GetChildrenListAsync(Guid albumId)
     {
-        if (!await _albumsService.IsAlbumExistsAsync(albumId))    
+        if (!await _albumsService.IsExistsAsync(albumId))    
         {
             return NotFound();
         }
@@ -63,9 +66,9 @@ public class AlbumsController : ControllerBase
     /// </summary>
     [HttpGet]
     [Route("Hierarchy/{albumId:guid}")]
-    public async Task<ActionResult<AlbumHierarchyResponse>> GetListAlbumsInHierarchy(Guid albumId)
+    public async Task<ActionResult<AlbumHierarchyResponse>> GetListInHierarchyAsync(Guid albumId)
     {
-        if (!await _albumsService.IsAlbumExistsAsync(albumId))
+        if (!await _albumsService.IsExistsAsync(albumId))
         {
             return NotFound();
         }
@@ -79,25 +82,47 @@ public class AlbumsController : ControllerBase
     }
 
     /// <summary>
+    /// Get album info
+    /// </summary>
+    [HttpGet]
+    [Route("{albumId:guid}")]
+    public async Task<ActionResult<AlbumInfoResponse>> GetInfoAsync(Guid albumId)
+    {
+        var album = await _albumsService.GetAlbumByIdAsync(albumId);
+
+        if (album == null)
+        {
+            return NotFound();
+        }
+        
+        return new AlbumInfoResponse(album.ToDto());
+    }
+
+    /// <summary>
     /// Add album
     /// </summary>
     [HttpPost]
     [Route("New")]
-    public async Task<ActionResult<NewAlbumResponse>> AddAlbumAsync(NewAlbumRequest request)
+    public async Task<ActionResult<NewAlbumResponse>> AddAsync(NewAlbumRequest request)
     {
         if (request == null)
         {
-            return BadRequest("Add album request mustn't be null!");
+            return BadRequest("Add album request mustn't be null.");
         }
 
         if (request.AlbumToAdd == null)
         {
             return BadRequest("When adding an album, information about the album must not be null.");
         }
+
+        if (!request.AlbumToAdd.Validate())
+        {
+            return BadRequest("Invalid new album data was provided.");
+        }
         
         return new NewAlbumResponse
         (
-            (await _albumsService.CreateNewAlbumAsync(request.AlbumToAdd.ToModel())).ToDto()
+            (await _albumsService.CreateAsync(request.AlbumToAdd.ToModel())).ToDto()
         );
     }
 
@@ -106,14 +131,14 @@ public class AlbumsController : ControllerBase
     /// </summary>
     [HttpDelete]
     [Route("{albumId:guid}")]
-    public async Task<ActionResult> DeleteAlbumAsync(Guid albumId)
+    public async Task<ActionResult> DeleteAsync(Guid albumId)
     {
-        if (!await _albumsService.IsAlbumExistsAsync(albumId))
+        if (!await _albumsService.IsExistsAsync(albumId))
         {
             return NotFound();
         }
 
-        await _albumsService.DeleteAlbumAsync(albumId);
+        await _albumsService.DeleteAsync(albumId);
         
         return Ok();
     }
@@ -123,7 +148,7 @@ public class AlbumsController : ControllerBase
     /// </summary>
     [HttpPost]
     [Route("{albumId:guid}/Rename")]
-    public async Task<ActionResult> RenameAlbumAsync(Guid albumId, RenameAlbumRequest request)
+    public async Task<ActionResult> RenameAsync(Guid albumId, RenameAlbumRequest request)
     {
         if (request == null)
         {
@@ -137,7 +162,7 @@ public class AlbumsController : ControllerBase
 
         try
         {
-            await _albumsService.RenameAlbumAsync(albumId, request.RenameAlbumInfo.NewName);
+            await _albumsService.RenameAsync(albumId, request.RenameAlbumInfo.NewName);
         }
         catch (ArgumentException ex)
         {
@@ -145,5 +170,15 @@ public class AlbumsController : ControllerBase
         }
         
         return Ok();
+    }
+    
+    /// <summary>
+    /// Is album exists?
+    /// </summary>
+    [HttpGet]
+    [Route("{albumId:guid}/IsExists")]
+    public async Task<ActionResult<ExistenceResponse>> IsExists(Guid albumId)
+    {
+        return new ExistenceResponse(new ExistenceDto(await _albumsService.IsExistsAsync(albumId)));
     }
 }

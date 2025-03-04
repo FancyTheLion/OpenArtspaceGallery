@@ -16,6 +16,6 @@ public class ImageSizeDimensionsExistenceResponse
         ExistenceDto dimensionsExistence
     )
     {
-        DimensionsExistence = dimensionsExistence ?? throw new ArgumentNullException(nameof(dimensionsExistence), "Dimensions are required and must not be null."); // TODO: Remove copypasta
+        DimensionsExistence = dimensionsExistence ?? throw new ArgumentNullException(nameof(dimensionsExistence), "Dimensions are required and must not be null.");
     }
 }
