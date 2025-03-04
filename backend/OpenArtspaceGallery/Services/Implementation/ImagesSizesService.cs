@@ -83,6 +83,11 @@ public class ImagesSizesService : IImagesSizesService
     /// </summary>
     private async Task ValidateImageSizeAsync(ImageSize imageSize)
     {
+        if (imageSize.Width < 30 || imageSize.Width > 100000 || imageSize.Height < 30 || imageSize.Height > 100000)
+        {
+            throw new ArgumentException("Width and Height must be between 30 and 100000.");
+        }
+        
         if (await _imagesSizesDao.IsAnotherExistsByNameAsync(imageSize.Id, imageSize.Name))
         {
             throw new ArgumentException($"Image size with name { imageSize.Name } already exists.", nameof(imageSize.Name));

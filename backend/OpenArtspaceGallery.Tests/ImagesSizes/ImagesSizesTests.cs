@@ -62,6 +62,18 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
         await AddAsync(name, width, height, HttpStatusCode.BadRequest, exitAfterResponseCodeCheck: true);
     }
     
+    [Theory]
+    [InlineData(29, 100001)]
+    [InlineData(31, 29)]
+    [InlineData(100001, 31)]
+    [InlineData(31, 100001)]
+    public async Task AddImageSize_WithInvalidDimensions(int width, int height)
+    {
+        var response = await AddAsync($"Name {Guid.NewGuid()}", width, height, HttpStatusCode.BadRequest, exitAfterResponseCodeCheck: true);
+
+        Assert.Null(response);
+    }
+    
     #endregion
 
     #region Get info
