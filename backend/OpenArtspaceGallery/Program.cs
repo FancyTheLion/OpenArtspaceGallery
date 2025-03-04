@@ -31,6 +31,7 @@ builder.Services.AddSwaggerGen();
     builder.Services.Configure<SiteInfoSettings>(builder.Configuration.GetSection(nameof(SiteInfoSettings)));
     builder.Services.Configure<CorsSettings>(builder.Configuration.GetSection(nameof(CorsSettings)));
     builder.Services.Configure<AlbumSettings>(builder.Configuration.GetSection(nameof(AlbumSettings)));
+    builder.Services.Configure<ImageSizeSettings>(builder.Configuration.GetSection(nameof(ImageSizeSettings)));
 
 #endregion
 
