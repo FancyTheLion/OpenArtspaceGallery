@@ -54,7 +54,7 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
     [Fact]
     public async Task AddImageSize_WithInvalidDimensions_ReturnsBadRequest()
     {
-        var settings = _factory.Configuration.GetSection("ImageSizeSettings").Get<ImageSizeSettings>();
+        var settings = _factory.Configuration.GetSection("ImageSizeSettings").Get<ImagesSizesSettings>();
         
         var testCases = new List<Tuple<string, int, int>>
         {
@@ -162,21 +162,6 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
         
         var updateResponse = await UpdateAsync(ImageSize.Id, ImageSize.Name, ImageSize.Width,  ImageSize.Height, exitAfterResponseCodeCheck: true, HttpStatusCode.NotFound);
     }
-    
-    /*[Fact]
-    public async Task UpdateAsync_WithNullValue_ReturnBadRequest() // TODO: Is the test unnecessary?
-    {
-        var updateRequest = new UpdateImageSizeByIdRequest
-        {
-            ImageSize = new ImageSizeDto(Guid.NewGuid(), null, 0, 0)
-        };
-
-        // Act
-        var response = await _factory.HttpClient.PostAsJsonAsync("api/ImagesSizes/UpdateById", updateRequest);
-
-        // Assert
-        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
-    }*/
 
     #endregion
 

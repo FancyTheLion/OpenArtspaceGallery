@@ -10,21 +10,21 @@ namespace OpenArtspaceGallery.Tests.Helpers;
 public class ImagesSizesHelper
 {
     private readonly IConfiguration _configuration;
-    private readonly ImageSizeSettings _imageSizeSettings;
+    private readonly ImagesSizesSettings _imagesSizesSettings;
     private readonly IEnumerator<ImageSize> _imagesSizesEnumerator;
 
     public ImagesSizesHelper(IConfiguration configuration)
     {
         _configuration = configuration;
-        _imageSizeSettings = _configuration.GetSection("ImageSizeSettings").Get<ImageSizeSettings>();
+        _imagesSizesSettings = _configuration.GetSection("ImageSizeSettings").Get<ImagesSizesSettings>();
         _imagesSizesEnumerator = CreateNextImageSize().GetEnumerator();
     }
     
     private IEnumerable<ImageSize> CreateNextImageSize()
     {
-        for (int height = _imageSizeSettings.MinHeight; height < _imageSizeSettings.MaxHeight; height++)
+        for (int height = _imagesSizesSettings.MinHeight; height < _imagesSizesSettings.MaxHeight; height++)
         {
-            for (int width = _imageSizeSettings.MinWidth; width < _imageSizeSettings.MaxWidth; width++)
+            for (int width = _imagesSizesSettings.MinWidth; width < _imagesSizesSettings.MaxWidth; width++)
             {
                 yield return new ImageSize(Guid.NewGuid(), $"Image Size { Guid.NewGuid() }", width, height);
             }

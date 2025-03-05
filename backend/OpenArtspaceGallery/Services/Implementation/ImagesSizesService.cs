@@ -11,17 +11,17 @@ namespace OpenArtspaceGallery.Services.Implementation;
 
 public class ImagesSizesService : IImagesSizesService
 {
-    private readonly ImageSizeSettings _imageSizeSettings;
+    private readonly ImagesSizesSettings _imagesSizesSettings;
     private readonly IImagesSizesDao _imagesSizesDao;
 
     public ImagesSizesService
     (
         IImagesSizesDao imagesSizesDao,
-        IOptions<ImageSizeSettings> imageSizeSettings
+        IOptions<ImagesSizesSettings> imageSizeSettings
     )
     {
         _imagesSizesDao = imagesSizesDao;
-        _imageSizeSettings = imageSizeSettings.Value;
+        _imagesSizesSettings = imageSizeSettings.Value;
     }
 
     public async Task<IReadOnlyCollection<ImageSize?>> GetListAsync()
@@ -90,13 +90,13 @@ public class ImagesSizesService : IImagesSizesService
     {
         if
         (
-            imageSize.Width < _imageSizeSettings.MinWidth
+            imageSize.Width < _imagesSizesSettings.MinWidth
             ||
-            imageSize.Width > _imageSizeSettings.MaxWidth
+            imageSize.Width > _imagesSizesSettings.MaxWidth
             ||
-            imageSize.Height < _imageSizeSettings.MinHeight
+            imageSize.Height < _imagesSizesSettings.MinHeight
             ||
-            imageSize.Height > _imageSizeSettings.MaxHeight
+            imageSize.Height > _imagesSizesSettings.MaxHeight
         )
         {
             throw new ArgumentException("Width and Height must be between 30 and 100000.");

@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace OpenArtspaceGallery.Models.Settings;
 
-public class ImageSizeSettings
+public class ImagesSizesSettings
 {
     /// <summary>
     /// Minimum image size
