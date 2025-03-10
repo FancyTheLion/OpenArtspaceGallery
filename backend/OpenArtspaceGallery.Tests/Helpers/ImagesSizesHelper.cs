@@ -16,7 +16,7 @@ public class ImagesSizesHelper
     public ImagesSizesHelper(IConfiguration configuration)
     {
         _configuration = configuration;
-        _imagesSizesSettings = _configuration.GetSection("ImageSizeSettings").Get<ImagesSizesSettings>();
+        _imagesSizesSettings = _configuration.GetSection(nameof(ImagesSizesSettings)).Get<ImagesSizesSettings>();
         _imagesSizesEnumerator = CreateNextImageSize().GetEnumerator();
     }
     

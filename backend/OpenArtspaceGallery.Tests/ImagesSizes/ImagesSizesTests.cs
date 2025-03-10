@@ -54,7 +54,7 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
     [Fact]
     public async Task AddImageSize_WithInvalidDimensions_ReturnsBadRequest()
     {
-        var settings = _factory.Configuration.GetSection("ImageSizeSettings").Get<ImagesSizesSettings>();
+        var settings = _factory.Configuration.GetSection(nameof(ImagesSizesSettings)).Get<ImagesSizesSettings>();
         
         var testCases = new List<Tuple<string, int, int>>
         {
