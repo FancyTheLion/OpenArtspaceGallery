@@ -6,6 +6,7 @@ using OpenArtspaceGallery.DAO.Models.Images;
 
 namespace OpenArtspaceGallery.DAO.Models.Images;
 
+[Table("ImagesFiles")]
 public class ImageFileDbo
 {
     /// <summary>

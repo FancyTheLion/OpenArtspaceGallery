@@ -4,6 +4,7 @@ using OpenArtspaceGallery.DAO.Models.Albums;
 
 namespace OpenArtspaceGallery.DAO.Models.Images;
 
+[Table("Images")]
 public class ImageDbo
 {
     /// <summary>

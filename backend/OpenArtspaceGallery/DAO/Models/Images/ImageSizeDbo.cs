@@ -1,7 +1,9 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OpenArtspaceGallery.DAO.Models.Images;
 
+[Table("ImagesSizes")]
 public class ImageSizeDbo
 {
     /// <summary>

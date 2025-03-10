@@ -4,6 +4,7 @@ using OpenArtspaceGallery.DAO.Models.FilesTypes;
 
 namespace OpenArtspaceGallery.DAO.Models.Files;
 
+[Table("Files")]
 public class FileDbo
 {
     /// <summary>
@@ -33,7 +34,7 @@ public class FileDbo
     public string Hash { get; set; }
 
     /// <summary>
-    /// File upload date
+    /// Last modification time
     /// </summary>
-    public DateTime UploadTime { get; set; }
+    public DateTime LastModificationTime { get; set; }
 }

@@ -53,11 +53,11 @@ public class MainDbContext : DbContext
         modelBuilder
             .Entity<FileDbo>()
             .HasOne<FileTypeDbo>(f => f.Type);
-
+        
         modelBuilder
             .Entity<ImageFileDbo>()
             .HasOne<ImageSizeDbo>(i => i.Size);
-
+        
         modelBuilder
             .Entity<ImageFileDbo>()
             .HasOne<FileDbo>(i => i.File);

@@ -1,10 +1,12 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using OpenArtspaceGallery.DAO.Models.Images;
 using OpenArtspaceGallery.Models;
 using OpenArtspaceGallery.Models.API.DTOs;
 
 namespace OpenArtspaceGallery.DAO.Models.Albums;
 
+[Table("Albums")]
 public class AlbumDbo
 {
     /// <summary>
