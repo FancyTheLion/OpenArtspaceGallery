@@ -21,6 +21,11 @@ public class FileDbo
     /// The file name that was given by the user (before uploading to the gallery)
     /// </summary>
     public string OriginalName { get; set; }
+    
+    /// <summary>
+    /// Relative path in file storage
+    /// </summary>
+    public string StoragePath { get; set; }
 
     /// <summary>
     /// SHA-512 of file content, for use as ETag

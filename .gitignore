@@ -359,3 +359,4 @@ Copy
 **/obj/
 *.dll
 *.cache
+*.csproj

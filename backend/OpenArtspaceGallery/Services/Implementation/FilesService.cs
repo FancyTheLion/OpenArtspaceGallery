@@ -9,7 +9,7 @@ public class FilesService : IFilesService
     {
         _ = file ?? throw new ArgumentNullException(nameof(file), "File must not be null!");
         
-        var folderPath = "/home/fancy/Projects/OpenArtspaceGalleryStorage/";
+        var folderPath = "/home/fancy/Projects/OpenArtspaceGalleryStorage";
 
         var filePath = Path.Combine(folderPath, file.FileName);
         

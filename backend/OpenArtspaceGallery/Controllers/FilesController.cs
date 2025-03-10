@@ -26,13 +26,6 @@ public class FilesController : ControllerBase
     [Consumes("multipart/form-data")]
     public async Task<ActionResult<UploadFileResponse>> UploadAsync(IFormFile file)
     {
-        try
-        {
-            return Ok(new UploadFileResponse(await _filesService.UploadFileAsync(file)));
-        }
-        catch (Exception)
-        {
-            return BadRequest("Error during file upload!");
-        }
+        return Ok(new UploadFileResponse(await _filesService.UploadFileAsync(file)));
     }
 }
