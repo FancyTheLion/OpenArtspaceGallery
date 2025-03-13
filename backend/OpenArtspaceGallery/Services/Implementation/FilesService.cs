@@ -51,7 +51,7 @@ public class FilesService : IFilesService
         {
             Type = fileType,
             OriginalName = file.FileName,
-            StoragePath = FolderPath,
+            StoragePath = filePath,
             Hash = SHA512Helper.CalculateSHA512(content)
         };
 
