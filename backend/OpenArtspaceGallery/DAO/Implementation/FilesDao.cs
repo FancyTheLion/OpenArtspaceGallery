@@ -43,11 +43,16 @@ public class FilesDao : IFilesDao
 
     public async Task<Guid?> GetFileTypeIdByMimeTypeAsync(string mimeType)
     {
-        return
-            (await _dbContext
+        if (string.IsNullOrEmpty(mimeType))
+        {
+            throw new ArgumentNullException(nameof(mimeType), "MIME type must not be null or empty.");
+        }
+        
+        var fileType = await _dbContext
                 .FileTypes
                 .Select(ft => new { Id = ft.Id, Type = ft.MimeType })
-                .SingleOrDefaultAsync(ft => ft.Type == mimeType))
-            .Id;
+                .SingleOrDefaultAsync(ft => ft.Type == mimeType);
+            
+            return fileType?.Id;
     }
 }

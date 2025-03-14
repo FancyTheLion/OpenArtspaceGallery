@@ -58,7 +58,7 @@ public class FilesService : IFilesService
             Id = fileId,
             Type = new FileTypeDbo() { Id = fileTypeId.Value },
             OriginalName = file.FileName,
-            StoragePath = filePath,
+            StoragePath = Path.Combine("OpenArtspaceGalleryStorage", fileName),
             Hash = SHA512Helper.CalculateSHA512(content)
         };
 

@@ -23,8 +23,7 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
     
     public ImagesSizesTests
     (
-        TestsFactory<Program> factory,
-        ITestOutputHelper output
+        TestsFactory<Program> factory
     )
     {
         _factory = factory;
