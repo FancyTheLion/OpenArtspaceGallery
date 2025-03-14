@@ -18,28 +18,36 @@ public class FilesDao : IFilesDao
         _dbContext = dbContext;
     }
 
-    public async Task CreateFileAsync(FileDbo file)
+    public async Task<FileDbo> CreateFileAsync(FileDbo file)
     {
         _ = file ?? throw new ArgumentNullException(nameof(file), "File must not be null.");
         
         file.LastModificationTime = DateTime.UtcNow;
-        
-        _dbContext.Entry(file.Type).State = EntityState.Unchanged;
 
+        // Looking up for file type by ID
+        file.Type = await _dbContext.FileTypes.SingleAsync(ft => ft.Id == file.Type.Id);
+        
         await _dbContext
             .Files
             .AddAsync(file);
         
-        var affected = await _dbContext.SaveChangesAsync();
-        if (affected != 1)
-        {
-            throw new InvalidOperationException($"Expected to insert 1 row, actually inserted { affected } rows!");
-        }
+        await _dbContext.SaveChangesAsync();
+
+        return file;
     }
     
     public async Task<FileTypeDbo> GetFileTypeByMimeTypeAsync(string mimeType)
     {
-        return await _dbContext.FileTypes.FirstOrDefaultAsync(ft => ft.MimeType == mimeType);
+        return await _dbContext.FileTypes.SingleOrDefaultAsync(ft => ft.MimeType == mimeType);
     }
-    
+
+    public async Task<Guid?> GetFileTypeIdByMimeTypeAsync(string mimeType)
+    {
+        return
+            (await _dbContext
+                .FileTypes
+                .Select(ft => new { Id = ft.Id, Type = ft.MimeType })
+                .SingleOrDefaultAsync(ft => ft.Type == mimeType))
+            .Id;
+    }
 }

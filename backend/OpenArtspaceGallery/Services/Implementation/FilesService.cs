@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using OpenArtspaceGallery.DAO.Abstract;
 using OpenArtspaceGallery.DAO.Contexts;
 using OpenArtspaceGallery.DAO.Models.Files;
+using OpenArtspaceGallery.DAO.Models.FilesTypes;
 using OpenArtspaceGallery.Helpers.Hashing;
 using OpenArtspaceGallery.Models.API.DTOs.Files;
 using OpenArtspaceGallery.Services.Abstract;
@@ -27,36 +28,42 @@ public class FilesService : IFilesService
     {
         _ = file ?? throw new ArgumentNullException(nameof(file), "File must not be null!");
 
-        var filePath = Path.Combine(FolderPath, file.FileName);
+        #region Storage file name
+
+        var fileId = Guid.NewGuid();
+        var fileName = fileId.ToString();
+
+        #endregion
+        
+        var filePath = Path.Combine(FolderPath, fileName);
         
         var content = new byte[file.Length];
 
-        using (var fileStream = file.OpenReadStream())
+        await using (var fileStream = file.OpenReadStream())
         {
             await fileStream.ReadAsync(content, 0, (int)file.Length);
         }
 
         await File.WriteAllBytesAsync(filePath, content);
         
-        var fileType = await _filesDao.GetFileTypeByMimeTypeAsync(file.ContentType);
+        var fileTypeId = await _filesDao.GetFileTypeIdByMimeTypeAsync(file.ContentType);
         
-        if (fileType == null)
+        if (fileTypeId == null)
         {
             throw new ArgumentException($"Unsupported file type: {file.ContentType}");
         }
         
-        _dbContext.Entry(fileType).State = EntityState.Unchanged;
-        
         var fileDbo = new FileDbo()
         {
-            Type = fileType,
+            Id = fileId,
+            Type = new FileTypeDbo() { Id = fileTypeId.Value },
             OriginalName = file.FileName,
             StoragePath = filePath,
             Hash = SHA512Helper.CalculateSHA512(content)
         };
 
-        await _filesDao.CreateFileAsync(fileDbo);
+        var result = await _filesDao.CreateFileAsync(fileDbo);
 
-        return new FileInfoDto(fileDbo.Id, fileDbo.OriginalName);
+        return new FileInfoDto(result.Id, result.OriginalName);
     }
 }

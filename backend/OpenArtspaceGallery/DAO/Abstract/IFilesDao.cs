@@ -10,13 +10,21 @@ public interface IFilesDao
     /// <summary>
     /// Create new file
     /// </summary>
-    Task CreateFileAsync(FileDbo file);
+    Task<FileDbo> CreateFileAsync(FileDbo file);
 
     #endregion
 
-    #region Save
+    #region Get
 
+    /// <summary>
+    /// Get file type by MIME type
+    /// </summary>
     public Task<FileTypeDbo> GetFileTypeByMimeTypeAsync(string mimeType);
+    
+    /// <summary>
+    /// Get only file type ID by MIME type
+    /// </summary>
+    public Task<Guid?> GetFileTypeIdByMimeTypeAsync(string mimeType);
 
     #endregion
 }
