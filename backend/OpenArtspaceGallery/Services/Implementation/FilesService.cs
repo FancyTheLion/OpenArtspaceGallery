@@ -11,15 +11,12 @@ namespace OpenArtspaceGallery.Services.Implementation;
 
 public class FilesService : IFilesService
 {
-    private readonly MainDbContext _dbContext;
     private readonly IFilesDao _filesDao;
     public FilesService
     (
-         MainDbContext dbContext,
          IFilesDao filesDao
     )
     {
-        _dbContext = dbContext;
         _filesDao = filesDao;
     }
 
