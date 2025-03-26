@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using OpenArtspaceGallery.DAO.Abstract;
 using OpenArtspaceGallery.DAO.Contexts;
 using OpenArtspaceGallery.DAO.Implementation;
+using OpenArtspaceGallery.Infrastructure.FileStorage;
 using OpenArtspaceGallery.Models.Settings;
 using OpenArtspaceGallery.Services.Abstract;
 using OpenArtspaceGallery.Services.Implementation;
@@ -10,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // DI
 #region DI
+
     #region Scoped
                 
     builder.Services.AddScoped<IAlbumsService, AlbumsService>();
@@ -18,6 +20,9 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddScoped<IImagesSizesDao, ImagesSizesDao>();
     builder.Services.AddScoped<IFilesService, FilesService>();
     builder.Services.AddScoped<IFilesDao, FilesDao>();
+    builder.Services.AddSingleton<IFolderInitializerService, FolderInitializerService>();
+    builder.Services.AddHostedService<FolderInitializer>();
+
 
     #endregion
             
