@@ -8,7 +8,7 @@ using OpenArtspaceGallery.Services.Abstract;
 
 namespace OpenArtspaceGallery.Services.Implementation;
 
-public class AlbumsService : IAlbumsService
+public class  AlbumsService : IAlbumsService
 {
     private readonly IAlbumsDao _albumsDao;
 

@@ -11,15 +11,14 @@ namespace OpenArtspaceGallery.Tests.Files;
 public class FilesTests : IClassFixture<TestsFactory<Program>>
 {
     private readonly TestsFactory<Program> _factory;
-    private readonly IFilesDao _filesDao;
     
-    public FilesTests(TestsFactory<Program> factory, IFilesDao filesDao)
+    public FilesTests(TestsFactory<Program> factory)
     {
         _factory = factory;
-        _filesDao = filesDao;
     }
     
-    /*[Fact]
+    /*
+    [Fact]
     public async Task UploadAsync_ValidPngFile_ReturnsOkWithFileId()
     {
         await using var stream = new MemoryStream(GetFakePngBytes());

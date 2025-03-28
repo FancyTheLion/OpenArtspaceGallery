@@ -25,7 +25,7 @@ public class FilesDao : IFilesDao
         file.LastModificationTime = DateTime.UtcNow;
 
         // Looking up for file type by ID
-        file.Type = await _dbContext.FileTypes.SingleAsync(ft => ft.Id == file.Type.Id);
+        file.Type = await _dbContext.FilesTypes.SingleAsync(ft => ft.Id == file.Type.Id);
         
         await _dbContext
             .Files
@@ -38,7 +38,7 @@ public class FilesDao : IFilesDao
     
     public async Task<FileTypeDbo> GetFileTypeByMimeTypeAsync(string mimeType)
     {
-        return await _dbContext.FileTypes.SingleOrDefaultAsync(ft => ft.MimeType == mimeType);
+        return await _dbContext.FilesTypes.SingleOrDefaultAsync(ft => ft.MimeType == mimeType);
     }
 
     public async Task<Guid?> GetFileTypeIdByMimeTypeAsync(string mimeType)
@@ -49,7 +49,7 @@ public class FilesDao : IFilesDao
         }
         
         var fileType = await _dbContext
-                .FileTypes
+                .FilesTypes
                 .Select(ft => new { Id = ft.Id, Type = ft.MimeType })
                 .SingleOrDefaultAsync(ft => ft.Type == mimeType);
             

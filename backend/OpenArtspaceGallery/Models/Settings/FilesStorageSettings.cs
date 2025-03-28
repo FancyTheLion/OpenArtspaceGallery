@@ -2,10 +2,10 @@ using System.Text.Json.Serialization;
 
 namespace OpenArtspaceGallery.Models.Settings;
 
-public class FileStorageSettings
+public class FilesStorageSettings
 {
     /// <summary>
-    /// 
+    /// Storage root path
     /// </summary>
     [JsonPropertyName("RootPath")]
     public string RootPath { get; set; }

@@ -6,6 +6,7 @@ using OpenArtspaceGallery.Infrastructure.FileStorage;
 using OpenArtspaceGallery.Models.Settings;
 using OpenArtspaceGallery.Services.Abstract;
 using OpenArtspaceGallery.Services.Implementation;
+using OpenArtspaceGallery.Services.Implementation.Hosted;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,8 +21,7 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddScoped<IImagesSizesDao, ImagesSizesDao>();
     builder.Services.AddScoped<IFilesService, FilesService>();
     builder.Services.AddScoped<IFilesDao, FilesDao>();
-    builder.Services.AddSingleton<IFolderInitializerService, FolderInitializerService>();
-    builder.Services.AddHostedService<FolderInitializer>();
+    builder.Services.AddHostedService<FilesStorageInitializer>();
 
 
     #endregion
@@ -39,6 +39,7 @@ builder.Services.AddSwaggerGen();
     builder.Services.Configure<CorsSettings>(builder.Configuration.GetSection(nameof(CorsSettings)));
     builder.Services.Configure<AlbumsSettings>(builder.Configuration.GetSection(nameof(AlbumsSettings)));
     builder.Services.Configure<ImagesSizesSettings>(builder.Configuration.GetSection(nameof(ImagesSizesSettings)));
+    builder.Services.Configure<FilesStorageSettings>(builder.Configuration.GetSection(nameof(FilesStorageSettings)));
 
 #endregion
 
@@ -86,7 +87,6 @@ if (builder.Environment.IsEnvironment("Testing"))
 else
 {
     // Normal mode
-    
     #region Main
     
     builder.Services.AddDbContext<MainDbContext>

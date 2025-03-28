@@ -26,12 +26,6 @@ public class FilesController : ControllerBase
     [Consumes("multipart/form-data")]
     public async Task<ActionResult<UploadFileResponse>> UploadAsync(IFormFile file)
     {
-        //TODO: For test
-        if (file.ContentType != "image/png") 
-        {
-            return BadRequest("Unsupported file type.");
-        } 
-        
         return Ok(new UploadFileResponse(await _filesService.UploadFileAsync(file)));
     }
 }

@@ -19,7 +19,7 @@ public class MainDbContext : DbContext
     /// <summary>
     /// File types
     /// </summary>
-    public DbSet<FileTypeDbo> FileTypes { get; set; }
+    public DbSet<FileTypeDbo> FilesTypes { get; set; }
     
     /// <summary>
     /// Image sizes
