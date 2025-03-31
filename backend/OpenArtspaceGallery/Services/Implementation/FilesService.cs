@@ -4,6 +4,7 @@ using OpenArtspaceGallery.DAO.Contexts;
 using OpenArtspaceGallery.DAO.Models.Files;
 using OpenArtspaceGallery.DAO.Models.FilesTypes;
 using OpenArtspaceGallery.Helpers.Hashing;
+using OpenArtspaceGallery.Infrastructure.FileStorage;
 using OpenArtspaceGallery.Models.API.DTOs.Files;
 using OpenArtspaceGallery.Services.Abstract;
 
@@ -32,7 +33,7 @@ public class FilesService : IFilesService
 
         #endregion
         
-        var filePath = Path.Combine(FolderPath, fileName);
+        var filePath = FileStorageHelper.GetFilePath(FolderPath, fileName);
         
         var content = new byte[file.Length];
 
@@ -42,6 +43,8 @@ public class FilesService : IFilesService
         }
 
         await File.WriteAllBytesAsync(filePath, content);
+        
+        var storagePath = Path.GetRelativePath(FolderPath, filePath);
         
         var fileTypeId = await _filesDao.GetFileTypeIdByMimeTypeAsync(file.ContentType);
         
@@ -55,7 +58,7 @@ public class FilesService : IFilesService
             Id = fileId,
             Type = new FileTypeDbo() { Id = fileTypeId.Value },
             OriginalName = file.FileName,
-            StoragePath = Path.Combine("OpenArtspaceGalleryStorage", fileName),
+            StoragePath = storagePath,
             Hash = SHA512Helper.CalculateSHA512(content)
         };
 

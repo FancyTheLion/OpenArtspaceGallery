@@ -11,4 +11,6 @@ public static class FilesStorage
     /// Directories per structure level
     /// </summary>
     public const int DirectoriesPerLevel = 16;
+    
+    
 }
