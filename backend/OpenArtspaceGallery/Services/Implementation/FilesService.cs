@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using OpenArtspaceGallery.DAO.Abstract;
 using OpenArtspaceGallery.DAO.Contexts;
 using OpenArtspaceGallery.DAO.Models.Files;
@@ -6,6 +7,7 @@ using OpenArtspaceGallery.DAO.Models.FilesTypes;
 using OpenArtspaceGallery.Helpers.Hashing;
 using OpenArtspaceGallery.Infrastructure.FileStorage;
 using OpenArtspaceGallery.Models.API.DTOs.Files;
+using OpenArtspaceGallery.Models.Settings;
 using OpenArtspaceGallery.Services.Abstract;
 
 namespace OpenArtspaceGallery.Services.Implementation;
@@ -13,15 +15,18 @@ namespace OpenArtspaceGallery.Services.Implementation;
 public class FilesService : IFilesService
 {
     private readonly IFilesDao _filesDao;
+    private readonly FilesStorageSettings _filesStorageSettings;
+    
     public FilesService
     (
-         IFilesDao filesDao
+        IOptions<FilesStorageSettings> filesStorageSettings,
+        IFilesDao filesDao
     )
     {
+        _filesStorageSettings = filesStorageSettings.Value;
         _filesDao = filesDao;
     }
-
-    public const string FolderPath = "/home/fancy/Projects/OpenArtspaceGalleryStorage";
+    
     public async Task<FileInfoDto> UploadFileAsync(IFormFile file)
     {
         _ = file ?? throw new ArgumentNullException(nameof(file), "File must not be null!");
@@ -29,22 +34,21 @@ public class FilesService : IFilesService
         #region Storage file name
 
         var fileId = Guid.NewGuid();
-        var fileName = fileId.ToString();
-
+        
         #endregion
         
-        var filePath = FileStorageHelper.GetFilePath(FolderPath, fileName);
+        var filePath = FileStorageHelper.GetFilePath(_filesStorageSettings.RootPath, fileId);
         
         var content = new byte[file.Length];
 
         await using (var fileStream = file.OpenReadStream())
         {
-            await fileStream.ReadAsync(content, 0, (int)file.Length);
+            await fileStream.ReadExactlyAsync(content, 0, (int)file.Length);
         }
 
         await File.WriteAllBytesAsync(filePath, content);
         
-        var storagePath = Path.GetRelativePath(FolderPath, filePath);
+        var storagePath = Path.GetRelativePath(_filesStorageSettings.RootPath, filePath);
         
         var fileTypeId = await _filesDao.GetFileTypeIdByMimeTypeAsync(file.ContentType);
         

@@ -1,30 +1,26 @@
+using System.Text;
+using System.Text.RegularExpressions;
+
 namespace OpenArtspaceGallery.Infrastructure.FileStorage;
 
 public class FileStorageHelper
 {
-    public static string GetFilePath(string rootPath, string fileName)
+    public static string GetFilePath(string rootPath, Guid fileId)
     {
-        var parts = fileName.Split('-');
-
-        if (parts.Length != 5)
-        {
-            throw new ArgumentException("Invalid GUID format.", nameof(fileName));
-        }
+        var fileIdAsString = fileId.ToString();
+        var parts = fileIdAsString.Split('-');
         
-        string firstLevel = GetHexFolder(parts[0]);
-        string secondLevel = GetHexFolder(parts[1]);
+        var firstLevel = GetHexFolder(parts[0]);
+        var secondLevel = GetHexFolder(parts[1]);
         
-        string fileDirectory = Path.Combine(rootPath, firstLevel, secondLevel);
-        string fullPath = Path.Combine(fileDirectory, fileName);
+        var fileDirectory = Path.Combine(rootPath, firstLevel, secondLevel);
+        var fullPath = Path.Combine(fileDirectory, fileIdAsString);
 
         return fullPath;
     }
 
     private static string GetHexFolder(string part)
     {
-        int sum = part.Sum(c => Convert.ToInt32(c.ToString(), 16));
-        int folderIndex = sum % 16;
-        return folderIndex.ToString("x1");
+        return (Encoding.UTF8.GetBytes(part).Sum(b => b) % 16).ToString("x1");
     }
-
 }
