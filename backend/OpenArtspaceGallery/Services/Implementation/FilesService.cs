@@ -7,6 +7,7 @@ using OpenArtspaceGallery.DAO.Models.FilesTypes;
 using OpenArtspaceGallery.Helpers.Hashing;
 using OpenArtspaceGallery.Infrastructure.FileStorage;
 using OpenArtspaceGallery.Models.API.DTOs.Files;
+using OpenArtspaceGallery.Models.Files;
 using OpenArtspaceGallery.Models.Settings;
 using OpenArtspaceGallery.Services.Abstract;
 
@@ -69,5 +70,10 @@ public class FilesService : IFilesService
         var result = await _filesDao.CreateFileAsync(fileDbo);
 
         return new FileInfoDto(result.Id, result.OriginalName);
+    }
+
+    public Task<FileModel> GetFileAsync(Guid fileId)
+    {
+        throw new NotImplementedException();
     }
 }
