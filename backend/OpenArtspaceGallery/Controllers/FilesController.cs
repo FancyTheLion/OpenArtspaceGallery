@@ -1,13 +1,9 @@
-using System.Net.Http.Headers;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.StaticFiles;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Microsoft.Net.Http.Headers;
 using OpenArtspaceGallery.DAO.Abstract;
 using OpenArtspaceGallery.DAO.Contexts;
 using OpenArtspaceGallery.Models.API.Responses.Files;
-using OpenArtspaceGallery.Models.Files;
 using OpenArtspaceGallery.Models.Settings;
 using OpenArtspaceGallery.Services.Abstract;
 
@@ -61,6 +57,13 @@ public class FilesController : ControllerBase
             return NotFound();
         }
         
-        return File(fileDto.Content, fileDto.Type.MimeType, fileDto.OriginalName);
+        return File
+        (
+            fileDto.Content,
+            fileDto.Type.MimeType,
+            fileDto.OriginalName,
+            fileDto.LastModificationTime,
+            new EntityTagHeaderValue($"\"{ fileDto.Hash }\"")
+        );
     }
 }

@@ -72,23 +72,19 @@ public class FilesService : IFilesService
         return new FileInfoDto(result.Id, result.OriginalName);
     }
 
-    public async Task<FileDownloadDto> GetFileForDownloadAsync(Guid fileId)
+    public async Task<FileForDownload> GetFileForDownloadAsync(Guid fileId)
     {
-        var fileWithType = await _filesDao.GetFileWithTypeAsync(fileId);
-        
-        var absolutePath = Path.Combine(_filesStorageSettings.RootPath, fileWithType.StoragePath);
+        var metadata = await _filesDao.GetFileMetadataAsync(fileId);
 
-        var fileBytes = await File.ReadAllBytesAsync(absolutePath);
+        var fileBytes = await File.ReadAllBytesAsync(Path.Combine(_filesStorageSettings.RootPath, metadata.StoragePath));
 
-        return new FileDownloadDto
+        return new FileForDownload
         {
-            Id = fileWithType.Id,
             Content = fileBytes,
-            OriginalName = fileWithType.OriginalName,
-            StoragePath = fileWithType.StoragePath,
-            Type = fileWithType.Type,
-            Hash = fileWithType.Hash,
-            LastModificationTime = fileWithType.LastModificationTime
+            OriginalName = metadata.OriginalName,
+            Type = metadata.Type,
+            Hash = metadata.Hash,
+            LastModificationTime = metadata.LastModificationTime
         };
     }
 }

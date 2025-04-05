@@ -13,5 +13,5 @@ public interface IFilesService
     /// <summary>
     /// Get file (for download)
     /// </summary>
-    public Task<FileDownloadDto> GetFileForDownloadAsync(Guid fileId);
+    public Task<FileForDownload> GetFileForDownloadAsync(Guid fileId);
 }
