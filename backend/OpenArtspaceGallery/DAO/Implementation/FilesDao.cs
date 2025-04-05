@@ -55,4 +55,11 @@ public class FilesDao : IFilesDao
             
             return fileType?.Id;
     }
+
+    public async Task<FileDbo?> GetFileWithTypeAsync(Guid fileId)
+    {
+        return await _dbContext.Files
+            .Include(f => f.Type)
+            .FirstOrDefaultAsync(f => f.Id == fileId);
+    }
 }

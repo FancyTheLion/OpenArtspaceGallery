@@ -26,5 +26,7 @@ public interface IFilesDao
     /// </summary>
     public Task<Guid?> GetFileTypeIdByMimeTypeAsync(string mimeType);
 
+    public Task<FileDbo?> GetFileWithTypeAsync(Guid fileId);
+
     #endregion
 }

@@ -72,8 +72,23 @@ public class FilesService : IFilesService
         return new FileInfoDto(result.Id, result.OriginalName);
     }
 
-    public Task<FileModel> GetFileAsync(Guid fileId)
+    public async Task<FileDownloadDto> GetFileForDownloadAsync(Guid fileId)
     {
-        throw new NotImplementedException();
+        var fileWithType = await _filesDao.GetFileWithTypeAsync(fileId);
+        
+        var absolutePath = Path.Combine(_filesStorageSettings.RootPath, fileWithType.StoragePath);
+
+        var fileBytes = await System.IO.File.ReadAllBytesAsync(absolutePath);
+
+        return new FileDownloadDto
+        {
+            Id = fileWithType.Id,
+            Content = fileBytes,
+            OriginalName = fileWithType.OriginalName,
+            StoragePath = fileWithType.StoragePath,
+            Type = fileWithType.Type,
+            Hash = fileWithType.Hash,
+            LastModificationTime = fileWithType.LastModificationTime
+        };
     }
 }

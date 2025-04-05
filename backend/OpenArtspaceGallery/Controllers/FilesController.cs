@@ -46,37 +46,18 @@ public class FilesController : ControllerBase
     {
         return Ok(new UploadFileResponse(await _filesService.UploadFileAsync(file)));
     }
-    
+
     [HttpGet]
     [Route("{id}")]
     public async Task<IActionResult> DownloadFile(Guid id)
     {
-        var fileEntity = await _dbContext.Files
-            .Include(f => f.Type) 
-            .FirstOrDefaultAsync(f => f.Id == id);
+        var fileDto = await _filesService.GetFileForDownloadAsync(id);
 
-        if (fileEntity == null)
-            return NotFound();
-        
-        var absolutePath = Path.Combine(_filesStorageSettings.RootPath, fileEntity.StoragePath);
-        if (!System.IO.File.Exists(absolutePath))
-            return NotFound("Файл на диске не найден");
-        
-        var fileBytes = await System.IO.File.ReadAllBytesAsync(absolutePath);
-        
-        var contentType = GetMimeType(fileEntity.OriginalName);
-        return File(fileBytes, contentType, fileEntity.OriginalName);
-    }
-    
-    private string GetMimeType(string fileName)
-    {
-        var provider = new FileExtensionContentTypeProvider();
-
-        if (!provider.TryGetContentType(fileName, out var contentType))
+        if (fileDto == null)
         {
-            contentType = "application/octet-stream"; 
+            return NotFound();
         }
-
-        return contentType;
+        
+        return File(fileDto.Content, fileDto.Type.MimeType, fileDto.OriginalName);
     }
 }
