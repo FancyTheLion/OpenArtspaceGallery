@@ -47,9 +47,12 @@ public class FilesController : ControllerBase
         return Ok(new UploadFileResponse(await _filesService.UploadFileAsync(file)));
     }
 
+    /// <summary>
+    /// Download file
+    /// </summary>
     [HttpGet]
     [Route("{id}")]
-    public async Task<IActionResult> DownloadFile(Guid id)
+    public async Task<ActionResult> DownloadFile(Guid id)
     {
         var fileDto = await _filesService.GetFileForDownloadAsync(id);
 

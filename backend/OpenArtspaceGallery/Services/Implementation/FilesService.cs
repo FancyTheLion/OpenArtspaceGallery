@@ -78,7 +78,7 @@ public class FilesService : IFilesService
         
         var absolutePath = Path.Combine(_filesStorageSettings.RootPath, fileWithType.StoragePath);
 
-        var fileBytes = await System.IO.File.ReadAllBytesAsync(absolutePath);
+        var fileBytes = await File.ReadAllBytesAsync(absolutePath);
 
         return new FileDownloadDto
         {
