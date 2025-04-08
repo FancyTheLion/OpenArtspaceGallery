@@ -39,7 +39,6 @@ public class FilesService : IFilesService
         #endregion
         
         var filePath = FileStorageHelper.GetFilePath(_filesStorageSettings.RootPath, fileId);
-        
         var content = new byte[file.Length];
 
         await using (var fileStream = file.OpenReadStream())
@@ -47,29 +46,40 @@ public class FilesService : IFilesService
             await fileStream.ReadExactlyAsync(content, 0, (int)file.Length);
         }
 
-        await File.WriteAllBytesAsync(filePath, content);
-        
-        var storagePath = Path.GetRelativePath(_filesStorageSettings.RootPath, filePath);
-        
         var fileTypeId = await _filesDao.GetFileTypeIdByMimeTypeAsync(file.ContentType);
-        
         if (fileTypeId == null)
         {
             throw new ArgumentException($"Unsupported file type: {file.ContentType}");
         }
-        
-        var fileDbo = new FileDbo()
+
+        var fileToSave = new FileToSaveDto
         {
             Id = fileId,
-            Type = new FileTypeDbo() { Id = fileTypeId.Value },
-            OriginalName = file.FileName,
-            StoragePath = storagePath,
-            Hash = SHA512Helper.CalculateSHA512(content)
+            OriginalFileName = file.FileName,
+            FileTypeId = fileTypeId.Value,
+            FilePath = filePath,
+            Content = content
         };
-
-        var result = await _filesDao.CreateFileAsync(fileDbo);
-
-        return new FileInfoDto(result.Id, result.OriginalName);
+        
+        var fileDbo = await SaveFileAsync(fileToSave);
+        
+        return new FileInfoDto(fileDbo.Id, fileDbo.OriginalName);
+    }
+    
+    public async Task<FileDbo> SaveFileAsync(FileToSaveDto dto)
+    {
+        var storagePath = Path.GetRelativePath(_filesStorageSettings.RootPath, dto.FilePath);
+        
+        var fileDbo = new FileDbo
+        {
+            Id = dto.Id,
+            Type = new FileTypeDbo { Id = dto.FileTypeId },
+            OriginalName = dto.OriginalFileName,
+            StoragePath = storagePath,
+            Hash = SHA512Helper.CalculateSHA512(dto.Content)
+        };
+        
+        return await _filesDao.CreateFileAsync(fileDbo);
     }
 
     public async Task<FileForDownload> GetFileForDownloadAsync(Guid fileId)

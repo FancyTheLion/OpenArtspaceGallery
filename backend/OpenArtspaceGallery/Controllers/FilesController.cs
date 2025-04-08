@@ -14,22 +14,13 @@ namespace OpenArtspaceGallery.Controllers;
 public class FilesController : ControllerBase
 {
     private readonly IFilesService _filesService;
-    private readonly IFilesDao _filesDao;
-    private readonly MainDbContext _dbContext;
-    private readonly FilesStorageSettings _filesStorageSettings;
 
     public FilesController
     (
-        IFilesService filesService,
-        IFilesDao filesDao,
-        MainDbContext dbContext,
-        IOptions<FilesStorageSettings> filesStorageSettings
+        IFilesService filesService
     )
     {
         _filesService = filesService;
-        _filesStorageSettings = filesStorageSettings.Value;
-        _filesDao = filesDao;
-        _dbContext = dbContext;
     }
     
     /// <summary>

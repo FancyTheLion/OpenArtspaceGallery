@@ -1,3 +1,4 @@
+using OpenArtspaceGallery.DAO.Models.Files;
 using OpenArtspaceGallery.Models.API.DTOs.Files;
 using OpenArtspaceGallery.Models.Files;
 
@@ -14,4 +15,9 @@ public interface IFilesService
     /// Get file (for download)
     /// </summary>
     public Task<FileForDownload> GetFileForDownloadAsync(Guid fileId);
+    
+    /// <summary>
+    ///  Save file to database and disk
+    /// </summary>
+    Task<FileDbo> SaveFileAsync(FileToSaveDto dto);
 }

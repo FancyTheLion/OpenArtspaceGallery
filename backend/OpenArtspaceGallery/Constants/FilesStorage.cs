@@ -12,5 +12,9 @@ public static class FilesStorage
     /// </summary>
     public const int DirectoriesPerLevel = 16;
     
-    
+    /// <summary>
+    /// Used to split the guid
+    /// </summary>
+    public const char GuidSeparator = '-';
+
 }
