@@ -67,14 +67,26 @@ public class FilesService : IFilesService
         var fileDbo = await SaveFileAsync(fileToSave);
         
         var previewFile = await _resizeService.ResizeImageAsync(content, _filesStorageSettings.MaxSize);
-        var desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-        var resizedPhotoName = Path.GetFileNameWithoutExtension(file.FileName)
-                               + "_preview"
-                               + Path.GetExtension(file.FileName);
-        var previewPath = Path.Combine(desktopPath, resizedPhotoName);
-
-        await File.WriteAllBytesAsync(previewPath, previewFile);
         
+        var previewFileId = Guid.NewGuid();
+    
+        var previewFileName = Path.GetFileNameWithoutExtension(file.FileName)
+                              + "_preview"
+                              + Path.GetExtension(file.FileName);
+        
+        var previewFilePath = FileStorageHelper.GetFilePath(_filesStorageSettings.RootPath, previewFileId);
+        
+        var previewToSave = new FileToSaveDto
+        {
+            Id = previewFileId,
+            OriginalFileName = previewFileName,
+            FileTypeId = fileTypeId.Value,
+            FilePath = previewFilePath,
+            Content = previewFile
+        };
+
+        await SaveFileAsync(previewToSave);
+
         return new FileInfoDto(fileDbo.Id, fileDbo.OriginalName);
     }
     
@@ -95,7 +107,7 @@ public class FilesService : IFilesService
         
         return await _filesDao.CreateFileAsync(fileDbo);
     }
-
+    
     public async Task<FileForDownload> GetFileForDownloadAsync(Guid fileId)
     {
         var metadata = await _filesDao.GetFileMetadataAsync(fileId);

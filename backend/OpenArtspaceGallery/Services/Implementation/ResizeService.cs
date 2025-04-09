@@ -17,8 +17,8 @@ public class ResizeService : IResizeService
                 var height = image.Height;
 
                 var scale = (double)maxSize / Math.Max(width, height);
-                var newWidth = (width * scale);
-                var newHeight = (height * scale);
+                var newWidth = width * scale;
+                var newHeight = height * scale;
 
                 image.Resize((uint)newWidth, (uint)newHeight);
             }
