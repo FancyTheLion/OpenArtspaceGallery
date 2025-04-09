@@ -80,6 +80,8 @@ public class FilesService : IFilesService
     
     public async Task<FileDbo> SaveFileAsync(FileToSaveDto dto)
     {
+        await File.WriteAllBytesAsync(dto.FilePath, dto.Content);
+        
         var storagePath = Path.GetRelativePath(_filesStorageSettings.RootPath, dto.FilePath);
         
         var fileDbo = new FileDbo
