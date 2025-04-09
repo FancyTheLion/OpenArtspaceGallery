@@ -17,15 +17,18 @@ public class FilesService : IFilesService
 {
     private readonly IFilesDao _filesDao;
     private readonly FilesStorageSettings _filesStorageSettings;
+    private readonly IResizeService _resizeService;
     
     public FilesService
     (
         IOptions<FilesStorageSettings> filesStorageSettings,
-        IFilesDao filesDao
+        IFilesDao filesDao,
+        IResizeService resizeService
     )
     {
         _filesStorageSettings = filesStorageSettings.Value;
         _filesDao = filesDao;
+        _resizeService = resizeService;
     }
     
     public async Task<FileInfoDto> UploadFileAsync(IFormFile file)
@@ -62,6 +65,15 @@ public class FilesService : IFilesService
         };
         
         var fileDbo = await SaveFileAsync(fileToSave);
+        
+        var previewFile = await _resizeService.ResizeImageAsync(content, _filesStorageSettings.MaxSize);
+        var desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+        var resizedPhotoName = Path.GetFileNameWithoutExtension(file.FileName)
+                               + "_preview"
+                               + Path.GetExtension(file.FileName);
+        var previewPath = Path.Combine(desktopPath, resizedPhotoName);
+
+        await File.WriteAllBytesAsync(previewPath, previewFile);
         
         return new FileInfoDto(fileDbo.Id, fileDbo.OriginalName);
     }

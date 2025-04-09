@@ -9,4 +9,10 @@ public class FilesStorageSettings
     /// </summary>
     [JsonPropertyName("RootPath")]
     public string RootPath { get; set; }
+    
+    /// <summary>
+    /// File max size
+    /// </summary>
+    [JsonPropertyName("MaxSize")]
+    public int MaxSize { get; set; }
 }
