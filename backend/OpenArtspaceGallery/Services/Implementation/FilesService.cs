@@ -10,6 +10,7 @@ using OpenArtspaceGallery.Models.API.DTOs.Files;
 using OpenArtspaceGallery.Models.Files;
 using OpenArtspaceGallery.Models.Settings;
 using OpenArtspaceGallery.Services.Abstract;
+using FileInfo = OpenArtspaceGallery.Models.Files.FileInfo;
 
 namespace OpenArtspaceGallery.Services.Implementation;
 
@@ -31,17 +32,10 @@ public class FilesService : IFilesService
         _resizeService = resizeService;
     }
     
-    public async Task<FileInfoDto> UploadFileAsync(IFormFile file)
+    public async Task<FileInfo> UploadFileAsync(IFormFile file)
     {
         _ = file ?? throw new ArgumentNullException(nameof(file), "File must not be null!");
-
-        #region Storage file name
-
-        var fileId = Guid.NewGuid();
         
-        #endregion
-        
-        var filePath = FileStorageHelper.GetFilePath(_filesStorageSettings.RootPath, fileId);
         var content = new byte[file.Length];
 
         await using (var fileStream = file.OpenReadStream())
@@ -49,63 +43,45 @@ public class FilesService : IFilesService
             await fileStream.ReadExactlyAsync(content, 0, (int)file.Length);
         }
 
-        var fileTypeId = await _filesDao.GetFileTypeIdByMimeTypeAsync(file.ContentType);
-        if (fileTypeId == null)
-        {
-            throw new ArgumentException($"Unsupported file type: {file.ContentType}");
-        }
-
-        var fileToSave = new FileToSaveDto
-        {
-            Id = fileId,
-            OriginalFileName = file.FileName,
-            FileTypeId = fileTypeId.Value,
-            FilePath = filePath,
-            Content = content
-        };
+        var originalFileInfo = await SaveFileAsync(file.FileName, file.ContentType, content);
         
-        var fileDbo = await SaveFileAsync(fileToSave);
+        // Generating preview
+        //var previewFileContent = await _resizeService.ResizeImageAsync(content, _filesStorageSettings.MaxSize);
+        //await SaveFileAsync($"{ file.FileName }_preview", file.ContentType, previewFileContent);
         
-        var previewFile = await _resizeService.ResizeImageAsync(content, _filesStorageSettings.MaxSize);
-        
-        var previewFileId = Guid.NewGuid();
-    
-        var previewFileName = Path.GetFileNameWithoutExtension(file.FileName)
-                              + "_preview"
-                              + Path.GetExtension(file.FileName);
-        
-        var previewFilePath = FileStorageHelper.GetFilePath(_filesStorageSettings.RootPath, previewFileId);
-        
-        var previewToSave = new FileToSaveDto
-        {
-            Id = previewFileId,
-            OriginalFileName = previewFileName,
-            FileTypeId = fileTypeId.Value,
-            FilePath = previewFilePath,
-            Content = previewFile
-        };
-
-        await SaveFileAsync(previewToSave);
-
-        return new FileInfoDto(fileDbo.Id, fileDbo.OriginalName);
+        return originalFileInfo;
     }
-    
-    public async Task<FileDbo> SaveFileAsync(FileToSaveDto dto)
+
+    public async Task<FileInfo> SaveFileAsync
+    (
+        string name,
+        string type,
+        byte[] content
+    )
     {
-        await File.WriteAllBytesAsync(dto.FilePath, dto.Content);
+        var id = Guid.NewGuid();
+        var path = FileStorageHelper.GetFilePath(_filesStorageSettings.RootPath, id);
         
-        var storagePath = Path.GetRelativePath(_filesStorageSettings.RootPath, dto.FilePath);
+        var typeId = await _filesDao.GetFileTypeIdByMimeTypeAsync(type)
+                         ??
+                         throw new ArgumentException($"Unsupported file type: { type }");
         
-        var fileDbo = new FileDbo
+        await File.WriteAllBytesAsync(path, content);
+        
+        var relativePath = Path.GetRelativePath(_filesStorageSettings.RootPath, path);
+        
+        var dbo = new FileDbo
         {
-            Id = dto.Id,
-            Type = new FileTypeDbo { Id = dto.FileTypeId },
-            OriginalName = dto.OriginalFileName,
-            StoragePath = storagePath,
-            Hash = SHA512Helper.CalculateSHA512(dto.Content)
+            Id = id,
+            Type = new FileTypeDbo { Id = typeId },
+            OriginalName = name,
+            StoragePath = relativePath,
+            Hash = SHA512Helper.CalculateSHA512(content)
         };
         
-        return await _filesDao.CreateFileAsync(fileDbo);
+        var savedDbo = await _filesDao.CreateFileAsync(dbo);
+        
+        return new FileInfo(savedDbo.Id, savedDbo.OriginalName);
     }
     
     public async Task<FileForDownload> GetFileForDownloadAsync(Guid fileId)

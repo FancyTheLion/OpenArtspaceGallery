@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
 using OpenArtspaceGallery.DAO.Abstract;
 using OpenArtspaceGallery.DAO.Contexts;
+using OpenArtspaceGallery.Models.API.DTOs.Files;
 using OpenArtspaceGallery.Models.API.Responses.Files;
 using OpenArtspaceGallery.Models.Settings;
 using OpenArtspaceGallery.Services.Abstract;
@@ -31,7 +32,13 @@ public class FilesController : ControllerBase
     [Consumes("multipart/form-data")]
     public async Task<ActionResult<UploadFileResponse>> UploadAsync(IFormFile file)
     {
-        return Ok(new UploadFileResponse(await _filesService.UploadFileAsync(file)));
+        return Ok
+        (
+            new UploadFileResponse
+            (
+                FileInfoDto.FromModel(await _filesService.UploadFileAsync(file))
+            )
+        );
     }
 
     /// <summary>

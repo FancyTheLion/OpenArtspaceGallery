@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using FileInfo = OpenArtspaceGallery.Models.Files.FileInfo;
 
 namespace OpenArtspaceGallery.Models.API.DTOs.Files;
 
@@ -29,5 +30,15 @@ public class FileInfoDto
             throw new ArgumentException("File name must be populated!", nameof(name));
         }
         Name = name;
+    }
+
+    /// <summary>
+    /// Construct DTO from model
+    /// </summary>
+    public static FileInfoDto FromModel(FileInfo model)
+    {
+        _ = model ?? throw new ArgumentNullException(nameof(model));
+        
+        return new FileInfoDto(model.Id, model.Name);
     }
 }

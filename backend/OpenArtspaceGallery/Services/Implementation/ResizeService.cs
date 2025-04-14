@@ -1,4 +1,5 @@
 using ImageMagick;
+using OpenArtspaceGallery.Models;
 using OpenArtspaceGallery.Services.Abstract;
 
 namespace OpenArtspaceGallery.Services.Implementation;
@@ -29,5 +30,10 @@ public class ResizeService : IResizeService
                 return saveStream.ToArray();
             }
         }
+    }
+
+    public Task<IReadOnlyDictionary<Guid, FileInfo>> GenerateImagesSetAsync(Guid sourceFileId, IReadOnlyCollection<ImageSize> sizes)
+    {
+        throw new NotImplementedException();
     }
 }
