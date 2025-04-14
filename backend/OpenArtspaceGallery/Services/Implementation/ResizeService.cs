@@ -34,6 +34,6 @@ public class ResizeService : IResizeService
 
     public Task<IReadOnlyDictionary<Guid, FileInfo>> GenerateImagesSetAsync(Guid sourceFileId, IReadOnlyCollection<ImageSize> sizes)
     {
-        throw new NotImplementedException();
+        
     }
 }
