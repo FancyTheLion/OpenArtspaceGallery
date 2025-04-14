@@ -18,7 +18,6 @@ public class FilesService : IFilesService
 {
     private readonly IFilesDao _filesDao;
     private readonly FilesStorageSettings _filesStorageSettings;
-    private readonly IResizeService _resizeService;
     
     public FilesService
     (
@@ -29,7 +28,6 @@ public class FilesService : IFilesService
     {
         _filesStorageSettings = filesStorageSettings.Value;
         _filesDao = filesDao;
-        _resizeService = resizeService;
     }
     
     public async Task<FileInfo> UploadFileAsync(IFormFile file)
