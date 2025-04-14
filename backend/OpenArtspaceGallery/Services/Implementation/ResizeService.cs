@@ -43,7 +43,7 @@ public class ResizeService : IResizeService
             }
         }
     }
-
+    
     public async Task<byte[]> ResizeImageToFixedSizeAsync(byte[] content, int width, int height)
     {
         using (var imagesCollection = new MagickImageCollection())
@@ -63,16 +63,23 @@ public class ResizeService : IResizeService
         }
     }
 
-    public async Task<IReadOnlyDictionary<Guid, byte[]>> GenerateImagesSetAsync(Guid sourceFileId, IReadOnlyCollection<ImageSize> sizes, byte[] originalContent)
+    public async Task<IReadOnlyDictionary<Guid, FileInfo>> GenerateImagesSetAsync(Guid sourceFileId, IReadOnlyCollection<ImageSize> sizes, byte[] content)
     {
-        var result = new Dictionary<Guid, byte[]>();
-
+        var mimeType = await _filesDao.GetMimeTypeByFileIdAsync(sourceFileId);
+        
+        var result = new Dictionary<Guid, FileInfo>();
+        
         foreach (var size in sizes)
         {
-            var resizedContent = await ResizeImageToFixedSizeAsync(originalContent, size.Width, size.Height);
-            result[size.Id] = resizedContent;
+            var resizedContent = await ResizeImageToFixedSizeAsync(content, size.Width, size.Height);
+            
+            var newFileId = Guid.NewGuid();
+            var newFileName = $"{Path.GetFileNameWithoutExtension("image")}_{size.Name}_{size.Width}x{size.Height}.{mimeType}";
+            
+            var fileInfo = new FileInfo(newFileId, newFileName);
+            result[size.Id] = fileInfo;
         }
-
+        
         return result;
     }
 }
