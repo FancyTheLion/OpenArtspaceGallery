@@ -99,7 +99,7 @@ public class ImagesSizesService : IImagesSizesService
             imageSize.Height > _imagesSizesSettings.MaxHeight
         )
         {
-            throw new ArgumentException("Width and Height must be between 30 and 100000."); // TODO: Remove hardcode!
+            throw new ArgumentException($"Width and Height must be between {_imagesSizesSettings.MinWidth} and {_imagesSizesSettings.MaxWidth}.");
         }
         
         if (await _imagesSizesDao.IsAnotherExistsByNameAsync(imageSize.Id, imageSize.Name))

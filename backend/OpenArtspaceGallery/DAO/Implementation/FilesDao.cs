@@ -62,4 +62,17 @@ public class FilesDao : IFilesDao
             .Include(f => f.Type)
             .FirstOrDefaultAsync(f => f.Id == fileId);
     }
+
+    public async Task<string> GetMimeTypeByFileIdAsync(Guid fileId)
+    {
+        var file = await _dbContext.Files
+            .Include(f => f.Type)
+            .Where(f => f.Id == fileId)
+            .Select(f => f.Type.MimeType)
+            .SingleOrDefaultAsync();
+
+        return file;
+    }
+    
+    
 }

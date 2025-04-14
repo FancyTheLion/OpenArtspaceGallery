@@ -32,5 +32,10 @@ public interface IFilesDao
     /// <param name="fileId"></param>
     public Task<FileDbo?> GetFileMetadataAsync(Guid fileId);
 
+    /// <summary>
+    ///  Get mime type by file id
+    /// </summary>
+    public Task<string> GetMimeTypeByFileIdAsync(Guid fileId);
+
     #endregion
 }

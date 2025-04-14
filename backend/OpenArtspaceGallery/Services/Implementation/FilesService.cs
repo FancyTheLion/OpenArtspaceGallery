@@ -1,3 +1,4 @@
+using ImageMagick;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using OpenArtspaceGallery.DAO.Abstract;
@@ -45,9 +46,11 @@ public class FilesService : IFilesService
 
         var originalFileInfo = await SaveFileAsync(file.FileName, file.ContentType, content);
         
+        //await _resizeService.GenerateImagesSetAsync(originalFileInfo.Id, );
+        
         // Generating preview
-        //var previewFileContent = await _resizeService.ResizeImageAsync(content, _filesStorageSettings.MaxSize);
-        //await SaveFileAsync($"{ file.FileName }_preview", file.ContentType, previewFileContent);
+        /*var previewFileContent = await _resizeService.ResizeImageAsync(content, _filesStorageSettings.MaxSize);
+        await SaveFileAsync($"{ file.FileName }_preview", file.ContentType, previewFileContent);*/
         
         return originalFileInfo;
     }
