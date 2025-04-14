@@ -7,6 +7,7 @@ using OpenArtspaceGallery.DAO.Models.Files;
 using OpenArtspaceGallery.DAO.Models.FilesTypes;
 using OpenArtspaceGallery.Helpers.Hashing;
 using OpenArtspaceGallery.Infrastructure.FileStorage;
+using OpenArtspaceGallery.Models;
 using OpenArtspaceGallery.Models.API.DTOs.Files;
 using OpenArtspaceGallery.Models.Files;
 using OpenArtspaceGallery.Models.Settings;
@@ -20,17 +21,20 @@ public class FilesService : IFilesService
     private readonly IFilesDao _filesDao;
     private readonly FilesStorageSettings _filesStorageSettings;
     private readonly IResizeService _resizeService;
+    private readonly IImagesSizesDao _imagesSizesDao;
     
     public FilesService
     (
         IOptions<FilesStorageSettings> filesStorageSettings,
         IFilesDao filesDao,
-        IResizeService resizeService
+        IResizeService resizeService,
+        IImagesSizesDao imagesSizesDao
     )
     {
         _filesStorageSettings = filesStorageSettings.Value;
         _filesDao = filesDao;
         _resizeService = resizeService;
+        _imagesSizesDao = imagesSizesDao;
     }
     
     public async Task<FileInfo> UploadFileAsync(IFormFile file)
@@ -45,6 +49,24 @@ public class FilesService : IFilesService
         }
 
         var originalFileInfo = await SaveFileAsync(file.FileName, file.ContentType, content);
+        
+        var sizesFromDb = await _imagesSizesDao.GetListAsync();
+        
+        var sizes = sizesFromDb
+            .Select(ImageSize.FromDbo)
+            .Where(x => x != null)
+            .ToList()!;
+        
+        var resizedImages = await _resizeService.GenerateImagesSetAsync(originalFileInfo.Id, sizes, content);
+        
+        foreach (var size in sizes)
+        {
+            var resizedContent = resizedImages[size.Id];
+
+            var resizedFileName = $"{Path.GetFileNameWithoutExtension(file.FileName)}_{size.Name}_{size.Width}x{size.Height}.{file.ContentType}";
+
+            await SaveFileAsync(resizedFileName, file.ContentType, resizedContent);
+        }
         
         //await _resizeService.GenerateImagesSetAsync(originalFileInfo.Id, );
         
