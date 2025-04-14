@@ -17,9 +17,6 @@ public interface IFilesService
     /// </summary>
     public Task<FileForDownload> GetFileForDownloadAsync(Guid fileId);
     
-    /// <summary>
-    /// Save file
-    /// </summary>
     Task<FileInfo> SaveFileAsync
     (
         string name,

@@ -1,5 +1,4 @@
 using OpenArtspaceGallery.Models;
-using FileInfo = OpenArtspaceGallery.Models.Files.FileInfo;
 
 namespace OpenArtspaceGallery.Services.Abstract;
 
@@ -19,7 +18,6 @@ public interface IResizeService
     public Task<IReadOnlyDictionary<Guid, FileInfo>> GenerateImagesSetAsync
     (
         Guid sourceFileId,
-        IReadOnlyCollection<ImageSize> sizes,
-        byte[] content
+        IReadOnlyCollection<ImageSize> sizes
     );
 }
