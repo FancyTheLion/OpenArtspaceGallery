@@ -1,4 +1,5 @@
 using ImageMagick;
+using OpenArtspaceGallery.DAO.Abstract;
 using OpenArtspaceGallery.Models;
 using OpenArtspaceGallery.Services.Abstract;
 
@@ -6,6 +7,16 @@ namespace OpenArtspaceGallery.Services.Implementation;
 
 public class ResizeService : IResizeService
 {
+    private readonly IFilesService _filesService;
+
+    public ResizeService
+    (
+        IFilesService filesService
+    )
+    {
+        _filesService = filesService;
+    }
+
     public async Task<byte[]> ResizeImageAsync(byte[] content, int maxSize)
     {
         using (var imagesCollection = new MagickImageCollection())

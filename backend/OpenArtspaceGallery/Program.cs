@@ -22,6 +22,7 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddScoped<IFilesService, FilesService>();
     builder.Services.AddScoped<IFilesDao, FilesDao>();
     builder.Services.AddScoped<IResizeService, ResizeService>();
+    builder.Services.AddScoped<IImageProcessingService, ImageProcessingService>();
     builder.Services.AddHostedService<FilesStorageInitializer>();
 
 

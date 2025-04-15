@@ -22,8 +22,7 @@ public class FilesService : IFilesService
     public FilesService
     (
         IOptions<FilesStorageSettings> filesStorageSettings,
-        IFilesDao filesDao,
-        IResizeService resizeService
+        IFilesDao filesDao
     )
     {
         _filesStorageSettings = filesStorageSettings.Value;
