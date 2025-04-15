@@ -1,4 +1,5 @@
 using OpenArtspaceGallery.Models;
+using FileInfo = OpenArtspaceGallery.Models.Files.FileInfo;
 
 namespace OpenArtspaceGallery.Services.Abstract;
 

@@ -2,19 +2,23 @@ using ImageMagick;
 using OpenArtspaceGallery.DAO.Abstract;
 using OpenArtspaceGallery.Models;
 using OpenArtspaceGallery.Services.Abstract;
+using FileInfo = OpenArtspaceGallery.Models.Files.FileInfo;
 
 namespace OpenArtspaceGallery.Services.Implementation;
 
 public class ResizeService : IResizeService
 {
     private readonly IFilesService _filesService;
+    private readonly ILogger<FilesService> _logger;
 
     public ResizeService
     (
-        IFilesService filesService
+        IFilesService filesService,
+        ILogger<FilesService> logger
     )
     {
         _filesService = filesService;
+        _logger = logger;
     }
 
     public async Task<byte[]> ResizeImageAsync(byte[] content, int maxSize)
@@ -42,9 +46,49 @@ public class ResizeService : IResizeService
             }
         }
     }
-
-    public Task<IReadOnlyDictionary<Guid, FileInfo>> GenerateImagesSetAsync(Guid sourceFileId, IReadOnlyCollection<ImageSize> sizes)
+    
+    public async Task<byte[]> ResizeImageToFixedSizeAsync(byte[] content, int width, int height)
     {
-        throw new NotImplementedException();
+        using (var imagesCollection = new MagickImageCollection())
+        {
+            imagesCollection.Read(content);
+
+            foreach (var image in imagesCollection)
+            {
+                image.Resize((uint)width, (uint)height);
+            }
+
+            using (var saveStream = new MemoryStream())
+            {
+                await imagesCollection.WriteAsync(saveStream);
+                return saveStream.ToArray();
+            }
+        }
+    }
+
+    public async Task<IReadOnlyDictionary<Guid, FileInfo>> GenerateImagesSetAsync(Guid sourceFileId, IReadOnlyCollection<ImageSize> sizes)
+    {
+        var file = await _filesService.GetFileForDownloadAsync(sourceFileId);
+        
+        var results = new Dictionary<Guid, FileInfo>();
+        
+        foreach (var size in sizes)
+        {
+                var resizedImage = await ResizeImageToFixedSizeAsync(file.Content, size.Width, size.Height);
+            
+                var newFileName = $"{Path.GetFileNameWithoutExtension(file.OriginalName)}_{size.Width}x{size.Height}{Path.GetExtension(file.OriginalName)}";
+
+                var type = file.Type.MimeType;
+            
+                var savedFile = await _filesService.SaveFileAsync(
+                    newFileName,
+                    type,
+                    resizedImage
+                );
+
+                results[size.Id] = savedFile;
+        }
+
+        return results;
     }
 }
