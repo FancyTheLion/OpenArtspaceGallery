@@ -24,5 +24,10 @@ public static class Sizes
     /// </summary>
     public const int ThumbnailHeight = 150; 
     
+    /// <summary>
+    /// Flag
+    /// </summary>
+    public const bool ThumbnailFlag = true;
+    
     #endregion
 }
