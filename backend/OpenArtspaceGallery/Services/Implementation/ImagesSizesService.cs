@@ -50,7 +50,8 @@ public class ImagesSizesService : IImagesSizesService
             Id = Guid.Empty,
             Name = imageSize.Name,
             Width = imageSize.Width,
-            Height = imageSize.Height
+            Height = imageSize.Height,
+            IsPreview = false
         };
         
         return ImageSize.FromDbo(await _imagesSizesDao.AddAsync(newImageSize));
@@ -77,7 +78,8 @@ public class ImagesSizesService : IImagesSizesService
             Id = imageSize.Id,
             Name = imageSize.Name,
             Width = imageSize.Width,
-            Height = imageSize.Height
+            Height = imageSize.Height,
+            IsPreview = false
         };
         
         return ImageSize.FromDbo(await _imagesSizesDao.UpdateByIdAsync(imageSizeToUpdate));
