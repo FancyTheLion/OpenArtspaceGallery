@@ -15,13 +15,16 @@ namespace OpenArtspaceGallery.Controllers;
 public class FilesController : ControllerBase
 {
     private readonly IImageProcessingService _imageProcessingService;
+    private readonly IFilesService _filesService;
     
     public FilesController
     (
-        IImageProcessingService imageProcessingService
+        IImageProcessingService imageProcessingService,
+        IFilesService filesService
     )
     {
         _imageProcessingService = imageProcessingService;
+        _filesService = filesService;
     }
     
     /// <summary>
@@ -48,7 +51,7 @@ public class FilesController : ControllerBase
     [Route("{id}")]
     public async Task<ActionResult> DownloadFile(Guid id)
     {
-        var fileDto = await _imageProcessingService.GetFileForDownloadAsync(id);
+        var fileDto = await _filesService.GetFileForDownloadAsync(id);
 
         if (fileDto == null)
         {

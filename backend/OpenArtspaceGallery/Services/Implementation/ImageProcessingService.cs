@@ -10,20 +10,20 @@ public class ImageProcessingService : IImageProcessingService
     private readonly IFilesService _filesService;
     private readonly IResizeService _resizeService;
     private readonly IImagesSizesService _imagesSizesService;
-    private readonly ILogger<FilesService> _logger;
+//    private readonly ILogger<FilesService> _logger;
     
     public ImageProcessingService
     (
         IFilesService filesService,
         IResizeService resizeService,
-        IImagesSizesService imagesSizesService,
-        ILogger<FilesService> logger
+        IImagesSizesService imagesSizesService
+//        ILogger<FilesService> logger
     )
     {
         _filesService = filesService;
         _resizeService = resizeService;
-        _imagesSizesService = imagesSizesService;
-        _logger = logger;
+        _imagesSizesService = imagesSizesService; 
+//        _logger = logger;
     }
 
     public async Task<FileInfo> UploadFileAsync(IFormFile file)
@@ -35,12 +35,5 @@ public class ImageProcessingService : IImageProcessingService
         var resizesDictionary = await _resizeService.GenerateImagesSetAsync(fileInfo.Id, sizes);
         
         return fileInfo;
-    }
-
-    public async Task<FileForDownload> GetFileForDownloadAsync(Guid fileId)
-    {
-        var uploadedFile = await _filesService.GetFileForDownloadAsync(fileId);
-        
-        return uploadedFile;
     }
 }

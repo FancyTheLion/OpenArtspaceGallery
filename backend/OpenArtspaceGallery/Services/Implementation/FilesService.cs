@@ -40,13 +40,7 @@ public class FilesService : IFilesService
             await fileStream.ReadExactlyAsync(content, 0, (int)file.Length);
         }
 
-        var originalFileInfo = await SaveFileAsync(file.FileName, file.ContentType, content);
-        
-        // Generating preview
-        //var previewFileContent = await _resizeService.ResizeImageAsync(content, _filesStorageSettings.MaxSize);
-        //await SaveFileAsync($"{ file.FileName }_preview", file.ContentType, previewFileContent);
-        
-        return originalFileInfo;
+        return await SaveFileAsync(file.FileName, file.ContentType, content);
     }
 
     public async Task<FileInfo> SaveFileAsync

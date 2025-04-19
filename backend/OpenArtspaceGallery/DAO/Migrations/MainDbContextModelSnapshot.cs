@@ -42,7 +42,7 @@ namespace OpenArtspaceGallery.DAO.Migrations
 
                     b.HasIndex("ParentId");
 
-                    b.ToTable("Albums", (string)null);
+                    b.ToTable("Albums");
                 });
 
             modelBuilder.Entity("OpenArtspaceGallery.DAO.Models.Files.FileDbo", b =>
@@ -73,7 +73,7 @@ namespace OpenArtspaceGallery.DAO.Migrations
 
                     b.HasIndex("TypeId");
 
-                    b.ToTable("Files", (string)null);
+                    b.ToTable("Files");
                 });
 
             modelBuilder.Entity("OpenArtspaceGallery.DAO.Models.FilesTypes.FileTypeDbo", b =>
@@ -92,7 +92,7 @@ namespace OpenArtspaceGallery.DAO.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FilesTypes", (string)null);
+                    b.ToTable("FilesTypes");
                 });
 
             modelBuilder.Entity("OpenArtspaceGallery.DAO.Models.Images.ImageDbo", b =>
@@ -119,7 +119,7 @@ namespace OpenArtspaceGallery.DAO.Migrations
 
                     b.HasIndex("AlbumId");
 
-                    b.ToTable("Images", (string)null);
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("OpenArtspaceGallery.DAO.Models.Images.ImageFileDbo", b =>
@@ -145,7 +145,7 @@ namespace OpenArtspaceGallery.DAO.Migrations
 
                     b.HasIndex("SizeId");
 
-                    b.ToTable("ImagesFiles", (string)null);
+                    b.ToTable("ImagesFiles");
                 });
 
             modelBuilder.Entity("OpenArtspaceGallery.DAO.Models.Images.ImageSizeDbo", b =>
@@ -157,6 +157,9 @@ namespace OpenArtspaceGallery.DAO.Migrations
                     b.Property<int>("Height")
                         .HasColumnType("integer");
 
+                    b.Property<bool>("IsPreview")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
@@ -166,7 +169,7 @@ namespace OpenArtspaceGallery.DAO.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ImagesSizes", (string)null);
+                    b.ToTable("ImagesSizes");
                 });
 
             modelBuilder.Entity("OpenArtspaceGallery.DAO.Models.Albums.AlbumDbo", b =>

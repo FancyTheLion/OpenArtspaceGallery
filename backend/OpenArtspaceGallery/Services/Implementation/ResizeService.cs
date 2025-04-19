@@ -46,43 +46,20 @@ public class ResizeService : IResizeService
             }
         }
     }
-    
-    public async Task<byte[]> ResizeImageToFixedSizeAsync(byte[] content, int width, int height)
-    {
-        using (var imagesCollection = new MagickImageCollection())
-        {
-            imagesCollection.Read(content);
-
-            foreach (var image in imagesCollection)
-            {
-                image.Resize((uint)width, (uint)height);
-            }
-
-            using (var saveStream = new MemoryStream())
-            {
-                await imagesCollection.WriteAsync(saveStream);
-                return saveStream.ToArray();
-            }
-        }
-    }
 
     public async Task<IReadOnlyDictionary<Guid, FileInfo>> GenerateImagesSetAsync(Guid sourceFileId, IReadOnlyCollection<ImageSize> sizes)
     {
-        var file = await _filesService.GetFileForDownloadAsync(sourceFileId);
+        var sourceFile = await _filesService.GetFileForDownloadAsync(sourceFileId);
         
         var results = new Dictionary<Guid, FileInfo>();
         
         foreach (var size in sizes)
         {
-                var resizedImage = await ResizeImageToFixedSizeAsync(file.Content, size.Width, size.Height);
-            
-                var newFileName = $"{Path.GetFileNameWithoutExtension(file.OriginalName)}_{size.Width}x{size.Height}{Path.GetExtension(file.OriginalName)}";
-
-                var type = file.Type.MimeType;
+                var resizedImage = await ResizeImageAsync(sourceFile.Content, Math.Max(size.Width, size.Height));
             
                 var savedFile = await _filesService.SaveFileAsync(
-                    newFileName,
-                    type,
+                    $"{ Path.GetFileNameWithoutExtension(sourceFile.OriginalName)}_{size.Width}x{size.Height}{Path.GetExtension(sourceFile.OriginalName) }",
+                    sourceFile.Type.MimeType,
                     resizedImage
                 );
 

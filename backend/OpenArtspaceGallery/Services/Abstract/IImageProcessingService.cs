@@ -9,9 +9,4 @@ public interface IImageProcessingService
     /// Upload file
     /// </summary>
     public Task<FileInfo> UploadFileAsync(IFormFile file);
-
-    /// <summary>
-    /// Get file (for download)
-    /// </summary>
-    public Task<FileForDownload> GetFileForDownloadAsync(Guid fileId);
 }
