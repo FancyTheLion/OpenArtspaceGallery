@@ -22,12 +22,19 @@ public class ImageSizeBaseDto
     /// </summary>
     [JsonPropertyName("height")]
     public int Height { get; private set; }
+    
+    /// <summary>
+    /// Is preview?
+    /// </summary>
+    [JsonPropertyName("isPreview")]
+    public bool IsPreview { get; private set; }
 
     public ImageSizeBaseDto
     (
         string name,
         int width,
-        int height
+        int height,
+        bool isPreview
     )
     {
         ImageSizeValidator.Validate(name, width, height);
@@ -35,10 +42,11 @@ public class ImageSizeBaseDto
         Name = name;
         Width = width;
         Height = height;
+        IsPreview = isPreview;
     }
     
     public virtual ImageSize ToModel()
     {
-        return new ImageSize(Guid.Empty, Name, Width, Height);
+        return new ImageSize(Guid.Empty, Name, Width, Height, false);
     }
 }

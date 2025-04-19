@@ -26,7 +26,7 @@ public class ImagesSizesHelper
         {
             for (int width = _imagesSizesSettings.MinWidth; width < _imagesSizesSettings.MaxWidth; width++)
             {
-                yield return new ImageSize(Guid.NewGuid(), $"Image Size { Guid.NewGuid() }", width, height);
+                yield return new ImageSize(Guid.NewGuid(), $"Image Size { Guid.NewGuid() }", width, height, false);
             }
         }
 

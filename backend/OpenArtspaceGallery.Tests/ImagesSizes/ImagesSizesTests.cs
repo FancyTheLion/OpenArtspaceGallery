@@ -339,7 +339,7 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
     {
         var updateRequest = new UpdateImageSizeByIdRequest
         {
-            ImageSize = new ImageSizeDto(id, name, width,  height)
+            ImageSize = new ImageSizeDto(id, name, width, height, false)
         };
         
         var response = await _factory.HttpClient.PostAsJsonAsync("api/ImagesSizes/UpdateById", updateRequest);
@@ -371,7 +371,8 @@ public class ImagesSizesTests : IClassFixture<TestsFactory<Program>>
             (
                 name,
                 width,
-                height
+                height,
+                false
             )
         };
         

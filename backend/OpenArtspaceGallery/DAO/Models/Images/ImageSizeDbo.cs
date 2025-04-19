@@ -28,7 +28,7 @@ public class ImageSizeDbo
     public int Height { get; set; }
     
     /// <summary>
-    /// Preview
+    /// Is preview?
     /// </summary>
     public bool IsPreview { get; set; }
 }

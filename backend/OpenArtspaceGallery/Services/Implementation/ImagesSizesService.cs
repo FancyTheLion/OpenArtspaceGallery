@@ -72,6 +72,9 @@ public class ImagesSizesService : IImagesSizesService
         _ = imageSize ?? throw new ArgumentNullException(nameof(imageSize), "Update data cannot be null!");
         
         await ValidateImageSizeAsync(imageSize);
+
+        var isPreview = (await GetImageSizeByIdAsync(imageSize.Id))
+            .IsPreview;
             
         var imageSizeToUpdate = new ImageSizeDbo()
         {
@@ -79,7 +82,7 @@ public class ImagesSizesService : IImagesSizesService
             Name = imageSize.Name,
             Width = imageSize.Width,
             Height = imageSize.Height,
-            IsPreview = false
+            IsPreview = isPreview
         };
         
         return ImageSize.FromDbo(await _imagesSizesDao.UpdateByIdAsync(imageSizeToUpdate));

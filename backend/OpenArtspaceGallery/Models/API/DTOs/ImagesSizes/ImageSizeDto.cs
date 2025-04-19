@@ -16,14 +16,15 @@ public class ImageSizeDto : ImageSizeBaseDto
         Guid id,
         string name,
         int width,
-        int height
-    ) : base(name, width, height)
+        int height,
+        bool isPreview
+    ) : base(name, width, height, isPreview)
     {
         Id = id;
     }
     
     public override ImageSize ToModel()
     {
-        return new ImageSize(Id, Name, Width, Height);
+        return new ImageSize(Id, Name, Width, Height, false);
     }
 }

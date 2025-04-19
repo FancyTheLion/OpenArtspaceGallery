@@ -26,13 +26,19 @@ public class ImageSize
     /// Image size (Height)
     /// </summary>
     public int Height { get; private set; }
+    
+    /// <summary>
+    /// Is preview?
+    /// </summary>
+    public bool IsPreview { get; private set; }
 
     public ImageSize
     (
         Guid id,
         string name,
         int width,
-        int height
+        int height,
+        bool isPreview
     )
     {
         ImageSizeValidator.Validate(name, width, height);
@@ -41,6 +47,7 @@ public class ImageSize
         Name = name;
         Width = width;
         Height = height;
+        IsPreview = isPreview;
     }
 
     public static ImageSize? FromDbo
@@ -60,7 +67,8 @@ public class ImageSize
             imageSize.Id,
             imageSize.Name,
             imageSize.Width,
-            imageSize.Height
+            imageSize.Height,
+            imageSize.IsPreview
         );
     }
 
@@ -71,7 +79,8 @@ public class ImageSize
             Id,
             Name,
             Width,
-            Height
+            Height,
+            IsPreview
         );
     }
 }
