@@ -43,7 +43,7 @@ public class ImagesController : ControllerBase
         }
     }
 
-    /*/// <summary>
+    /// <summary>
     /// Add image
     /// </summary>
     [Route("AddImage")]
@@ -51,7 +51,19 @@ public class ImagesController : ControllerBase
     public async Task<ActionResult<Guid>> AddImage(AddImageRequest image)
     {
         var file = await _filesService.GetFileForDownloadAsync(image.AddImage.SourceFileId);
+
+        if (file == null)
+        {
+            return NotFound();
+        }
+
+        var imageResult = await _filesService.AddImageAsync
+        (
+            image.AddImage.Name,
+            image.AddImage.Description,
+            image.AddImage.AlbumId
+        );
         
-        
-    }*/
+        return Ok(imageResult);
+    }
 }

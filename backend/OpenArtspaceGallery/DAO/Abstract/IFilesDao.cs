@@ -1,5 +1,7 @@
+using OpenArtspaceGallery.DAO.Models.Albums;
 using OpenArtspaceGallery.DAO.Models.Files;
 using OpenArtspaceGallery.DAO.Models.FilesTypes;
+using OpenArtspaceGallery.DAO.Models.Images;
 
 namespace OpenArtspaceGallery.DAO.Abstract;
 
@@ -11,6 +13,11 @@ public interface IFilesDao
     /// Create new file
     /// </summary>
     Task<FileDbo> CreateFileAsync(FileDbo file);
+    
+    /// <summary>
+    /// Add image
+    /// </summary>
+    Task<ImageDbo> AddImageAsync(ImageDbo image);
 
     #endregion
 

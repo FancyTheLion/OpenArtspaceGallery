@@ -37,4 +37,10 @@ public class ImageDbo
     /// Image belongs to this album
     /// </summary>
     public AlbumDbo Album { get; set; }
+    
+    /// <summary>
+    /// Album id
+    /// </summary>
+    public Guid AlbumId { get; set; }
+
 }

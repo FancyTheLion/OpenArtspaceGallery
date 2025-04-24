@@ -4,10 +4,12 @@ using OpenArtspaceGallery.DAO.Abstract;
 using OpenArtspaceGallery.DAO.Contexts;
 using OpenArtspaceGallery.DAO.Models.Files;
 using OpenArtspaceGallery.DAO.Models.FilesTypes;
+using OpenArtspaceGallery.DAO.Models.Images;
 using OpenArtspaceGallery.Helpers.Hashing;
 using OpenArtspaceGallery.Infrastructure.FileStorage;
 using OpenArtspaceGallery.Models.API.DTOs.Files;
 using OpenArtspaceGallery.Models.Files;
+using OpenArtspaceGallery.Models.Images;
 using OpenArtspaceGallery.Models.Settings;
 using OpenArtspaceGallery.Services.Abstract;
 using FileInfo = OpenArtspaceGallery.Models.Files.FileInfo;
@@ -18,15 +20,18 @@ public class FilesService : IFilesService
 {
     private readonly IFilesDao _filesDao;
     private readonly FilesStorageSettings _filesStorageSettings;
+    private readonly IAlbumsDao _albumsDao;
     
     public FilesService
     (
         IOptions<FilesStorageSettings> filesStorageSettings,
-        IFilesDao filesDao
+        IFilesDao filesDao,
+        IAlbumsDao albumsDao
     )
     {
         _filesStorageSettings = filesStorageSettings.Value;
         _filesDao = filesDao;
+        _albumsDao = albumsDao;
     }
     
     public async Task<FileInfo> UploadFileAsync(IFormFile file)
@@ -74,7 +79,7 @@ public class FilesService : IFilesService
         
         return new FileInfo(savedDbo.Id, savedDbo.OriginalName);
     }
-    
+
     public async Task<FileForDownload> GetFileForDownloadAsync(Guid fileId)
     {
         var metadata = await _filesDao.GetFileMetadataAsync(fileId);
@@ -88,6 +93,31 @@ public class FilesService : IFilesService
             Type = metadata.Type,
             Hash = metadata.Hash,
             LastModificationTime = metadata.LastModificationTime
+        };
+    }
+    
+    public async Task<Image> AddImageAsync(string name, string description, Guid albumId)
+    {
+        var album = await _albumsDao.AttachAlbumByIdAsync(albumId);
+        
+        var dbo = new ImageDbo
+        {
+            Id = Guid.NewGuid(),
+            Name = name,
+            Description = description,
+            CreationTime = DateTime.UtcNow,
+            AlbumId = albumId,
+            Files = new List<ImageFileDbo>()
+        };
+        
+        var created = await _filesDao.AddImageAsync(dbo);
+
+        return new Image
+        {
+            Name = created.Name,
+            Description = created.Description,
+            AlbumId = albumId,
+            CreationTime = created.CreationTime
         };
     }
 }

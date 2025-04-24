@@ -1,8 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using OpenArtspaceGallery.DAO.Abstract;
 using OpenArtspaceGallery.DAO.Contexts;
+using OpenArtspaceGallery.DAO.Models.Albums;
 using OpenArtspaceGallery.DAO.Models.Files;
 using OpenArtspaceGallery.DAO.Models.FilesTypes;
+using OpenArtspaceGallery.DAO.Models.Images;
 
 namespace OpenArtspaceGallery.DAO.Implementation;
 
@@ -35,7 +37,7 @@ public class FilesDao : IFilesDao
 
         return file;
     }
-    
+
     public async Task<FileTypeDbo> GetFileTypeByMimeTypeAsync(string mimeType)
     {
         return await _dbContext.FilesTypes.SingleOrDefaultAsync(ft => ft.MimeType == mimeType);
@@ -61,5 +63,16 @@ public class FilesDao : IFilesDao
         return await _dbContext.Files
             .Include(f => f.Type)
             .FirstOrDefaultAsync(f => f.Id == fileId);
+    }
+    
+    public async Task<ImageDbo> AddImageAsync(ImageDbo image)
+    {
+        await _dbContext
+            .Images
+            .AddAsync(image);
+        
+        await _dbContext.SaveChangesAsync();
+
+        return image;
     }
 }

@@ -122,4 +122,16 @@ public class AlbumsDao : IAlbumsDao
         
         await _dbContext.SaveChangesAsync();
     }
+    
+    public async Task<AlbumDbo> AttachAlbumByIdAsync(Guid albumId)
+    {
+        var album = new AlbumDbo 
+            { Id = albumId };
+        
+        _dbContext
+            .Albums
+            .Attach(album);
+        
+        return album;
+    }
 }
