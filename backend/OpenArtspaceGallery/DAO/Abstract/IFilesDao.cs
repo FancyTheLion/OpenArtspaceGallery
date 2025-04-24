@@ -19,6 +19,11 @@ public interface IFilesDao
     /// </summary>
     Task<ImageDbo> AddImageAsync(ImageDbo image);
 
+    /// <summary>
+    /// Adding a dimension to a link table
+    /// </summary>
+    Task<ImageFileDbo> AddImageFileAsync(ImageFileDbo imageFile);
+    
     #endregion
 
     #region Get

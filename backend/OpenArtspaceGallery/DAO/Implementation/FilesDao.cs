@@ -75,4 +75,15 @@ public class FilesDao : IFilesDao
 
         return image;
     }
+    
+    public async Task<ImageFileDbo> AddImageFileAsync(ImageFileDbo imageFile)
+    {
+        await _dbContext
+            .Image
+            .AddAsync(imageFile);
+        
+        await _dbContext.SaveChangesAsync();
+
+        return imageFile;
+    }
 }

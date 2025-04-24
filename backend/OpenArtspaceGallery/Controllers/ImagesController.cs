@@ -7,13 +7,19 @@ namespace OpenArtspaceGallery.Controllers;
 public class ImagesController : ControllerBase
 {
     private readonly IFilesService _filesService;
-
+    private readonly IResizeService _resizeService;
+    private readonly IImagesSizesService _imagesSizesService;
+    
     public ImagesController
     (
-        IFilesService filesService
+        IFilesService filesService,
+        IResizeService resizeService,
+        IImagesSizesService imagesSizesService
     )
     {
         _filesService = filesService;
+        _resizeService = resizeService;
+        _imagesSizesService = imagesSizesService;
     }
 
     /// <summary>
@@ -63,6 +69,10 @@ public class ImagesController : ControllerBase
             image.AddImage.Description,
             image.AddImage.AlbumId
         );
+        
+        var sizes = await _imagesSizesService.GetListAsync();
+
+        var resizedImages = await _resizeService.GenerateImagesSetAsync(image.AddImage.SourceFileId, sizes);
         
         return Ok(imageResult);
     }
