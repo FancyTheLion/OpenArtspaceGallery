@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using OpenArtspaceGallery.Models.API.Requests.Images;
 using OpenArtspaceGallery.Services.Abstract;
 
 namespace OpenArtspaceGallery.Controllers;
@@ -21,7 +22,7 @@ public class ImagesController : ControllerBase
     [Route("Upload")]
     [HttpPost]
     [Consumes("multipart/form-data")]
-    public async Task<ActionResult<Guid>> Upload(string name, string description, Guid albumId, IFormFile file)
+    public async Task<ActionResult<Guid>> Upload(ImageForUploadRequest image, IFormFile file)
     {
         if (file == null)
         {
@@ -34,11 +35,23 @@ public class ImagesController : ControllerBase
             var fileBytes = memoryStream.ToArray();
             
             var fileGuid = await _filesService.SaveFileAsync(
-                name, 
+                image.ImageForUpload.Name, 
                 file.ContentType, 
                 fileBytes);
             
             return Ok(fileGuid);
         }
     }
+
+    /*/// <summary>
+    /// Add image
+    /// </summary>
+    [Route("AddImage")]
+    [HttpPost]
+    public async Task<ActionResult<Guid>> AddImage(AddImageRequest image)
+    {
+        var file = await _filesService.GetFileForDownloadAsync(image.AddImage.SourceFileId);
+        
+        
+    }*/
 }
