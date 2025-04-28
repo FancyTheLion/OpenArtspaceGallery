@@ -23,16 +23,15 @@ public class FilesDao : IFilesDao
     public async Task<FileDbo> CreateFileAsync(FileDbo file)
     {
         _ = file ?? throw new ArgumentNullException(nameof(file), "File must not be null.");
-        
-        file.LastModificationTime = DateTime.UtcNow;
 
-        // Looking up for file type by ID
-        file.Type = await _dbContext.FilesTypes.SingleAsync(ft => ft.Id == file.Type.Id);
+        file.LastModificationTime = DateTime.UtcNow;
         
+        file.Type = await _dbContext.FilesTypes.SingleAsync(ft => ft.Id == file.Type.Id);
+
         await _dbContext
             .Files
             .AddAsync(file);
-        
+
         await _dbContext.SaveChangesAsync();
 
         return file;
@@ -49,13 +48,13 @@ public class FilesDao : IFilesDao
         {
             throw new ArgumentNullException(nameof(mimeType), "MIME type must not be null or empty.");
         }
-        
+
         var fileType = await _dbContext
-                .FilesTypes
-                .Select(ft => new { Id = ft.Id, Type = ft.MimeType })
-                .SingleOrDefaultAsync(ft => ft.Type == mimeType);
-            
-            return fileType?.Id;
+            .FilesTypes
+            .Select(ft => new { Id = ft.Id, Type = ft.MimeType })
+            .SingleOrDefaultAsync(ft => ft.Type == mimeType);
+
+        return fileType?.Id;
     }
 
     public async Task<FileDbo?> GetFileMetadataAsync(Guid fileId)
@@ -63,27 +62,5 @@ public class FilesDao : IFilesDao
         return await _dbContext.Files
             .Include(f => f.Type)
             .FirstOrDefaultAsync(f => f.Id == fileId);
-    }
-    
-    public async Task<ImageDbo> AddImageAsync(ImageDbo image)
-    {
-        await _dbContext
-            .Images
-            .AddAsync(image);
-        
-        await _dbContext.SaveChangesAsync();
-
-        return image;
-    }
-    
-    public async Task<ImageFileDbo> AddImageFileAsync(ImageFileDbo imageFile)
-    {
-        await _dbContext
-            .Image
-            .AddAsync(imageFile);
-        
-        await _dbContext.SaveChangesAsync();
-
-        return imageFile;
     }
 }

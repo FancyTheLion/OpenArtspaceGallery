@@ -122,16 +122,18 @@ public class AlbumsDao : IAlbumsDao
         
         await _dbContext.SaveChangesAsync();
     }
-    
+
     public async Task<AlbumDbo> AttachAlbumByIdAsync(Guid albumId)
     {
-        var album = new AlbumDbo 
-            { Id = albumId };
-        
-        _dbContext
+        var album = await _dbContext
             .Albums
-            .Attach(album);
-        
+            .SingleOrDefaultAsync(a => a.Id == albumId);
+
+        if (album == null)
+        {
+            throw new InvalidOperationException($"Album with Id {albumId} does not exist.");
+        }
+
         return album;
     }
 }

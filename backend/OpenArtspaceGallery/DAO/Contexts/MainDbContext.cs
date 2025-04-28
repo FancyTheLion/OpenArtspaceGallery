@@ -35,6 +35,11 @@ public class MainDbContext : DbContext
     /// Images
     /// </summary>
     public DbSet<ImageDbo> Images { get; set; }
+    
+    /// <summary>
+    /// Images files
+    /// </summary>
+    public DbSet<ImageFileDbo> ImagesFiles { get; set; }
 
     public MainDbContext(DbContextOptions<MainDbContext> options) : base(options)
     {

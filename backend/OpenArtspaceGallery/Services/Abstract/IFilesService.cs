@@ -24,9 +24,4 @@ public interface IFilesService
         string type,
         byte[] content
     );
-    
-    /// <summary>
-    /// Add image 
-    /// </summary>
-    Task<Image> AddImageAsync(string name, string? description, Guid albumId);
 }

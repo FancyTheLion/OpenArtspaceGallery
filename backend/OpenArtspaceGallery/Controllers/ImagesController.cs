@@ -9,44 +9,20 @@ public class ImagesController : ControllerBase
     private readonly IFilesService _filesService;
     private readonly IResizeService _resizeService;
     private readonly IImagesSizesService _imagesSizesService;
+    private readonly IImageProcessingService _imageProcessingService;
     
     public ImagesController
     (
         IFilesService filesService,
         IResizeService resizeService,
-        IImagesSizesService imagesSizesService
+        IImagesSizesService imagesSizesService,
+        IImageProcessingService imageProcessingService
     )
     {
         _filesService = filesService;
         _resizeService = resizeService;
         _imagesSizesService = imagesSizesService;
-    }
-
-    /// <summary>
-    /// Upload a file
-    /// </summary>
-    [Route("Upload")]
-    [HttpPost]
-    [Consumes("multipart/form-data")]
-    public async Task<ActionResult<Guid>> Upload(ImageForUploadRequest image, IFormFile file)
-    {
-        if (file == null)
-        {
-            return BadRequest();
-        }
-        
-        using (var memoryStream = new MemoryStream())
-        {
-            await file.CopyToAsync(memoryStream);
-            var fileBytes = memoryStream.ToArray();
-            
-            var fileGuid = await _filesService.SaveFileAsync(
-                image.ImageForUpload.Name, 
-                file.ContentType, 
-                fileBytes);
-            
-            return Ok(fileGuid);
-        }
+        _imageProcessingService = imageProcessingService;
     }
 
     /// <summary>
@@ -63,17 +39,21 @@ public class ImagesController : ControllerBase
             return NotFound();
         }
 
-        var imageResult = await _filesService.AddImageAsync
+        var sizes = await _imagesSizesService.GetListAsync();
+        
+        var mainSize = sizes.First();
+        
+        var imageResult = await _imageProcessingService.AddImageAsync
         (
             image.AddImage.Name,
             image.AddImage.Description,
-            image.AddImage.AlbumId
+            image.AddImage.AlbumId,
+            image.AddImage.SourceFileId,
+            mainSize.Id
         );
         
-        var sizes = await _imagesSizesService.GetListAsync();
-
         var resizedImages = await _resizeService.GenerateImagesSetAsync(image.AddImage.SourceFileId, sizes);
-        
-        return Ok(imageResult);
+
+        return Ok(imageResult.Id);
     }
 }

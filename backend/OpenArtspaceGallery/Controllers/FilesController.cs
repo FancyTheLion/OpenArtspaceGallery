@@ -14,16 +14,13 @@ namespace OpenArtspaceGallery.Controllers;
 [Route("api/Files")]
 public class FilesController : ControllerBase
 {
-    private readonly IImageProcessingService _imageProcessingService;
     private readonly IFilesService _filesService;
     
     public FilesController
     (
-        IImageProcessingService imageProcessingService,
         IFilesService filesService
     )
     {
-        _imageProcessingService = imageProcessingService;
         _filesService = filesService;
     }
     
@@ -39,7 +36,7 @@ public class FilesController : ControllerBase
         (
             new UploadFileResponse
             (
-                FileInfoDto.FromModel(await _imageProcessingService.UploadFileAsync(file))
+                FileInfoDto.FromModel(await _filesService.UploadFileAsync(file))
             )
         );
     }

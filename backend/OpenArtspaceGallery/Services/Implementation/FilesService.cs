@@ -95,29 +95,4 @@ public class FilesService : IFilesService
             LastModificationTime = metadata.LastModificationTime
         };
     }
-    
-    public async Task<Image> AddImageAsync(string name, string description, Guid albumId)
-    {
-        var album = await _albumsDao.AttachAlbumByIdAsync(albumId);
-        
-        var dbo = new ImageDbo
-        {
-            Id = Guid.NewGuid(),
-            Name = name,
-            Description = description,
-            CreationTime = DateTime.UtcNow,
-            AlbumId = albumId,
-            Files = new List<ImageFileDbo>()
-        };
-        
-        var created = await _filesDao.AddImageAsync(dbo);
-
-        return new Image
-        {
-            Name = created.Name,
-            Description = created.Description,
-            AlbumId = albumId,
-            CreationTime = created.CreationTime
-        };
-    }
 }
