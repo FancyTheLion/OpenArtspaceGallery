@@ -30,7 +30,7 @@ public class ImagesController : ControllerBase
     /// </summary>
     [Route("AddImage")]
     [HttpPost]
-    public async Task<ActionResult<Guid>> AddImage(AddImageRequest image)
+    public async Task<ActionResult<Guid>> AddAndResizeImage(AddImageRequest image)
     {
         var file = await _filesService.GetFileForDownloadAsync(image.AddImage.SourceFileId);
 
