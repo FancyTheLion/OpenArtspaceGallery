@@ -1,6 +1,6 @@
 using OpenArtspaceGallery.Helpers.Validators;
 
-namespace OpenArtspaceGallery.Models;
+namespace OpenArtspaceGallery.Models.Albums;
 
 public class NewAlbum
 {

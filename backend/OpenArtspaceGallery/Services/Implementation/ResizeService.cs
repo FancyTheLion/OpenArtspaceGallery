@@ -1,6 +1,7 @@
 using ImageMagick;
 using OpenArtspaceGallery.DAO.Abstract;
 using OpenArtspaceGallery.Models;
+using OpenArtspaceGallery.Models.Albums;
 using OpenArtspaceGallery.Services.Abstract;
 using FileInfo = OpenArtspaceGallery.Models.Files.FileInfo;
 

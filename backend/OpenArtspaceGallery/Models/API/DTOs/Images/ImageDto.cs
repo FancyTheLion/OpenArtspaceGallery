@@ -3,9 +3,6 @@ using OpenArtspaceGallery.Models.Images;
 
 namespace OpenArtspaceGallery.Models.API.DTOs.Images;
 
-/// <summary>
-/// Image base DTO
-/// </summary>
 public class ImageDto
 {
     /// <summary>

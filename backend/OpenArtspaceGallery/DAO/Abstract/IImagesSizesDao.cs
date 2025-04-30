@@ -4,7 +4,6 @@ using OpenArtspaceGallery.Models;
 
 namespace OpenArtspaceGallery.DAO.Abstract;
 
-// DAO to work with images sizes
 public interface IImagesSizesDao
 {
     #region Get

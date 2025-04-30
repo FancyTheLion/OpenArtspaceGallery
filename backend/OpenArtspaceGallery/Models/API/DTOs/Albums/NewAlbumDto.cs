@@ -1,5 +1,6 @@
 using System.Text.Json.Serialization;
 using OpenArtspaceGallery.Helpers.Validators;
+using OpenArtspaceGallery.Models.Albums;
 
 namespace OpenArtspaceGallery.Models.API.DTOs.Albums;
 

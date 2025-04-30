@@ -1,8 +1,7 @@
 using OpenArtspaceGallery.Helpers.Validators;
-using OpenArtspaceGallery.Models.API.DTOs;
 using OpenArtspaceGallery.Models.API.DTOs.Albums;
 
-namespace OpenArtspaceGallery.Models;
+namespace OpenArtspaceGallery.Models.Albums;
 
 public class AlbumInHierarchy
 {

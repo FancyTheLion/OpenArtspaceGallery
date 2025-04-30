@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using OpenArtspaceGallery.DAO.Abstract;
 using OpenArtspaceGallery.DAO.Models.Images;
 using OpenArtspaceGallery.Models;
+using OpenArtspaceGallery.Models.Albums;
 using OpenArtspaceGallery.Models.API.DTOs.ImagesSizes;
 using OpenArtspaceGallery.Models.Settings;
 using OpenArtspaceGallery.Services.Abstract;

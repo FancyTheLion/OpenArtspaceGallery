@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using OpenArtspaceGallery.DAO.Abstract;
 using OpenArtspaceGallery.DAO.Models.Albums;
 using OpenArtspaceGallery.Models;
+using OpenArtspaceGallery.Models.Albums;
 using OpenArtspaceGallery.Models.API.DTOs;
 using OpenArtspaceGallery.Models.API.Responses;
 using OpenArtspaceGallery.Services.Abstract;

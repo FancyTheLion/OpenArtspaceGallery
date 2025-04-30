@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using OpenArtspaceGallery.Models.Albums;
 
 namespace OpenArtspaceGallery.Models.API.DTOs.ImagesSizes;
 

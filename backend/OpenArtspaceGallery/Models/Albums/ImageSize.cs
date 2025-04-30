@@ -1,9 +1,8 @@
 using OpenArtspaceGallery.DAO.Models.Images;
 using OpenArtspaceGallery.Helpers.Validators;
-using OpenArtspaceGallery.Models.API.DTOs;
 using OpenArtspaceGallery.Models.API.DTOs.ImagesSizes;
 
-namespace OpenArtspaceGallery.Models;
+namespace OpenArtspaceGallery.Models.Albums;
 
 public class ImageSize
 {

@@ -1,4 +1,5 @@
 using OpenArtspaceGallery.Models;
+using OpenArtspaceGallery.Models.Albums;
 
 namespace OpenArtspaceGallery.Services.Abstract;
 

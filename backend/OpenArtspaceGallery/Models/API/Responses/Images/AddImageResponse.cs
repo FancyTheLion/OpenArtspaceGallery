@@ -3,9 +3,6 @@ using OpenArtspaceGallery.Models.API.DTOs.Images;
 
 namespace OpenArtspaceGallery.Models.API.Responses.Images;
 
-/// <summary>
-/// Response for AddImage() method
-/// </summary>
 public class AddImageResponse
 {
     /// <summary>

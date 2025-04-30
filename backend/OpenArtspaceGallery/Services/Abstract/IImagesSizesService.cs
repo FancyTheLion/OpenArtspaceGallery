@@ -1,4 +1,5 @@
 using OpenArtspaceGallery.Models;
+using OpenArtspaceGallery.Models.Albums;
 using OpenArtspaceGallery.Models.API.DTOs.ImagesSizes;
 
 namespace OpenArtspaceGallery.Services.Abstract;
