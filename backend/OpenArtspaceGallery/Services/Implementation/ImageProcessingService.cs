@@ -1,5 +1,7 @@
+using System.Runtime.InteropServices.JavaScript;
 using Microsoft.VisualBasic;
 using OpenArtspaceGallery.DAO.Abstract;
+using OpenArtspaceGallery.DAO.Models.Albums;
 using OpenArtspaceGallery.DAO.Models.Images;
 using OpenArtspaceGallery.Models.Files;
 using OpenArtspaceGallery.Models.Images;
@@ -31,19 +33,8 @@ public class ImageProcessingService : IImageProcessingService
         _albumsDao = albumsDao;
         _imagesDao = imagesDao;
     }
-
-    public async Task<FileInfo> UploadFileAsync(IFormFile file)
-    {
-        var fileInfo = await _filesService.UploadFileAsync(file);
-        
-        var sizes = await _imagesSizesService.GetListAsync();
-
-        var resizesDictionary = await _resizeService.GenerateImagesSetAsync(fileInfo.Id, sizes);
-        
-        return fileInfo;
-    }
     
-    public async Task<Image> AddImageAsync(string name, string description, Guid albumId, Guid fileId, Guid sizeId)
+    /*public async Task<Image> AddImageAsync(string name, string description, Guid albumId, Guid fileId, Guid sizeId)
     {
         var album = await _albumsDao.AttachAlbumByIdAsync(albumId);
         
@@ -66,7 +57,31 @@ public class ImageProcessingService : IImageProcessingService
         );
         
         return Image.FromDbo(createdImage);
-    }
+    }*/
     
+    public async Task<Image> AddImageAsync(Image image, Guid sourceFileId)
+    {
+        var imageFile = await _filesService.GetFileForDownloadAsync(sourceFileId);
 
+        if (imageFile == null)
+        {
+            throw new ArgumentException($"File with { sourceFileId } not found.", nameof(sourceFileId));
+        }
+        
+        // TODO: Check file type
+
+        var dbo = new ImageDbo()
+        {
+            Id = Guid.Empty,
+            Name = image.Name,
+            Description = image.Description,
+            Album = new AlbumDbo() { Id = image.AlbumId },
+            CreationTime = DateTime.UtcNow,
+            Files = new List<ImageFileDbo>()
+        };
+        
+        var addedImage = await _imagesDao.AddImageAsync(dbo);
+
+        return addedImage.ToModel();
+    }
 }

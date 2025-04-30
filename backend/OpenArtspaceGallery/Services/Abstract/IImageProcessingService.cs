@@ -7,12 +7,7 @@ namespace OpenArtspaceGallery.Services.Abstract;
 public interface IImageProcessingService
 {
     /// <summary>
-    /// Upload file
-    /// </summary>
-    public Task<FileInfo> UploadFileAsync(IFormFile file);
-
-    /// <summary>
     /// Add image 
     /// </summary>
-    public Task<Image> AddImageAsync(string name, string description, Guid albumId, Guid fileId, Guid sizeId);
+    public Task<Image> AddImageAsync(Image image, Guid sourceFileId);
 }

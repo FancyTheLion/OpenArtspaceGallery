@@ -7,7 +7,7 @@ public interface IImagesDao
     /// <summary>
     /// Add image 
     /// </summary>
-    Task<ImageDbo> AddImageAsync(ImageDbo imageFile);
+    Task<ImageDbo> AddImageAsync(ImageDbo image);
 
     /// <summary>
     /// Adding to link table

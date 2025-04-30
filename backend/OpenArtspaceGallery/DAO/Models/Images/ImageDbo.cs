@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using OpenArtspaceGallery.DAO.Models.Albums;
+using OpenArtspaceGallery.Models.Images;
 
 namespace OpenArtspaceGallery.DAO.Models.Images;
 
@@ -38,9 +39,8 @@ public class ImageDbo
     /// </summary>
     public AlbumDbo Album { get; set; }
     
-    /// <summary>
-    /// Album id
-    /// </summary>
-    public Guid AlbumId { get; set; }
-
+    public Image ToModel()
+    {
+        return new Image(Id, Name, Description, Album.Id, CreationTime);
+    }
 }

@@ -1,4 +1,5 @@
 using OpenArtspaceGallery.DAO.Models.Images;
+using OpenArtspaceGallery.Models.API.DTOs.Images;
 
 namespace OpenArtspaceGallery.Models.Images;
 
@@ -35,14 +36,15 @@ public class Image
         CreationTime = creationTime;
     }
 
-    public static Image FromDbo(ImageDbo image)
+    public ImageDto ToDto()
     {
-        return new Image(
-            image.Id,
-            image.Name,
-            image.Description,
-            image.Album.Id,
-            image.CreationTime
-        );
+        return new ImageDto()
+        {
+            Id = Id,
+            Name = Name,
+            Description = Description,
+            AlbumId = AlbumId,
+            CreationTime = CreationTime
+        };
     }
 }

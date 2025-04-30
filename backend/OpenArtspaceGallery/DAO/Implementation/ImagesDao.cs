@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using OpenArtspaceGallery.DAO.Abstract;
 using OpenArtspaceGallery.DAO.Contexts;
 using OpenArtspaceGallery.DAO.Models.Files;
@@ -17,15 +18,17 @@ public class ImagesDao : IImagesDao
         _dbContext = dbContext;
     }
 
-    public async Task<ImageDbo> AddImageAsync(ImageDbo imageFile)
+    public async Task<ImageDbo> AddImageAsync(ImageDbo image)
     {
+        image.Album = await _dbContext.Albums.SingleAsync(a => a.Id == image.Album.Id); 
+        
         await _dbContext
             .Images
-            .AddAsync(imageFile);
+            .AddAsync(image);
 
         await _dbContext.SaveChangesAsync();
 
-        return imageFile;
+        return image;
     }
 
     public async Task<ImageFileDbo> AddImageFileAsync(Guid imageId, Guid fileId, Guid sizeId)
