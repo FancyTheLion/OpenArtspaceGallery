@@ -33,5 +33,32 @@ public static class Sizes
     
     #endregion
     
-
+    #region Original
+    
+    /// <summary>
+    /// Size id
+    /// </summary>
+    public static readonly Guid OriginalId = new Guid("e5793e78-6362-43ce-9373-b76913e34b8a");
+    
+    /// <summary>
+    /// Size name
+    /// </summary>
+    public const string OriginalName = "Original";
+    
+    /// <summary>
+    /// Width
+    /// </summary>
+    public const int OriginalWidth = -1; 
+    
+    /// <summary>
+    /// Height
+    /// </summary>
+    public const int OriginalHeight = -1; 
+    
+    /// <summary>
+    /// Type flag to add to the database
+    /// </summary>
+    public static readonly int OriginalType = (int)Type.Original;
+    
+    #endregion
 }
