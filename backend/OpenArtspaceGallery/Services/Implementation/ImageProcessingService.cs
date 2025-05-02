@@ -3,6 +3,7 @@ using Microsoft.VisualBasic;
 using OpenArtspaceGallery.DAO.Abstract;
 using OpenArtspaceGallery.DAO.Models.Albums;
 using OpenArtspaceGallery.DAO.Models.Images;
+using OpenArtspaceGallery.Helpers.Files.Images;
 using OpenArtspaceGallery.Models.Files;
 using OpenArtspaceGallery.Models.Images;
 using OpenArtspaceGallery.Services.Abstract;
@@ -69,6 +70,8 @@ public class ImageProcessingService : IImageProcessingService
         }
         
         // TODO: Check file type
+        
+        ImageTypeHelper.IsImageMimeType(imageFile.Type.MimeType);
 
         var dbo = new ImageDbo()
         {
