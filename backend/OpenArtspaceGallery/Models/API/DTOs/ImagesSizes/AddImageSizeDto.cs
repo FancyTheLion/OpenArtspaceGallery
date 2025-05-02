@@ -28,6 +28,6 @@ public class AddImageSizeDto
 
     public ImageSize ToModel()
     {
-        return new ImageSize(Guid.Empty, Name, Width, Height, false);
+        return new ImageSize(Guid.Empty, Name, Width, Height, 0);
     }
 }

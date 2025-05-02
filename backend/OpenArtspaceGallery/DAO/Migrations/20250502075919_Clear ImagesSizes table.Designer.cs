@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using OpenArtspaceGallery.DAO.Contexts;
@@ -11,9 +12,11 @@ using OpenArtspaceGallery.DAO.Contexts;
 namespace OpenArtspaceGallery.DAO.Migrations
 {
     [DbContext(typeof(MainDbContext))]
-    partial class MainDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250502075919_Clear ImagesSizes table")]
+    partial class ClearImagesSizestable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -157,12 +160,12 @@ namespace OpenArtspaceGallery.DAO.Migrations
                     b.Property<int>("Height")
                         .HasColumnType("integer");
 
+                    b.Property<bool>("IsPreview")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("integer");
 
                     b.Property<int>("Width")
                         .HasColumnType("integer");

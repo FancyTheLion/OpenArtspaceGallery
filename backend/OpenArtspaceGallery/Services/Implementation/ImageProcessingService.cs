@@ -63,7 +63,7 @@ public class ImageProcessingService : IImageProcessingService
     {
         var imageFile = await _filesService.GetFileForDownloadAsync(sourceFileId);
 
-        if (imageFile == null)
+        if (imageFile.Type.MimeType == null)
         {
             throw new ArgumentException($"File with { sourceFileId } not found.", nameof(sourceFileId));
         }

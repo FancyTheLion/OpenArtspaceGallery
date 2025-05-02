@@ -1,6 +1,7 @@
 using System.Text.Json.Serialization;
 using OpenArtspaceGallery.Helpers.Validators;
 using OpenArtspaceGallery.Models.Albums;
+using Type = OpenArtspaceGallery.DAO.Enums.Type;
 
 namespace OpenArtspaceGallery.Models.API.DTOs.ImagesSizes;
 
@@ -18,14 +19,14 @@ public class ImageSizeDto : ImageSizeBaseDto
         string name,
         int width,
         int height,
-        bool isPreview
-    ) : base(name, width, height, isPreview)
+        Type type
+    ) : base(name, width, height, type)
     {
         Id = id;
     }
     
     public override ImageSize ToModel()
     {
-        return new ImageSize(Id, Name, Width, Height, false);
+        return new ImageSize(Id, Name, Width, Height, 0);
     }
 }

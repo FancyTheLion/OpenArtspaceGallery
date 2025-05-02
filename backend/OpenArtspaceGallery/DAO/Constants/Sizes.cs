@@ -1,3 +1,5 @@
+using Type = OpenArtspaceGallery.DAO.Enums.Type;
+
 namespace OpenArtspaceGallery.DAO.Constants;
 
 public static class Sizes
@@ -25,9 +27,11 @@ public static class Sizes
     public const int ThumbnailHeight = 150; 
     
     /// <summary>
-    /// Flag
+    /// Type flag to add to the database
     /// </summary>
-    public const bool ThumbnailFlag = true;
+    public static readonly int ThumbnailType = (int)Type.Preview;
     
     #endregion
+    
+
 }

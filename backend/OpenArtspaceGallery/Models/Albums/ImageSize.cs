@@ -1,6 +1,7 @@
 using OpenArtspaceGallery.DAO.Models.Images;
 using OpenArtspaceGallery.Helpers.Validators;
 using OpenArtspaceGallery.Models.API.DTOs.ImagesSizes;
+using Type = OpenArtspaceGallery.DAO.Enums.Type;
 
 namespace OpenArtspaceGallery.Models.Albums;
 
@@ -27,9 +28,9 @@ public class ImageSize
     public int Height { get; private set; }
     
     /// <summary>
-    /// Is preview?
+    /// Image type
     /// </summary>
-    public bool IsPreview { get; private set; }
+    public Type Type { get; set; }
 
     public ImageSize
     (
@@ -37,7 +38,7 @@ public class ImageSize
         string name,
         int width,
         int height,
-        bool isPreview
+        Type type
     )
     {
         ImageSizeValidator.Validate(name, width, height);
@@ -46,7 +47,7 @@ public class ImageSize
         Name = name;
         Width = width;
         Height = height;
-        IsPreview = isPreview;
+        Type = type;
     }
 
     public static ImageSize? FromDbo
@@ -67,7 +68,7 @@ public class ImageSize
             imageSize.Name,
             imageSize.Width,
             imageSize.Height,
-            imageSize.IsPreview
+            imageSize.Type
         );
     }
 
@@ -79,7 +80,7 @@ public class ImageSize
             Name,
             Width,
             Height,
-            IsPreview
+            Type
         );
     }
 }

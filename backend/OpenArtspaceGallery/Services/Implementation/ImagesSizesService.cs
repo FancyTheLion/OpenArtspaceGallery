@@ -52,7 +52,7 @@ public class ImagesSizesService : IImagesSizesService
             Name = imageSize.Name,
             Width = imageSize.Width,
             Height = imageSize.Height,
-            IsPreview = false
+            Type = 0
         };
         
         return ImageSize.FromDbo(await _imagesSizesDao.AddAsync(newImageSize));
@@ -74,16 +74,16 @@ public class ImagesSizesService : IImagesSizesService
         
         await ValidateImageSizeAsync(imageSize);
 
-        var isPreview = (await GetImageSizeByIdAsync(imageSize.Id))
-            .IsPreview;
-            
+        var imageType = (await GetImageSizeByIdAsync(imageSize.Id))
+            .Type;
+        
         var imageSizeToUpdate = new ImageSizeDbo()
         {
             Id = imageSize.Id,
             Name = imageSize.Name,
             Width = imageSize.Width,
             Height = imageSize.Height,
-            IsPreview = isPreview
+            Type = imageType
         };
         
         return ImageSize.FromDbo(await _imagesSizesDao.UpdateByIdAsync(imageSizeToUpdate));

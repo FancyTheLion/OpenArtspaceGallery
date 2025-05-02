@@ -90,7 +90,7 @@ public class ImagesSizesDao : IImagesSizesDao
         imageSize.Name = updateImageSize.Name;
         imageSize.Width = updateImageSize.Width;
         imageSize.Height = updateImageSize.Height;
-        imageSize.IsPreview = updateImageSize.IsPreview;
+        imageSize.Type = updateImageSize.Type;
     
         await _dbContext.SaveChangesAsync();
 
