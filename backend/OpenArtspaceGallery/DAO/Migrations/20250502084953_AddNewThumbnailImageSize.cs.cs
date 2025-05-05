@@ -15,7 +15,7 @@ namespace OpenArtspaceGallery.DAO.Migrations
             (
                 "ImagesSizes",
                 new[] { "Id", "Name", "Width", "Height", "Type" },
-                new object[] { Sizes.ThumbnailId, Sizes.ThumbnailName, Sizes.ThumbnailWidth, Sizes.ThumbnailHeight, Sizes.ThumbnailType }
+                new object[] { ImagesSizes.ThumbnailId, ImagesSizes.ThumbnailName, ImagesSizes.ThumbnailWidth, ImagesSizes.ThumbnailHeight, ImagesSizes.ThumbnailType }
             );
         }
     }

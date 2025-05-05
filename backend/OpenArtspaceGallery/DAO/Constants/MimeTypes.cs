@@ -3,7 +3,7 @@ namespace OpenArtspaceGallery.DAO.Constants;
 /// <summary>
 /// File types for working with images
 /// </summary>
-public static class Types
+public static class MimeTypes
 {
     #region JPEG
     

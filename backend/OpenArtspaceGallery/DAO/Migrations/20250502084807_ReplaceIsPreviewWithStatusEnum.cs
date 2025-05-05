@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
+using OpenArtspaceGallery.DAO.Constants;
+using OpenArtspaceGallery.DAO.Enums;
 
 #nullable disable
 
@@ -19,7 +21,7 @@ namespace OpenArtspaceGallery.DAO.Migrations
                 table: "ImagesSizes",
                 type: "integer",
                 nullable: false,
-                defaultValue: 0);
+                defaultValue: ImagesSizesTypes.Normal);
         }
 
         /// <inheritdoc />

@@ -68,10 +68,11 @@ public class ImageProcessingService : IImageProcessingService
         {
             throw new ArgumentException($"File with { sourceFileId } not found.", nameof(sourceFileId));
         }
-        
-        // TODO: Check file type
-        
-        ImageTypeHelper.IsImageMimeType(imageFile.Type.MimeType);
+
+        if (!ImageTypeHelper.IsImageMimeType(imageFile.Type.MimeType))
+        {
+            throw new ArgumentException("This file is not an image.", nameof(sourceFileId));
+        }
 
         var dbo = new ImageDbo()
         {

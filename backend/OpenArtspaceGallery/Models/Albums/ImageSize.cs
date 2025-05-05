@@ -1,7 +1,7 @@
+using OpenArtspaceGallery.DAO.Enums;
 using OpenArtspaceGallery.DAO.Models.Images;
 using OpenArtspaceGallery.Helpers.Validators;
 using OpenArtspaceGallery.Models.API.DTOs.ImagesSizes;
-using Type = OpenArtspaceGallery.DAO.Enums.Type;
 
 namespace OpenArtspaceGallery.Models.Albums;
 
@@ -30,7 +30,7 @@ public class ImageSize
     /// <summary>
     /// Image type
     /// </summary>
-    public Type Type { get; set; }
+    public ImagesSizesTypes Type { get; set; }
 
     public ImageSize
     (
@@ -38,7 +38,7 @@ public class ImageSize
         string name,
         int width,
         int height,
-        Type type
+        ImagesSizesTypes type
     )
     {
         ImageSizeValidator.Validate(name, width, height);

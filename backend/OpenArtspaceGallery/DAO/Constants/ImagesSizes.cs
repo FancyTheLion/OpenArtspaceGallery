@@ -1,8 +1,8 @@
-using Type = OpenArtspaceGallery.DAO.Enums.Type;
+using OpenArtspaceGallery.DAO.Enums;
 
 namespace OpenArtspaceGallery.DAO.Constants;
 
-public static class Sizes
+public static class ImagesSizes
 {
     #region Thumbnail
     
@@ -29,7 +29,7 @@ public static class Sizes
     /// <summary>
     /// Type flag to add to the database
     /// </summary>
-    public static readonly int ThumbnailType = (int)Type.Preview;
+    public static readonly int ThumbnailType = (int)ImagesSizesTypes.Preview;
     
     #endregion
     
@@ -58,7 +58,7 @@ public static class Sizes
     /// <summary>
     /// Type flag to add to the database
     /// </summary>
-    public static readonly int OriginalType = (int)Type.Original;
+    public static readonly int OriginalType = (int)ImagesSizesTypes.Original;
     
     #endregion
 }

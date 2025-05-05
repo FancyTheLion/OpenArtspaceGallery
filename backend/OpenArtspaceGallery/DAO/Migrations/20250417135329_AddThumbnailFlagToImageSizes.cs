@@ -12,7 +12,7 @@ namespace OpenArtspaceGallery.DAO.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql($"update \"ImagesSizes\" set \"IsPreview\" = true where \"Id\" = '{ Sizes.ThumbnailId}'");
+            migrationBuilder.Sql($"update \"ImagesSizes\" set \"IsPreview\" = true where \"Id\" = '{ ImagesSizes.ThumbnailId}'");
         }
 
         /// <inheritdoc />

@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
+using OpenArtspaceGallery.DAO.Enums;
 using OpenArtspaceGallery.Helpers.Validators;
 using OpenArtspaceGallery.Models.Albums;
-using Type = OpenArtspaceGallery.DAO.Enums.Type;
 
 namespace OpenArtspaceGallery.Models.API.DTOs.ImagesSizes;
 
@@ -29,14 +29,14 @@ public class ImageSizeBaseDto
     /// Is preview?
     /// </summary>
     [JsonPropertyName("type")]
-    public Type Type { get; set; }
+    public ImagesSizesTypes Type { get; set; }
 
     public ImageSizeBaseDto
     (
         string name,
         int width,
         int height,
-        Type type
+        ImagesSizesTypes type
     )
     {
         ImageSizeValidator.Validate(name, width, height);

@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Type = OpenArtspaceGallery.DAO.Enums.Type;
+using OpenArtspaceGallery.DAO.Enums;
 
 namespace OpenArtspaceGallery.DAO.Models.Images;
 
@@ -31,5 +31,5 @@ public class ImageSizeDbo
     /// <summary>
     /// Images type to add to the database
     /// </summary>
-    public Type Type { get; set; }
+    public ImagesSizesTypes Type { get; set; }
 }

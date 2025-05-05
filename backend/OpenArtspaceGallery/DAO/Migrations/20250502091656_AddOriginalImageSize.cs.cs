@@ -6,7 +6,7 @@ using OpenArtspaceGallery.DAO.Constants;
 namespace OpenArtspaceGallery.DAO.Migrations
 {
     /// <inheritdoc />
-    public partial class AddOriginalImageSizecs : Migration
+    public partial class AddOriginalImageSizes : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,7 +15,7 @@ namespace OpenArtspaceGallery.DAO.Migrations
             (
                 "ImagesSizes",
                 new[] { "Id", "Name", "Width", "Height", "Type" },
-                new object[] { Sizes.OriginalId, Sizes.OriginalName, Sizes.OriginalWidth, Sizes.OriginalHeight, Sizes.OriginalType }
+                new object[] { ImagesSizes.OriginalId, ImagesSizes.OriginalName, ImagesSizes.OriginalWidth, ImagesSizes.OriginalHeight, ImagesSizes.OriginalType }
             );
         }
     }

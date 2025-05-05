@@ -13,7 +13,7 @@ namespace OpenArtspaceGallery.DAO.Migrations
 {
     [DbContext(typeof(MainDbContext))]
     [Migration("20250502091656_AddOriginalImageSize.cs")]
-    partial class AddOriginalImageSizecs
+    partial class AddOriginalImageSizes
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

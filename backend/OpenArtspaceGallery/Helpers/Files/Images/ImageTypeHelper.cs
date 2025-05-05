@@ -2,19 +2,19 @@ using OpenArtspaceGallery.DAO.Constants;
 
 namespace OpenArtspaceGallery.Helpers.Files.Images;
 
-public class ImageTypeHelper
+public static class ImageTypeHelper
 {
     private static readonly string[] AllowedImageMimeTypes = new[]
     {
-        Types.TypeMimeBmp,
-        Types.TypeMimeJpeg,
-        Types.TypeMimePng,
-        Types.TypeMimeTiff,
-        Types.TypeMimeSvg,
-        Types.TypeMimeHeic,
-        Types.TypeMimeGif,
-        Types.TypeMimeIco,
-        Types.TypeMimeWebP
+        MimeTypes.TypeMimeBmp,
+        MimeTypes.TypeMimeJpeg,
+        MimeTypes.TypeMimePng,
+        MimeTypes.TypeMimeTiff,
+        MimeTypes.TypeMimeSvg,
+        MimeTypes.TypeMimeHeic,
+        MimeTypes.TypeMimeGif,
+        MimeTypes.TypeMimeIco,
+        MimeTypes.TypeMimeWebP
     };
 
     /// <summary>
