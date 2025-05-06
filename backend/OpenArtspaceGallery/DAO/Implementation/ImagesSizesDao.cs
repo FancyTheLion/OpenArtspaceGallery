@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using OpenArtspaceGallery.DAO.Abstract;
 using OpenArtspaceGallery.DAO.Contexts;
+using OpenArtspaceGallery.DAO.Enums;
 using OpenArtspaceGallery.DAO.Models.Images;
 using OpenArtspaceGallery.Models;
 
@@ -30,6 +31,14 @@ public class ImagesSizesDao : IImagesSizesDao
         return await _dbContext
             .ImagesSizes
             .SingleOrDefaultAsync(ims => ims.Id == id);
+    }
+
+    public async Task<ImageSizeDbo?> GetImageSizeOriginalAsync()
+    {
+        return await _dbContext
+            .ImagesSizes
+            .SingleAsync(s => s.Type == ImagesSizesTypes.Original);
+
     }
 
     public async Task<ImageSizeDbo> AddAsync(ImageSizeDbo imageSizeToInsert)

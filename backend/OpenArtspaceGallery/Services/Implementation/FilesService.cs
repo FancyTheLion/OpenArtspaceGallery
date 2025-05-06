@@ -20,18 +20,15 @@ public class FilesService : IFilesService
 {
     private readonly IFilesDao _filesDao;
     private readonly FilesStorageSettings _filesStorageSettings;
-    private readonly IAlbumsDao _albumsDao;
     
     public FilesService
     (
         IOptions<FilesStorageSettings> filesStorageSettings,
-        IFilesDao filesDao,
-        IAlbumsDao albumsDao
+        IFilesDao filesDao
     )
     {
         _filesStorageSettings = filesStorageSettings.Value;
         _filesDao = filesDao;
-        _albumsDao = albumsDao;
     }
     
     public async Task<FileInfo> UploadFileAsync(IFormFile file)

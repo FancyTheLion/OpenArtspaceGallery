@@ -36,6 +36,11 @@ public class ImagesSizesService : IImagesSizesService
     {
         return ImageSize.FromDbo(await _imagesSizesDao.GetImageSizeByIdAsync(id));
     }
+    
+    public async Task<ImageSize?> GetImageSizeOriginalAsync()
+    {
+        return ImageSize.FromDbo(await _imagesSizesDao.GetImageSizeOriginalAsync());
+    }
 
     public async Task<ImageSize> AddAsync(ImageSize imageSize)
     {
@@ -136,4 +141,6 @@ public class ImagesSizesService : IImagesSizesService
         
         return await _imagesSizesDao.IsExistsByPropertiesAsync(name, width, height);
     }
+    
+
 }

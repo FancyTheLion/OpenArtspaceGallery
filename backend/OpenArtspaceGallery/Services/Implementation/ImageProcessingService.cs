@@ -16,7 +16,6 @@ public class ImageProcessingService : IImageProcessingService
     private readonly IFilesService _filesService;
     private readonly IResizeService _resizeService;
     private readonly IImagesSizesService _imagesSizesService;
-    private readonly IAlbumsDao _albumsDao;
     private readonly IImagesDao _imagesDao;
     
     public ImageProcessingService
@@ -24,14 +23,12 @@ public class ImageProcessingService : IImageProcessingService
         IFilesService filesService,
         IResizeService resizeService,
         IImagesSizesService imagesSizesService,
-        IAlbumsDao albumsDao,
         IImagesDao imagesDao
     )
     {
         _filesService = filesService;
         _resizeService = resizeService;
         _imagesSizesService = imagesSizesService; 
-        _albumsDao = albumsDao;
         _imagesDao = imagesDao;
     }
     
@@ -73,6 +70,10 @@ public class ImageProcessingService : IImageProcessingService
         {
             throw new ArgumentException("This file is not an image.", nameof(sourceFileId));
         }
+        
+        var originalSize = _imagesSizesService.GetImageSizeOriginalAsync();
+        
+
 
         var dbo = new ImageDbo()
         {

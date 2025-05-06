@@ -4,9 +4,6 @@ using OpenArtspaceGallery.Models.API.DTOs.ImagesSizes;
 
 namespace OpenArtspaceGallery.Services.Abstract;
 
-/// <summary>
-/// Service for working with images sizes
-/// </summary>
 public interface IImagesSizesService
 {
     #region Get
@@ -20,6 +17,11 @@ public interface IImagesSizesService
     /// Get image size by ID
     /// </summary>
     Task<ImageSize?> GetImageSizeByIdAsync(Guid id);
+    
+    /// <summary>
+    /// Get original image size
+    /// </summary>
+    Task<ImageSize?> GetImageSizeOriginalAsync();
     
     #endregion
     

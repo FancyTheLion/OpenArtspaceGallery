@@ -17,6 +17,11 @@ public interface IImagesSizesDao
     /// Get image size by ID
     /// </summary>
     public Task<ImageSizeDbo?> GetImageSizeByIdAsync(Guid id);
+    
+    /// <summary>
+    /// Get original image size
+    /// </summary>
+    public Task<ImageSizeDbo?> GetImageSizeOriginalAsync();
 
     #endregion
     

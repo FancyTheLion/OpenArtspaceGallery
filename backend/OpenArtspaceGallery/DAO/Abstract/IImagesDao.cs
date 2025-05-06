@@ -9,7 +9,7 @@ public interface IImagesDao
     /// </summary>
     Task<ImageDbo> AddImageAsync(ImageDbo image);
 
-    /// <summary>
+    /*/// <summary>
     /// Adding to link table
     /// </summary>
     public Task<ImageFileDbo> AddImageFileAsync
@@ -17,5 +17,5 @@ public interface IImagesDao
         Guid imageId,
         Guid fileId,
         Guid sizeId
-    );
+    );*/
 }

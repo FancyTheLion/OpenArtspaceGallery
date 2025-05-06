@@ -31,7 +31,7 @@ public class ImagesDao : IImagesDao
         return image;
     }
 
-    public async Task<ImageFileDbo> AddImageFileAsync(Guid imageId, Guid fileId, Guid sizeId)
+    /*public async Task<ImageFileDbo> AddImageFileAsync(Guid imageId, Guid fileId, Guid sizeId)
     {
         var image = new ImageDbo { Id = imageId };
         var file = new FileDbo { Id = fileId };
@@ -53,5 +53,5 @@ public class ImagesDao : IImagesDao
         await _dbContext.SaveChangesAsync();
 
         return imageFile;
-    }
+    }*/
 }
