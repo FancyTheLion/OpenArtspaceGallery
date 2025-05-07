@@ -1,4 +1,5 @@
 using OpenArtspaceGallery.DAO.Constants;
+using OpenArtspaceGallery.DAO.Constants.MimeTypes;
 
 namespace OpenArtspaceGallery.Helpers.Files.Images;
 
@@ -6,15 +7,15 @@ public static class ImageTypeHelper
 {
     private static readonly string[] AllowedImageMimeTypes = new[]
     {
-        MimeTypes.TypeMimeBmp,
-        MimeTypes.TypeMimeJpeg,
-        MimeTypes.TypeMimePng,
-        MimeTypes.TypeMimeTiff,
-        MimeTypes.TypeMimeSvg,
-        MimeTypes.TypeMimeHeic,
-        MimeTypes.TypeMimeGif,
-        MimeTypes.TypeMimeIco,
-        MimeTypes.TypeMimeWebP
+        MimeTypes.Png.MimeType,
+        MimeTypes.Jpeg.MimeType,
+        MimeTypes.Bmp.MimeType,
+        MimeTypes.Tiff.MimeType,
+        MimeTypes.Svg.MimeType,
+        MimeTypes.Heic.MimeType,
+        MimeTypes.Gif.MimeType,
+        MimeTypes.Ico.MimeType,
+        MimeTypes.WebP.MimeType
     };
 
     /// <summary>
