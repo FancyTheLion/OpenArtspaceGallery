@@ -13,7 +13,7 @@ public class FileForDownload
     /// <summary>
     /// File type
     /// </summary>
-    public FileTypeDbo Type { get; set; }
+    public FileType Type { get; set; }
 
     /// <summary>
     /// The file name that was given by the user (before uploading to the gallery)

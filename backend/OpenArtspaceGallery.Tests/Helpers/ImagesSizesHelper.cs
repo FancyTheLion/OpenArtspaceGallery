@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using OpenArtspaceGallery.Models;
 using OpenArtspaceGallery.Models.Albums;
+using OpenArtspaceGallery.Models.ImagesSizes;
 using OpenArtspaceGallery.Models.Settings;
 
 namespace OpenArtspaceGallery.Tests.Helpers;

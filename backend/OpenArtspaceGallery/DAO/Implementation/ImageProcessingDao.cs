@@ -18,23 +18,16 @@ public class ImageProcessingDao : IImageProcessingDao
     {
         _dbContext = dbContext;
     }
-    public async Task<ImageSizeDbo?> GetImageSizeOriginalAsync()
-    {
-        return await _dbContext
-            .ImagesSizes
-            .SingleAsync(s => s.Type == ImagesSizesTypes.Original);
-    }
-    
-    public async Task<FileDbo?> GetFileMetadataAsync(Guid fileId)
-    {
-        return await _dbContext.Files
-            .Include(f => f.Type)
-            .FirstOrDefaultAsync(f => f.Id == fileId);
-    }
 
     public async Task<ImageDbo> AddImageAsync(ImageDbo image)
     {
-        image.Album = await _dbContext.Albums.SingleAsync(a => a.Id == image.Album.Id); 
+        image.Album = await _dbContext.Albums.SingleAsync(a => a.Id == image.Album.Id);
+
+        foreach (var file in image.Files)
+        {
+            file.File = await _dbContext.Files.SingleAsync(f => f.Id == file.File.Id);
+            file.Size = await _dbContext.ImagesSizes.SingleAsync(s => s.Id == file.Size.Id);
+        }
         
         await _dbContext
             .Images

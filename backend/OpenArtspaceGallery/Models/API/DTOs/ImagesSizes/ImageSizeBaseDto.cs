@@ -2,6 +2,7 @@ using System.Text.Json.Serialization;
 using OpenArtspaceGallery.DAO.Enums;
 using OpenArtspaceGallery.Helpers.Validators;
 using OpenArtspaceGallery.Models.Albums;
+using OpenArtspaceGallery.Models.ImagesSizes;
 
 namespace OpenArtspaceGallery.Models.API.DTOs.ImagesSizes;
 

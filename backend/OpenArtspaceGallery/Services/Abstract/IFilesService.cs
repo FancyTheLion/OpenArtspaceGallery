@@ -14,10 +14,22 @@ public interface IFilesService
     Task<FileInfo> UploadFileAsync(IFormFile file);
     
     /// <summary>
+    /// Get file metadata
+    /// </summary>
+    public Task<FileMetadata> GetFileMetadataAsync(Guid fileId);
+    
+    /// <summary>
     /// Get file (for download)
     /// </summary>
     public Task<FileForDownload> GetFileForDownloadAsync(Guid fileId);
     
+    /// <summary>
+    /// TODO: Add comments
+    /// </summary>
+    /// <param name="name"></param>
+    /// <param name="type"></param>
+    /// <param name="content"></param>
+    /// <returns></returns>
     Task<FileInfo> SaveFileAsync
     (
         string name,

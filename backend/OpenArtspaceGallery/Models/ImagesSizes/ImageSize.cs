@@ -3,7 +3,7 @@ using OpenArtspaceGallery.DAO.Models.Images;
 using OpenArtspaceGallery.Helpers.Validators;
 using OpenArtspaceGallery.Models.API.DTOs.ImagesSizes;
 
-namespace OpenArtspaceGallery.Models.Albums;
+namespace OpenArtspaceGallery.Models.ImagesSizes;
 
 public class ImageSize
 {

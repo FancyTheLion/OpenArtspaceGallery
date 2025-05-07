@@ -1,5 +1,6 @@
 using OpenArtspaceGallery.Models;
 using OpenArtspaceGallery.Models.Albums;
+using OpenArtspaceGallery.Models.ImagesSizes;
 using FileInfo = OpenArtspaceGallery.Models.Files.FileInfo;
 
 namespace OpenArtspaceGallery.Services.Abstract;

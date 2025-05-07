@@ -45,6 +45,11 @@ public class FilesService : IFilesService
         return await SaveFileAsync(file.FileName, file.ContentType, content);
     }
 
+    public async Task<FileMetadata> GetFileMetadataAsync(Guid fileId)
+    {
+        return FileMetadata.FromDbo(await _filesDao.GetFileMetadataAsync(fileId));
+    }
+
     public async Task<FileInfo> SaveFileAsync
     (
         string name,
@@ -79,7 +84,7 @@ public class FilesService : IFilesService
 
     public async Task<FileForDownload> GetFileForDownloadAsync(Guid fileId)
     {
-        var metadata = await _filesDao.GetFileMetadataAsync(fileId);
+        var metadata = await GetFileMetadataAsync(fileId);
 
         var fileBytes = await File.ReadAllBytesAsync(Path.Combine(_filesStorageSettings.RootPath, metadata.StoragePath));
 

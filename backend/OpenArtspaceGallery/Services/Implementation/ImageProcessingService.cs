@@ -1,7 +1,9 @@
 using System.Runtime.InteropServices.JavaScript;
 using Microsoft.VisualBasic;
 using OpenArtspaceGallery.DAO.Abstract;
+using OpenArtspaceGallery.DAO.Constants.ImagesSizes;
 using OpenArtspaceGallery.DAO.Models.Albums;
+using OpenArtspaceGallery.DAO.Models.Files;
 using OpenArtspaceGallery.DAO.Models.Images;
 using OpenArtspaceGallery.Helpers.Files.Images;
 using OpenArtspaceGallery.Models.Albums;
@@ -15,21 +17,15 @@ namespace OpenArtspaceGallery.Services.Implementation;
 public class ImageProcessingService : IImageProcessingService
 {
     private readonly IFilesService _filesService;
-    private readonly IResizeService _resizeService;
-    private readonly IImagesSizesService _imagesSizesService;
     private readonly IImageProcessingDao _imageProcessingDao;
     
     public ImageProcessingService
     (
         IFilesService filesService,
-        IResizeService resizeService,
-        IImagesSizesService imagesSizesService,
         IImageProcessingDao imageProcessingDao
     )
     {
         _filesService = filesService;
-        _resizeService = resizeService;
-        _imagesSizesService = imagesSizesService; 
         _imageProcessingDao = imageProcessingDao;
     }
     
@@ -47,15 +43,10 @@ public class ImageProcessingService : IImageProcessingService
             throw new ArgumentException("This file is not an image.", nameof(sourceFileId));
         }
         
-        var originalSize = await _imageProcessingDao.GetImageSizeOriginalAsync();
-        
-        var metadata = await _imageProcessingDao.GetFileMetadataAsync(sourceFileId);
-        
         var imageFileDbo = new ImageFileDbo()
         {
-            Id = Guid.NewGuid(),
-            File = metadata,
-            Size = originalSize
+            File = new FileDbo() { Id = sourceFileId },
+            Size = new ImageSizeDbo() { Id = ImagesSizes.Original.Id }
         };
 
         var dbo = new ImageDbo()
@@ -65,11 +56,9 @@ public class ImageProcessingService : IImageProcessingService
             Description = image.Description,
             Album = new AlbumDbo() { Id = image.AlbumId },
             CreationTime = DateTime.UtcNow,
-            Files = new List<ImageFileDbo>{ imageFileDbo }
+            Files = new List<ImageFileDbo> { imageFileDbo }
         };
         
-        var addedImage = await _imageProcessingDao.AddImageAsync(dbo);
-
-        return addedImage.ToModel();
+        return (await _imageProcessingDao.AddImageAsync(dbo)).ToModel();
     }
 }

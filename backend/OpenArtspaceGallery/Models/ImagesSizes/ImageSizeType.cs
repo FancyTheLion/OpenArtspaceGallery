@@ -1,6 +1,6 @@
-namespace OpenArtspaceGallery.DAO.Constants.Models;
+namespace OpenArtspaceGallery.Models.ImagesSizes;
 
-public class SizeType
+public class ImageSizeType
 {
     public Guid Id { get; set; }
     public string Name { get; set; }
@@ -8,10 +8,10 @@ public class SizeType
     public int Height { get; set; }
     public int Type { get; set; }
 
-    public SizeType(Guid id, string Name, int width, int height, int type)
+    public ImageSizeType(Guid id, string name, int width, int height, int type)
     {
         Id = id;
-        Name = Name;
+        Name = name;
         Width = width;
         Height = height;
         Type = type;
