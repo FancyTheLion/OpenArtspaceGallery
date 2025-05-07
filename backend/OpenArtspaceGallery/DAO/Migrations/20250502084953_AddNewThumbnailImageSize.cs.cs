@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 using OpenArtspaceGallery.DAO.Constants;
+using OpenArtspaceGallery.DAO.Constants.ImagesSizes;
 
 #nullable disable
 
@@ -15,7 +16,7 @@ namespace OpenArtspaceGallery.DAO.Migrations
             (
                 "ImagesSizes",
                 new[] { "Id", "Name", "Width", "Height", "Type" },
-                new object[] { ImagesSizes.ThumbnailId, ImagesSizes.ThumbnailName, ImagesSizes.ThumbnailWidth, ImagesSizes.ThumbnailHeight, ImagesSizes.ThumbnailType }
+                new object[] { ImagesSizes.Thumbnail.Id, ImagesSizes.Thumbnail.Name, ImagesSizes.Thumbnail.Width, ImagesSizes.Thumbnail.Height, ImagesSizes.Thumbnail.Type }
             );
         }
     }

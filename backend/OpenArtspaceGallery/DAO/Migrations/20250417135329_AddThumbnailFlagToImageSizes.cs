@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.Internal;
 using OpenArtspaceGallery.DAO.Constants;
+using OpenArtspaceGallery.DAO.Constants.ImagesSizes;
 
 #nullable disable
 
@@ -12,7 +13,7 @@ namespace OpenArtspaceGallery.DAO.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql($"update \"ImagesSizes\" set \"IsPreview\" = true where \"Id\" = '{ ImagesSizes.ThumbnailId}'");
+            migrationBuilder.Sql($"update \"ImagesSizes\" set \"IsPreview\" = true where \"Id\" = '{ ImagesSizes.Thumbnail.Id}'");
         }
 
         /// <inheritdoc />
