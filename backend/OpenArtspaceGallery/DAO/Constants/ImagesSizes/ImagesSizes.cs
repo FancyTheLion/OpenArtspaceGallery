@@ -6,7 +6,7 @@ namespace OpenArtspaceGallery.DAO.Constants.ImagesSizes;
 public static class ImagesSizes
 {
     /// <summary>
-    /// Thumbnail
+    /// Thumbnail size
     /// </summary>
     public static readonly SizeType Thumbnail = new SizeType
     (
@@ -18,7 +18,7 @@ public static class ImagesSizes
     );
     
     /// <summary>
-    /// Thumbnail
+    /// Original size
     /// </summary>
     public static readonly SizeType Original = new SizeType
     (
