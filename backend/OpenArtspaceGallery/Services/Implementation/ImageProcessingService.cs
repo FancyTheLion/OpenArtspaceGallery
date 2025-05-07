@@ -4,6 +4,7 @@ using OpenArtspaceGallery.DAO.Abstract;
 using OpenArtspaceGallery.DAO.Models.Albums;
 using OpenArtspaceGallery.DAO.Models.Images;
 using OpenArtspaceGallery.Helpers.Files.Images;
+using OpenArtspaceGallery.Models.Albums;
 using OpenArtspaceGallery.Models.Files;
 using OpenArtspaceGallery.Models.Images;
 using OpenArtspaceGallery.Services.Abstract;
@@ -16,46 +17,21 @@ public class ImageProcessingService : IImageProcessingService
     private readonly IFilesService _filesService;
     private readonly IResizeService _resizeService;
     private readonly IImagesSizesService _imagesSizesService;
-    private readonly IImagesDao _imagesDao;
+    private readonly IImageProcessingDao _imageProcessingDao;
     
     public ImageProcessingService
     (
         IFilesService filesService,
         IResizeService resizeService,
         IImagesSizesService imagesSizesService,
-        IImagesDao imagesDao
+        IImageProcessingDao imageProcessingDao
     )
     {
         _filesService = filesService;
         _resizeService = resizeService;
         _imagesSizesService = imagesSizesService; 
-        _imagesDao = imagesDao;
+        _imageProcessingDao = imageProcessingDao;
     }
-    
-    /*public async Task<Image> AddImageAsync(string name, string description, Guid albumId, Guid fileId, Guid sizeId)
-    {
-        var album = await _albumsDao.AttachAlbumByIdAsync(albumId);
-        
-        var imageDbo = new ImageDbo
-        {
-            Id = Guid.NewGuid(),
-            Name = name,
-            Description = description,
-            CreationTime = DateTime.UtcNow,
-            Album = album,
-            Files = new List<ImageFileDbo>()
-        };
-        
-        var createdImage = await _imagesDao.AddImageAsync(imageDbo);
-        
-        await _imagesDao.AddImageFileAsync(
-            createdImage.Id,
-            fileId,
-            sizeId
-        );
-        
-        return Image.FromDbo(createdImage);
-    }*/
     
     public async Task<Image> AddImageAsync(Image image, Guid sourceFileId)
     {
@@ -71,9 +47,16 @@ public class ImageProcessingService : IImageProcessingService
             throw new ArgumentException("This file is not an image.", nameof(sourceFileId));
         }
         
-        var originalSize = _imagesSizesService.GetImageSizeOriginalAsync();
+        var originalSize = await _imageProcessingDao.GetImageSizeOriginalAsync();
         
-
+        var metadata = await _imageProcessingDao.GetFileMetadataAsync(sourceFileId);
+        
+        var imageFileDbo = new ImageFileDbo()
+        {
+            Id = Guid.NewGuid(),
+            File = metadata,
+            Size = originalSize
+        };
 
         var dbo = new ImageDbo()
         {
@@ -82,10 +65,10 @@ public class ImageProcessingService : IImageProcessingService
             Description = image.Description,
             Album = new AlbumDbo() { Id = image.AlbumId },
             CreationTime = DateTime.UtcNow,
-            Files = new List<ImageFileDbo>()
+            Files = new List<ImageFileDbo>{ imageFileDbo }
         };
         
-        var addedImage = await _imagesDao.AddImageAsync(dbo);
+        var addedImage = await _imageProcessingDao.AddImageAsync(dbo);
 
         return addedImage.ToModel();
     }

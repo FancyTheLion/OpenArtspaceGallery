@@ -38,7 +38,6 @@ public class ImagesSizesDao : IImagesSizesDao
         return await _dbContext
             .ImagesSizes
             .SingleAsync(s => s.Type == ImagesSizesTypes.Original);
-
     }
 
     public async Task<ImageSizeDbo> AddAsync(ImageSizeDbo imageSizeToInsert)
