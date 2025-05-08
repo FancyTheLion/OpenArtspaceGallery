@@ -18,15 +18,21 @@ public class ImageProcessingService : IImageProcessingService
 {
     private readonly IFilesService _filesService;
     private readonly IImageProcessingDao _imageProcessingDao;
+    private readonly IResizeService _resizeService;
+    private readonly IImagesSizesService _imagesSizesService;
     
     public ImageProcessingService
     (
         IFilesService filesService,
-        IImageProcessingDao imageProcessingDao
+        IImageProcessingDao imageProcessingDao,
+        IResizeService resizeService,
+        IImagesSizesService imagesSizesService
     )
     {
         _filesService = filesService;
         _imageProcessingDao = imageProcessingDao;
+        _resizeService = resizeService;
+        _imagesSizesService = imagesSizesService;
     }
     
     public async Task<Image> AddImageAsync(Image image, Guid sourceFileId)
@@ -42,12 +48,35 @@ public class ImageProcessingService : IImageProcessingService
         {
             throw new ArgumentException("This file is not an image.", nameof(sourceFileId));
         }
+
+        var listImageSizes = await _imagesSizesService.GetListAsync();
+
+        var resizedImages = await _resizeService.GenerateImagesSetAsync(sourceFileId, listImageSizes);
         
-        var imageFileDbo = new ImageFileDbo()
+        var imageFiles = new List<ImageFileDbo>();
+        
+        imageFiles.Add
+            (
+                new ImageFileDbo
+                {
+                    File = new FileDbo() { Id = sourceFileId },
+                    Size = new ImageSizeDbo() { Id = ImagesSizes.Original.Id }
+                }
+            );
+        
+        foreach (var kvp in resizedImages)
         {
-            File = new FileDbo() { Id = sourceFileId },
-            Size = new ImageSizeDbo() { Id = ImagesSizes.Original.Id }
-        };
+            var sizeId = kvp.Key;
+            var fileInfo = kvp.Value;
+
+            var imageFileDbo = new ImageFileDbo
+            {
+                File = new FileDbo { Id = fileInfo.Id },
+                Size = new ImageSizeDbo { Id = sizeId }
+            };
+
+            imageFiles.Add(imageFileDbo);
+        }
 
         var dbo = new ImageDbo()
         {
@@ -56,7 +85,7 @@ public class ImageProcessingService : IImageProcessingService
             Description = image.Description,
             Album = new AlbumDbo() { Id = image.AlbumId },
             CreationTime = DateTime.UtcNow,
-            Files = new List<ImageFileDbo> { imageFileDbo }
+            Files = imageFiles
         };
         
         return (await _imageProcessingDao.AddImageAsync(dbo)).ToModel();

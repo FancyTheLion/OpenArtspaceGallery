@@ -19,11 +19,6 @@ public interface IImagesSizesService
     /// </summary>
     Task<ImageSize?> GetImageSizeByIdAsync(Guid id);
     
-    /// <summary>
-    /// Get original image size
-    /// </summary>
-    Task<ImageSize?> GetImageSizeOriginalAsync();
-    
     #endregion
     
     #region Is exists

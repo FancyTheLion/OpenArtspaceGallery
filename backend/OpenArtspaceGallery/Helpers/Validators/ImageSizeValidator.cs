@@ -12,12 +12,12 @@ public static class ImageSizeValidator
             throw new ArgumentException("Name mustn't be null or whitespace.", nameof(name));
         }
         
-        if (width <= 0)
+        if (width < 0)
         {
             throw new ArgumentOutOfRangeException(nameof(width), "Width must be greater than zero!");
         }
         
-        if (height <= 0)
+        if (height < 0)
         {
             throw new ArgumentOutOfRangeException(nameof(height), "Height must be greater than zero!");
         }

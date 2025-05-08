@@ -24,8 +24,8 @@ public static class ImagesSizes
     (
         new Guid("e5793e78-6362-43ce-9373-b76913e34b8a"),
         "Original",
-        -1,
-        -1,
+        0,
+        0,
         (int)ImagesSizesTypes.Original
     );
     
