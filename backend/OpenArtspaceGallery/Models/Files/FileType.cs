@@ -3,7 +3,7 @@ using OpenArtspaceGallery.DAO.Models.FilesTypes;
 namespace OpenArtspaceGallery.Models.Files;
 
 /// <summary>
-/// TODO: Add comments
+/// Base file type
 /// </summary>
 public class FileType
 {

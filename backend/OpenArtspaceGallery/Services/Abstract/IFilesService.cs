@@ -24,12 +24,8 @@ public interface IFilesService
     public Task<FileForDownload> GetFileForDownloadAsync(Guid fileId);
     
     /// <summary>
-    /// TODO: Add comments
+    /// 
     /// </summary>
-    /// <param name="name"></param>
-    /// <param name="type"></param>
-    /// <param name="content"></param>
-    /// <returns></returns>
     Task<FileInfo> SaveFileAsync
     (
         string name,
