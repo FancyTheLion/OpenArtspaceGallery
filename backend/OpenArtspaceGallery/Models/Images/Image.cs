@@ -47,4 +47,24 @@ public class Image
             CreationTime = CreationTime
         };
     }
+
+    public static Image FromDbo
+    (
+        ImageDbo? image
+    )
+    {
+        if (image == null)
+        {
+            return null;
+        }
+
+        return new Image
+            (
+                image.Id,
+                image.Name,
+                image.Description,
+                image.Album.Id,
+                image.CreationTime
+            );
+    }
 }

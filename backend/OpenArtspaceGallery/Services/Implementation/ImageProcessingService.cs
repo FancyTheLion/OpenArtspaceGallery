@@ -88,6 +88,6 @@ public class ImageProcessingService : IImageProcessingService
             Files = imageFiles
         };
         
-        return (await _imageProcessingDao.AddImageAsync(dbo)).ToModel();
+        return Image.FromDbo(await _imageProcessingDao.AddImageAsync(dbo));
     }
 }

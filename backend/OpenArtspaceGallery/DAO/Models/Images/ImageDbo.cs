@@ -38,9 +38,4 @@ public class ImageDbo
     /// Image belongs to this album
     /// </summary>
     public AlbumDbo Album { get; set; }
-    
-    public Image ToModel()
-    {
-        return new Image(Id, Name, Description, Album.Id, CreationTime);
-    }
 }
