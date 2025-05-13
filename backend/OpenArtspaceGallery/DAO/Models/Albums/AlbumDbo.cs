@@ -36,17 +36,6 @@ public class AlbumDbo
     /// </summary>
     public IList<ImageDbo> Images { get; set; }
 
-    public Album ToModel()
-    {
-        return new Album
-        (
-            Id,
-            Parent?.Id,
-            Name,
-            CreationTime
-        );
-    }
-
     public AlbumInHierarchy ToAlbumInHierarchyModel()
     {
         return new AlbumInHierarchy
