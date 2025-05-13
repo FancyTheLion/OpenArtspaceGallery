@@ -1,3 +1,4 @@
+using OpenArtspaceGallery.DAO.Models.Albums;
 using OpenArtspaceGallery.Helpers.Validators;
 using OpenArtspaceGallery.Models.API.DTOs.Albums;
 
@@ -40,6 +41,25 @@ public class Album
         Name = name;
         CreationTime = creationTime;
     }
+
+    public static Album FromDbo
+        (
+            AlbumDbo album
+        )
+        {
+            if (album == null)
+            {
+                return null;
+            }
+
+            return new Album
+                (
+                    album.Id,
+                    album.Parent?.Id,
+                    album.Name,
+                    album.CreationTime
+                );
+        }
 
     public AlbumDto ToDto()
     {

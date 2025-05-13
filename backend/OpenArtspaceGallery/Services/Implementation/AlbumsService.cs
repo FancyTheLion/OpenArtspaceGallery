@@ -23,7 +23,8 @@ public class  AlbumsService : IAlbumsService
 
     public async Task<Album?> GetAlbumByIdAsync(Guid id)
     {
-        return (await _albumsDao.GetAlbumByIdAsync(id))?.ToModel();
+        var dbo = await _albumsDao.GetAlbumByIdAsync(id);
+        return dbo != null ? Album.FromDbo(dbo) : null;
     }
 
     public async Task<bool> IsExistsAsync(Guid albumId)
@@ -34,7 +35,7 @@ public class  AlbumsService : IAlbumsService
     public async Task<IReadOnlyCollection<Album>> GetChildrenAsync(Guid? parentAlbumId)
     {
         return (await _albumsDao.GetChildrenAsync(parentAlbumId))
-            .Select(a => a.ToModel())
+            .Select(Album.FromDbo)
             .ToList();
     }
 
@@ -60,7 +61,7 @@ public class  AlbumsService : IAlbumsService
             CreationTime = DateTime.UtcNow
         };
 
-        return (await _albumsDao.CreateAsync(albumToInsert)).ToModel();
+        return Album.FromDbo(await _albumsDao.CreateAsync(albumToInsert));
     }
 
     public async Task DeleteAsync(Guid albumId)
