@@ -8,7 +8,7 @@ public class Image
     /// <summary>
     /// Guid id
     /// </summary>
-    public Guid Id { get; }
+    public Guid Id { get; set; }
     
     /// <summary>
     /// Image name
@@ -59,6 +59,11 @@ public class Image
         if (image == null)
         {
             return null;
+        }
+        
+        if (image.Album == null)
+        {
+            throw new InvalidOperationException("Album is null");
         }
 
         return new Image

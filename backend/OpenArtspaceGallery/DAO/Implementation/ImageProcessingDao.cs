@@ -19,6 +19,14 @@ public class ImageProcessingDao : IImageProcessingDao
         _dbContext = dbContext;
     }
 
+    public async Task<ImageDbo> GetImageByIdAsync(Guid imageId)
+    {
+        return await _dbContext
+            .Images
+            .Include(img => img.Album)
+            .FirstOrDefaultAsync(img => img.Id == imageId);
+    }
+
     public async Task<ImageDbo> AddImageAsync(ImageDbo image)
     {
         image.Album = await _dbContext.Albums.SingleAsync(a => a.Id == image.Album.Id);

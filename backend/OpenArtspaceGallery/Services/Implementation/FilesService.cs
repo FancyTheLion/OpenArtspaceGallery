@@ -10,6 +10,7 @@ using OpenArtspaceGallery.Infrastructure.FileStorage;
 using OpenArtspaceGallery.Models.API.DTOs.Files;
 using OpenArtspaceGallery.Models.Files;
 using OpenArtspaceGallery.Models.Images;
+using OpenArtspaceGallery.Models.ImagesSizes;
 using OpenArtspaceGallery.Models.Settings;
 using OpenArtspaceGallery.Services.Abstract;
 using FileInfo = OpenArtspaceGallery.Models.Files.FileInfo;
@@ -48,6 +49,11 @@ public class FilesService : IFilesService
     public async Task<FileMetadata> GetFileMetadataAsync(Guid fileId)
     {
         return FileMetadata.FromDbo(await _filesDao.GetFileMetadataAsync(fileId));
+    }
+
+    public async Task<List<(FileInfo file, ImageSize size)>> GetFilesWithSizesByImageIdAsync(Guid imageId)
+    {
+        return await _filesDao.GetFilesWithSizesByImageIdAsync(imageId);
     }
 
     public async Task<FileInfo> SaveFileAsync
