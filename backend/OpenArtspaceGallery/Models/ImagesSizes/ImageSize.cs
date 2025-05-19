@@ -41,7 +41,7 @@ public class ImageSize
         ImagesSizesTypes type
     )
     {
-        ImageSizeValidator.Validate(name, width, height);
+        ImageSizeValidator.Validate(name, width, height, type);
         
         Id = id;
         Name = name;
@@ -60,7 +60,7 @@ public class ImageSize
             return null;
         }
         
-        ImageSizeValidator.Validate(imageSize.Name, imageSize.Width, imageSize.Height);
+        ImageSizeValidator.Validate(imageSize.Name, imageSize.Width, imageSize.Height, imageSize.Type);
         
         return new ImageSize
         (

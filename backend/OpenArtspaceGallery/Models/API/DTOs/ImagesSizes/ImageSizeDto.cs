@@ -28,6 +28,6 @@ public class ImageSizeDto : ImageSizeBaseDto
     
     public override ImageSize ToModel()
     {
-        return new ImageSize(Id, Name, Width, Height, 0);
+        return new ImageSize(Id, Name, Width, Height, ImagesSizesTypes.Normal);
     }
 }

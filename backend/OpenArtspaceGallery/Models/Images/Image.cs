@@ -5,6 +5,9 @@ namespace OpenArtspaceGallery.Models.Images;
 
 public class Image
 {
+    /// <summary>
+    /// Guid id
+    /// </summary>
     public Guid Id { get; }
     
     /// <summary>
@@ -59,12 +62,12 @@ public class Image
         }
 
         return new Image
-            (
-                image.Id,
-                image.Name,
-                image.Description,
-                image.Album.Id,
-                image.CreationTime
-            );
+        (
+            image.Id,
+            image.Name,
+            image.Description,
+            image.Album.Id,
+            image.CreationTime
+        );
     }
 }

@@ -40,7 +40,7 @@ public class ImageSizeBaseDto
         ImagesSizesTypes type
     )
     {
-        ImageSizeValidator.Validate(name, width, height);
+        ImageSizeValidator.Validate(name, width, height, type);
         
         Name = name;
         Width = width;
