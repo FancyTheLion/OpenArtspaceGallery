@@ -39,7 +39,7 @@ public class ImagesController : ControllerBase
     /// Get image info
     /// </summary>
     [Route("{id:guid}")]
-    [HttpPost]
+    [HttpGet]
     public async Task<ActionResult<ImageInfoResponse>> GetImageInfoAsync(Guid id)
     {
         var image = await _imageProcessingService.GetImageByIdAsync(id);
