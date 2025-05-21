@@ -8,11 +8,17 @@ public class FileWithSizeDto
     /// File id
     /// </summary>
     [JsonPropertyName("id")]
-    public Guid Id { get; set; }
+    public Guid Id { get; private set; }
     
     /// <summary>
-    /// File size
+    /// File size ID
     /// </summary>
-    [JsonPropertyName("size")]
-    public ImageSizeShortDto Size { get; set; }
+    [JsonPropertyName("sizeId")]
+    public Guid SizeId { get; private set; }
+
+    public FileWithSizeDto(Guid id, Guid sizeId)
+    {
+        Id = id;
+        SizeId = sizeId;
+    }
 }

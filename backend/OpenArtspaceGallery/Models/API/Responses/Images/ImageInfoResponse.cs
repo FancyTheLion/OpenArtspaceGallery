@@ -9,7 +9,7 @@ public class ImageInfoResponse
     /// Image info
     /// </summary>
     [JsonPropertyName("image")]
-    public ImageInfoDto Image { get; set; }
+    public ImageInfoDto Image { get; private set; }
 
     public ImageInfoResponse(ImageInfoDto image)
     {

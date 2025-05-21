@@ -7,11 +7,11 @@ using OpenArtspaceGallery.DAO.Models.Images;
 
 namespace OpenArtspaceGallery.DAO.Implementation;
 
-public class ImageProcessingDao : IImageProcessingDao
+public class ImagesDao : IImagesDao
 {
     private readonly MainDbContext _dbContext;
 
-    public ImageProcessingDao
+    public ImagesDao
     (
         MainDbContext dbContext
     )
@@ -44,5 +44,18 @@ public class ImageProcessingDao : IImageProcessingDao
         await _dbContext.SaveChangesAsync();
 
         return image;
+    }
+
+    public async Task<IReadOnlyDictionary<Guid, Guid?>> GetFilesIdsBySizesIdsAsync(Guid id, IReadOnlyCollection<Guid> sizesIds)
+    {
+        return await _dbContext
+            .ImagesFiles
+            
+            .Include(imgf => imgf.File)
+            .Include(imgf => imgf.Size)
+                
+            .Where(imgf => imgf.Image.Id == id)
+            .Where(imgf => sizesIds.Contains(imgf.Size.Id))
+            .ToDictionaryAsync(imgf => imgf.Size.Id, imgf => imgf?.File.Id);
     }
 }

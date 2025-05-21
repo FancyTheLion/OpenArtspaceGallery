@@ -1,9 +1,5 @@
-using OpenArtspaceGallery.DAO.Models.Albums;
 using OpenArtspaceGallery.DAO.Models.Files;
 using OpenArtspaceGallery.DAO.Models.FilesTypes;
-using OpenArtspaceGallery.DAO.Models.Images;
-using OpenArtspaceGallery.Models.ImagesSizes;
-using FileInfo = OpenArtspaceGallery.Models.Files.FileInfo;
 
 namespace OpenArtspaceGallery.DAO.Abstract;
 
@@ -34,12 +30,6 @@ public interface IFilesDao
     /// </summary>
     /// <param name="fileId"></param>
     public Task<FileDbo?> GetFileMetadataAsync(Guid fileId);
-    
-    /// <summary>
-    /// Get file with size
-    /// </summary>
-    public Task<List<(FileInfo file, ImageSize size)>> GetFilesWithSizesByImageIdAsync(Guid imageId);
-
 
     #endregion
 }

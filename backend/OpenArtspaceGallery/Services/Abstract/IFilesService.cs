@@ -20,12 +20,6 @@ public interface IFilesService
     public Task<FileMetadata> GetFileMetadataAsync(Guid fileId);
     
     /// <summary>
-    /// Get file with size
-    /// </summary>
-    public Task<List<(FileInfo file, ImageSize size)>> GetFilesWithSizesByImageIdAsync(Guid imageId);
-
-    
-    /// <summary>
     /// Get file (for download)
     /// </summary>
     public Task<FileForDownload> GetFileForDownloadAsync(Guid fileId);

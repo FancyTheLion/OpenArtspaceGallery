@@ -51,11 +51,6 @@ public class FilesService : IFilesService
         return FileMetadata.FromDbo(await _filesDao.GetFileMetadataAsync(fileId));
     }
 
-    public async Task<List<(FileInfo file, ImageSize size)>> GetFilesWithSizesByImageIdAsync(Guid imageId)
-    {
-        return await _filesDao.GetFilesWithSizesByImageIdAsync(imageId);
-    }
-
     public async Task<FileInfo> SaveFileAsync
     (
         string name,

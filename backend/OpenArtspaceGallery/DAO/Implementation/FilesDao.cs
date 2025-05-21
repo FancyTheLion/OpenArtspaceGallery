@@ -65,29 +65,4 @@ public class FilesDao : IFilesDao
             .Include(f => f.Type)
             .FirstOrDefaultAsync(f => f.Id == fileId);
     }
-
-    public async Task<List<(FileInfo file, ImageSize size)>> GetFilesWithSizesByImageIdAsync(Guid imageId)
-    {
-        var records = await _dbContext
-            .ImagesFiles
-            .Include(link => link.File)
-            .Include(link => link.Size)
-            .Where(link => link.Image.Id == imageId)
-            .ToListAsync();
-
-        return records
-            .Select(link => (
-                new FileInfo(
-                    link.File.Id,
-                    link.File.OriginalName
-                ),
-                new ImageSize(
-                    link.Size.Id,
-                    link.Size.Name,
-                    link.Size.Width,
-                    link.Size.Height,
-                    link.Size.Type
-            )
-        )).ToList();
-    }
 }

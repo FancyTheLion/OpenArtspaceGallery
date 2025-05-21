@@ -17,23 +17,23 @@ using FileInfo = OpenArtspaceGallery.Models.Files.FileInfo;
 
 namespace OpenArtspaceGallery.Services.Implementation;
 
-public class ImageProcessingService : IImageProcessingService
+public class ImagesService : IImagesService
 {
     private readonly IFilesService _filesService;
-    private readonly IImageProcessingDao _imageProcessingDao;
+    private readonly IImagesDao _imagesDao;
     private readonly IResizeService _resizeService;
     private readonly IImagesSizesService _imagesSizesService;
     
-    public ImageProcessingService
+    public ImagesService
     (
         IFilesService filesService,
-        IImageProcessingDao imageProcessingDao,
+        IImagesDao imagesDao,
         IResizeService resizeService,
         IImagesSizesService imagesSizesService
     )
     {
         _filesService = filesService;
-        _imageProcessingDao = imageProcessingDao;
+        _imagesDao = imagesDao;
         _resizeService = resizeService;
         _imagesSizesService = imagesSizesService;
     }
@@ -41,7 +41,7 @@ public class ImageProcessingService : IImageProcessingService
 
     public async Task<Image> GetImageByIdAsync(Guid imageId)
     {
-        var dbo = await _imageProcessingDao.GetImageByIdAsync(imageId);
+        var dbo = await _imagesDao.GetImageByIdAsync(imageId);
         return dbo != null ? Image.FromDbo(dbo) : null;
     }
 
@@ -96,31 +96,12 @@ public class ImageProcessingService : IImageProcessingService
             Files = imageFiles
         };
         
-        return Image.FromDbo(await _imageProcessingDao.AddImageAsync(dbo));
+        return Image.FromDbo(await _imagesDao.AddImageAsync(dbo));
     }
 
-    public async Task<ImageInfoDto> ToDto(Image image, List<(FileInfo file, ImageSize size)> imageFiles)
+    public async Task<IReadOnlyDictionary<Guid, Guid?>> GetFilesIdsBySizesIdsAsync(Guid id, IReadOnlyCollection<Guid> sizesIds)
     {
-        return new ImageInfoDto
-        {
-            Id = image.Id,
-            Name = image.Name,
-            Description = image.Description,
-            AlbumId = image.AlbumId,
-            CreationTime = image.CreationTime,
-            Files = imageFiles.Select(pair => new ImageFileInfoDto
-                {
-                    File = new FileWithSizeDto
-                    {
-                        Id = pair.file.Id,
-                        Size = new ImageSizeShortDto
-                        {
-                            Id = pair.size.Id,
-                            Name = pair.size.Name,
-                            Type = (int)pair.size.Type
-                        }
-                    }
-                }).ToList()
-        };
+        // TODO: Check sizes IDs for null
+        return await _imagesDao.GetFilesIdsBySizesIdsAsync(id, sizesIds);
     }
 }

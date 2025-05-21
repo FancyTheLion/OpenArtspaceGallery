@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using OpenArtspaceGallery.Models.API.DTOs.Images;
 using OpenArtspaceGallery.Models.API.Requests.Images;
 using OpenArtspaceGallery.Models.API.Responses.Images;
 using OpenArtspaceGallery.Services.Abstract;
@@ -9,17 +10,17 @@ namespace OpenArtspaceGallery.Controllers;
 [Route("api/Images")]
 public class ImagesController : ControllerBase
 {
-    private readonly IImageProcessingService _imageProcessingService;
-    private readonly IFilesService _filesService;
+    private readonly IImagesService _imagesService;
+    private readonly IImagesSizesService _imagesSizesService;
     
     public ImagesController
     (
-        IImageProcessingService imageProcessingService,
-        IFilesService filesService
+        IImagesService imagesService,
+        IImagesSizesService imagesSizesService
     )
     {
-        _imageProcessingService = imageProcessingService;
-        _filesService = filesService;
+        _imagesService = imagesService;
+        _imagesSizesService = imagesSizesService;
     }
 
     /// <summary>
@@ -29,10 +30,14 @@ public class ImagesController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<AddImageResponse>> AddImageAsync(AddImageRequest request)
     {
-        var result =
-            await _imageProcessingService.AddImageAsync(request.Image.ToImageModel(), request.Image.SourceFileId);
-
-        return Ok(new AddImageResponse(result.ToDto()));
+        return Ok
+        (
+            new AddImageResponse
+            (
+                (await _imagesService.AddImageAsync(request.Image.ToImageModel(), request.Image.SourceFileId))
+                .ToDto()
+            )
+        );
     }
 
     /// <summary>
@@ -42,15 +47,20 @@ public class ImagesController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<ImageInfoResponse>> GetImageInfoAsync(Guid id)
     {
-        var image = await _imageProcessingService.GetImageByIdAsync(id);
+        var image = await _imagesService.GetImageByIdAsync(id);
         if (image == null)
         {
             return NotFound();
         }
 
-        var files = await _filesService.GetFilesWithSizesByImageIdAsync(id);
-    
-        var dto = await _imageProcessingService.ToDto(image, files);
-        return Ok(new ImageInfoResponse(dto));
+        var sizesIds = (await _imagesSizesService.GetListAsync())
+            .Select(s => s.Id)
+            .ToList();
+
+        var imageFilesIds = (await _imagesService.GetFilesIdsBySizesIdsAsync(id, sizesIds))
+            .Where(ifid => ifid.Value != null)
+            .ToDictionary(ifid => ifid.Key, imgf => imgf.Value.Value);
+        
+        return Ok(new ImageInfoResponse(new ImageInfoDto(image, imageFilesIds)));
     }
 }
