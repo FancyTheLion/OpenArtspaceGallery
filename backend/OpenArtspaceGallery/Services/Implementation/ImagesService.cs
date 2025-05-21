@@ -101,7 +101,8 @@ public class ImagesService : IImagesService
 
     public async Task<IReadOnlyDictionary<Guid, Guid?>> GetFilesIdsBySizesIdsAsync(Guid id, IReadOnlyCollection<Guid> sizesIds)
     {
-        // TODO: Check sizes IDs for null
+        _ = sizesIds ?? throw new ArgumentNullException(nameof(sizesIds), "Size IDs must not be null!");
+        
         return await _imagesDao.GetFilesIdsBySizesIdsAsync(id, sizesIds);
     }
 }

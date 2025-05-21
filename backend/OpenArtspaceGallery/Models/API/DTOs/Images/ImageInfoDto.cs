@@ -45,7 +45,8 @@ public class ImageInfoDto
 
     public ImageInfoDto(Image image, IReadOnlyDictionary<Guid, Guid> imageFiles)
     {
-        // TODO: Validate values (image != null and so on)
+        _ = image ?? throw new ArgumentNullException(nameof(image), "Image must not be null!");
+        
         Id = image.Id;
         Name = image.Name;
         Description = image.Description;

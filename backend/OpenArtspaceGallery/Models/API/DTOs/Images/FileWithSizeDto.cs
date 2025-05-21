@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using OpenArtspaceGallery.Helpers.Validators;
 
 namespace OpenArtspaceGallery.Models.API.DTOs.Images;
 
@@ -18,7 +19,10 @@ public class FileWithSizeDto
 
     public FileWithSizeDto(Guid id, Guid sizeId)
     {
+        GuidValidator.Validate(id);
         Id = id;
+        
+        GuidValidator.Validate(sizeId);
         SizeId = sizeId;
     }
 }
