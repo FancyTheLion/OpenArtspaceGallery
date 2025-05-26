@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices.JavaScript;
-using Microsoft.VisualBasic;
 using OpenArtspaceGallery.DAO.Abstract;
 using OpenArtspaceGallery.DAO.Constants.ImagesSizes;
 using OpenArtspaceGallery.DAO.Enums;
@@ -7,13 +5,8 @@ using OpenArtspaceGallery.DAO.Models.Albums;
 using OpenArtspaceGallery.DAO.Models.Files;
 using OpenArtspaceGallery.DAO.Models.Images;
 using OpenArtspaceGallery.Helpers.Files.Images;
-using OpenArtspaceGallery.Models.Albums;
-using OpenArtspaceGallery.Models.API.DTOs.Images;
-using OpenArtspaceGallery.Models.Files;
 using OpenArtspaceGallery.Models.Images;
-using OpenArtspaceGallery.Models.ImagesSizes;
 using OpenArtspaceGallery.Services.Abstract;
-using FileInfo = OpenArtspaceGallery.Models.Files.FileInfo;
 
 namespace OpenArtspaceGallery.Services.Implementation;
 
@@ -104,5 +97,19 @@ public class ImagesService : IImagesService
         _ = sizesIds ?? throw new ArgumentNullException(nameof(sizesIds), "Size IDs must not be null!");
         
         return await _imagesDao.GetFilesIdsBySizesIdsAsync(id, sizesIds);
+    }
+
+    public async Task<IReadOnlyCollection<Image>> GetImagesByAlbumIdAsync(Guid albumId)
+    {
+        var images = await _imagesDao.GetImagesByAlbumIdAsync(albumId);
+        
+        if (images == null)
+        {
+            throw new ArgumentException($"No { images } found.", nameof(images));
+        }
+        
+        return images
+            .Select(Image.FromDbo)
+            .ToList();
     }
 }

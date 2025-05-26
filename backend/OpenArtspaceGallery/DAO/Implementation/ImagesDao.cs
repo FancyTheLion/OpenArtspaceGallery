@@ -58,4 +58,11 @@ public class ImagesDao : IImagesDao
             .Where(imgf => sizesIds.Contains(imgf.Size.Id))
             .ToDictionaryAsync(imgf => imgf.Size.Id, imgf => imgf?.File.Id);
     }
+
+    public async Task<IReadOnlyCollection<ImageDbo>> GetImagesByAlbumIdAsync(Guid albumId)
+    {
+        return await _dbContext.Images
+            .Where(img => img.Album.Id == albumId)
+            .ToListAsync();
+    }
 }

@@ -18,4 +18,9 @@ public interface IImagesService
     /// Get images files IDs by sizes IDs 
     /// </summary>
     public Task<IReadOnlyDictionary<Guid, Guid?>> GetFilesIdsBySizesIdsAsync(Guid id, IReadOnlyCollection<Guid> sizesIds);
+
+    /// <summary>
+    /// Get images by album id
+    /// </summary>
+    public Task<IReadOnlyCollection<Image>> GetImagesByAlbumIdAsync(Guid albumId);
 }

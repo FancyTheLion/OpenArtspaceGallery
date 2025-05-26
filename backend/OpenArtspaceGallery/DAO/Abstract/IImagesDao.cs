@@ -19,4 +19,10 @@ public interface IImagesDao
     /// Get images files IDs by sizes IDs 
     /// </summary>
     public Task<IReadOnlyDictionary<Guid, Guid?>> GetFilesIdsBySizesIdsAsync(Guid id, IReadOnlyCollection<Guid> sizesIds);
+
+    /// <summary>
+    /// Get images by album id
+    /// </summary>
+    public Task<IReadOnlyCollection<ImageDbo>> GetImagesByAlbumIdAsync(Guid albumId);
+
 }

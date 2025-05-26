@@ -28,11 +28,6 @@ public interface IAlbumsDao
     /// Get album info (returns null if there is no such album)
     /// </summary>
     Task<AlbumDbo?> GetAlbumByIdAsync(Guid albumId);
-
-    /// <summary>
-    /// When you need to say that the ID is definitely there
-    /// </summary>
-    public Task<AlbumDbo> AttachAlbumByIdAsync(Guid albumId);
     
     #endregion
     
