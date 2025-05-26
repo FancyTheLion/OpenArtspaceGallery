@@ -105,11 +105,21 @@ public class ImagesService : IImagesService
         
         if (images == null)
         {
-            throw new ArgumentException($"No { images } found.", nameof(images));
+            throw new ArgumentException($"No images found for the given albumId.", nameof(images));
         }
         
         return images
             .Select(Image.FromDbo)
             .ToList();
+    }
+
+    public async Task<Dictionary<Guid, Guid>> GetThumbnailsForImagesAsync(IEnumerable<Guid> imageIds)
+    {
+        var imageFilePairs = await _imagesDao.GetThumbnailsForImagesAsync(imageIds);
+
+        return imageFilePairs.ToDictionary(
+            pair => pair.imageId,
+            pair => pair.fileId
+        );
     }
 }

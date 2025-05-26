@@ -1,9 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using OpenArtspaceGallery.DAO.Abstract;
+using OpenArtspaceGallery.DAO.Constants.ImagesSizes;
 using OpenArtspaceGallery.DAO.Contexts;
 using OpenArtspaceGallery.DAO.Enums;
 using OpenArtspaceGallery.DAO.Models.Files;
 using OpenArtspaceGallery.DAO.Models.Images;
+using OpenArtspaceGallery.Helpers.Files.Images;
+using OpenArtspaceGallery.Models.ImagesSizes;
 
 namespace OpenArtspaceGallery.DAO.Implementation;
 
@@ -61,8 +64,19 @@ public class ImagesDao : IImagesDao
 
     public async Task<IReadOnlyCollection<ImageDbo>> GetImagesByAlbumIdAsync(Guid albumId)
     {
-        return await _dbContext.Images
+        return await _dbContext.Images.
+            Include(x => x.Album)
             .Where(img => img.Album.Id == albumId)
+            .ToListAsync();
+    }
+
+    public async Task<IReadOnlyCollection<(Guid imageId, Guid fileId)>> GetThumbnailsForImagesAsync(IEnumerable<Guid> imageIds)
+    {
+        var thumbnailSizeId = ImagesSizes.Thumbnail.Id;
+        
+        return await _dbContext.ImagesFiles
+            .Where(x => imageIds.Contains(x.Image.Id) && x.Size.Id == thumbnailSizeId)
+            .Select(x => new ValueTuple<Guid, Guid>(x.Image.Id, x.File.Id))
             .ToListAsync();
     }
 }

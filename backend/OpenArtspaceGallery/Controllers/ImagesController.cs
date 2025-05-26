@@ -63,4 +63,26 @@ public class ImagesController : ControllerBase
         
         return Ok(new ImageInfoResponse(new ImageInfoDto(image, imageFilesIds)));
     }
+
+    /// <summary>
+    /// Get image with preview
+    /// </summary>
+    [Route("/ByAlbum/{albumId:guid}")]
+    [HttpGet]
+    public async Task<ActionResult<ImageWithPreviewResponse>> GetImageWithPreviewAsync(Guid albumId)
+    {
+        var images = await _imagesService.GetImagesByAlbumIdAsync(albumId);
+
+        var thumbnails = await _imagesService.GetThumbnailsForImagesAsync(images.Select(x => x.Id));
+
+        var imagesWithPreview = images
+            .Select(image =>
+            {
+                thumbnails.TryGetValue(image.Id, out var thumbId);
+                return ImageWithPreviewDto.FromModel(image, thumbId);
+            })
+            .ToList();
+        
+        return Ok(new ImageWithPreviewResponse(imagesWithPreview));
+    }
 }
