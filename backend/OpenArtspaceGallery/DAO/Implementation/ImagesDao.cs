@@ -75,8 +75,8 @@ public class ImagesDao : IImagesDao
         var thumbnailSizeId = ImagesSizes.Thumbnail.Id;
         
         return await _dbContext.ImagesFiles
-            .Where(x => imageIds.Contains(x.Image.Id) && x.Size.Id == thumbnailSizeId)
-            .Select(x => new ValueTuple<Guid, Guid>(x.Image.Id, x.File.Id))
+            .Where(imgf => imageIds.Contains(imgf.Image.Id) && imgf.Size.Id == thumbnailSizeId)
+            .Select(im => new ValueTuple<Guid, Guid>(im.Image.Id, im.File.Id))
             .ToListAsync();
     }
 }
