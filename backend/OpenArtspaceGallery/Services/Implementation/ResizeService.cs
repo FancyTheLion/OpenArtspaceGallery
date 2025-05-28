@@ -11,16 +11,13 @@ namespace OpenArtspaceGallery.Services.Implementation;
 public class ResizeService : IResizeService
 {
     private readonly IFilesService _filesService;
-    private readonly ILogger<FilesService> _logger;
 
     public ResizeService
     (
-        IFilesService filesService,
-        ILogger<FilesService> logger
+        IFilesService filesService
     )
     {
         _filesService = filesService;
-        _logger = logger;
     }
 
     public async Task<byte[]> ResizeImageAsync(byte[] content, int maxSize)
