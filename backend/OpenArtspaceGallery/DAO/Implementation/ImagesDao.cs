@@ -27,7 +27,7 @@ public class ImagesDao : IImagesDao
         return await _dbContext
             .Images
             .Include(img => img.Album)
-            .FirstOrDefaultAsync(img => img.Id == imageId);
+            .FirstAsync(img => img.Id == imageId);
     }
 
     public async Task<ImageDbo> AddImageAsync(ImageDbo image)
@@ -64,19 +64,21 @@ public class ImagesDao : IImagesDao
 
     public async Task<IReadOnlyCollection<ImageDbo>> GetImagesByAlbumIdAsync(Guid albumId)
     {
-        return await _dbContext.Images.
-            Include(x => x.Album)
+        return await _dbContext.Images
+            .Include(x => x.Album)
             .Where(img => img.Album.Id == albumId)
             .ToListAsync();
     }
 
-    public async Task<IReadOnlyCollection<(Guid imageId, Guid fileId)>> GetThumbnailsForImagesAsync(IEnumerable<Guid> imageIds)
+    public async Task<IReadOnlyDictionary<Guid, Guid>>  GetThumbnailsIdsForImagesAsync(IReadOnlyCollection<Guid> imageIds)
     {
-        var thumbnailSizeId = ImagesSizes.Thumbnail.Id;
+        var result = await _dbContext
+            .ImagesFiles
+            .Include(imgf => imgf.File)
+            .Where(imgf => imageIds.Contains(imgf.Image.Id) && imgf.Size.Id == ImagesSizes.Thumbnail.Id)
+            .ToDictionaryAsync(imgf => imgf.Image.Id, imgf => imgf.File?.Id ?? Guid.Empty);
         
-        return await _dbContext.ImagesFiles
-            .Where(imgf => imageIds.Contains(imgf.Image.Id) && imgf.Size.Id == thumbnailSizeId)
-            .Select(im => new ValueTuple<Guid, Guid>(im.Image.Id, im.File.Id))
-            .ToListAsync();
+        return imageIds
+            .ToDictionary(imgid => imgid, imgid => result.TryGetValue(imgid, out var value) ? value : Guid.Empty);
     }
 }

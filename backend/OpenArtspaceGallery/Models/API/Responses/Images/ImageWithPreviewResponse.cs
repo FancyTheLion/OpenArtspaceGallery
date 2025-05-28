@@ -8,11 +8,11 @@ public class ImageWithPreviewResponse
     /// <summary>
     /// Image with preview
     /// </summary>
-    [JsonPropertyName("image")]
-    public IReadOnlyCollection<ImageWithPreviewDto> Image { get; private set; }
+    [JsonPropertyName("images")]
+    public IReadOnlyCollection<ImageWithThumbnailDto> Images { get; private set; }
     
-    public ImageWithPreviewResponse(IReadOnlyCollection<ImageWithPreviewDto> imageWithPreview)
+    public ImageWithPreviewResponse(IReadOnlyCollection<ImageWithThumbnailDto> imageWithPreview)
     {
-        Image = imageWithPreview ?? throw new ArgumentNullException(nameof(imageWithPreview));
+        Images = imageWithPreview ?? throw new ArgumentNullException(nameof(imageWithPreview));
     }
 }

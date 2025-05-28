@@ -73,16 +73,16 @@ public class ImagesController : ControllerBase
     {
         var images = await _imagesService.GetImagesByAlbumIdAsync(albumId);
 
-        var thumbnails = await _imagesService.GetThumbnailsForImagesAsync(images.Select(x => x.Id));
-
-        var imagesWithPreview = images
-            .Select(image =>
-            {
-                thumbnails.TryGetValue(image.Id, out var thumbId);
-                return ImageWithPreviewDto.FromModel(image, thumbId);
-            })
-            .ToList();
+        var thumbnailsIds = await _imagesService.GetThumbnailsIdsForImagesAsync(images.Select(x => x.Id).ToList());
         
-        return Ok(new ImageWithPreviewResponse(imagesWithPreview));
+        return Ok
+        (
+            new ImageWithPreviewResponse
+            (
+                images
+                    .Select(image => ImageWithThumbnailDto.FromModel(image, thumbnailsIds[image.Id]))
+                    .ToList()
+            )
+        );
     }
 }

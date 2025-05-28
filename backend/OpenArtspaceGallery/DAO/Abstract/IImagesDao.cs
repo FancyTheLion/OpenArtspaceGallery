@@ -26,8 +26,7 @@ public interface IImagesDao
     public Task<IReadOnlyCollection<ImageDbo>> GetImagesByAlbumIdAsync(Guid albumId);
 
     /// <summary>
-    /// Get thumbnails for images
+    /// Get thumbnails IDs for images
     /// </summary>
-    public Task<IReadOnlyCollection<(Guid imageId, Guid fileId)>> GetThumbnailsForImagesAsync(IEnumerable<Guid> imageIds);
-
+    public Task<IReadOnlyDictionary<Guid, Guid>> GetThumbnailsIdsForImagesAsync(IReadOnlyCollection<Guid> imageIds);
 }

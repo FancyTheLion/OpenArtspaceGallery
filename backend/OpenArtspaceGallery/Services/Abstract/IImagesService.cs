@@ -24,6 +24,9 @@ public interface IImagesService
     /// </summary>
     public Task<IReadOnlyCollection<Image>> GetImagesByAlbumIdAsync(Guid albumId);
 
-    public Task<Dictionary<Guid, Guid>> GetThumbnailsForImagesAsync(IEnumerable<Guid> imageIds);
+    /// <summary>
+    /// Get thumbnails ids for images
+    /// </summary>
+    public Task<IReadOnlyDictionary<Guid, Guid>> GetThumbnailsIdsForImagesAsync(IReadOnlyCollection<Guid> imageIds);
 
 }

@@ -3,17 +3,17 @@ using OpenArtspaceGallery.Models.Images;
 
 namespace OpenArtspaceGallery.Models.API.DTOs.Images;
 
-public class ImageWithPreviewDto : ImageDto
+public class ImageWithThumbnailDto : ImageDto
 {
     /// <summary>
     /// Thumbnail file id
     /// </summary>
     [JsonPropertyName("thumbnailId")]
-    public Guid ThumbnailId { get; set; }
+    public Guid ThumbnailId { get; private set; }
     
-    public static ImageWithPreviewDto FromModel(Image image, Guid thumbnailId)
+    public static ImageWithThumbnailDto FromModel(Image image, Guid thumbnailId)
     {
-        return new ImageWithPreviewDto
+        return new ImageWithThumbnailDto
         {
             Id = image.Id,
             Name = image.Name,

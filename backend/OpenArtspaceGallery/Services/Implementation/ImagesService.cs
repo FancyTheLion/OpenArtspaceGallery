@@ -103,23 +103,13 @@ public class ImagesService : IImagesService
     {
         var images = await _imagesDao.GetImagesByAlbumIdAsync(albumId);
         
-        if (images == null)
-        {
-            throw new ArgumentException($"No images found for the given albumId.", nameof(images));
-        }
-        
         return images
             .Select(Image.FromDbo)
             .ToList();
     }
 
-    public async Task<Dictionary<Guid, Guid>> GetThumbnailsForImagesAsync(IEnumerable<Guid> imageIds)
+    public async Task<IReadOnlyDictionary<Guid, Guid>> GetThumbnailsIdsForImagesAsync(IReadOnlyCollection<Guid> imageIds)
     {
-        var imageFilePairs = await _imagesDao.GetThumbnailsForImagesAsync(imageIds);
-
-        return imageFilePairs.ToDictionary(
-            pair => pair.imageId,
-            pair => pair.fileId
-        );
+        return await _imagesDao.GetThumbnailsIdsForImagesAsync(imageIds);
     }
 }
