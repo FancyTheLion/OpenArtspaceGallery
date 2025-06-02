@@ -67,7 +67,7 @@ public class ImagesController : ControllerBase
     /// <summary>
     /// Get image with preview
     /// </summary>
-    [Route("/ByAlbum/{albumId:guid}")]
+    [Route("ByAlbum/{albumId:guid}")]
     [HttpGet]
     public async Task<ActionResult<ImageWithPreviewResponse>> GetImageWithPreviewAsync(Guid albumId)
     {
