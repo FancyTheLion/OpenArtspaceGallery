@@ -52,7 +52,7 @@
         .sort(function(a: Album, b: Album) { return a.creationTime.getTime() - b.creationTime.getTime() })
   }
 
-  async function RefreshAlbumsListAsync() // I don't know :(
+  async function RefreshAlbumsListAsync()
   {
     isLoading.value = true
 
