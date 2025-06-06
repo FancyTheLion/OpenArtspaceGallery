@@ -6,6 +6,8 @@ import {onMounted, ref} from "vue";
 
 const { image } = defineProps<{ image: Image }>()
 
+const defaultThumbnail = '/public/images/icons/imageNotFound.webp';
+
 const thumbnail = ref<string | undefined >(undefined)
 
 onMounted(async () =>
@@ -16,6 +18,12 @@ onMounted(async () =>
 async function OnLoad()
 {
   thumbnail.value = await GetPreview(image.thumbnailId)
+}
+
+function onImageError(event: Event)
+{
+  const target = event.target as HTMLImageElement;
+  target.src = defaultThumbnail;
 }
 
 async function GetPreview(previewId: string)
@@ -35,9 +43,10 @@ async function GetPreview(previewId: string)
   <div class="thumbnail-container">
 
     <img
-        :src="thumbnail ?? '/public/images/icons/imageNotFound.webp'"
+        :src="thumbnail"
         alt="Preview"
-        class="thumbnail-image"/>
+        class="thumbnail-image"
+        @error="onImageError"/>
 
     <div class="thumbnail-name">
       {{ image.name }}
