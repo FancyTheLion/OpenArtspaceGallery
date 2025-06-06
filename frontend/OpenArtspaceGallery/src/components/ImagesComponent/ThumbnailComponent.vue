@@ -17,23 +17,22 @@ onMounted(async () =>
 
 async function OnLoad()
 {
-  thumbnail.value = await GetPreview(image.thumbnailId)
+  thumbnail.value = await GetPreviewAsync(image.thumbnailId)
 }
 
-function onImageError(event: Event)
+function OnPreviewImageError(event: Event)
 {
   const target = event.target as HTMLImageElement;
   target.src = defaultThumbnail;
 }
 
-async function GetPreview(previewId: string)
+async function GetPreviewAsync(previewId: string)
 {
   const response = await WebClientSendGetRequest("/Files/" + previewId);
 
   const blob = await response.blob();
 
   return URL.createObjectURL(blob);
-
 }
 
 </script>
@@ -46,7 +45,7 @@ async function GetPreview(previewId: string)
         :src="thumbnail"
         alt="Preview"
         class="thumbnail-image"
-        @error="onImageError"/>
+        @error="OnPreviewImageError"/>
 
     <div class="thumbnail-name">
       {{ image.name }}

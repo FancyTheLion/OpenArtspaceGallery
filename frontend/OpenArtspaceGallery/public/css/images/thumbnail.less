@@ -3,6 +3,7 @@
 @thumbnail-hover-shadow-color: hsla(0, 0%, 0%, 0.5);
 @thumbnail-border-color: hsl(220, 30%, 40%);
 @thumbnail-name-color: hsl(0, 0%, 20%);
+@thumbnail-background-color: hsl(0, 0%, 90%);
 
 @thumbnail-width: 10rem;
 @thumbnail-height: 10rem;
@@ -24,7 +25,7 @@
   border-radius: @border-radius-normal;
 
   overflow: hidden;
-  background-color: hsl(0, 0%, 90%);
+  background-color: @thumbnail-background-color;
   cursor: pointer;
 
   transition: transform 0.2s ease, box-shadow 0.2s ease;
