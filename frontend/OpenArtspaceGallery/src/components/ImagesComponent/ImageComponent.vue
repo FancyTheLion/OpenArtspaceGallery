@@ -3,6 +3,7 @@
 import {onMounted, PropType, ref} from "vue";
 import {WebClientSendGetRequest} from "../../ts/libWebClient.ts";
 import {DecodeImageDto, DecodeImagesResponse, Image} from "../../ts/Images/libImages.ts";
+import ThumbnailComponent from "./ThumbnailComponent.vue";
 
 const props = defineProps({
   currentAlbumId: {
@@ -35,7 +36,7 @@ async function GetImagesListAsync(currentAlbumId: String | undefined)
 
 <template>
 
-  <div class="albums-container">
+  <div class="images-container">
 
     <div
     v-if="images.length === 0">
@@ -46,7 +47,8 @@ async function GetImagesListAsync(currentAlbumId: String | undefined)
     v-for="image in images"
     :key="image.id">
 
-      <div> {{ image.name }} </div>
+      <ThumbnailComponent
+          :image="image" />
 
     </div>
 

@@ -1,0 +1,194 @@
+/* Colors */
+/* Text colors */
+/* Link colors */
+/* Table colors */
+/* Popaps colors */
+/* Text size */
+/* Text boldness */
+/* Margins */
+/*
+@margin-large: ;
+@margin-xlarge: ;
+@margin-xxlarge: ;
+@margin-xxxlarge: ;
+@margin-huge: ;
+@margin-xxhuge: ;
+@margin-max: ;*/
+/* End margins */
+/* Paddings */
+/* End paddings */
+/* Borders */
+/* End borders */
+/* Gaps */
+/* End gaps */
+/* Images */
+/* Mixins */
+/* Centered flex (vertically and horizontally) */
+.mixin-flex-vertically-and-horizontally-centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* Mixin for indentation everywhere except the top */
+.mixin-padding-small-left-right-bottom {
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+  padding-bottom: 0.4rem;
+}
+.mixin-table-borders {
+  border: 0.1rem solid hsl(0, 0%, 0%);
+  padding: 0.4rem;
+}
+/* Centered item */
+.flex-vertically-and-horizontally-centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* End of mixins */
+/* Text centered */
+.text-centered {
+  text-align: center;
+}
+/* Header */
+.header-text-centered {
+  display: flex;
+  justify-content: center;
+}
+/* End header */
+/* Container with header */
+.link {
+  margin-bottom: 0.2rem;
+  padding-bottom: 0.2rem;
+  color: hsl(240, 100%, 50%);
+}
+/* Container with header */
+.link:visited {
+  margin-bottom: 0.2rem;
+  padding-bottom: 0.2rem;
+  color: hsl(240, 100%, 50%);
+}
+/* Container with header */
+.link:active {
+  margin-bottom: 0.2rem;
+  padding-bottom: 0.2rem;
+  color: hsl(10, 75%, 47%);
+}
+/* link not important */
+.link-not-important {
+  color: hsl(0, 0%, 56%);
+  font-size: 0.9rem;
+}
+/* link not important:hover */
+.link-not-important:hover {
+  color: hsl(219, 39%, 59%);
+  font-size: 0.9rem;
+}
+.pseudo-link {
+  color: hsl(240, 100%, 50%);
+  text-decoration: underline;
+  cursor: pointer;
+}
+.pseudo-link:active {
+  color: hsl(10, 75%, 47%);
+  text-decoration: underline;
+  cursor: pointer;
+}
+/* Form invalid field */
+.form-invalid-field {
+  border: hsl(0, 75%, 47%) solid 0.2rem;
+  border-radius: 0.3rem;
+}
+/* Form valid field. Dont touch */
+.table-name-header {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.3rem;
+  padding-bottom: 0.2rem;
+}
+.table {
+  border: 0.1rem solid hsl(0, 0%, 0%);
+  padding: 0.4rem;
+  border-collapse: collapse;
+}
+.table-cells-header {
+  border: 0.1rem solid hsl(0, 0%, 0%);
+  padding: 0.4rem;
+  background: hsl(240, 100%, 50%);
+  color: hsl(0, 0%, 100%);
+}
+.table-row:nth-child(odd) {
+  border: 0.1rem solid hsl(0, 0%, 0%);
+  padding: 0.4rem;
+  background: hsl(231, 91.9%, 43.3%);
+  color: hsl(0, 0%, 100%);
+}
+.table-row:nth-child(even) {
+  border: 0.1rem solid hsl(0, 0%, 0%);
+  padding: 0.4rem;
+  background: hsl(215, 66%, 50%);
+  color: hsl(0, 0%, 100%);
+}
+.table-cells {
+  border: 0.1rem solid hsl(0, 0%, 0%);
+  padding: 0.4rem;
+}
+.table-actions-cells {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 0.4rem 1rem 0.4rem;
+  gap: 0.1rem;
+}
+.table-close-button {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 1.5rem;
+  cursor: pointer;
+}
+.table-update-button {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 1.5rem;
+  cursor: pointer;
+}
+/* Popaps */
+/* Extends the input field to the end of the container */
+.popup-input {
+  width: 96%;
+  margin-top: 0.1rem;
+  margin-bottom: 0.2rem;
+}
+/* End popaps */
+.thumbnail-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 10rem;
+  height: 10rem;
+  border: 0.2rem solid hsl(220, 30%, 40%);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background-color: hsl(0, 0%, 90%);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.thumbnail-container:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0.25rem 0.75rem hsla(0, 0%, 0%, 0.5);
+}
+.thumbnail-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0.5rem;
+}
+.thumbnail-name {
+  padding: 0.5rem 0.7rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: center;
+  color: hsl(0, 0%, 20%);
+}
+/*# sourceMappingURL=thumbnail.css.map */
