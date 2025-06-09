@@ -12,8 +12,8 @@ using OpenArtspaceGallery.DAO.Contexts;
 namespace OpenArtspaceGallery.DAO.Migrations
 {
     [DbContext(typeof(MainDbContext))]
-    [Migration("20250502084953_AddNewThumbnailImageSize.cs")]
-    partial class AddNewThumbnailImageSizecs
+    [Migration("20250609082401_RestoreThumbnailImageSize")]
+    partial class RestoreThumbnailImageSize
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

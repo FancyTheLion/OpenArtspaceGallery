@@ -14,7 +14,7 @@
 
   <AlbumPageComponent :currentAlbumId="props.currentAlbumId" />
 
-  <ImagesListComponent :currentAlbumId="props.currentAlbumId"/>
+  <ImagesListComponent :currentAlbumId="props.currentAlbumId!"/>
 
   <FooterComponent />
 </template>
