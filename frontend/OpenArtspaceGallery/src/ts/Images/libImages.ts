@@ -1,3 +1,4 @@
+/* DTO (from backend) */
 export type ImageDto = {
     id: string;
     name: string;
@@ -7,6 +8,7 @@ export type ImageDto = {
     creationTime: string;
 }
 
+/* Image model */
 export type Image = {
     id: string;
     name: string;
@@ -29,16 +31,24 @@ export function DecodeImageDto(dto: ImageDto) : Image
     }
 }
 
-/* Private images response */
+/* Public images response */
 type ImagesResponse =
+{
+    images: Image[];
+}
+
+/* Private images response */
+type ImagesResponseDto =
 {
     images: ImageDto[];
 }
 
 /* Response to model */
-export function DecodeImagesResponse(response: ImagesResponse) : { images: ImageDto[] }
+export function DecodeImagesResponse(response: ImagesResponseDto) : ImagesResponse
 {
     return {
-        images: response.images
+        images: response
+            .images
+            .map(DecodeImageDto)
     };
 }

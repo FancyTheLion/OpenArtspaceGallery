@@ -2,13 +2,13 @@
 
 import {onMounted, PropType, ref} from "vue";
 import {WebClientSendGetRequest} from "../../ts/libWebClient.ts";
-import {DecodeImageDto, DecodeImagesResponse, Image} from "../../ts/Images/libImages.ts";
+import {DecodeImagesResponse, Image} from "../../ts/Images/libImages.ts";
 import ThumbnailComponent from "./ThumbnailComponent.vue";
 
 const props = defineProps({
   currentAlbumId: {
     type: String as PropType<string>,
-    required: false
+    required: true
   }
 })
 
@@ -24,11 +24,10 @@ async function OnLoad()
     images.value = await GetImagesListAsync(props.currentAlbumId)
 }
 
-async function GetImagesListAsync(currentAlbumId: String | undefined)
+async function GetImagesListAsync(currentAlbumId: String)
 {
   return DecodeImagesResponse((await (await WebClientSendGetRequest("/Images/ByAlbum/" + currentAlbumId)).json()))
       .images
-      .map(DecodeImageDto)
       .sort((a: Image, b: Image) => a.creationTime.getTime() - b.creationTime.getTime())
 }
 
@@ -39,16 +38,15 @@ async function GetImagesListAsync(currentAlbumId: String | undefined)
   <div class="images-container">
 
     <div
-    v-if="images.length === 0">
-      Images not found
+      v-if="images.length === 0">
+      Album is empty
     </div>
 
     <div
-    v-for="image in images"
-    :key="image.id">
+      v-for="image in images"
+      :key="image.id">
 
-      <ThumbnailComponent
-          :image="image" />
+      <ThumbnailComponent :image="image" />
 
     </div>
 

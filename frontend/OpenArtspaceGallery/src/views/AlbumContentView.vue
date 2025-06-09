@@ -2,7 +2,7 @@
   import FooterComponent from "../components/Shared/Foooter/FooterComponent.vue";
   import HeaderComponent from "../components/Shared/Header/HeaderComponent.vue";
   import AlbumPageComponent from "../components/Albums/AlbumPageComponent.vue";
-  import ImageComponent from "../components/ImagesComponent/ImageComponent.vue";
+  import ImagesListComponent from "../components/Images/ImagesListComponent.vue";
 
   const props = defineProps({
     currentAlbumId: String
@@ -14,7 +14,7 @@
 
   <AlbumPageComponent :currentAlbumId="props.currentAlbumId" />
 
-  <ImageComponent :currentAlbumId="props.currentAlbumId"/>
+  <ImagesListComponent :currentAlbumId="props.currentAlbumId"/>
 
   <FooterComponent />
 </template>

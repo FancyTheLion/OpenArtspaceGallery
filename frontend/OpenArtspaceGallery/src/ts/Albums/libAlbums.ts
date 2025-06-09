@@ -29,17 +29,17 @@ export function DecodeAlbumDto(dto: AlbumDto) : Album
 
 /* Public albums hierarchy type */
 export type AlbumHierarchy =
-    {
-        id: string;
-        name: string;
-    }
+{
+    id: string;
+    name: string;
+}
 
 /* Private albums hierarchy DTO */
 type AlbumHierarchyDto =
-    {
-        id: string;
-        name: string;
-    }
+{
+    id: string;
+    name: string;
+}
 
 /* DTO to model */
 export function DecodeAlbumHierarchyDto(dto: AlbumHierarchyDto) : AlbumHierarchy
