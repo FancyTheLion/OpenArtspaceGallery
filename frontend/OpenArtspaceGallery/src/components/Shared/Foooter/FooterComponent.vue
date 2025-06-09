@@ -56,7 +56,7 @@
         </div>
 
         <div class="footer-version-info">
-          Frontend version: 0.0.1
+          Frontend version: 0.0.3
         </div>
 
       </div>

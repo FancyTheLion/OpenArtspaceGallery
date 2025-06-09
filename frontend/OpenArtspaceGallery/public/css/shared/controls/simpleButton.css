@@ -1,10 +1,3 @@
-/* Colors */
-/* Text colors */
-/* Link colors */
-/* Table colors */
-/* Popaps colors */
-/* Text size */
-/* Text boldness */
 /* Margins */
 /*
 @margin-large: ;
@@ -17,11 +10,8 @@
 /* End margins */
 /* Paddings */
 /* End paddings */
-/* Borders */
-/* End borders */
 /* Gaps */
 /* End gaps */
-/* Images */
 /* Mixins */
 /* Centered flex (vertically and horizontally) */
 .mixin-flex-vertically-and-horizontally-centered {
@@ -162,6 +152,23 @@
 }
 /* End popaps */
 /* Colors */
+/* Text */
+/* Link */
+/* Table */
+/* Popaps */
+/* Buttons */
+/* Albums */
+/* Images */
+/* End colors */
+/* Sizes */
+/* Text size */
+/* Album creation date */
+/* End sizes */
+/* Text boldness */
+/* Borders */
+/* End borders */
+/* Images */
+/* End images */
 .mixin-button-base {
   background-color: deepskyblue;
   color: white;
