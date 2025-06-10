@@ -26,6 +26,8 @@ const props = defineProps({
 
   const emit = defineEmits(["newAlbumCreated"])
 
+  const isAddActionPopupVisible = ref<boolean>(false)
+
   const isNewAlbumPopupVisible = ref<boolean>(false)
 
   const newAlbumFormValidator = useVuelidate(newAlbumFormRules, newAlbumFormData)
@@ -38,6 +40,16 @@ const props = defineProps({
   async function OnLoad()
   {
     await newAlbumFormValidator.value.$validate()
+  }
+
+  function ShowAddMenuPopup()
+  {
+    isAddActionPopupVisible.value = true
+  }
+
+  function HideAddMenuPopup()
+  {
+    isAddActionPopupVisible.value = false
   }
 
   function ShowNewAlbumPopup()
@@ -83,22 +95,52 @@ const props = defineProps({
 
 <template>
 
-  <!-- New album button -->
-  <div class="new-album-button-container">
+  <!-- Add action button -->
+  <div class="add-action-button-container">
 
     <div
-        class="new-album-button"
-        @click="ShowNewAlbumPopup()">
+        class="add-action-button"
+        @click="ShowAddMenuPopup()">
 
         <img class="new-album-button-image" src="/images/icons/addNewAlbum.webp" alt="Create new album" title="Create new album"/>
     </div>
 
   </div>
 
-  <!-- New album form popup -->
-  <div v-if="isNewAlbumPopupVisible">
+  <!-- Add menu form popup -->
+  <div v-if="isAddActionPopupVisible">
 
     <div class="popup-lower-layer"></div>
+
+    <div class="popup-upper-layer">
+
+      <div class="popup">
+
+        <div class="new-album-add-new-album-form">
+
+          <button
+              type="button"
+              @click="HideAddMenuPopup()">
+            Cancel
+          </button>
+
+          <button
+              class="new-album-form-buttons"
+              type="button"
+              @click="async() => await ShowNewAlbumPopup()">
+            Create
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- New album form popup -->
+  <div v-if="isNewAlbumPopupVisible">
 
     <div class="popup-upper-layer">
 
