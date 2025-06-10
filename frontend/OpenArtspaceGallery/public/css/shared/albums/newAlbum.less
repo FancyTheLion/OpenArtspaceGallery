@@ -11,16 +11,18 @@
 @new-album-form-container-width: 15rem;
 @new-album-form-container-height: 10rem;
 
-.new-album-button {
+.add-action-button {
   border: @border-width-thick @border-type-common-solid @new-album-color-bottom;
   border-radius: @border-radius-normal;
   width: @new-album-buttom-width;
   height: @new-album-buttom-height;
   .mixin-flex-vertically-and-horizontally-centered();
   cursor: pointer;
+
+  transition: transform @image-animation-time ease, box-shadow @image-animation-time ease;
 }
 
-.new-album-button:hover {
+.add-action-button:hover {
   transform: scale(@image-increase);
   box-shadow: @image-hover-shadow-x @image-hover-shadow-y @image-hover-shadow-blur-radius @thumbnail-hover-shadow-color;
   transition: transform @image-animation-time ease, box-shadow @image-animation-time ease;
@@ -32,7 +34,7 @@
   height: @new-album-image-size;
 }
 
-.new-album-button-container {
+.add-action-button-container {
   .mixin-flex-vertically-and-horizontally-centered();
 }
 
