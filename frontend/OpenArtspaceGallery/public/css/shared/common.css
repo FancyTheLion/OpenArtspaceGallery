@@ -32,6 +32,7 @@
 /* End paddings */
 /* Gaps */
 /* End gaps */
+/* Form size */
 /* Mixins */
 /* Centered flex (vertically and horizontally) */
 .mixin-flex-vertically-and-horizontally-centered {
@@ -54,6 +55,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.mixin-universal-form {
+  border: 0.3rem solid aqua;
+  border-radius: 0.5rem;
+  width: 15rem;
+  height: 10rem;
+  background-color: white;
 }
 /* End of mixins */
 /* Text centered */
@@ -171,4 +179,7 @@
   margin-bottom: 0.2rem;
 }
 /* End popaps */
+/* Forms */
+/* Universal form */
+/* End forms */
 /*# sourceMappingURL=common.css.map */

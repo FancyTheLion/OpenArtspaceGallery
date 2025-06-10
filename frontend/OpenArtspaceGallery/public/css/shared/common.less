@@ -39,6 +39,10 @@
 
 /* End gaps */
 
+/* Form size */
+@size-universal-form-container-width: 15rem;
+@size-universal-form-container-height: 10rem;
+
 /* Mixins */
 
 /* Centered flex (vertically and horizontally) */
@@ -63,6 +67,14 @@
 /* Centered item */
 .flex-vertically-and-horizontally-centered {
   .mixin-flex-vertically-and-horizontally-centered();
+}
+
+.mixin-universal-form {
+  border: @border-width-thick @border-type-common-solid aqua;
+  border-radius: @border-radius-normal;
+  width: @size-universal-form-container-width;
+  height: @size-universal-form-container-height;
+  background-color: white;
 }
 
 /* End of mixins */
@@ -210,3 +222,8 @@
 }
 /* End popaps */
 
+/* Forms */
+
+/* Universal form */
+
+/* End forms */

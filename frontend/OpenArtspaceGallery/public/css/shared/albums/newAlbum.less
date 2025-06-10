@@ -8,9 +8,6 @@
 @new-album-buttom-width: 8rem;
 @new-album-buttom-height: 8rem;
 
-@new-album-form-container-width: 15rem;
-@new-album-form-container-height: 10rem;
-
 .add-action-button {
   border: @border-width-thick @border-type-common-solid @new-album-color-bottom;
   border-radius: @border-radius-normal;
@@ -38,20 +35,6 @@
   .mixin-flex-vertically-and-horizontally-centered();
 }
 
-/* Container with one albums */
-.new-album-add-new-album-form {
-  .mixin-flex-vertically-and-horizontally-centered();
-  flex-direction: column;
-  flex-wrap: nowrap;
-  gap: 0;
-
-  border: @border-width-thick @border-type-common-solid aqua;
-  border-radius: @border-radius-normal;
-  width: @new-album-form-container-width;
-  height: @new-album-form-container-height;
-  background-color: white;
-}
-
 /* New album form button container */
 .new-album-form-button-container {
   padding: @new-album-form-indentation;
@@ -60,4 +43,22 @@
 /* For function buttons in a form */
 .new-album-form-buttons {
   margin: @new-album-form-indentation;
+}
+
+.add-new-album-form {
+  .mixin-flex-vertically-and-horizontally-centered();
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 0;
+
+  .mixin-universal-form();
+}
+
+.add-menu-form {
+  .mixin-flex-vertically-and-horizontally-centered();
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 0;
+
+  .mixin-universal-form();
 }

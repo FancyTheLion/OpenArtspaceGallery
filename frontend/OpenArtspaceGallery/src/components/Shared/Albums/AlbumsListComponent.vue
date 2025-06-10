@@ -4,7 +4,7 @@
   import {Album, DecodeAlbumDto } from "../../../ts/Albums/libAlbums.ts";
   import {WebClientSendGetRequest} from "../../../ts/libWebClient.ts";
   import AlbumsHierarchyComponent from "../../Albums/AlbumsHierarchyComponent.vue";
-  import NewAlbumComponent from "./NewAlbumComponent.vue";
+  import AddMediaComponent from "./AddMediaComponent.vue";
   import LoadingSymbolComponent from "../LoadyngSymbol/LoadingSymbolComponent.vue";
 
   const props = defineProps({
@@ -98,7 +98,7 @@
           @albumDeleted="async () => await OnAlbumDeletedAsync()"
           @albumRenamed="async () => await OnAlbumRenamedAsync()"/>
 
-      <NewAlbumComponent
+      <AddMediaComponent
           :currentAlbumId="props.currentAlbumId"
           @newAlbumCreated="async () => await OnAlbumAddedAsync()"/>
 

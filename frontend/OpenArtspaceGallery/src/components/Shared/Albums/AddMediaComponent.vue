@@ -26,7 +26,9 @@ const props = defineProps({
 
   const emit = defineEmits(["newAlbumCreated"])
 
-  const isAddActionPopupVisible = ref<boolean>(false)
+  const isAddMenuPopupVisible = ref<boolean>(false)
+
+  const isAddImagePopupVisible = ref<boolean>(false)
 
   const isNewAlbumPopupVisible = ref<boolean>(false)
 
@@ -44,12 +46,18 @@ const props = defineProps({
 
   function ShowAddMenuPopup()
   {
-    isAddActionPopupVisible.value = true
+    isAddMenuPopupVisible.value = true
   }
 
-  function HideAddMenuPopup()
+  function ShowAddImagePopup()
   {
-    isAddActionPopupVisible.value = false
+    isAddImagePopupVisible.value = true
+  }
+
+  function HidePopup()
+  {
+    isAddMenuPopupVisible.value = false
+    isAddImagePopupVisible.value = false
   }
 
   function ShowNewAlbumPopup()
@@ -61,7 +69,20 @@ const props = defineProps({
   {
     ClearInputField()
 
+    isAddMenuPopupVisible.value = false
     isNewAlbumPopupVisible.value = false
+  }
+
+  function NewAlbumStepBack()
+  {
+    ClearInputField()
+
+    isNewAlbumPopupVisible.value = false
+  }
+
+  function AddImageStepBack()
+  {
+    isAddImagePopupVisible.value = false
   }
 
   function ClearInputField()
@@ -108,7 +129,7 @@ const props = defineProps({
   </div>
 
   <!-- Add menu form popup -->
-  <div v-if="isAddActionPopupVisible">
+  <div v-if="isAddMenuPopupVisible">
 
     <div class="popup-lower-layer"></div>
 
@@ -116,19 +137,26 @@ const props = defineProps({
 
       <div class="popup">
 
-        <div class="new-album-add-new-album-form">
-
-          <button
-              type="button"
-              @click="HideAddMenuPopup()">
-            Cancel
-          </button>
+        <div class="add-menu-form">
 
           <button
               class="new-album-form-buttons"
               type="button"
               @click="async() => await ShowNewAlbumPopup()">
-            Create
+            Create album
+          </button>
+
+          <button
+              class="new-album-form-buttons"
+              type="button"
+              @click="async() => await ShowAddImagePopup()">
+            Add image
+          </button>
+
+          <button
+              type="button"
+              @click="HidePopup()">
+            Cancel
           </button>
 
         </div>
@@ -139,6 +167,43 @@ const props = defineProps({
 
   </div>
 
+  <!-- Add image form popup -->
+  <div v-if="isAddImagePopupVisible">
+
+    <div class="popup-upper-layer">
+
+      <div class="popup">
+
+        <div class="add-menu-form">
+
+          <button
+              type="button"
+              @click="AddImageStepBack()">
+            Back
+          </button>
+
+          <button
+              type="button"
+              @click="HidePopup()">
+            Cancel
+          </button>
+
+          <button
+              class="new-album-form-buttons"
+              type="button">
+            Add
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+
   <!-- New album form popup -->
   <div v-if="isNewAlbumPopupVisible">
 
@@ -146,7 +211,7 @@ const props = defineProps({
 
       <div class="popup">
 
-        <div class="new-album-add-new-album-form">
+        <div class="add-new-album-form">
 
           <div>
             Album name:
@@ -162,6 +227,14 @@ const props = defineProps({
           <div class="new-album-form-button-container">
 
             <button
+                class="new-album-form-buttons"
+                type="button"
+                @click="NewAlbumStepBack()">
+              Back
+            </button>
+
+            <button
+              class="new-album-form-buttons"
               type="button"
               @click="HideNewAlbumPopup()">
               Cancel
