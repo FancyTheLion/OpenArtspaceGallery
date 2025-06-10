@@ -169,15 +169,22 @@
 /* End borders */
 /* Images */
 /* End images */
+/* Animations */
+/* End animations */
 .new-album-button {
   border: 0.3rem solid hsl(219, 67%, 66%);
   border-radius: 0.5rem;
-  width: 10rem;
-  height: 10rem;
+  width: 8rem;
+  height: 8rem;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
+}
+.new-album-button:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0.25rem 0.75rem hsla(0, 0%, 0%, 0.5);
+  transition: transform 0.17s ease, box-shadow 0.17s ease;
 }
 /* New album bottom image */
 .new-album-button-image {

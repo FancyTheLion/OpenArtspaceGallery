@@ -169,6 +169,8 @@
 /* End borders */
 /* Images */
 /* End images */
+/* Animations */
+/* End animations */
 .thumbnail-container {
   position: relative;
   display: flex;
@@ -180,7 +182,7 @@
   overflow: hidden;
   background-color: hsl(0, 0%, 90%);
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.17s ease, box-shadow 0.17s ease;
 }
 .thumbnail-container:hover {
   transform: scale(1.03);

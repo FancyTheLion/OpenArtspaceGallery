@@ -4,10 +4,6 @@
 @thumbnail-width: 10rem;
 @thumbnail-height: 10rem;
 
-@thumbnail-hover-shadow-x: 0;
-@thumbnail-hover-shadow-y: 0.25rem;
-@thumbnail-hover-shadow-blur-radius: 0.75rem;
-
 .thumbnail-container {
   position: relative;
 
@@ -24,12 +20,12 @@
   background-color: @thumbnail-background-color;
   cursor: pointer;
 
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform @image-animation-time ease, box-shadow @image-animation-time ease;
 }
 
 .thumbnail-container:hover {
-  transform: scale(1.03);
-  box-shadow: @thumbnail-hover-shadow-x @thumbnail-hover-shadow-y @thumbnail-hover-shadow-blur-radius @thumbnail-hover-shadow-color;
+  transform: scale(@image-increase);
+  box-shadow: @image-hover-shadow-x @image-hover-shadow-y @image-hover-shadow-blur-radius @thumbnail-hover-shadow-color;
 }
 
 .thumbnail-image {

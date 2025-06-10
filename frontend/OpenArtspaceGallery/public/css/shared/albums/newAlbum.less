@@ -1,14 +1,12 @@
 @import "../common.less";
 @import "../theme";
 
-@new-album-color-bottom: hsl(219, 67%, 66%);
-
 @new-album-image-size: 4.0rem;
 
 @new-album-form-indentation: 0.2rem;
 
-@new-album-buttom-width: 10rem;
-@new-album-buttom-height: 10rem;
+@new-album-buttom-width: 8rem;
+@new-album-buttom-height: 8rem;
 
 @new-album-form-container-width: 15rem;
 @new-album-form-container-height: 10rem;
@@ -20,6 +18,12 @@
   height: @new-album-buttom-height;
   .mixin-flex-vertically-and-horizontally-centered();
   cursor: pointer;
+}
+
+.new-album-button:hover {
+  transform: scale(@image-increase);
+  box-shadow: @image-hover-shadow-x @image-hover-shadow-y @image-hover-shadow-blur-radius @thumbnail-hover-shadow-color;
+  transition: transform @image-animation-time ease, box-shadow @image-animation-time ease;
 }
 
 /* New album bottom image */
