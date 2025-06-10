@@ -569,14 +569,14 @@
   align-items: center;
 }
 /* New album form button container */
-.new-album-form-button-container {
+.add-media-form-button-container {
   padding: 0.2rem;
 }
 /* For function buttons in a form */
-.new-album-form-buttons {
+.add-media-form-buttons {
   margin: 0.2rem;
 }
-.add-new-album-form {
+.add-media-form {
   display: flex;
   justify-content: center;
   align-items: center;

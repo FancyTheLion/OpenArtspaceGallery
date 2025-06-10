@@ -140,14 +140,14 @@ const props = defineProps({
         <div class="add-menu-form">
 
           <button
-              class="new-album-form-buttons"
+              class="add-media-form-buttons"
               type="button"
               @click="async() => await ShowNewAlbumPopup()">
             Create album
           </button>
 
           <button
-              class="new-album-form-buttons"
+              class="add-media-form-buttons"
               type="button"
               @click="async() => await ShowAddImagePopup()">
             Add image
@@ -176,23 +176,29 @@ const props = defineProps({
 
         <div class="add-menu-form">
 
-          <button
-              type="button"
-              @click="AddImageStepBack()">
-            Back
-          </button>
+          <div class="add-media-form-button-container">
 
-          <button
-              type="button"
-              @click="HidePopup()">
-            Cancel
-          </button>
+            <button
+                class="add-media-form-buttons"
+                type="button"
+                @click="AddImageStepBack()">
+              Back
+            </button>
 
-          <button
-              class="new-album-form-buttons"
-              type="button">
-            Add
-          </button>
+            <button
+                class="add-media-form-buttons"
+                type="button"
+                @click="HidePopup()">
+              Cancel
+            </button>
+
+            <button
+                class="add-media-form-buttons"
+                type="button">
+              Add
+            </button>
+
+          </div>
 
         </div>
 
@@ -202,8 +208,6 @@ const props = defineProps({
 
   </div>
 
-
-
   <!-- New album form popup -->
   <div v-if="isNewAlbumPopupVisible">
 
@@ -211,7 +215,7 @@ const props = defineProps({
 
       <div class="popup">
 
-        <div class="add-new-album-form">
+        <div class="add-media-form">
 
           <div>
             Album name:
@@ -224,24 +228,24 @@ const props = defineProps({
                 v-model="newAlbumFormData.name"/>
           </div>
 
-          <div class="new-album-form-button-container">
+          <div class="add-media-form-button-container">
 
             <button
-                class="new-album-form-buttons"
+                class="add-media-form-buttons"
                 type="button"
                 @click="NewAlbumStepBack()">
               Back
             </button>
 
             <button
-              class="new-album-form-buttons"
+              class="add-media-form-buttons"
               type="button"
               @click="HideNewAlbumPopup()">
               Cancel
             </button>
 
             <button
-              class="new-album-form-buttons"
+              class="add-media-form-buttons"
               type="button"
               :disabled="newAlbumFormValidator.$errors.length > 0"
               @click="async() => await CreateAlbumAsync()">
