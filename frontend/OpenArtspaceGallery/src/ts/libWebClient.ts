@@ -41,9 +41,25 @@ async function WebClientSendDeleteRequest
     return response
 }
 
+    async function WebClientPostForm(
+        relativeUrl: string,
+        request: FormData
+    ) {
+        const formData = request instanceof FormData;
+
+        const response = await fetch(apiBaseUrl + relativeUrl, {
+            method: 'POST',
+            body: request,
+            headers: formData ? undefined : { 'Content-Type': 'application/json' }
+        });
+
+        return response;
+    }
+
 export
 {
     WebClientSendGetRequest,
     WebClientSendPostRequest,
-    WebClientSendDeleteRequest
+    WebClientSendDeleteRequest,
+    WebClientPostForm
 }

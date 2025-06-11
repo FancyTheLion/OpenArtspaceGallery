@@ -3,7 +3,7 @@
 import {onMounted, PropType, reactive, ref} from "vue";
 import {maxLength, required} from "@vuelidate/validators";
 import useVuelidate from "@vuelidate/core";
-import {WebClientSendPostRequest} from "../../../ts/libWebClient.ts";
+import {WebClientPostForm, WebClientSendPostRequest} from "../../../ts/libWebClient.ts";
 
 const props = defineProps({
   currentAlbumId: {
@@ -24,7 +24,13 @@ const props = defineProps({
     }
   }
 
-  const emit = defineEmits(["newAlbumCreated"])
+  const addImageFileForm = reactive({
+    name: "",
+    description: "",
+    file: null as File | null
+  });
+
+  const emit = defineEmits(["newAlbumCreated"/*, "newImageAdded"*/])
 
   const isAddMenuPopupVisible = ref<boolean>(false)
 
@@ -112,6 +118,61 @@ const props = defineProps({
     emit("newAlbumCreated", props.currentAlbumId)
   }
 
+  async function AddImageAsync()
+  {
+    if (!addImageFileForm.file)
+    {
+      alert("Need a file!");
+      return;
+    }
+
+    const fileToUpload: File = addImageFileForm.file;
+
+    const uploadFormData = new FormData();
+    uploadFormData.append("file", fileToUpload);
+
+    const fileUploadResponse = await WebClientPostForm("/Files/Upload", uploadFormData);
+
+    if (fileUploadResponse.status !== 200)
+    {
+      alert("Failed to upload file!");
+      return;
+    }
+
+    const uploadedFileId: string = (await fileUploadResponse.json()).fileInfo.id
+
+    const response = await WebClientSendPostRequest(
+        "/Images/Add",
+        {
+          image: {
+            id: String,
+            name: addImageFileForm.name,
+            description: addImageFileForm.description,
+            albumId: props.currentAlbumId,
+            creationTime: new Date().toISOString(),
+            sourceFileId: uploadedFileId
+          }
+        }
+    );
+
+    if (!response.ok)
+    {
+      alert("An error happened. Try again later.")
+      return
+    }
+
+    await HidePopup()
+/*    emit("newImageAdded", props.currentAlbumId)*/
+  }
+
+  function handleFileChange(event: Event)
+  {
+    const target = event.target as HTMLInputElement;
+    if (target.files && target.files.length > 0) {
+      addImageFileForm.file = target.files[0];
+    }
+  }
+
 </script>
 
 <template>
@@ -174,7 +235,33 @@ const props = defineProps({
 
       <div class="popup">
 
-        <div class="add-menu-form">
+        <div class="add-media-form">
+
+          <div>
+            Image name
+          </div>
+
+          <div>
+            <input
+                type="text"
+                v-model="addImageFileForm.name"/>
+          </div>
+
+          <div>
+            Image description
+          </div>
+
+          <div>
+            <input
+                type="text"
+                v-model="addImageFileForm.description"/>
+          </div>
+
+          <input
+              ref="addImageFileInput"
+              type="file"
+              accept="image/png, image/jpeg, image/gif, image/webp"
+              @change="handleFileChange"/>
 
           <div class="add-media-form-button-container">
 
@@ -194,7 +281,8 @@ const props = defineProps({
 
             <button
                 class="add-media-form-buttons"
-                type="button">
+                type="button"
+                @click="async() => await AddImageAsync()">
               Add
             </button>
 
