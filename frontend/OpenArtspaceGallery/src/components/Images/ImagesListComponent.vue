@@ -4,6 +4,7 @@
   import {WebClientSendGetRequest} from "../../ts/libWebClient.ts";
   import {DecodeImagesResponse, Image} from "../../ts/Images/libImages.ts";
   import ThumbnailComponent from "./ThumbnailComponent.vue";
+  import AddMediaComponent from "../Shared/Albums/AddMediaComponent.vue";
 
   const props = defineProps({
     currentAlbumId: {
@@ -12,7 +13,7 @@
     }
   })
 
-/*  const isLoading = ref<boolean>(true)*/
+  const isLoading = ref<boolean>(true)
 
   const images = ref<Image[]>([])
 
@@ -25,24 +26,24 @@
   {
       images.value = await GetImagesListAsync(props.currentAlbumId)
 
-/*      isLoading.value = false*/
+      isLoading.value = false
   }
 
-/*  async function RefreshImageListAsync()
+  async function RefreshImageListAsync()
   {
-/!*    isLoading.value = true*!/
+    isLoading.value = true
 
     images.value = await GetImagesListAsync(props.currentAlbumId)
 
-/!*    isLoading.value = false*!/
-  }*/
+    isLoading.value = false
+  }
 
-/*
   async function OnImageAddedAsync()
   {
+    alert("Image added, refreshing list")
+
     await RefreshImageListAsync()
   }
-*/
 
   async function GetImagesListAsync(currentAlbumId: String)
   {
@@ -55,24 +56,28 @@
 
 <template>
 
-  <div class="images-container">
+  <div v-if="!isLoading">
 
-    <div
-      v-if="images.length === 0">
-      Album is empty
+    <div class="images-container">
+
+      <div
+        v-if="images.length === 0">
+        Album is empty
+      </div>
+
+      <div
+        v-for="image in images"
+        :key="image.id">
+
+        <ThumbnailComponent
+            :image="image" />
+
+      </div>
+
+      <AddMediaComponent
+          @newImageAdded="async () => await OnImageAddedAsync()"/>
+
     </div>
-
-    <div
-      v-for="image in images"
-      :key="image.id">
-
-      <ThumbnailComponent
-          :image="image" />
-
-    </div>
-
-<!--    <AddMediaComponent
-        @newImageAdded="async () => await OnImageAddedAsync()"/>-->
 
   </div>
 

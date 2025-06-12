@@ -30,7 +30,7 @@ const props = defineProps({
     file: null as File | null
   });
 
-  const emit = defineEmits(["newAlbumCreated"/*, "newImageAdded"*/])
+  const emit = defineEmits(["newAlbumCreated", "newImageAdded"])
 
   const isAddMenuPopupVisible = ref<boolean>(false)
 
@@ -126,6 +126,12 @@ const props = defineProps({
       return;
     }
 
+    if (!props.currentAlbumId)
+    {
+      alert("No album selected!");
+      return;
+    }
+
     const fileToUpload: File = addImageFileForm.file;
 
     const uploadFormData = new FormData();
@@ -162,7 +168,8 @@ const props = defineProps({
     }
 
     await HidePopup()
-/*    emit("newImageAdded", props.currentAlbumId)*/
+
+    emit("newImageAdded", props.currentAlbumId)
   }
 
   function handleFileChange(event: Event)
