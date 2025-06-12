@@ -42,6 +42,11 @@ public class ImagesService : IImagesService
     {
         var imageFile = await _filesService.GetFileForDownloadAsync(sourceFileId);
 
+        if (image.AlbumId == Guid.Empty)
+        {
+            throw new ArgumentException($"Album with ID: { image.AlbumId } not found.", nameof(sourceFileId));
+        }
+        
         if (imageFile.Type.MimeType == null)
         {
             throw new ArgumentException($"File with { sourceFileId } not found.", nameof(sourceFileId));
