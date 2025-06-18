@@ -7,8 +7,8 @@ import {WebClientPostForm, WebClientSendPostRequest} from "../../../ts/libWebCli
 
 const props = defineProps({
   currentAlbumId: {
-    type: String as PropType<string | null>,
-    required: false
+    type: String as PropType<string>,
+    required: true
   }
 })
 
@@ -114,7 +114,7 @@ const props = defineProps({
       return
     }
 
-    await HideNewAlbumPopup()
+    HideNewAlbumPopup()
     emit("newAlbumCreated", props.currentAlbumId)
   }
 
@@ -126,12 +126,6 @@ const props = defineProps({
       return;
     }
 
-    if (!props.currentAlbumId)
-    {
-      alert("No album selected!");
-      return;
-    }
-
     const fileToUpload: File = addImageFileForm.file;
 
     const uploadFormData = new FormData();
@@ -139,7 +133,7 @@ const props = defineProps({
 
     const fileUploadResponse = await WebClientPostForm("/Files/Upload", uploadFormData);
 
-    if (fileUploadResponse.status !== 200)
+    if (!fileUploadResponse.ok)
     {
       alert("Failed to upload file!");
       return;
@@ -167,7 +161,7 @@ const props = defineProps({
       return
     }
 
-    await HidePopup()
+    HidePopup()
 
     emit("newImageAdded", props.currentAlbumId)
   }
@@ -175,7 +169,8 @@ const props = defineProps({
   function handleFileChange(event: Event)
   {
     const target = event.target as HTMLInputElement;
-    if (target.files && target.files.length > 0) {
+    if (target.files && target.files.length > 0)
+    {
       addImageFileForm.file = target.files[0];
     }
   }

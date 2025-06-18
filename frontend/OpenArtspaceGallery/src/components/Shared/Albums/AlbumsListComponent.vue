@@ -9,8 +9,8 @@
 
   const props = defineProps({
     currentAlbumId: {
-      type: String as PropType<string | null>,
-      required: false
+      type: String as PropType<string>,
+      required: true
     }
   })
 

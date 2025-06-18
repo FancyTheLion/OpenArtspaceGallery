@@ -24,9 +24,7 @@
 
   async function OnLoad()
   {
-      images.value = await GetImagesListAsync(props.currentAlbumId)
-
-      isLoading.value = false
+      await RefreshImageListAsync()
   }
 
   async function RefreshImageListAsync()
@@ -40,8 +38,6 @@
 
   async function OnImageAddedAsync()
   {
-    alert("Image added, refreshing list")
-
     await RefreshImageListAsync()
   }
 
@@ -75,6 +71,7 @@
       </div>
 
       <AddMediaComponent
+          :currentAlbumId = "props.currentAlbumId"
           @newImageAdded="async () => await OnImageAddedAsync()"/>
 
     </div>
