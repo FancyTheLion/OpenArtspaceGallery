@@ -4,7 +4,7 @@
   import {WebClientSendGetRequest} from "../../ts/libWebClient.ts";
   import {DecodeImagesResponse, Image} from "../../ts/Images/libImages.ts";
   import ThumbnailComponent from "./ThumbnailComponent.vue";
-  import AddMediaComponent from "../Shared/Albums/AddMediaComponent.vue";
+  import NewAlbumComponent from "../Shared/Albums/NewAlbumComponent.vue";
 
   const props = defineProps({
     currentAlbumId: {
@@ -70,9 +70,8 @@
 
       </div>
 
-      <AddMediaComponent
-          :currentAlbumId = "props.currentAlbumId"
-          @newImageAdded="async () => await OnImageAddedAsync()"/>
+      <NewAlbumComponent
+          :currentAlbumId = "props.currentAlbumId"/>
 
     </div>
 

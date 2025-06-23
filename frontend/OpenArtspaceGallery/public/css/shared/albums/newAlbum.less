@@ -8,18 +8,19 @@
 @new-album-buttom-width: 8rem;
 @new-album-buttom-height: 8rem;
 
-.add-action-button {
+@new-album-form-container-width: 15rem;
+@new-album-form-container-height: 10rem;
+
+.new-album-button {
   border: @border-width-thick @border-type-common-solid @new-album-color-bottom;
   border-radius: @border-radius-normal;
   width: @new-album-buttom-width;
   height: @new-album-buttom-height;
   .mixin-flex-vertically-and-horizontally-centered();
   cursor: pointer;
-
-  transition: transform @image-animation-time ease, box-shadow @image-animation-time ease;
 }
 
-.add-action-button:hover {
+.new-album-button:hover {
   transform: scale(@image-increase);
   box-shadow: @image-hover-shadow-x @image-hover-shadow-y @image-hover-shadow-blur-radius @thumbnail-hover-shadow-color;
   transition: transform @image-animation-time ease, box-shadow @image-animation-time ease;
@@ -31,34 +32,30 @@
   height: @new-album-image-size;
 }
 
-.add-action-button-container {
+.new-album-button-container {
   .mixin-flex-vertically-and-horizontally-centered();
 }
 
-/* New album form button container */
-.add-media-form-button-container {
-  padding: @new-album-form-indentation;
-}
-
-/* For function buttons in a form */
-.add-media-form-buttons {
-  margin: @new-album-form-indentation;
-}
-
-.add-media-form {
+/* Container with one albums */
+.new-album-add-new-album-form {
   .mixin-flex-vertically-and-horizontally-centered();
   flex-direction: column;
   flex-wrap: nowrap;
   gap: 0;
 
-  .mixin-universal-form();
+  border: @border-width-thick @border-type-common-solid aqua;
+  border-radius: @border-radius-normal;
+  width: @new-album-form-container-width;
+  height: @new-album-form-container-height;
+  background-color: white;
 }
 
-.add-menu-form {
-  .mixin-flex-vertically-and-horizontally-centered();
-  flex-direction: row;
-  flex-wrap: nowrap;
-  gap: 0;
+/* New album form button container */
+.new-album-form-button-container {
+  padding: @new-album-form-indentation;
+}
 
-  .mixin-universal-form();
+/* For function buttons in a form */
+.new-album-form-buttons {
+  margin: @new-album-form-indentation;
 }
