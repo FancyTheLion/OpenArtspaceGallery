@@ -22,31 +22,15 @@ import {WebClientPostForm, WebClientSendPostRequest} from "../../ts/libWebClient
 
   const emit = defineEmits(["newImageAdded"])
 
-
-
-
   async function AddImageAsync()
   {
-    if (!addImageFileForm.file)
+    const uploadedFileId = await UploadImageAsync()
+
+    if (!uploadedFileId)
     {
-      alert("Need a file!");
+      alert("No uploaded image id.")
       return;
     }
-
-    const fileToUpload: File = addImageFileForm.file;
-
-    const uploadFormData = new FormData();
-    uploadFormData.append("file", fileToUpload);
-
-    const fileUploadResponse = await WebClientPostForm("/Files/Upload", uploadFormData);
-
-    if (!fileUploadResponse.ok)
-    {
-      alert("Failed to upload file!");
-      return;
-    }
-
-    const uploadedFileId: string = (await fileUploadResponse.json()).fileInfo.id
 
     const response = await WebClientSendPostRequest(
         "/Images/Add",
@@ -78,6 +62,33 @@ import {WebClientPostForm, WebClientSendPostRequest} from "../../ts/libWebClient
     {
       addImageFileForm.file = target.files[0];
     }
+  }
+
+  async function UploadImageAsync()
+  {
+    if (!addImageFileForm.file)
+    {
+      alert("Need a file!");
+      return;
+    }
+
+    const fileToUpload: File = addImageFileForm.file;
+
+    const uploadFormData = new FormData();
+    uploadFormData.append("file", fileToUpload);
+
+    const response = await WebClientPostForm("/Files/Upload", uploadFormData);
+
+    if (!response.ok)
+    {
+      alert("Failed to upload file!");
+      return;
+    }
+
+    const responseBody = await response.json()
+    const uploadedFileId: string = responseBody.fileInfo.id;
+
+    return uploadedFileId
   }
 
 
