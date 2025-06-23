@@ -5,6 +5,7 @@
   import {DecodeImagesResponse, Image} from "../../ts/Images/libImages.ts";
   import ThumbnailComponent from "./ThumbnailComponent.vue";
   import NewAlbumComponent from "../Shared/Albums/NewAlbumComponent.vue";
+  import AddImageComponent from "./AddImageComponent.vue";
 
   const props = defineProps({
     currentAlbumId: {
@@ -72,6 +73,10 @@
 
       <NewAlbumComponent
           :currentAlbumId = "props.currentAlbumId"/>
+
+      <AddImageComponent
+          :currentAlbumId = "props.currentAlbumId"
+          @newImageAdded = "async () => await OnImageAddedAsync()"/>
 
     </div>
 

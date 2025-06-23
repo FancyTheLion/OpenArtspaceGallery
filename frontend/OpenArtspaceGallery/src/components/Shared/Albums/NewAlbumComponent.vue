@@ -4,11 +4,12 @@ import {onMounted, PropType, reactive, ref} from "vue";
 import {maxLength, required} from "@vuelidate/validators";
 import useVuelidate from "@vuelidate/core";
 import {WebClientSendPostRequest} from "../../../ts/libWebClient.ts";
+import AddImageComponent from "../../Images/AddImageComponent.vue";
 
 const props = defineProps({
   currentAlbumId: {
-    type: String as PropType<string | null>,
-    required: false
+    type: String as PropType<string>,
+    required: true
   }
 })
 
@@ -135,7 +136,12 @@ async function CreateAlbumAsync()
 
           </div>
 
+          <AddImageComponent
+              :currentAlbumId="props.currentAlbumId"/>
+
         </div>
+
+
 
       </div>
 

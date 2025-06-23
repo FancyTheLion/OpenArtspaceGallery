@@ -16,7 +16,14 @@ import {WebClientPostForm, WebClientSendPostRequest} from "../../ts/libWebClient
     file: null as File | null
   });
 
+/*  const isAddMenuPopupVisible = ref<boolean>(false)
+
+  const isAddImagePopupVisible = ref<boolean>(false)*/
+
   const emit = defineEmits(["newImageAdded"])
+
+
+
 
   async function AddImageAsync()
   {
@@ -61,8 +68,6 @@ import {WebClientPostForm, WebClientSendPostRequest} from "../../ts/libWebClient
       return
     }
 
-    HidePopup()
-
     emit("newImageAdded", props.currentAlbumId)
   }
 
@@ -76,18 +81,45 @@ import {WebClientPostForm, WebClientSendPostRequest} from "../../ts/libWebClient
   }
 
 
+/*  function NewAlbumStepBack()
+  {
+    ClearInputField()
 
+    isNewAlbumPopupVisible.value = false
+  }*/
+
+/*  function AddImageStepBack()
+  {
+    isAddImagePopupVisible.value = false
+  }*/
+
+/*
+  function ShowAddMenuPopup()
+  {
+    isAddMenuPopupVisible.value = true
+  }*/
+
+/*  function ShowAddImagePopup()
+  {
+    isAddImagePopupVisible.value = true
+  }*/
+
+/*  function HidePopup()
+  {
+    isAddMenuPopupVisible.value = false
+    isAddImagePopupVisible.value = false
+  }*/
 
 </script>
 
 <template>
 
   <!-- Add image form popup -->
-  <div v-if="isAddImagePopupVisible">
+<!--  <div v-if="isAddImagePopupVisible">-->
 
-    <div class="popup-upper-layer">
+<!--    <div class="popup-upper-layer">
 
-      <div class="popup">
+      <div class="popup">-->
 
         <div class="add-album-form">
 
@@ -119,17 +151,15 @@ import {WebClientPostForm, WebClientSendPostRequest} from "../../ts/libWebClient
 
           <div class="add-album-form-button-container">
 
-            <button
+<!--            <button
                 class="add-album-form-buttons"
-                type="button"
-                @click="AddImageStepBack()">
+                type="button">
               Back
-            </button>
+            </button>-->
 
             <button
                 class="add-album-form-buttons"
-                type="button"
-                @click="HidePopup()">
+                type="button">
               Cancel
             </button>
 
@@ -144,10 +174,10 @@ import {WebClientPostForm, WebClientSendPostRequest} from "../../ts/libWebClient
 
         </div>
 
-      </div>
+<!--      </div>
 
-    </div>
+    </div>-->
 
-  </div>
+<!--  </div>-->
 
 </template>
