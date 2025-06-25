@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import {PropType, reactive} from "vue";
+import {PropType, reactive, ref} from "vue";
 import {WebClientPostForm, WebClientSendPostRequest} from "../../ts/libWebClient.ts";
 
   const props = defineProps({
@@ -16,9 +16,7 @@ import {WebClientPostForm, WebClientSendPostRequest} from "../../ts/libWebClient
     file: null as File | null
   });
 
-/*  const isAddMenuPopupVisible = ref<boolean>(false)
-
-  const isAddImagePopupVisible = ref<boolean>(false)*/
+  const isAddImagePopupVisible = ref<boolean>(false)
 
   const emit = defineEmits(["newImageAdded"])
 
@@ -91,33 +89,8 @@ import {WebClientPostForm, WebClientSendPostRequest} from "../../ts/libWebClient
     return uploadedFileId
   }
 
-
-/*  function NewAlbumStepBack()
-  {
-    ClearInputField()
-
-    isNewAlbumPopupVisible.value = false
-  }*/
-
-/*  function AddImageStepBack()
-  {
-    isAddImagePopupVisible.value = false
-  }*/
-
-/*
-  function ShowAddMenuPopup()
-  {
-    isAddMenuPopupVisible.value = true
-  }*/
-
-/*  function ShowAddImagePopup()
-  {
-    isAddImagePopupVisible.value = true
-  }*/
-
 /*  function HidePopup()
   {
-    isAddMenuPopupVisible.value = false
     isAddImagePopupVisible.value = false
   }*/
 
@@ -126,7 +99,7 @@ import {WebClientPostForm, WebClientSendPostRequest} from "../../ts/libWebClient
 <template>
 
   <!-- Add image form popup -->
-<!--  <div v-if="isAddImagePopupVisible">-->
+  <div v-if="isAddImagePopupVisible">
 
 <!--    <div class="popup-upper-layer">
 
@@ -162,12 +135,6 @@ import {WebClientPostForm, WebClientSendPostRequest} from "../../ts/libWebClient
 
           <div class="add-album-form-button-container">
 
-<!--            <button
-                class="add-album-form-buttons"
-                type="button">
-              Back
-            </button>-->
-
             <button
                 class="add-album-form-buttons"
                 type="button">
@@ -189,6 +156,6 @@ import {WebClientPostForm, WebClientSendPostRequest} from "../../ts/libWebClient
 
     </div>-->
 
-<!--  </div>-->
+  </div>
 
 </template>

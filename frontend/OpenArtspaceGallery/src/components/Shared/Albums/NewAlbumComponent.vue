@@ -5,97 +5,85 @@ import {maxLength, required} from "@vuelidate/validators";
 import useVuelidate from "@vuelidate/core";
 import {WebClientSendPostRequest} from "../../../ts/libWebClient.ts";
 import AddImageComponent from "../../Images/AddImageComponent.vue";
+import AddContentComponent from "../SelectedMenu/AddContentComponent.vue";
 
-const props = defineProps({
-  currentAlbumId: {
-    type: String as PropType<string>,
-    required: true
+  const props = defineProps({
+    currentAlbumId: {
+      type: String as PropType<string>,
+      required: true
+    }
+  })
+
+  const newAlbumFormData = reactive({
+    name: ""
+  })
+
+  const newAlbumFormRules = {
+    name: {
+      $autoDirty: true,
+      required,
+      maxLength: maxLength(50)
+    }
   }
-})
 
-const newAlbumFormData = reactive({
-  name: ""
-})
+  const emit = defineEmits(["newAlbumCreated"])
 
-const newAlbumFormRules = {
-  name: {
-    $autoDirty: true,
-    required,
-    maxLength: maxLength(50)
-  }
-}
+  const isNewAlbumPopupVisible = ref<boolean>(false)
 
-const emit = defineEmits(["newAlbumCreated"])
+  const newAlbumFormValidator = useVuelidate(newAlbumFormRules, newAlbumFormData)
 
-const isNewAlbumPopupVisible = ref<boolean>(false)
-
-const newAlbumFormValidator = useVuelidate(newAlbumFormRules, newAlbumFormData)
-
-onMounted(async () =>
-{
-  await OnLoad();
-})
-
-async function OnLoad()
-{
-  await newAlbumFormValidator.value.$validate()
-}
-
-function ShowNewAlbumPopup()
-{
-  isNewAlbumPopupVisible.value = true
-}
-
-function HideNewAlbumPopup()
-{
-  ClearInputField()
-
-  isNewAlbumPopupVisible.value = false
-}
-
-function ClearInputField()
-{
-  newAlbumFormData.name = "";
-}
-
-async function CreateAlbumAsync()
-{
-  const response = await WebClientSendPostRequest(
-      "/Albums/New",
-      {
-        "albumToAdd": {
-          "name": newAlbumFormData.name,
-          "parentId": props.currentAlbumId
-        }
-      }
-  )
-
-  if (!response.ok)
+  onMounted(async () =>
   {
-    alert("An error happened. Try again later.")
-    return
+    await OnLoad();
+  })
+
+  async function OnLoad()
+  {
+    await newAlbumFormValidator.value.$validate()
   }
 
-  await HideNewAlbumPopup()
-  emit("newAlbumCreated", props.currentAlbumId)
-}
+/*  function ShowNewAlbumPopup()
+  {
+    isNewAlbumPopupVisible.value = true
+  }*/
+
+  function HideNewAlbumPopup()
+  {
+    ClearInputField()
+
+    isNewAlbumPopupVisible.value = false
+  }
+
+  function ClearInputField()
+  {
+    newAlbumFormData.name = "";
+  }
+
+  async function CreateAlbumAsync()
+  {
+    const response = await WebClientSendPostRequest(
+        "/Albums/New",
+        {
+          "albumToAdd": {
+            "name": newAlbumFormData.name,
+            "parentId": props.currentAlbumId
+          }
+        }
+    )
+
+    if (!response.ok)
+    {
+      alert("An error happened. Try again later.")
+      return
+    }
+
+    await HideNewAlbumPopup()
+    emit("newAlbumCreated", props.currentAlbumId)
+  }
 
 </script>
 
 <template>
-
-  <!-- New album button -->
-  <div class="new-album-button-container">
-
-    <div
-        class="new-album-button"
-        @click="ShowNewAlbumPopup()">
-
-      <img class="new-album-button-image" src="/images/icons/addNewAlbum.webp" alt="Create new album" title="Create new album"/>
-    </div>
-
-  </div>
-
   <!-- New album form popup -->
   <div v-if="isNewAlbumPopupVisible">
 
@@ -136,12 +124,7 @@ async function CreateAlbumAsync()
 
           </div>
 
-          <AddImageComponent
-              :currentAlbumId="props.currentAlbumId"/>
-
         </div>
-
-
 
       </div>
 

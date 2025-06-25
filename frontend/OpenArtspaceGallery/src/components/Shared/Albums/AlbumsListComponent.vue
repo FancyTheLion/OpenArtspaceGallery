@@ -6,6 +6,7 @@
   import AlbumsHierarchyComponent from "../../Albums/AlbumsHierarchyComponent.vue";
   import NewAlbumComponent from "./NewAlbumComponent.vue";
   import LoadingSymbolComponent from "../LoadyngSymbol/LoadingSymbolComponent.vue";
+  import AddContentComponent from "../SelectedMenu/AddContentComponent.vue";
 
   const props = defineProps({
     currentAlbumId: {
@@ -102,7 +103,12 @@
           :currentAlbumId="props.currentAlbumId"
           @newAlbumCreated="async () => await OnAlbumAddedAsync()"/>
 
+      <AddContentComponent
+          :currentAlbumId="props.currentAlbumId"/>
+
     </div>
+
+
 
   </div>
 
