@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import {PropType, reactive, ref} from "vue";
+import {PropType, reactive} from "vue";
 import {WebClientPostForm, WebClientSendPostRequest} from "../../ts/libWebClient.ts";
 
   const props = defineProps({
@@ -16,9 +16,7 @@ import {WebClientPostForm, WebClientSendPostRequest} from "../../ts/libWebClient
     file: null as File | null
   });
 
-  const isAddImagePopupVisible = ref<boolean>(false)
-
-  const emit = defineEmits(["newImageAdded"])
+  const emit = defineEmits(["newImageAdded", "close"])
 
   async function AddImageAsync()
   {
@@ -51,6 +49,7 @@ import {WebClientPostForm, WebClientSendPostRequest} from "../../ts/libWebClient
     }
 
     emit("newImageAdded", props.currentAlbumId)
+    emit("close", props.currentAlbumId);
   }
 
   function handleFileChange(event: Event)
@@ -89,23 +88,23 @@ import {WebClientPostForm, WebClientSendPostRequest} from "../../ts/libWebClient
     return uploadedFileId
   }
 
-/*  function HidePopup()
+  function HidePopup()
   {
-    isAddImagePopupVisible.value = false
-  }*/
+    emit("close")
+  }
 
 </script>
 
 <template>
 
   <!-- Add image form popup -->
-  <div v-if="isAddImagePopupVisible">
+  <div class="popup-lower-layer"/>
 
-<!--    <div class="popup-upper-layer">
+    <div class="popup-upper-layer">
 
-      <div class="popup">-->
+      <div class="popup">
 
-        <div class="add-album-form">
+        <div class="new-album-add-new-album-form">
 
           <div>
             Image name
@@ -137,7 +136,8 @@ import {WebClientPostForm, WebClientSendPostRequest} from "../../ts/libWebClient
 
             <button
                 class="add-album-form-buttons"
-                type="button">
+                type="button"
+                @click="HidePopup()">
               Cancel
             </button>
 
@@ -152,10 +152,8 @@ import {WebClientPostForm, WebClientSendPostRequest} from "../../ts/libWebClient
 
         </div>
 
-<!--      </div>
+      </div>
 
-    </div>-->
-
-  </div>
+    </div>
 
 </template>

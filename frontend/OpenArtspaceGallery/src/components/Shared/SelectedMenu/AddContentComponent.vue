@@ -1,36 +1,37 @@
 <script setup lang="ts">
 
-import {PropType, ref} from "vue";
-import NewAlbumComponent from "../Albums/NewAlbumComponent.vue";
-import AddImageComponent from "../../Images/AddImageComponent.vue";
+import {ref} from "vue";
 
-const props = defineProps({
-  currentAlbumId: {
-    type: String as PropType<string>,
-    required: true
+  const isSelectedMenuPopupVisible = ref<boolean>(false)
+
+  const emit = defineEmits(["uploadImage", "createAlbum"])
+
+
+  function ShowAddMenuPopup()
+  {
+    isSelectedMenuPopupVisible.value = true
   }
-})
 
-const isNewAlbumPopupVisible = ref<boolean>(false)
+  function HideAddMenuPopup()
+  {
+    isSelectedMenuPopupVisible.value = false
+  }
 
-const isAddImagePopupVisible = ref<boolean>(false)
+  async function SelectedCreateAlbumPopup()
+  {
+    emit("createAlbum")
 
-const isSelectedMenuPopupVisible = ref<boolean>(false)
+    HideAddMenuPopup()
+  }
 
-/*function ShowAddImagePopup()
-{
-  isAddImagePopupVisible.value = true
-}
+  async function SelectedUploadImagePopup()
+  {
+    alert("Hi i'm image")
 
-function ShowNewAlbumPopup()
-{
-  isNewAlbumPopupVisible.value = true
-}*/
+    emit("uploadImage")
 
-function ShowAddMenuPopup()
-{
-  isSelectedMenuPopupVisible.value = true
-}
+    HideAddMenuPopup()
+  }
 
 </script>
 
@@ -44,7 +45,7 @@ function ShowAddMenuPopup()
 
       <img class="new-album-button-image"
            src="/images/icons/addNewAlbum.webp"
-           alt="Create new album"
+           alt="Create new album or add image"
            title="Create new album or add image"
             @click="ShowAddMenuPopup"/>
 
@@ -54,23 +55,40 @@ function ShowAddMenuPopup()
 
   <div v-if="isSelectedMenuPopupVisible">
 
-    <div v-if="isNewAlbumPopupVisible">
+    <div class="popup-lower-layer"></div>
 
-      <NewAlbumComponent
-          :currentAlbumId="props.currentAlbumId"/>
+    <div class="popup-upper-layer">
+
+      <div class="popup">
+
+        <div class="new-album-add-new-album-form">
+
+          <button
+              type="button"
+              @click="HideAddMenuPopup()">
+            Cancel
+          </button>
+
+          <button
+              class="new-album-form-buttons"
+              type="button"
+              @click="async() => await SelectedCreateAlbumPopup()">
+            Create album
+          </button>
+
+          <button
+              class="new-album-form-buttons"
+              type="button"
+              @click="async() => await SelectedUploadImagePopup()">
+            Upload image
+          </button>
+
+          </div>
+
+        </div>
+
+      </div>
 
     </div>
-
-    <!-- New image button -->
-    <div class="new-album-button-container">
-
-      <AddImageComponent
-          :currentAlbumId="props.currentAlbumId"/>
-
-    </div>
-
-  </div>
-
-
 
 </template>

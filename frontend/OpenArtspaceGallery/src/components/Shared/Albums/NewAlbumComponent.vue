@@ -4,8 +4,6 @@ import {onMounted, PropType, reactive, ref} from "vue";
 import {maxLength, required} from "@vuelidate/validators";
 import useVuelidate from "@vuelidate/core";
 import {WebClientSendPostRequest} from "../../../ts/libWebClient.ts";
-import AddImageComponent from "../../Images/AddImageComponent.vue";
-import AddContentComponent from "../SelectedMenu/AddContentComponent.vue";
 
   const props = defineProps({
     currentAlbumId: {
@@ -26,9 +24,7 @@ import AddContentComponent from "../SelectedMenu/AddContentComponent.vue";
     }
   }
 
-  const emit = defineEmits(["newAlbumCreated"])
-
-  const isNewAlbumPopupVisible = ref<boolean>(false)
+  const emit = defineEmits(["newAlbumCreated", "close"])
 
   const newAlbumFormValidator = useVuelidate(newAlbumFormRules, newAlbumFormData)
 
@@ -42,16 +38,11 @@ import AddContentComponent from "../SelectedMenu/AddContentComponent.vue";
     await newAlbumFormValidator.value.$validate()
   }
 
-/*  function ShowNewAlbumPopup()
-  {
-    isNewAlbumPopupVisible.value = true
-  }*/
-
   function HideNewAlbumPopup()
   {
     ClearInputField()
 
-    isNewAlbumPopupVisible.value = false
+    emit("close");
   }
 
   function ClearInputField()
@@ -79,15 +70,15 @@ import AddContentComponent from "../SelectedMenu/AddContentComponent.vue";
 
     await HideNewAlbumPopup()
     emit("newAlbumCreated", props.currentAlbumId)
+    emit("close", props.currentAlbumId);
   }
 
 </script>
 
 <template>
-  <!-- New album form popup -->
-  <div v-if="isNewAlbumPopupVisible">
 
-    <div class="popup-lower-layer"></div>
+  <!-- New album form popup -->
+    <div class="popup-lower-layer"/>
 
     <div class="popup-upper-layer">
 
@@ -129,7 +120,5 @@ import AddContentComponent from "../SelectedMenu/AddContentComponent.vue";
       </div>
 
     </div>
-
-  </div>
 
 </template>

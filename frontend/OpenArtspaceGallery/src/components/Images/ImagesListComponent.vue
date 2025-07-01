@@ -4,8 +4,6 @@
   import {WebClientSendGetRequest} from "../../ts/libWebClient.ts";
   import {DecodeImagesResponse, Image} from "../../ts/Images/libImages.ts";
   import ThumbnailComponent from "./ThumbnailComponent.vue";
-  import NewAlbumComponent from "../Shared/Albums/NewAlbumComponent.vue";
-  import AddImageComponent from "./AddImageComponent.vue";
 
   const props = defineProps({
     currentAlbumId: {
@@ -37,10 +35,10 @@
     isLoading.value = false
   }
 
-  async function OnImageAddedAsync()
+/*  async function OnImageAddedAsync()
   {
     await RefreshImageListAsync()
-  }
+  }*/
 
   async function GetImagesListAsync(currentAlbumId: String)
   {
@@ -59,7 +57,7 @@
 
       <div
         v-if="images.length === 0">
-        Album is empty
+        Image is empty
       </div>
 
       <div
@@ -71,14 +69,8 @@
 
       </div>
 
-      <NewAlbumComponent
-          :currentAlbumId = "props.currentAlbumId"/>
-
-      <AddImageComponent
-          :currentAlbumId = "props.currentAlbumId"
-          @newImageAdded = "async () => await OnImageAddedAsync()"/>
-
     </div>
+
 
   </div>
 
