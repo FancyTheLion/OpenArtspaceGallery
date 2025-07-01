@@ -16,7 +16,7 @@ import {WebClientPostForm, WebClientSendPostRequest} from "../../ts/libWebClient
     file: null as File | null
   });
 
-  const emit = defineEmits(["newImageAdded", "close"])
+  const emit = defineEmits(["uploadImage", "close"])
 
   async function AddImageAsync()
   {
@@ -48,11 +48,11 @@ import {WebClientPostForm, WebClientSendPostRequest} from "../../ts/libWebClient
       return
     }
 
-    emit("newImageAdded", props.currentAlbumId)
+    emit("uploadImage", props.currentAlbumId)
     emit("close", props.currentAlbumId);
   }
 
-  function handleFileChange(event: Event)
+  function HandleFileChange(event: Event)
   {
     const target = event.target as HTMLInputElement;
     if (target.files && target.files.length > 0)
@@ -130,7 +130,7 @@ import {WebClientPostForm, WebClientSendPostRequest} from "../../ts/libWebClient
               ref="addImageFileInput"
               type="file"
               accept="image/png, image/jpeg, image/gif, image/webp"
-              @change="handleFileChange"/>
+              @change="HandleFileChange"/>
 
           <div class="add-album-form-button-container">
 

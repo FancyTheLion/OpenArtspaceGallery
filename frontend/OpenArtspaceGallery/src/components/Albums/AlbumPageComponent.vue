@@ -3,6 +3,7 @@
   import {PropType, ref} from "vue";
   import NewAlbumComponent from "../Shared/Albums/NewAlbumComponent.vue";
   import AddImageComponent from "../Images/AddImageComponent.vue";
+  import ImagesListComponent from "../Images/ImagesListComponent.vue";
 
   const props = defineProps({
     currentAlbumId: {
@@ -38,10 +39,10 @@
       @close="isNewAlbumPopupVisible = false"
   />
 
-  <AddImageComponent
-      v-if="isAddImagePopupVisible"
+  <ImagesListComponent
       :currentAlbumId="props.currentAlbumId"
-      @close="isNewAlbumPopupVisible = false"
+      @uploadImage="ShowAddImagePopup"
+      @createAlbum="ShowNewAlbumPopup"
   />
 
   <AddImageComponent

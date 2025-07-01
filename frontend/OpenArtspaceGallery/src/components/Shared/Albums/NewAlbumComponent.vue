@@ -70,7 +70,6 @@ import {WebClientSendPostRequest} from "../../../ts/libWebClient.ts";
 
     await HideNewAlbumPopup()
     emit("newAlbumCreated", props.currentAlbumId)
-    emit("close", props.currentAlbumId);
   }
 
 </script>

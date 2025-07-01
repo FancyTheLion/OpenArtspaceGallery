@@ -8,7 +8,6 @@
   import NewAlbumComponent from "./NewAlbumComponent.vue";
   import LoadingSymbolComponent from "../LoadyngSymbol/LoadingSymbolComponent.vue";
   import AddContentComponent from "../SelectedMenu/AddContentComponent.vue";
-  import AddImageComponent from "../../Images/AddImageComponent.vue";
 
   const props = defineProps({
     currentAlbumId: {
@@ -77,13 +76,6 @@
     await RefreshAlbumsListAsync()
   }
 
-  async function OnImageAddedAsync()
-  {
-    alert("REFRESH")
-
-    await RefreshAlbumsListAsync()
-  }
-
   async function OnAlbumDeletedAsync()
   {
     await RefreshAlbumsListAsync()
@@ -94,16 +86,16 @@
     await RefreshAlbumsListAsync()
   }
 
+  async function AlbumCreated()
+  {
+    emit("createAlbum")
+  }
+
   async function UploadImage()
   {
     alert("IMAGE")
 
     emit("uploadImage")
-  }
-
-  async function AlbumCreated()
-  {
-    emit("createAlbum")
   }
 
 </script>
@@ -129,20 +121,17 @@
           @albumDeleted="async () => await OnAlbumDeletedAsync()"
           @albumRenamed="async () => await OnAlbumRenamedAsync()"/>
 
+
+      <!-- For refresh   -->
       <NewAlbumComponent
           v-if="neverShovComponent"
           :currentAlbumId="props.currentAlbumId"
           @newAlbumCreated="async () => await OnAlbumAddedAsync()"/>
 
-      <AddImageComponent
-          v-if="neverShovComponent"
-          :currentAlbumId="props.currentAlbumId"
-          @newImageAdded="async () => await OnImageAddedAsync()"/>
-
       <AddContentComponent
           :currentAlbumId="props.currentAlbumId"
-          @uploadImage="async () => await UploadImage()"
-          @createAlbum="async () => await AlbumCreated()"/>
+          @createAlbum="async () => await AlbumCreated()"
+          @uploadImage="async () => await UploadImage()"/>
 
     </div>
 
