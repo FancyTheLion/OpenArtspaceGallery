@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import {onMounted, PropType, reactive, ref} from "vue";
+import {onMounted, PropType, reactive} from "vue";
 import {maxLength, required} from "@vuelidate/validators";
 import useVuelidate from "@vuelidate/core";
 import {WebClientSendPostRequest} from "../../../ts/libWebClient.ts";

@@ -26,8 +26,6 @@ import {ref} from "vue";
 
   async function SelectedUploadImagePopup()
   {
-    alert("Hi i'm image")
-
     emit("uploadImage")
 
     HideAddMenuPopup()

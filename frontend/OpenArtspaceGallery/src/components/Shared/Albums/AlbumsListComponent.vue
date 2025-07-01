@@ -93,8 +93,6 @@
 
   async function UploadImage()
   {
-    alert("IMAGE")
-
     emit("uploadImage")
   }
 
