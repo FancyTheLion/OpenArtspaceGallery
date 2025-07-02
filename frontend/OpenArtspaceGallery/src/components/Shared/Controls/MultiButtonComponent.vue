@@ -31,7 +31,7 @@
   <div class="multibutton">
 
       <SimpleButtonComponent
-        v-for="button in props.buttons" :key="activeButtonId"
+        v-for="button in props.buttons" :key="button.id"
         :name="button.name"
         :id="button.id"
         :isActive="button.id === activeButtonId"
