@@ -4,7 +4,6 @@
   import {WebClientSendGetRequest} from "../../ts/libWebClient.ts";
   import {DecodeImagesResponse, Image} from "../../ts/Images/libImages.ts";
   import ThumbnailComponent from "./ThumbnailComponent.vue";
-  import AddImageComponent from "./AddImageComponent.vue";
   import AddContentComponent from "../Shared/SelectedMenu/AddContentComponent.vue";
 
   const props = defineProps({
@@ -14,11 +13,13 @@
     }
   })
 
+  defineExpose({
+    RefreshAsync: RefreshImageListAsync
+  })
+
   const isLoading = ref<boolean>(true)
 
   const images = ref<Image[]>([])
-
-  const neverShovComponent = ref<boolean>(false)
 
   const emit = defineEmits(["createAlbum", "uploadImage"])
 
@@ -48,19 +49,12 @@
         .sort((a: Image, b: Image) => a.creationTime.getTime() - b.creationTime.getTime())
   }
 
-  async function OnImageAddedAsync()
-  {
-    alert("REFRESH")
-
-    await RefreshImageListAsync()
-  }
-
-  async function UploadImage()
+  async function UploadImageAsync()
   {
     emit("uploadImage")
   }
 
-  async function AlbumCreated()
+  async function AlbumCreatedAsync()
   {
     emit("createAlbum")
   }
@@ -88,17 +82,10 @@
       </div>
 
       <AddContentComponent
-          :currentAlbumId="props.currentAlbumId"
-          @createAlbum="async () => await AlbumCreated()"
-          @uploadImage="async () => await UploadImage()"/>
+          @createAlbum="async () => await AlbumCreatedAsync()"
+          @uploadImage="async () => await UploadImageAsync()"/>
 
     </div>
-
-<!-- For refresh   -->
-    <AddImageComponent
-        v-if="neverShovComponent"
-        :currentAlbumId="props.currentAlbumId"
-        @uploadImage="async () => await OnImageAddedAsync()"/>
 
   </div>
 

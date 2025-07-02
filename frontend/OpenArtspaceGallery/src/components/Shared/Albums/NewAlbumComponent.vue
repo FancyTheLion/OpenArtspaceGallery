@@ -24,7 +24,7 @@ import {WebClientSendPostRequest} from "../../../ts/libWebClient.ts";
     }
   }
 
-  const emit = defineEmits(["newAlbumCreated", "close"])
+  const emit = defineEmits(["newAlbumCreated", "cancelled"])
 
   const newAlbumFormValidator = useVuelidate(newAlbumFormRules, newAlbumFormData)
 
@@ -38,11 +38,10 @@ import {WebClientSendPostRequest} from "../../../ts/libWebClient.ts";
     await newAlbumFormValidator.value.$validate()
   }
 
-  function HideNewAlbumPopup()
+  function OnCancel()
   {
     ClearInputField()
-
-    emit("close");
+    emit("cancelled");
   }
 
   function ClearInputField()
@@ -50,7 +49,7 @@ import {WebClientSendPostRequest} from "../../../ts/libWebClient.ts";
     newAlbumFormData.name = "";
   }
 
-  async function CreateAlbumAsync()
+  async function OnCreateAsync()
   {
     const response = await WebClientSendPostRequest(
         "/Albums/New",
@@ -68,8 +67,8 @@ import {WebClientSendPostRequest} from "../../../ts/libWebClient.ts";
       return
     }
 
-    await HideNewAlbumPopup()
-    emit("newAlbumCreated", props.currentAlbumId)
+    ClearInputField()
+    emit("newAlbumCreated")
   }
 
 </script>
@@ -100,7 +99,7 @@ import {WebClientSendPostRequest} from "../../../ts/libWebClient.ts";
 
             <button
                 type="button"
-                @click="HideNewAlbumPopup()">
+                @click="OnCancel()">
               Cancel
             </button>
 
@@ -108,7 +107,7 @@ import {WebClientSendPostRequest} from "../../../ts/libWebClient.ts";
                 class="new-album-form-buttons"
                 type="button"
                 :disabled="newAlbumFormValidator.$errors.length > 0"
-                @click="async() => await CreateAlbumAsync()">
+                @click="async() => await OnCreateAsync()">
               Create
             </button>
 

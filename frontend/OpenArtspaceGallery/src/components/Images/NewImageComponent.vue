@@ -16,9 +16,9 @@ import {WebClientPostForm, WebClientSendPostRequest} from "../../ts/libWebClient
     file: null as File | null
   });
 
-  const emit = defineEmits(["uploadImage", "close"])
+  const emit = defineEmits(["imageUploaded", "cancelled"])
 
-  async function AddImageAsync()
+  async function OnAddImageAsync()
   {
     const uploadedFileId = await UploadImageAsync()
 
@@ -48,8 +48,7 @@ import {WebClientPostForm, WebClientSendPostRequest} from "../../ts/libWebClient
       return
     }
 
-    emit("uploadImage", props.currentAlbumId)
-    emit("close", props.currentAlbumId);
+    emit("imageUploaded")
   }
 
   function HandleFileChange(event: Event)
@@ -88,9 +87,9 @@ import {WebClientPostForm, WebClientSendPostRequest} from "../../ts/libWebClient
     return uploadedFileId
   }
 
-  function HidePopup()
+  function OnCancel()
   {
-    emit("close")
+    emit("cancelled")
   }
 
 </script>
@@ -137,14 +136,14 @@ import {WebClientPostForm, WebClientSendPostRequest} from "../../ts/libWebClient
             <button
                 class="add-album-form-buttons"
                 type="button"
-                @click="HidePopup()">
+                @click="OnCancel()">
               Cancel
             </button>
 
             <button
                 class="add-album-form-buttons"
                 type="button"
-                @click="async() => await AddImageAsync()">
+                @click="async() => await OnAddImageAsync()">
               Add
             </button>
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {onMounted, PropType, ref} from "vue";
-import LoadingSymbolComponent from "../Shared/LoadyngSymbol/LoadingSymbolComponent.vue";
+import LoadingSymbolComponent from "../Shared/LoadingSymbol/LoadingSymbolComponent.vue";
 import {AlbumHierarchy, DecodeAlbumHierarchyDto} from "../../ts/Albums/libAlbums.ts";
 import {WebClientSendGetRequest} from "../../ts/libWebClient.ts";
 

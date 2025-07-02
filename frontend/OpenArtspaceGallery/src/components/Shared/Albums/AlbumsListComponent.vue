@@ -5,14 +5,17 @@
   import type {Album} from "../../../ts/Albums/libAlbums.ts";
   import {WebClientSendGetRequest} from "../../../ts/libWebClient.ts";
   import AlbumsHierarchyComponent from "../../Albums/AlbumsHierarchyComponent.vue";
-  import NewAlbumComponent from "./NewAlbumComponent.vue";
-  import LoadingSymbolComponent from "../LoadyngSymbol/LoadingSymbolComponent.vue";
+  import LoadingSymbolComponent from "../LoadingSymbol/LoadingSymbolComponent.vue";
   import AddContentComponent from "../SelectedMenu/AddContentComponent.vue";
+
+  defineExpose({
+    RefreshAsync: RefreshAlbumsListAsync
+  })
 
   const props = defineProps({
     currentAlbumId: {
       type: String as PropType<string>,
-      required: true
+      required: false
     },
     shouldRefresh: Boolean
   })
@@ -20,8 +23,6 @@
   const isLoading = ref<boolean>(true)
 
   const albums = ref<Album[]>([])
-
-  const neverShovComponent = ref<boolean>(false)
 
   const emit = defineEmits(["createAlbum", "uploadImage"])
 
@@ -69,13 +70,6 @@
     isLoading.value = false
   }
 
-  async function OnAlbumAddedAsync()
-  {
-    alert("REFRESH")
-
-    await RefreshAlbumsListAsync()
-  }
-
   async function OnAlbumDeletedAsync()
   {
     await RefreshAlbumsListAsync()
@@ -86,12 +80,12 @@
     await RefreshAlbumsListAsync()
   }
 
-  async function AlbumCreated()
+  async function OnCreateAlbumActionAsync()
   {
     emit("createAlbum")
   }
 
-  async function UploadImage()
+  async function OnUploadImageActionAsync()
   {
     emit("uploadImage")
   }
@@ -119,17 +113,9 @@
           @albumDeleted="async () => await OnAlbumDeletedAsync()"
           @albumRenamed="async () => await OnAlbumRenamedAsync()"/>
 
-
-      <!-- For refresh   -->
-      <NewAlbumComponent
-          v-if="neverShovComponent"
-          :currentAlbumId="props.currentAlbumId"
-          @newAlbumCreated="async () => await OnAlbumAddedAsync()"/>
-
       <AddContentComponent
-          :currentAlbumId="props.currentAlbumId"
-          @createAlbum="async () => await AlbumCreated()"
-          @uploadImage="async () => await UploadImage()"/>
+          @createAlbum="async () => await OnCreateAlbumActionAsync()"
+          @uploadImage="async () => await OnUploadImageActionAsync()"/>
 
     </div>
 
