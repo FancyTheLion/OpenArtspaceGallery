@@ -33,6 +33,13 @@
       await RefreshImageListAsync()
   }
 
+  async function GetImagesListAsync(currentAlbumId: String): Promise<Image[]>
+  {
+    return DecodeImagesResponse((await (await WebClientSendGetRequest("/Images/ByAlbum/" + currentAlbumId)).json()))
+        .images
+        .sort((a: Image, b: Image) => a.creationTime.getTime() - b.creationTime.getTime())
+  }
+
   async function RefreshImageListAsync(): Promise<void>
   {
     isLoading.value = true
@@ -40,13 +47,6 @@
     images.value = await GetImagesListAsync(props.currentAlbumId)
 
     isLoading.value = false
-  }
-
-  async function GetImagesListAsync(currentAlbumId: String): Promise<Image[]>
-  {
-    return DecodeImagesResponse((await (await WebClientSendGetRequest("/Images/ByAlbum/" + currentAlbumId)).json()))
-        .images
-        .sort((a: Image, b: Image) => a.creationTime.getTime() - b.creationTime.getTime())
   }
 
   async function UploadImageAsync(): Promise<void>
