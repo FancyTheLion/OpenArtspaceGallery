@@ -7,24 +7,24 @@ import {ref} from "vue";
   const emit = defineEmits(["uploadImage", "createAlbum"])
 
 
-  function ShowAddMenuPopup()
+  function ShowAddMenuPopup(): void
   {
     isSelectedMenuPopupVisible.value = true
   }
 
-  function HideAddMenuPopup()
+  function HideAddMenuPopup(): void
   {
     isSelectedMenuPopupVisible.value = false
   }
 
-  async function SelectedCreateAlbumPopup()
+  async function SelectedCreateAlbumPopup(): Promise<void>
   {
     emit("createAlbum")
 
     HideAddMenuPopup()
   }
 
-  async function SelectedUploadImagePopup()
+  async function SelectedUploadImagePopup(): Promise<void>
   {
     emit("uploadImage")
 

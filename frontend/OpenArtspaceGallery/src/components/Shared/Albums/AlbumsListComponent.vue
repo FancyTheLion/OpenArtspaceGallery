@@ -38,7 +38,7 @@
     isLoading.value = false
   }
 
-  async function GetAlbumsListAsync(currentAlbumId: String | undefined | null)
+  async function GetAlbumsListAsync(currentAlbumId: String | undefined | null): Promise<Album[]>
   {
     let albumsList: Album[]
 
@@ -61,7 +61,7 @@
         .sort(function(a: Album, b: Album) { return a.creationTime.getTime() - b.creationTime.getTime() })
   }
 
-  async function RefreshAlbumsListAsync()
+  async function RefreshAlbumsListAsync(): Promise<void>
   {
     isLoading.value = true
 
@@ -70,22 +70,22 @@
     isLoading.value = false
   }
 
-  async function OnAlbumDeletedAsync()
+  async function OnAlbumDeletedAsync(): Promise<void>
   {
     await RefreshAlbumsListAsync()
   }
 
-  async function OnAlbumRenamedAsync()
+  async function OnAlbumRenamedAsync(): Promise<void>
   {
     await RefreshAlbumsListAsync()
   }
 
-  async function OnCreateAlbumActionAsync()
+  async function OnCreateAlbumActionAsync(): Promise<void>
   {
     emit("createAlbum")
   }
 
-  async function OnUploadImageActionAsync()
+  async function OnUploadImageActionAsync(): Promise<void>
   {
     emit("uploadImage")
   }

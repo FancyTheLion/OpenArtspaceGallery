@@ -32,7 +32,7 @@ import {
     await RefreshImageSizesListAsync()
   }
 
-  async function GetImagesSizesListAsync()
+  async function GetImagesSizesListAsync(): Promise<ImageSize[]>
   {
       return DecodeImagesSizesResponse((await (await WebClientSendGetRequest("/ImagesSizes/GetList")).json()))
         .imagesSizes
@@ -40,7 +40,7 @@ import {
         .sort((a: ImageSize, b: ImageSize) => a.name.localeCompare(b.name))
   }
 
-  async function DeleteImageSizeAsync()
+  async function DeleteImageSizeAsync(): Promise<void>
   {
     const response = await WebClientSendDeleteRequest("/ImagesSizes/" + imageSizeToDeleteId.value)
 
@@ -53,7 +53,7 @@ import {
     }
   }
 
-  async function CreateImageSizeAsync(newImageSize: NewImageSize)
+  async function CreateImageSizeAsync(newImageSize: NewImageSize): Promise<void>
   {
       const request = await WebClientSendPostRequest("/ImagesSizes/Add",
           {
@@ -73,7 +73,7 @@ import {
     await RefreshImageSizesListAsync()
   }
 
-  async function EditImageSizeAsync(newImageSize: NewImageSize)
+  async function EditImageSizeAsync(newImageSize: NewImageSize): Promise<void>
   {
     const request = await WebClientSendPostRequest("/ImagesSizes/UpdateById",
         {
@@ -94,24 +94,24 @@ import {
     await RefreshImageSizesListAsync()
   }
 
-  async function RefreshImageSizesListAsync()
+  async function RefreshImageSizesListAsync(): Promise<void>
   {
     imagesSizes.value = await GetImagesSizesListAsync()
   }
 
-  function ShowDeleteImageSizeConfirmation(id: string)
+  function ShowDeleteImageSizeConfirmation(id: string): void
   {
     imageSizeToDeleteId.value = id;
 
     deleteImageSizePopupRef.value!.Show()
   }
 
-  async function ShowNewImageSizePopupAsync()
+  async function ShowNewImageSizePopupAsync(): Promise<void>
   {
     await addEditImageSizePopupRef.value!.ShowAsync(true, "", 0, 0)
   }
 
-  async function ShowEditImageSizeAsync(id: string, imageData: NewImageSize)
+  async function ShowEditImageSizeAsync(id: string, imageData: NewImageSize): Promise<void>
   {
     imageSizeToEditId.value = id;
 

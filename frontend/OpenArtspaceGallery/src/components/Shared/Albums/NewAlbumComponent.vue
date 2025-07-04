@@ -38,18 +38,18 @@ import {WebClientSendPostRequest} from "../../../ts/libWebClient.ts";
     await newAlbumFormValidator.value.$validate()
   }
 
-  function OnCancel()
+  function OnCancel(): void
   {
     ClearInputField()
     emit("cancelled");
   }
 
-  function ClearInputField()
+  function ClearInputField(): void
   {
     newAlbumFormData.name = "";
   }
 
-  async function OnCreateAsync()
+  async function OnCreateAsync(): Promise<void>
   {
     const response = await WebClientSendPostRequest(
         "/Albums/New",

@@ -8,7 +8,7 @@
 
   const brokenThumbnail = '/images/icons/brokenImage.webp';
 
-  function OnPreviewImageError(event: Event)
+  function OnPreviewImageError(event: Event): void
   {
     const target = event.target as HTMLImageElement;
     target.src = brokenThumbnail;

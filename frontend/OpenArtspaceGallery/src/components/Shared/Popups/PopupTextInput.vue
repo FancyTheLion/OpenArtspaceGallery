@@ -31,26 +31,26 @@ import { reactive, ref} from "vue";
         value: ""
   })
 
-  async function OnOk()
+  async function OnOk(): Promise<void>
   {
     await HidePopup()
 
     emit("ok")
   }
 
-  function OnCancel()
+  function OnCancel(): Promise<void>
   {
     emit("ok", valueFormData.value)
   }
 
-  function ShowPopup()
+  function ShowPopup(): Promise<void>
   {
     valueFormData.value = props.defaultValue
 
     isDisplayed.value = true
   }
 
-  function HidePopup()
+  function HidePopup(): Promise<void>
   {
     isDisplayed.value = false
   }

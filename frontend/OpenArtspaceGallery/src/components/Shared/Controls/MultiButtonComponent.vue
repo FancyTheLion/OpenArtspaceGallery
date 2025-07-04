@@ -18,7 +18,7 @@
 
   const activeButtonId = ref<string>(props.activeButton)
 
-  function OnButtonClicked(id: string)
+  function OnButtonClicked(id: string): void
   {
     activeButtonId.value = id
     emit("buttonSelected", activeButtonId.value)

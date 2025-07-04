@@ -77,9 +77,8 @@ import {
   {
   }
 
-  function InitForm(name: string, width: number, height: number)
+  function InitForm(name: string, width: number, height: number): void
   {
-    // TODO: Think about compactification (to write everything in one line)
     addEditFormData.name = name;
     addEditFormData.width = width;
     addEditFormData.height = height;
@@ -89,7 +88,7 @@ import {
     originalData.height = height;
   }
 
-  async function OnOkAsync()
+  async function OnOkAsync(): Promise<void>
   {
     if (!isAddMode.value && !isFormChanged)
     {
@@ -110,14 +109,14 @@ import {
     emit("ok", isAddMode.value, addEditFormData)
   }
 
-  function OnCancel()
+  function OnCancel(): void
   {
     HidePopup()
 
     emit("cancel")
   }
 
-  async function ShowPopupAsync(isAdd: boolean, name: string, width: number, height: number)
+  async function ShowPopupAsync(isAdd: boolean, name: string, width: number, height: number): Promise<void>
   {
     isAddMode.value = isAdd
     isDisplayed.value = true
@@ -125,7 +124,7 @@ import {
     InitForm(name, width, height)
   }
 
-  function HidePopup()
+  function HidePopup(): void
   {
     isDisplayed.value = false
   }

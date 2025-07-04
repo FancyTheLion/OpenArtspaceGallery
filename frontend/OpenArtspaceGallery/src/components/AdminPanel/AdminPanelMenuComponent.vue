@@ -10,7 +10,7 @@
 
   const emit = defineEmits([ "activatedButton" ])
 
-  function OnButtonClicked(currentButtonId: string)
+  function OnButtonClicked(currentButtonId: string): void
   {
     emit("activatedButton", currentButtonId)
   }

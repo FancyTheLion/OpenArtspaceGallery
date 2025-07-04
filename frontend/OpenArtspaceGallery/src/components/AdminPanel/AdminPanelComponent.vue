@@ -6,7 +6,7 @@
 
   const activePageId = ref<string>(ImageSizeButtonId)
 
-  function OnButtonClicked(currentButtonId: string)
+  function OnButtonClicked(currentButtonId: string): void
   {
     activePageId.value = currentButtonId;
   }

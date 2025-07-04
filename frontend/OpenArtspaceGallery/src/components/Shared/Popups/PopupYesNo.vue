@@ -22,26 +22,26 @@
 
   const emit = defineEmits([ "no", "yes" ])
 
-  function OnNo()
+  function OnNo(): void
   {
     HidePopup()
 
     emit("no")
   }
 
-  function OnYes()
+  function OnYes(): void
   {
     HidePopup()
 
     emit("yes")
   }
 
-  function ShowPopup()
+  function ShowPopup(): void
   {
     isDisplayed.value = true
   }
 
-  function HidePopup()
+  function HidePopup(): void
   {
     isDisplayed.value = false
   }

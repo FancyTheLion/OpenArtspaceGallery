@@ -21,17 +21,17 @@
 
   const renameAlbumPopupRef = ref<InstanceType<typeof PopupTextInput>>()
 
-  function ShowAlbumToolbar()
+  function ShowAlbumToolbar(): void
   {
     isButtonsToolbarVisible.value = true
   }
 
-  function HideAlbumToolbar()
+  function HideAlbumToolbar(): void
   {
     isButtonsToolbarVisible.value = false
   }
 
-  function ShowAlbumDeleteConfirmation()
+  function ShowAlbumDeleteConfirmation(): void
   {
     if (deleteAlbumPopupRef.value === undefined)
     {
@@ -42,7 +42,7 @@
     deleteAlbumPopupRef.value!.Show()
   }
 
-  function ShowAlbumRenameConfirmation()
+  function ShowAlbumRenameConfirmation(): void
   {
     if (renameAlbumPopupRef.value === undefined)
     {
@@ -53,7 +53,7 @@
     renameAlbumPopupRef.value!.Show()
   }
 
-  async function DeleteAlbumAsync()
+  async function DeleteAlbumAsync(): Promise<void>
   {
     const response = await WebClientSendDeleteRequest("/Albums/"  + props.info.id)
 
@@ -66,7 +66,7 @@
     emit("albumDeleted", props.info.id)
   }
 
-  async function RenameAlbumAsync(newName: string)
+  async function RenameAlbumAsync(newName: string): Promise<void>
   {
     const response = await WebClientSendPostRequest("/Albums/" + props.info.id + "/Rename",
         {

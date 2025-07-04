@@ -20,14 +20,14 @@
     isLoading.value = false
   }
 
-  async function GetBackendVersionAsync()
+  async function GetBackendVersionAsync(): Promise<any>
   {
     return (await (await WebClientSendGetRequest("/SiteInfo/GetBackendVersion")).json())
         .backendVersion
         .backendVersion
   }
 
-  async function GetSourcesLinkAsync()
+  async function GetSourcesLinkAsync(): Promise<any>
   {
     return (await (await WebClientSendGetRequest("/SiteInfo/GetSourcesLink")).json())
         .sourcesLink

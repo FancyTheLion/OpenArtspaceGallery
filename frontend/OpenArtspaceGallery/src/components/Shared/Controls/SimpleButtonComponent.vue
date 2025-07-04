@@ -20,7 +20,7 @@
 
   const emit = defineEmits([ "clicked" ])
 
-  function OnClick()
+  function OnClick(): void
   {
     emit("clicked", props.id)
   }

@@ -18,7 +18,7 @@ import {WebClientPostForm, WebClientSendPostRequest} from "../../ts/libWebClient
 
   const emit = defineEmits(["imageUploaded", "cancelled"])
 
-  async function OnAddImageAsync()
+  async function OnAddImageAsync(): Promise<void>
   {
     const uploadedFileId = await UploadImageAsync()
 
@@ -51,7 +51,7 @@ import {WebClientPostForm, WebClientSendPostRequest} from "../../ts/libWebClient
     emit("imageUploaded")
   }
 
-  function HandleFileChange(event: Event)
+  function HandleFileChange(event: Event): void
   {
     const target = event.target as HTMLInputElement;
     if (target.files && target.files.length > 0)
@@ -60,12 +60,12 @@ import {WebClientPostForm, WebClientSendPostRequest} from "../../ts/libWebClient
     }
   }
 
-  async function UploadImageAsync()
+  async function UploadImageAsync(): Promise<string | null>
   {
     if (!addImageFileForm.file)
     {
       alert("Need a file!");
-      return;
+      return null;
     }
 
     const fileToUpload: File = addImageFileForm.file;
@@ -78,16 +78,15 @@ import {WebClientPostForm, WebClientSendPostRequest} from "../../ts/libWebClient
     if (!response.ok)
     {
       alert("Failed to upload file!");
-      return;
+      return null;
     }
 
     const responseBody = await response.json()
-    const uploadedFileId: string = responseBody.fileInfo.id;
 
-    return uploadedFileId
+    return responseBody.fileInfo.id;
   }
 
-  function OnCancel()
+  function OnCancel(): void
   {
     emit("cancelled")
   }
