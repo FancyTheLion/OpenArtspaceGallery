@@ -1,5 +1,6 @@
 using OpenArtspaceGallery.DAO.Models.Files;
 using OpenArtspaceGallery.DAO.Models.Images;
+using OpenArtspaceGallery.Models.Images;
 
 namespace OpenArtspaceGallery.DAO.Abstract;
 
@@ -9,6 +10,11 @@ public interface IImagesDao
     /// Get image
     /// </summary>
     public Task<ImageDbo> GetImageByIdAsync(Guid imageId);
+    
+    /// <summary>
+    /// Get last images in album
+    /// </summary>
+    public Task<IReadOnlyCollection<ImageDbo>> GetLastImagesInAlbumAsync(Guid albumId, int count);
     
     /// <summary>
     /// Add image 

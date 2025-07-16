@@ -5,6 +5,7 @@ using OpenArtspaceGallery.DAO.Models.Albums;
 using OpenArtspaceGallery.DAO.Models.Files;
 using OpenArtspaceGallery.DAO.Models.Images;
 using OpenArtspaceGallery.Helpers.Files.Images;
+using OpenArtspaceGallery.Models.API.DTOs.Images;
 using OpenArtspaceGallery.Models.Images;
 using OpenArtspaceGallery.Services.Abstract;
 
@@ -116,5 +117,14 @@ public class ImagesService : IImagesService
     public async Task<IReadOnlyDictionary<Guid, Guid>> GetThumbnailsIdsForImagesAsync(IReadOnlyCollection<Guid> imageIds)
     {
         return await _imagesDao.GetThumbnailsIdsForImagesAsync(imageIds);
+    }
+
+    public async Task<IReadOnlyCollection<Image>> GetLastImagesInAlbumAsync(Guid albumId, int count)
+    {
+        var images = await _imagesDao.GetLastImagesInAlbumAsync(albumId, count);
+        
+        return images
+            .Select(Image.FromDbo)
+            .ToList();
     }
 }

@@ -28,5 +28,10 @@ public interface IImagesService
     /// Get thumbnails ids for images
     /// </summary>
     public Task<IReadOnlyDictionary<Guid, Guid>> GetThumbnailsIdsForImagesAsync(IReadOnlyCollection<Guid> imageIds);
-
+    
+    
+    /// <summary>
+    /// Get last images in album
+    /// </summary>
+    public Task<IReadOnlyCollection<Image>> GetLastImagesInAlbumAsync(Guid albumId, int count);
 }

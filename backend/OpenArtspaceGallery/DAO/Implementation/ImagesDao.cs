@@ -6,6 +6,7 @@ using OpenArtspaceGallery.DAO.Enums;
 using OpenArtspaceGallery.DAO.Models.Files;
 using OpenArtspaceGallery.DAO.Models.Images;
 using OpenArtspaceGallery.Helpers.Files.Images;
+using OpenArtspaceGallery.Models.Images;
 using OpenArtspaceGallery.Models.ImagesSizes;
 
 namespace OpenArtspaceGallery.DAO.Implementation;
@@ -80,5 +81,16 @@ public class ImagesDao : IImagesDao
         
         return imageIds
             .ToDictionary(imgid => imgid, imgid => result.TryGetValue(imgid, out var value) ? value : Guid.Empty);
+    }
+    
+    public async Task<IReadOnlyCollection<ImageDbo>> GetLastImagesInAlbumAsync(Guid albumId, int count)
+    {
+        return await _dbContext
+            .Images
+            .Include(img => img.Album)
+            .Where(img => img.Album.Id == albumId)
+            .OrderByDescending(img => img.CreationTime)
+            .Take(count)
+            .ToListAsync();
     }
 }

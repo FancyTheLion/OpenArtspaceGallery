@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using OpenArtspaceGallery.Models.API.DTOs.Images;
 using OpenArtspaceGallery.Models.API.Requests.Images;
+using OpenArtspaceGallery.Models.API.Responses.Albums;
 using OpenArtspaceGallery.Models.API.Responses.Images;
 using OpenArtspaceGallery.Services.Abstract;
 
@@ -80,6 +81,28 @@ public class ImagesController : ControllerBase
             new ImageWithPreviewResponse
             (
                 images
+                    .Select(image => ImageWithThumbnailDto.FromModel(image, thumbnailsIds[image.Id]))
+                    .ToList()
+            )
+        );
+    }
+
+    /// <summary>
+    /// Get last image in album
+    /// </summary>
+    [Route("ByAlbum/{albumId:guid}/lastImages/{count:int}")]
+    [HttpGet]
+    public async Task<ActionResult<AlbumLastImageResponse>> GetImageWithPreviewAsync(Guid albumId, int count)
+    {
+        var lastImages = await _imagesService.GetLastImagesInAlbumAsync(albumId, count);
+        
+        var thumbnailsIds = await _imagesService.GetThumbnailsIdsForImagesAsync(lastImages.Select(x => x.Id).ToList());
+        
+        return Ok
+        (
+            new ImageWithPreviewResponse
+            (
+                lastImages
                     .Select(image => ImageWithThumbnailDto.FromModel(image, thumbnailsIds[image.Id]))
                     .ToList()
             )
