@@ -21,6 +21,8 @@
 
   const images = ref<Image[]>([])
 
+  const isShowImageName = true
+
   const emit = defineEmits(["createAlbum", "uploadImage"])
 
   onMounted(async () =>
@@ -77,6 +79,7 @@
         :key="image.id">
 
         <ThumbnailComponent
+            :isShowImageName="isShowImageName"
             :image="image" />
 
       </div>

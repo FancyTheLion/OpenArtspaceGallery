@@ -1,10 +1,20 @@
 <script setup lang="ts">
 
   import {Image} from "../../ts/Images/libImages.ts";
+  import {PropType} from "vue";
 
   const apiBaseUrl = import.meta.env.VITE_BACKEND_URL
 
-  const { image } = defineProps<{ image: Image }>()
+  const props = defineProps({
+    image: {
+      type: Object as PropType<Image>,
+      required: true
+    },
+    isShowImageName: {
+      type: Boolean,
+      required: true
+    }
+  })
 
   const brokenThumbnail = '/images/icons/brokenImage.webp';
 
@@ -26,7 +36,9 @@
         class="thumbnail-image"
         @error="OnPreviewImageError"/>
 
-    <div class="thumbnail-name">
+    <div
+        v-if="props.isShowImageName"
+        class="thumbnail-name">
       {{ image.name }}
     </div>
 

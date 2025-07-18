@@ -29,6 +29,8 @@ import ThumbnailComponent from "../../Images/ThumbnailComponent.vue";
 
   const lastImages = ref<Image[]>([])
 
+  const isShowImageName = false
+
   onMounted(async () =>
   {
     await OnLoad();
@@ -128,6 +130,7 @@ import ThumbnailComponent from "../../Images/ThumbnailComponent.vue";
               :key="lastImage.id">
 
             <ThumbnailComponent
+                :isShowImageName="isShowImageName"
                 :image="lastImage" />
 
         </div>
