@@ -1,10 +1,16 @@
 <script setup lang="ts">
-  import {PropType, ref} from "vue";
+import {onMounted, PropType, ref} from "vue";
   import {Album} from "../../../ts/Albums/libAlbums.ts";
   import moment from "moment";
-  import {WebClientSendDeleteRequest, WebClientSendPostRequest} from "../../../ts/libWebClient.ts";
+  import {
+    WebClientSendDeleteRequest,
+    WebClientSendGetRequest,
+    WebClientSendPostRequest
+  } from "../../../ts/libWebClient.ts";
   import PopupYesNo from "../Popups/PopupYesNo.vue";
   import PopupTextInput from "../Popups/PopupTextInput.vue";
+  import {DecodeImagesResponse, Image} from "../../../ts/Images/libImages.ts";
+import ThumbnailComponent from "../../Images/ThumbnailComponent.vue";
 
   const props = defineProps({
     info: {
@@ -20,6 +26,18 @@
   const deleteAlbumPopupRef = ref<InstanceType<typeof PopupYesNo>>()
 
   const renameAlbumPopupRef = ref<InstanceType<typeof PopupTextInput>>()
+
+  const lastImages = ref<Image[]>([])
+
+  onMounted(async () =>
+  {
+    await OnLoad();
+  })
+
+  async function OnLoad()
+  {
+    lastImages.value = await GetLastImagesAsync(props.info?.id)
+  }
 
   function ShowAlbumToolbar(): void
   {
@@ -84,6 +102,13 @@
     emit("albumRenamed", props.info.id)
   }
 
+  async function GetLastImagesAsync(currentAlbumId: String): Promise<Image[]>
+  {
+    return DecodeImagesResponse((await (await WebClientSendGetRequest("/Images/ByAlbum/" + currentAlbumId + "/lastImages/" + 4)).json()))
+        .images
+        .sort((a: Image, b: Image) => a.creationTime.getTime() - b.creationTime.getTime())
+  }
+
 </script>
 
 <template>
@@ -97,9 +122,15 @@
 
       <div class="album-content-layer">
 
-          <div class="album-upper-part">
-              Photos will be here
-          </div>
+          <div
+              class="album-upper-part"
+              v-for="lastImage in lastImages"
+              :key="lastImage.id">
+
+            <ThumbnailComponent
+                :image="lastImage" />
+
+        </div>
 
           <div class="album-lower-part">
 
