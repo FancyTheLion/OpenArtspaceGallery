@@ -31,6 +31,8 @@ import ThumbnailComponent from "../../Images/ThumbnailComponent.vue";
 
   const isShowImageName = false
 
+  const lastImageCount: number = 4;
+
   onMounted(async () =>
   {
     await OnLoad();
@@ -106,7 +108,7 @@ import ThumbnailComponent from "../../Images/ThumbnailComponent.vue";
 
   async function GetLastImagesAsync(currentAlbumId: String): Promise<Image[]>
   {
-    return DecodeImagesResponse((await (await WebClientSendGetRequest("/Images/ByAlbum/" + currentAlbumId + "/lastImages/" + 4)).json()))
+    return DecodeImagesResponse((await (await WebClientSendGetRequest("/Images/ByAlbum/" + currentAlbumId + "/lastImages/" + lastImageCount)).json()))
         .images
         .sort((a: Image, b: Image) => a.creationTime.getTime() - b.creationTime.getTime())
   }

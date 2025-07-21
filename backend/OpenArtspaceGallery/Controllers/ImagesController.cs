@@ -92,7 +92,7 @@ public class ImagesController : ControllerBase
     /// </summary>
     [Route("ByAlbum/{albumId:guid}/lastImages/{count:int}")]
     [HttpGet]
-    public async Task<ActionResult<AlbumLastImageResponse>> GetImageWithPreviewAsync(Guid albumId, int count)
+    public async Task<ActionResult<AlbumLastImagesResponse>> GetImageWithPreviewAsync(Guid albumId, int count)
     {
         var lastImages = await _imagesService.GetLastImagesInAlbumAsync(albumId, count);
         

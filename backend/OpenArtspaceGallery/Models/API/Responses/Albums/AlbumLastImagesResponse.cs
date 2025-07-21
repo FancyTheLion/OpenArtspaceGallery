@@ -3,15 +3,15 @@ using OpenArtspaceGallery.Models.API.DTOs.Images;
 
 namespace OpenArtspaceGallery.Models.API.Responses.Albums;
 
-public class AlbumLastImageResponse
+public class AlbumLastImagesResponse
 {
     /// <summary>
     /// Last images in album
     /// </summary>
-    [JsonPropertyName("lastImage")]
+    [JsonPropertyName("lastImages")]
     public IReadOnlyCollection<ImageWithThumbnailDto> LastImages { get; private set; }
 
-    public AlbumLastImageResponse(IReadOnlyCollection<ImageWithThumbnailDto> images)
+    public AlbumLastImagesResponse(IReadOnlyCollection<ImageWithThumbnailDto> images)
     {
         LastImages = images ?? throw new ArgumentNullException(nameof(images));
     }
