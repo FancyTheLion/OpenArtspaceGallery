@@ -9,8 +9,8 @@ import {onMounted, PropType, ref} from "vue";
   } from "../../../ts/libWebClient.ts";
   import PopupYesNo from "../Popups/PopupYesNo.vue";
   import PopupTextInput from "../Popups/PopupTextInput.vue";
-  import {DecodeImagesResponse, Image} from "../../../ts/Images/libImages.ts";
 import ThumbnailComponent from "../../Images/ThumbnailComponent.vue";
+import {DecodeLastImagesResponse, LastImage} from "../../../ts/Images/libLastImages.ts";
 
   const props = defineProps({
     info: {
@@ -106,10 +106,10 @@ import ThumbnailComponent from "../../Images/ThumbnailComponent.vue";
     emit("albumRenamed", props.info.id)
   }
 
-  async function GetLastImagesAsync(currentAlbumId: String): Promise<Image[]>
+  async function GetLastImagesAsync(currentAlbumId: String): Promise<LastImage[]>
   {
-    return DecodeImagesResponse((await (await WebClientSendGetRequest("/Images/ByAlbum/" + currentAlbumId + "/lastImages/" + lastImageCount)).json()))
-        .images
+    return DecodeLastImagesResponse((await (await WebClientSendGetRequest("/Images/ByAlbum/" + currentAlbumId + "/lastImages/" + lastImageCount)).json()))
+        .lastImages
         .sort((a: Image, b: Image) => a.creationTime.getTime() - b.creationTime.getTime())
   }
 
@@ -126,6 +126,9 @@ import ThumbnailComponent from "../../Images/ThumbnailComponent.vue";
 
       <div class="album-content-layer">
 
+        <div
+          v-if="lastImages.length > 0">
+
           <div
               class="album-upper-part"
               v-for="lastImage in lastImages"
@@ -135,7 +138,13 @@ import ThumbnailComponent from "../../Images/ThumbnailComponent.vue";
                 :isShowImageName="isShowImageName"
                 :image="lastImage" />
 
+          </div>
+
         </div>
+
+        <div v-else class="album-upper-part">No images</div>
+
+
 
           <div class="album-lower-part">
 

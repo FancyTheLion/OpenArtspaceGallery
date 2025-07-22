@@ -1,5 +1,5 @@
 /* DTO (from backend) */
-export type ImageDto = {
+export type LastImageDto = {
     id: string;
     name: string;
     description: string;
@@ -8,8 +8,8 @@ export type ImageDto = {
     creationTime: string;
 }
 
-/* Image model */
-export type Image = {
+/* Last image model */
+export type LastImage = {
     id: string;
     name: string;
     description: string;
@@ -19,7 +19,7 @@ export type Image = {
 }
 
 /* DTO to model */
-export function DecodeImageDto(dto: ImageDto) : Image
+export function DecodeLastImageDto(dto: LastImageDto) : LastImage
 {
     return {
         id: dto.id,
@@ -31,24 +31,24 @@ export function DecodeImageDto(dto: ImageDto) : Image
     }
 }
 
-/* Public images response */
-type ImagesResponse =
+/* Public last images response */
+type LastImagesResponse =
     {
-        images: Image[];
+        lastImages: LastImage[];
     }
 
-/* Private images response */
-type ImagesResponseDto =
+/* Private last images response */
+type LastImagesResponseDto =
     {
-        images: ImageDto[];
+        lastImages: LastImageDto[];
     }
 
 /* Response to model */
-export function DecodeImagesResponse(response: ImagesResponseDto) : ImagesResponse
-    {
-        return {
-            images: response
-                .images
-                .map(DecodeImageDto)
-        };
-    }
+export function DecodeLastImagesResponse(response: LastImagesResponseDto) : LastImagesResponse
+{
+    return {
+        lastImages: response
+            .lastImages
+            .map(DecodeLastImageDto)
+    };
+}

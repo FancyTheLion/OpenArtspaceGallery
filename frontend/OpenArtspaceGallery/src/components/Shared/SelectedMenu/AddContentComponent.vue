@@ -62,12 +62,6 @@ import {ref} from "vue";
         <div class="new-album-add-new-album-form">
 
           <button
-              type="button"
-              @click="HideAddMenuPopup()">
-            Cancel
-          </button>
-
-          <button
               class="new-album-form-buttons"
               type="button"
               @click="async() => await SelectedCreateAlbumPopup()">
@@ -79,6 +73,12 @@ import {ref} from "vue";
               type="button"
               @click="async() => await SelectedUploadImagePopup()">
             Upload image
+          </button>
+
+          <button
+              type="button"
+              @click="HideAddMenuPopup()">
+            Cancel
           </button>
 
           </div>
