@@ -114,6 +114,28 @@
   text-align: center;
   color: hsl(0, 0%, 20%);
 }
+/* Container with one albums */
+.add-image-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 0;
+  border: 0.3rem solid aqua;
+  border-radius: 0.5rem;
+  width: 15rem;
+  height: 10rem;
+  background-color: white;
+}
+/* New album form button container */
+.add-image-button-container {
+  padding: 0.2rem;
+}
+/* For function buttons in a form */
+.add-image-form-buttons {
+  margin: 0.2rem;
+}
 /* Margins */
 /*
 @margin-large: ;

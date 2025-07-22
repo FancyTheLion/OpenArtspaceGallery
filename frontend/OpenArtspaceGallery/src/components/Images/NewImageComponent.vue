@@ -102,7 +102,7 @@ import {WebClientPostForm, WebClientSendPostRequest} from "../../ts/libWebClient
 
       <div class="popup">
 
-        <div class="new-album-add-new-album-form">
+        <div class="add-image-form">
 
           <div>
             Image name
@@ -130,17 +130,17 @@ import {WebClientPostForm, WebClientSendPostRequest} from "../../ts/libWebClient
               accept="image/png, image/jpeg, image/gif, image/webp"
               @change="HandleFileChange"/>
 
-          <div class="add-album-form-button-container">
+          <div class="add-image-button-container">
 
             <button
-                class="add-album-form-buttons"
+                class="add-image-form-buttons"
                 type="button"
                 @click="OnCancel()">
               Cancel
             </button>
 
             <button
-                class="add-album-form-buttons"
+                class="add-image-form-buttons"
                 type="button"
                 @click="async() => await OnAddImageAsync()">
               Add

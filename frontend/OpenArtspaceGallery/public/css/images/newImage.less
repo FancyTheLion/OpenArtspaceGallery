@@ -1,0 +1,32 @@
+@import "../shared/common.less";
+@import "../shared/theme";
+
+@add-image-form-indentation: 0.2rem;
+
+@add-image-form-container-width: 15rem;
+@add-image-form-container-height: 10rem;
+
+
+/* Container with one albums */
+.add-image-form {
+  .mixin-flex-vertically-and-horizontally-centered();
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 0;
+
+  border: @border-width-thick @border-type-common-solid aqua;
+  border-radius: @border-radius-normal;
+  width: @add-image-form-container-width;
+  height: @add-image-form-container-height;
+  background-color: white;
+}
+
+/* New album form button container */
+.add-image-button-container {
+  padding: @add-image-form-indentation;
+}
+
+/* For function buttons in a form */
+.add-image-form-buttons {
+  margin: @add-image-form-indentation;
+}
