@@ -28,16 +28,16 @@ async function SelectedCreateAlbumPopup(): Promise<void>
 
 <template>
 
-  <!-- Add image or album button -->
-  <div class="new-album-button-container">
+  <!-- Create album button -->
+  <div class="new-home-album-button-container">
 
     <div
-        class="new-album-button">
+        class="new-home-album-button">
 
-      <img class="new-album-button-image"
+      <img class="new-home-album-button-image"
            src="/images/icons/AddContent.webp"
-           alt="Create new album or add image"
-           title="Create new album or add image"
+           alt="Create new album in home page"
+           title="Create new album in home page"
            @click="ShowAddMenuPopup"/>
 
     </div>
@@ -52,16 +52,17 @@ async function SelectedCreateAlbumPopup(): Promise<void>
 
       <div class="popup">
 
-        <div class="new-album-add-new-album-form">
+        <div class="new-home-album-add-new-album-form">
 
           <button
+              class="new-home-album-form-buttons"
               type="button"
               @click="HideAddMenuPopup()">
             Cancel
           </button>
 
           <button
-              class="new-album-form-buttons"
+              class="new-home-album-form-buttons"
               type="button"
               @click="async() => await SelectedCreateAlbumPopup()">
             Create album

@@ -144,8 +144,6 @@ import {DecodeLastImagesResponse, LastImage} from "../../../ts/Images/libLastIma
 
         <div v-else class="album-upper-part">No images</div>
 
-
-
           <div class="album-lower-part">
 
               <div class="album-name">
