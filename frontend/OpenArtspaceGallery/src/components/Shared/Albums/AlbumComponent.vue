@@ -27,7 +27,7 @@ import {DecodeLastImagesResponse, LastImage} from "../../../ts/Images/libLastIma
 
   const renameAlbumPopupRef = ref<InstanceType<typeof PopupTextInput>>()
 
-  const lastImages = ref<Image[]>([])
+  const lastImagesInAlbum = ref<LastImage[]>([])
 
   const isShowImageName = false
 
@@ -40,7 +40,7 @@ import {DecodeLastImagesResponse, LastImage} from "../../../ts/Images/libLastIma
 
   async function OnLoad()
   {
-    lastImages.value = await GetLastImagesAsync(props.info?.id)
+    lastImagesInAlbum.value = await GetLastImagesAsync(props.info?.id)
   }
 
   function ShowAlbumToolbar(): void
@@ -110,7 +110,7 @@ import {DecodeLastImagesResponse, LastImage} from "../../../ts/Images/libLastIma
   {
     return DecodeLastImagesResponse((await (await WebClientSendGetRequest("/Images/ByAlbum/" + currentAlbumId + "/lastImages/" + lastImageCount)).json()))
         .lastImages
-        .sort((a: Image, b: Image) => a.creationTime.getTime() - b.creationTime.getTime())
+        .sort((a: LastImage, b: LastImage) => a.creationTime.getTime() - b.creationTime.getTime())
   }
 
 </script>
@@ -127,11 +127,11 @@ import {DecodeLastImagesResponse, LastImage} from "../../../ts/Images/libLastIma
       <div class="album-content-layer">
 
         <div
-          v-if="lastImages.length > 0">
+          v-if="lastImagesInAlbum.length > 0">
 
           <div
               class="album-upper-part"
-              v-for="lastImage in lastImages"
+              v-for="lastImage in lastImagesInAlbum"
               :key="lastImage.id">
 
             <ThumbnailComponent

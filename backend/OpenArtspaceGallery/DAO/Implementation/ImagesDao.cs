@@ -70,7 +70,7 @@ public class ImagesDao : IImagesDao
             .Where(img => img.Album.Id == albumId)
             .ToListAsync();
     }
-
+    
     public async Task<IReadOnlyDictionary<Guid, Guid>>  GetThumbnailsIdsForImagesAsync(IReadOnlyCollection<Guid> imageIds)
     {
         var result = await _dbContext

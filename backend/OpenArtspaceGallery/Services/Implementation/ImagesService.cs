@@ -121,9 +121,9 @@ public class ImagesService : IImagesService
 
     public async Task<IReadOnlyCollection<Image>> GetLastImagesInAlbumAsync(Guid albumId, int count)
     {
-        var images = await _imagesDao.GetLastImagesInAlbumAsync(albumId, count);
+        var lastImages = await _imagesDao.GetLastImagesInAlbumAsync(albumId, count);
         
-        return images
+        return lastImages
             .Select(Image.FromDbo)
             .ToList();
     }

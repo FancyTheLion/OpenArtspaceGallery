@@ -100,7 +100,7 @@ public class ImagesController : ControllerBase
         
         return Ok
         (
-            new ImageWithPreviewResponse
+            new AlbumLastImagesResponse
             (
                 lastImages
                     .Select(image => ImageWithThumbnailDto.FromModel(image, thumbnailsIds[image.Id]))
