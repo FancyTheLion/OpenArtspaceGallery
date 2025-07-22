@@ -36,13 +36,13 @@ import {ref} from "vue";
 <template>
 
   <!-- Add image or album button -->
-  <div class="new-album-button-container">
+  <div class="selected-menu-button-container">
 
     <div
-        class="new-album-button">
+        class="selected-menu-button">
 
-      <img class="new-album-button-image"
-           src="/images/icons/addNewAlbum.webp"
+      <img class="selected-menu-button-image"
+           src="/images/icons/AddContent.webp"
            alt="Create new album or add image"
            title="Create new album or add image"
             @click="ShowAddMenuPopup"/>
@@ -59,17 +59,17 @@ import {ref} from "vue";
 
       <div class="popup">
 
-        <div class="new-album-add-new-album-form">
+        <div class="selected-menu">
 
           <button
-              class="new-album-form-buttons"
+              class="selected-menu-form-buttons"
               type="button"
               @click="async() => await SelectedCreateAlbumPopup()">
             Create album
           </button>
 
           <button
-              class="new-album-form-buttons"
+              class="selected-menu-form-buttons"
               type="button"
               @click="async() => await SelectedUploadImagePopup()">
             Upload image

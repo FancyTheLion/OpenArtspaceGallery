@@ -590,4 +590,47 @@
 .new-album-form-buttons {
   margin: 0.2rem;
 }
+.selected-menu-button {
+  border: 0.3rem solid hsl(219, 67%, 66%);
+  border-radius: 0.5rem;
+  width: 8rem;
+  height: 8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.selected-menu-button:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0.25rem 0.75rem hsla(0, 0%, 0%, 0.5);
+  transition: transform 0.17s ease, box-shadow 0.17s ease;
+}
+/* Selected menu bottom image */
+.selected-menu-button-image {
+  width: 4rem;
+  height: 4rem;
+}
+.selected-menu-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* Container with one albums */
+.selected-menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 0;
+  border: 0.3rem solid aqua;
+  border-radius: 0.5rem;
+  width: 15rem;
+  height: 10rem;
+  background-color: white;
+}
+/* For function buttons in a form */
+.selected-menu-form-buttons {
+  margin: 0.2rem;
+}
 /*# sourceMappingURL=gallery.css.map */

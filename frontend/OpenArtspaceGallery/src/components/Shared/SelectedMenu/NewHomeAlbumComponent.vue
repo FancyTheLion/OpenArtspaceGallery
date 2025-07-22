@@ -35,7 +35,7 @@ async function SelectedCreateAlbumPopup(): Promise<void>
         class="new-album-button">
 
       <img class="new-album-button-image"
-           src="/images/icons/addNewAlbum.webp"
+           src="/images/icons/AddContent.webp"
            alt="Create new album or add image"
            title="Create new album or add image"
            @click="ShowAddMenuPopup"/>

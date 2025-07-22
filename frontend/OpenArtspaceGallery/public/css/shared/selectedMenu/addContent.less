@@ -1,0 +1,76 @@
+@import "../common";
+@import "../theme";
+
+@selected-menu-image-size: 4.0rem;
+
+@selected-menu-form-indentation: 0.2rem;
+
+@selected-menu-buttom-width: 8rem;
+@selected-menu-buttom-height: 8rem;
+
+@selected-menu-form-container-width: 15rem;
+@selected-menu-form-container-height: 10rem;
+
+.selected-menu-button {
+  border: @border-width-thick @border-type-common-solid @new-album-color-bottom;
+  border-radius: @border-radius-normal;
+  width: @selected-menu-buttom-width;
+  height: @selected-menu-buttom-height;
+  .mixin-flex-vertically-and-horizontally-centered();
+  cursor: pointer;
+}
+
+.selected-menu-button:hover {
+  transform: scale(@image-increase);
+  box-shadow: @image-hover-shadow-x @image-hover-shadow-y @image-hover-shadow-blur-radius @thumbnail-hover-shadow-color;
+  transition: transform @image-animation-time ease, box-shadow @image-animation-time ease;
+}
+
+/* Selected menu bottom image */
+.selected-menu-button-image {
+  width: @selected-menu-image-size;
+  height: @selected-menu-image-size;
+}
+
+.selected-menu-button-container {
+  .mixin-flex-vertically-and-horizontally-centered();
+}
+
+/* Container with one albums */
+.selected-menu {
+  .mixin-flex-vertically-and-horizontally-centered();
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 0;
+
+  border: @border-width-thick @border-type-common-solid aqua;
+  border-radius: @border-radius-normal;
+  width: @selected-menu-form-container-width;
+  height: @selected-menu-form-container-height;
+  background-color: white;
+}
+
+/* For function buttons in a form */
+.selected-menu-form-buttons {
+  margin: @selected-menu-form-indentation;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
