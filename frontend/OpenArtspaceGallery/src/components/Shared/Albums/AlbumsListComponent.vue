@@ -17,7 +17,8 @@
       type: String as PropType<string>,
       required: false
     },
-    shouldRefresh: Boolean
+    shouldRefresh: Boolean,
+    isAddImageButtonVisible: Boolean,
   })
 
   const isLoading = ref<boolean>(true)
@@ -114,6 +115,7 @@
           @albumRenamed="async () => await OnAlbumRenamedAsync()"/>
 
       <AddContentComponent
+          :isAddImageButtonVisible="props.isAddImageButtonVisible"
           @createAlbum="async () => await OnCreateAlbumActionAsync()"
           @uploadImage="async () => await OnUploadImageActionAsync()"/>
 

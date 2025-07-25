@@ -85,6 +85,7 @@
       </div>
 
       <AddContentComponent
+          :isAddImageButtonVisible="true"
           @createAlbum="async () => await AlbumCreatedAsync()"
           @uploadImage="async () => await UploadImageAsync()"/>
 

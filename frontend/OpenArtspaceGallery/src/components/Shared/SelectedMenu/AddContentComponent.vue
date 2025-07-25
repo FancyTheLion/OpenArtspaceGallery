@@ -1,11 +1,14 @@
 <script setup lang="ts">
 
-import {ref} from "vue";
+import { ref} from "vue";
+
+  const props = defineProps({
+    isAddImageButtonVisible: Boolean
+  })
 
   const isSelectedMenuPopupVisible = ref<boolean>(false)
 
   const emit = defineEmits(["uploadImage", "createAlbum"])
-
 
   function ShowAddMenuPopup(): void
   {
@@ -69,6 +72,7 @@ import {ref} from "vue";
           </button>
 
           <button
+              v-if="props.isAddImageButtonVisible"
               class="selected-menu-form-buttons"
               type="button"
               @click="async() => await SelectedUploadImagePopup()">
