@@ -1,7 +1,9 @@
 <script setup lang="ts">
 
-import {PropType, reactive} from "vue";
+import {onMounted, PropType, reactive} from "vue";
 import {WebClientPostForm, WebClientSendPostRequest} from "../../ts/libWebClient.ts";
+import useVuelidate from "@vuelidate/core";
+import {maxLength, required} from "@vuelidate/validators";
 
   const props = defineProps({
     currentAlbumId: {
@@ -16,7 +18,32 @@ import {WebClientPostForm, WebClientSendPostRequest} from "../../ts/libWebClient
     file: null as File | null
   });
 
+  const addImageFormRules = {
+    name: {
+      $autoDirty: true,
+      required,
+      maxLength: maxLength(50)
+    },
+    description: {
+      $autoDirty: true,
+      required,
+      maxLength: maxLength(200)
+    }
+  }
+
   const emit = defineEmits(["imageUploaded", "cancelled"])
+
+  const addImageFormValidator = useVuelidate(addImageFormRules, addImageFileForm)
+
+  onMounted(async () =>
+  {
+    await OnLoad();
+  })
+
+  async function OnLoad()
+  {
+    await addImageFormValidator.value.$validate()
+  }
 
   async function UploadImageAsync(): Promise<string | null>
   {
@@ -110,6 +137,7 @@ import {WebClientPostForm, WebClientSendPostRequest} from "../../ts/libWebClient
 
           <div>
             <input
+                :class="(addImageFormValidator.name.$error) ? 'form-invalid-field' : 'form-valid-field'"
                 type="text"
                 v-model="addImageFileForm.name"/>
           </div>
@@ -120,6 +148,7 @@ import {WebClientPostForm, WebClientSendPostRequest} from "../../ts/libWebClient
 
           <div>
             <input
+                :class="(addImageFormValidator.description.$error) ? 'form-invalid-field' : 'form-valid-field'"
                 type="text"
                 v-model="addImageFileForm.description"/>
           </div>
