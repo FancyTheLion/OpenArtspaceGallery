@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {computed, PropType, ref} from "vue";
+import { PropType, ref} from "vue";
 import AlbumsListComponent from "../Albums/AlbumsListComponent.vue";
 import NewAlbumComponent from "../Albums/NewAlbumComponent.vue";
 
@@ -14,8 +14,6 @@ import NewAlbumComponent from "../Albums/NewAlbumComponent.vue";
 
   const isNewAlbumPopupVisible = ref(false);
   const isAddImagePopupVisible = ref(false);
-
-  const isHomePage = computed(() => props.currentAlbumId == null);
 
   function ShowNewAlbumPopup() {
     isNewAlbumPopupVisible.value = true;
@@ -40,7 +38,6 @@ import NewAlbumComponent from "../Albums/NewAlbumComponent.vue";
 
     <AlbumsListComponent
         ref="albumsListComponent"
-        :isAddImageButtonVisible="!isHomePage"
         @createAlbum="ShowNewAlbumPopup"
         @uploadImage="ShowAddImagePopup"
     />

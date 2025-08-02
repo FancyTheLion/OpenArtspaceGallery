@@ -4,7 +4,8 @@
   import {WebClientSendGetRequest} from "../../ts/libWebClient.ts";
   import {DecodeImagesResponse, Image} from "../../ts/Images/libImages.ts";
   import ThumbnailComponent from "./ThumbnailComponent.vue";
-  import AddContentComponent from "../Shared/SelectedMenu/AddContentComponent.vue";
+  import LoadingSymbolComponent from "../Shared/LoadingSymbol/LoadingSymbolComponent.vue";
+  import UploadImageComponent from "../Shared/SelectedMenu/UploadImageComponent.vue";
 
   const props = defineProps({
     currentAlbumId: {
@@ -56,14 +57,10 @@
     emit("uploadImage")
   }
 
-  async function AlbumCreatedAsync(): Promise<void>
-  {
-    emit("createAlbum")
-  }
-
 </script>
 
 <template>
+  <LoadingSymbolComponent v-if="isLoading" />
 
   <div v-if="!isLoading">
 
@@ -84,9 +81,7 @@
 
       </div>
 
-      <AddContentComponent
-          :isAddImageButtonVisible="true"
-          @createAlbum="async () => await AlbumCreatedAsync()"
+      <UploadImageComponent
           @uploadImage="async () => await UploadImageAsync()"/>
 
     </div>

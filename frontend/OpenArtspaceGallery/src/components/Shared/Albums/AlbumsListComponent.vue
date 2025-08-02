@@ -6,7 +6,7 @@
   import {WebClientSendGetRequest} from "../../../ts/libWebClient.ts";
   import AlbumsHierarchyComponent from "../../Albums/AlbumsHierarchyComponent.vue";
   import LoadingSymbolComponent from "../LoadingSymbol/LoadingSymbolComponent.vue";
-  import AddContentComponent from "../SelectedMenu/AddContentComponent.vue";
+  import AddNewAlbumComponent from "../SelectedMenu/AddNewAlbumComponent.vue";
 
   defineExpose({
     RefreshAsync: RefreshAlbumsListAsync
@@ -16,9 +16,7 @@
     currentAlbumId: {
       type: String as PropType<string>,
       required: false
-    },
-    shouldRefresh: Boolean,
-    isAddImageButtonVisible: Boolean,
+    }
   })
 
   const isLoading = ref<boolean>(true)
@@ -86,11 +84,6 @@
     emit("createAlbum")
   }
 
-  async function OnUploadImageActionAsync(): Promise<void>
-  {
-    emit("uploadImage")
-  }
-
 </script>
 
 <template>
@@ -114,10 +107,8 @@
           @albumDeleted="async () => await OnAlbumDeletedAsync()"
           @albumRenamed="async () => await OnAlbumRenamedAsync()"/>
 
-      <AddContentComponent
-          :isAddImageButtonVisible="props.isAddImageButtonVisible"
-          @createAlbum="async () => await OnCreateAlbumActionAsync()"
-          @uploadImage="async () => await OnUploadImageActionAsync()"/>
+      <AddNewAlbumComponent
+          @createAlbum="async () => await OnCreateAlbumActionAsync()"/>
 
     </div>
 
