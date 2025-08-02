@@ -100,15 +100,15 @@
 
     <div class="albums-container">
 
+      <AddNewAlbumComponent
+          @createAlbum="async () => await OnCreateAlbumActionAsync()"/>
+
       <AlbumComponent
           v-for="album in albums"
           :key="album.id"
           :info="album"
           @albumDeleted="async () => await OnAlbumDeletedAsync()"
           @albumRenamed="async () => await OnAlbumRenamedAsync()"/>
-
-      <AddNewAlbumComponent
-          @createAlbum="async () => await OnCreateAlbumActionAsync()"/>
 
     </div>
 

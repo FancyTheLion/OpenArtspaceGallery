@@ -189,7 +189,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 1000;
+  z-index: 1001;
   background: hsla(0, 0%, 10%, 0.8);
 }
 /* Upper layer */

@@ -66,6 +66,9 @@
 
     <div class="images-container">
 
+      <UploadImageComponent
+          @uploadImage="async () => await UploadImageAsync()"/>
+
       <div
         v-if="images.length === 0">
         Image is empty
@@ -80,9 +83,6 @@
             :image="image" />
 
       </div>
-
-      <UploadImageComponent
-          @uploadImage="async () => await UploadImageAsync()"/>
 
     </div>
 

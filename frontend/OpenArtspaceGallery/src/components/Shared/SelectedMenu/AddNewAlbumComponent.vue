@@ -37,7 +37,7 @@ import { ref} from "vue";
            src="/images/icons/AddContent.webp"
            alt="Create new album"
            title="Create new album"
-            @click="ShowAddNewAlbumFormPopup"/>
+           @click="ShowAddNewAlbumFormPopup"/>
 
     </div>
 
