@@ -120,6 +120,8 @@ import {DecodeLastImagesResponse, LastImage} from "../../../ts/Images/libLastIma
        @mouseenter="ShowAlbumToolbar()"
        @mouseleave="HideAlbumToolbar()">
 
+    <div v-if="lastImagesInAlbum.length === 0" class="album-upper-part">No images</div>
+
     <!-- Lower layer, album content -->
     <a class="album-link-full" :href="'/albums/' + props.info.id">
 
@@ -139,14 +141,7 @@ import {DecodeLastImagesResponse, LastImage} from "../../../ts/Images/libLastIma
 
           </div>
 
-<!--          <ThumbnailComponent
-              v-for="lastImage in lastImagesInAlbum" :key="lastImage.id"
-              :isShowImageName="false"
-              :image="lastImage" />-->
-
         </div>
-
-        <div v-if="lastImagesInAlbum.length === 0" class="album-upper-part">No images</div>
 
         <div class="album-lower-part">
 
