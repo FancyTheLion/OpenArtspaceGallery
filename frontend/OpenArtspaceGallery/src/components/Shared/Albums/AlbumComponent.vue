@@ -9,7 +9,6 @@ import {onMounted, PropType, ref} from "vue";
   } from "../../../ts/libWebClient.ts";
   import PopupYesNo from "../Popups/PopupYesNo.vue";
   import PopupTextInput from "../Popups/PopupTextInput.vue";
-import ThumbnailComponent from "../../Images/ThumbnailComponent.vue";
 import {DecodeLastImagesResponse, LastImage} from "../../../ts/Images/libLastImages.ts";
 
   const props = defineProps({
@@ -18,6 +17,8 @@ import {DecodeLastImagesResponse, LastImage} from "../../../ts/Images/libLastIma
       required: true
     }
   })
+
+  const apiBaseUrl = import.meta.env.VITE_BACKEND_URL
 
   const emit = defineEmits(["albumDeleted", "albumRenamed"])
 
@@ -28,8 +29,6 @@ import {DecodeLastImagesResponse, LastImage} from "../../../ts/Images/libLastIma
   const renameAlbumPopupRef = ref<InstanceType<typeof PopupTextInput>>()
 
   const lastImagesInAlbum = ref<LastImage[]>([])
-
-  const isShowImageName = false
 
   const lastImageCount: number = 4;
 
@@ -126,35 +125,40 @@ import {DecodeLastImagesResponse, LastImage} from "../../../ts/Images/libLastIma
 
       <div class="album-content-layer">
 
-        <div
-          v-if="lastImagesInAlbum.length > 0">
+        <div class="album-upper-part">
 
+          <!-- Last images thumbnails -->
           <div
-              class="album-upper-part"
-              v-for="lastImage in lastImagesInAlbum"
-              :key="lastImage.id">
+            class="album-thumbnails-container">
 
-            <ThumbnailComponent
-                :isShowImageName="isShowImageName"
-                :image="lastImage" />
+              <img
+                  v-for="lastImage in lastImagesInAlbum" :key="lastImage.id"
+                  class="album-thumbnail-image"
+                  :src="apiBaseUrl + '/Files/' + lastImage.thumbnailId"
+                  alt="Preview" />
 
           </div>
+
+<!--          <ThumbnailComponent
+              v-for="lastImage in lastImagesInAlbum" :key="lastImage.id"
+              :isShowImageName="false"
+              :image="lastImage" />-->
 
         </div>
 
-        <div v-else class="album-upper-part">No images</div>
+        <div v-if="lastImagesInAlbum.length === 0" class="album-upper-part">No images</div>
 
-          <div class="album-lower-part">
+        <div class="album-lower-part">
 
-              <div class="album-name">
-                {{ props.info.name }}
-              </div>
+            <div class="album-name">
+              {{ props.info.name }}
+            </div>
 
-              <div class="album-creation-date">
-                {{ moment(props.info?.creationTime).format("DD.MM.YYYY HH:mm:ss") }}
-              </div>
+            <div class="album-creation-date">
+              {{ moment(props.info?.creationTime).format("DD.MM.YYYY HH:mm:ss") }}
+            </div>
 
-          </div>
+        </div>
 
       </div>
 

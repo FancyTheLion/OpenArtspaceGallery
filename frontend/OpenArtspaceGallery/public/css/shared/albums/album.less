@@ -13,8 +13,12 @@
 @album-rename-button-size: 2rem;
 @album-rename-button-radius: 1rem;
 
-/* Size toolbar */
+/* Toolbar size */
 @toolbar-height: 3rem;
+
+/* Thumbnail images */
+@album-thumbnail-width: 5rem;
+@album-thumbnail-height: 5rem;
 
 /* Link to full albums on hover */
 .album-link-full {
@@ -124,4 +128,23 @@
   border-radius: @album-rename-button-radius;
 
   cursor: pointer;
+}
+
+/* Container for album thumbnails */
+.album-thumbnails-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-content: center;
+  flex-wrap: wrap;
+  gap: @gap-smaller;
+  height: 100%;
+}
+
+/* Album thumbnail image */
+.album-thumbnail-image {
+  max-width: @album-thumbnail-width;
+  max-height: @album-thumbnail-height;
+
+  border-radius: @border-radius-normal;
 }
