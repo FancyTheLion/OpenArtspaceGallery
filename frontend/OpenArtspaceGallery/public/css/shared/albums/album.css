@@ -198,8 +198,8 @@
   position: relative;
   border: 0.3rem solid hsl(221, 47%, 43%);
   border-radius: 0.5rem;
-  width: 13rem;
-  height: 15rem;
+  width: 16rem;
+  height: 18rem;
 }
 /* Album content layer */
 .album-content-layer {
@@ -284,8 +284,8 @@
 }
 /* Album thumbnail image */
 .album-thumbnail-image {
-  max-width: 5rem;
-  max-height: 5rem;
+  max-width: 6rem;
+  max-height: 6rem;
   border-radius: 0.5rem;
 }
 /*# sourceMappingURL=album.css.map */
