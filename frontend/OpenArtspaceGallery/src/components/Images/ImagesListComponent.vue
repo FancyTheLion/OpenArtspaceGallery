@@ -5,7 +5,7 @@
   import {DecodeImagesResponse, Image} from "../../ts/Images/libImages.ts";
   import ThumbnailComponent from "./ThumbnailComponent.vue";
   import LoadingSymbolComponent from "../Shared/LoadingSymbol/LoadingSymbolComponent.vue";
-  import UploadImageComponent from "../Shared/SelectedMenu/UploadImageComponent.vue";
+  import UploadImageButtonComponent from "../Shared/SelectedMenu/UploadImageButtonComponent.vue";
 
   const props = defineProps({
     currentAlbumId: {
@@ -66,7 +66,7 @@
 
     <div class="images-container">
 
-      <UploadImageComponent
+      <UploadImageButtonComponent
           @uploadImage="async () => await UploadImageAsync()"/>
 
       <div

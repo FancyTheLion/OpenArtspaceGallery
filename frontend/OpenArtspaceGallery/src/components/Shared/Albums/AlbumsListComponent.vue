@@ -6,7 +6,7 @@
   import {WebClientSendGetRequest} from "../../../ts/libWebClient.ts";
   import AlbumsHierarchyComponent from "../../Albums/AlbumsHierarchyComponent.vue";
   import LoadingSymbolComponent from "../LoadingSymbol/LoadingSymbolComponent.vue";
-  import AddNewAlbumComponent from "../SelectedMenu/AddNewAlbumComponent.vue";
+  import AddNewAlbumButtonComponent from "../SelectedMenu/AddNewAlbumButtonComponent.vue";
 
   defineExpose({
     RefreshAsync: RefreshAlbumsListAsync
@@ -100,7 +100,7 @@
 
     <div class="albums-container">
 
-      <AddNewAlbumComponent
+      <AddNewAlbumButtonComponent
           @createAlbum="async () => await OnCreateAlbumActionAsync()"/>
 
       <AlbumComponent
