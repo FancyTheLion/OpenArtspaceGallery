@@ -84,6 +84,9 @@
 
       </div>
 
+      <UploadImageButtonComponent
+          @uploadImage="async () => await UploadImageAsync()"/>
+
     </div>
 
   </div>

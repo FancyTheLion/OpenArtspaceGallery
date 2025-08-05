@@ -41,7 +41,7 @@
   top: 0;
   left: 0;
 
-  z-index: 1000;
+  z-index: @standart-layer-z-index;
 
   display: flex;
   flex-direction: column;
@@ -87,12 +87,12 @@
   top: 0;
   left: 0;
 
-  z-index: 1050;
+  z-index: @increased-layer-z-index;
 
   width: 100%;
   height: @toolbar-height;
 
-  background: hsla(233, 100%, 50%, 0.5);
+  background: @color-album-toolbar-background
 }
 
 /* Album toolbar */

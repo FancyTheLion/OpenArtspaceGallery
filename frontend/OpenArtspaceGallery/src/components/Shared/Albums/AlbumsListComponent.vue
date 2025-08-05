@@ -110,6 +110,9 @@
           @albumDeleted="async () => await OnAlbumDeletedAsync()"
           @albumRenamed="async () => await OnAlbumRenamedAsync()"/>
 
+      <AddNewAlbumButtonComponent
+          @createAlbum="async () => await OnCreateAlbumActionAsync()"/>
+
     </div>
 
   </div>
