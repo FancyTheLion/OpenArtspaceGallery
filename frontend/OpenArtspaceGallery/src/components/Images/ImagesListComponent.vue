@@ -69,10 +69,10 @@
       <UploadImageButtonComponent
           @uploadImage="async () => await UploadImageAsync()"/>
 
-      <div
+<!--      <div
         v-if="images.length === 0">
         Image is empty
-      </div>
+      </div>-->
 
       <div
         v-for="image in images"

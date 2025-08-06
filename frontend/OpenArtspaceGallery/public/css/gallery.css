@@ -573,6 +573,7 @@
   max-width: 6rem;
   max-height: 6rem;
   border-radius: 0.5rem;
+  object-fit: contain;
 }
 /* Container with albums */
 .albums-container {
