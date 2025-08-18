@@ -36,8 +36,6 @@ import {WebClientSendGetRequest} from "../../ts/libWebClient.ts";
     fileId.value = await GetFileIdAsync(props.image?.id)
   }
 
-
-
   async function HideFullSizePhoto()
   {
     isVisible.value = false
@@ -84,16 +82,16 @@ import {WebClientSendGetRequest} from "../../ts/libWebClient.ts";
     <!-- Popup upper layer -->
     <div class="popup-upper-layer">
 
-      <div class="popup-main-image-section" @click.stop="async () => await DoNothing()">
+      <div class="popup-main-fullsize-image-section" @click.stop="async () => await DoNothing()">
 
         <img
-            class="popup-close-button"
+            class="popup-close-fullsize-button"
             src="/images/icons/delete.webp"
             alt="Closed full size photo"
             @click="async() => await HideFullSizePhoto()" />
 
         <img
-            class="popup-image"
+            class="popup-fullsize-image"
             :src="apiBaseUrl + '/Files/' + fileId"
             alt="Full size photo"/>
 

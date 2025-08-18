@@ -214,21 +214,19 @@
   text-align: center;
   color: hsl(0, 0%, 20%);
 }
-.popup-image {
+.popup-fullsize-image {
   border-radius: 1rem;
   max-width: 90vw;
   max-height: 90vh;
 }
-/* Popup image section */
-.popup-main-image-section {
+.popup-main-fullsize-image-section {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   overflow-y: auto;
 }
-/* Popup close button image */
-.popup-close-button {
+.popup-close-fullsize-button {
   width: 2rem;
   height: 2rem;
   border-radius: 1rem;

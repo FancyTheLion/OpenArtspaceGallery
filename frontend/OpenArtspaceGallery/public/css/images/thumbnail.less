@@ -4,6 +4,14 @@
 @thumbnail-width: 10rem;
 @thumbnail-height: 10rem;
 
+@image-fullsize-max-width: 90vw;
+@image-fullsize-max-height: 90vh;
+
+@popup-close-button-image: 2rem;
+
+@popup-close-button-shift-x: 0.5rem;
+@popup-close-button-shift-y: 0.5rem;
+
 .thumbnail-container {
   position: relative;
 
@@ -44,14 +52,13 @@
   color: @thumbnail-name-color;
 }
 
-.popup-image {
-  border-radius: 1rem;
-  max-width: 90vw;
-  max-height: 90vh;
+.popup-fullsize-image {
+  border-radius: @border-radius-big;
+  max-width: @image-fullsize-max-width;
+  max-height: @image-fullsize-max-height;
 }
 
-/* Popup image section */
-.popup-main-image-section {
+.popup-main-fullsize-image-section {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -59,13 +66,12 @@
   overflow-y: auto;
 }
 
-/* Popup close button image */
-.popup-close-button {
-  width: 2rem;
-  height: 2rem;
-  border-radius: 1rem;
+.popup-close-fullsize-button {
+  width: @popup-close-button-image;
+  height: @popup-close-button-image;
+  border-radius: @border-radius-big;
   position: absolute;
-  right: 0.5rem;
-  top: 0.5rem;
+  right: @popup-close-button-shift-x;
+  top: @popup-close-button-shift-y;
   cursor: pointer;
 }
