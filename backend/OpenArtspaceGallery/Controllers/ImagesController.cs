@@ -112,11 +112,11 @@ public class ImagesController : ControllerBase
     /// <summary>
     /// Get original file id by images file id
     /// </summary>
-    [Route("GetOriginalId/{imageFileId:guid}")]
+    [Route("GetOriginalId/{imageId:guid}")]
     [HttpGet]
-    public async Task<ActionResult<Guid>> GetOriginalFileIdAsync(Guid imageFileId)
+    public async Task<ActionResult<Guid>> GetOriginalFileIdAsync(Guid imageId)
     {
-        var fileId = await _imagesService.GetOriginalIdAsync(imageFileId);
+        var fileId = await _imagesService.GetOriginalIdAsync(imageId);
 
         if (fileId == null)
         {

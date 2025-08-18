@@ -39,5 +39,5 @@ public interface IImagesDao
     /// <summary>
     /// Get original file id by images file id
     /// </summary>
-    public Task<Guid?> GetOriginalIdAsync(Guid imageFileId);
+    public Task<Guid?> GetOriginalIdAsync(Guid imageId);
 }

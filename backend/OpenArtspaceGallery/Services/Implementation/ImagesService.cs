@@ -128,8 +128,8 @@ public class ImagesService : IImagesService
             .ToList();
     }
 
-    public async Task<Guid?> GetOriginalIdAsync(Guid imageFileId)
+    public async Task<Guid?> GetOriginalIdAsync(Guid imageId)
     {
-        return await _imagesDao.GetOriginalIdAsync(imageFileId);
+        return await _imagesDao.GetOriginalIdAsync(imageId);
     }
 }

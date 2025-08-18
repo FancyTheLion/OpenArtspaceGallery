@@ -94,15 +94,8 @@ public class ImagesDao : IImagesDao
             .ToListAsync();
     }
     
-    public async Task<Guid?> GetOriginalIdAsync(Guid imageFileId)
+    public async Task<Guid?> GetOriginalIdAsync(Guid imageId)
     {
-        var imageId = await _dbContext
-            .ImagesFiles
-            .Include(x => x.Image)
-            .Where(x => x.Id == imageFileId)
-            .Select(x => x.Image.Id)
-            .FirstOrDefaultAsync();
-        
         return await _dbContext.ImagesFiles
             .Where(f => f.Image.Id == imageId && f.Size.Type == ImagesSizesTypes.Original)
             .Select(f => (Guid?)f.File.Id) 
