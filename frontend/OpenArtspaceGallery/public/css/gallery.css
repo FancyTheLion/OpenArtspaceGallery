@@ -113,6 +113,11 @@
   text-align: center;
   color: hsl(0, 0%, 20%);
 }
+.popup-image {
+  border-radius: 1rem;
+  max-width: 90vw;
+  max-height: 90vh;
+}
 /* Container with one albums */
 .add-image-form {
   display: flex;

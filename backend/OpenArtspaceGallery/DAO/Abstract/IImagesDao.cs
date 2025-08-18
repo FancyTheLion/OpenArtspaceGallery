@@ -35,4 +35,9 @@ public interface IImagesDao
     /// Get thumbnails IDs for images
     /// </summary>
     public Task<IReadOnlyDictionary<Guid, Guid>> GetThumbnailsIdsForImagesAsync(IReadOnlyCollection<Guid> imageIds);
+
+    /// <summary>
+    /// Get original file id by images file id
+    /// </summary>
+    public Task<Guid?> GetOriginalIdAsync(Guid imageFileId);
 }

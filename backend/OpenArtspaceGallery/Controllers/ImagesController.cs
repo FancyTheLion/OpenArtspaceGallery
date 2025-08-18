@@ -108,4 +108,21 @@ public class ImagesController : ControllerBase
             )
         );
     }
+
+    /// <summary>
+    /// Get original file id by images file id
+    /// </summary>
+    [Route("GetOriginalId/{imageFileId:guid}")]
+    [HttpGet]
+    public async Task<ActionResult<Guid>> GetOriginalFileIdAsync(Guid imageFileId)
+    {
+        var fileId = await _imagesService.GetOriginalIdAsync(imageFileId);
+
+        if (fileId == null)
+        {
+            return NotFound();
+        }
+        
+        return Ok(fileId);
+    }
 }

@@ -24,7 +24,7 @@
 
   const isShowImageName = true
 
-  const emit = defineEmits(["createAlbum", "uploadImage"])
+  const emit = defineEmits(["createAlbum", "uploadImage", "showFullScreenPhoto"]);
 
   onMounted(async () =>
   {
@@ -57,6 +57,11 @@
     emit("uploadImage")
   }
 
+  async function ShowFullsrceenPhoto(): Promise<void>
+  {
+    emit("showFullScreenPhoto")
+  }
+
 </script>
 
 <template>
@@ -80,7 +85,8 @@
 
         <ThumbnailComponent
             :isShowImageName="isShowImageName"
-            :image="image" />
+            :image="image"
+            @click="ShowFullsrceenPhoto"/>
 
       </div>
 

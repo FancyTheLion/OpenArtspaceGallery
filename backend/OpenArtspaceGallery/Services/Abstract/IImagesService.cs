@@ -34,4 +34,9 @@ public interface IImagesService
     /// Get last images in album
     /// </summary>
     public Task<IReadOnlyCollection<Image>> GetLastImagesInAlbumAsync(Guid albumId, int count);
+    
+    /// <summary>
+    /// Get original file id by images file id
+    /// </summary>
+    public Task<Guid?> GetOriginalIdAsync(Guid imageFileId);
 }
