@@ -33,7 +33,7 @@ import {WebClientSendGetRequest} from "../../ts/libWebClient.ts";
   {
     isVisible.value = true
 
-    fileId.value = await GetFileIdAsync()
+    fileId.value = await GetFileIdAsync(props.image?.id)
   }
 
 
@@ -48,9 +48,9 @@ import {WebClientSendGetRequest} from "../../ts/libWebClient.ts";
 
   }*/
 
-  async function GetFileIdAsync(): Promise<String>
+  async function GetFileIdAsync(imageFile: String): Promise<String>
   {
-    return (await WebClientSendGetRequest("/Images/GetOriginalId/" + props.image?.id)).json()
+    return (await WebClientSendGetRequest("/Images/GetOriginalId/" + imageFile)).json()
   }
 
 </script>
@@ -64,7 +64,7 @@ import {WebClientSendGetRequest} from "../../ts/libWebClient.ts";
         alt="Preview"
         class="thumbnail-image"
         @error="OnPreviewImageError"
-        @click="async() => await ShowFullSizePhoto()"/>
+        @click="ShowFullSizePhoto()"/>
 
     <div
         v-if="props.isShowImageName"
@@ -81,6 +81,8 @@ import {WebClientSendGetRequest} from "../../ts/libWebClient.ts";
 
     </div>
 
+    <img class="popup-image" :src="apiBaseUrl + '/Files/' + fileId"  alt="Photo"/>
+
 <!--    &lt;!&ndash; Popup upper layer &ndash;&gt;
     <div class="popup-upper-layer"
          @click="async() => await HideFullSizePhoto()">-->
@@ -95,10 +97,10 @@ import {WebClientSendGetRequest} from "../../ts/libWebClient.ts";
             alt="Закрыть полноразмерное фото"
             @click="async() => await HideFullSizePhoto()" />-->
 
-        <img
+<!--        <img
             class="popup-image"
-            :src="apiBaseUrl + '/Files/' + GetFileIdAsync()"
-            alt="Full screen photo"/>
+            :src="apiBaseUrl + '/Files/' + GetFileIdAsync(props.image?.id)"
+            alt="Full screen photo"/>-->
 
 <!--      </div>-->
 
