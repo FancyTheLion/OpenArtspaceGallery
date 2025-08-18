@@ -219,4 +219,22 @@
   max-width: 90vw;
   max-height: 90vh;
 }
+/* Popup image section */
+.popup-main-image-section {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow-y: auto;
+}
+/* Popup close button image */
+.popup-close-button {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 1rem;
+  position: absolute;
+  right: 0.5rem;
+  top: 0.5rem;
+  cursor: pointer;
+}
 /*# sourceMappingURL=thumbnail.css.map */
