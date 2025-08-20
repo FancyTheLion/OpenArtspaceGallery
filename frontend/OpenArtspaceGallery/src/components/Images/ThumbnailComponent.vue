@@ -86,7 +86,7 @@ import {WebClientSendGetRequest} from "../../ts/libWebClient.ts";
 
         <img
             class="popup-close-fullsize-button"
-            src="/images/icons/delete.webp"
+            src="/images/icons/close.webp"
             alt="Close full size photo"
             @click="async() => await HideFullSizePhoto()" />
 
