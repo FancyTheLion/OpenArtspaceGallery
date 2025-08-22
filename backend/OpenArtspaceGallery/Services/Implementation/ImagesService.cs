@@ -127,9 +127,4 @@ public class ImagesService : IImagesService
             .Select(Image.FromDbo)
             .ToList();
     }
-
-    public async Task<Guid?> GetOriginalIdAsync(Guid imageId)
-    {
-        return await _imagesDao.GetOriginalIdAsync(imageId);
-    }
 }
