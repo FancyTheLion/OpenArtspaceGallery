@@ -156,6 +156,23 @@
 .add-image-form-buttons {
   margin: 0.2rem;
 }
+.tool-bar {
+  background-color: green;
+  height: 2rem;
+}
+.image-section {
+  flex: 1;
+  background-color: red;
+  height: 10rem;
+}
+.info-section {
+  background-color: blue;
+  width: 33%;
+  height: 33%;
+}
+.image-content-container {
+  display: flex;
+}
 /* Margins */
 /*
 @margin-large: ;

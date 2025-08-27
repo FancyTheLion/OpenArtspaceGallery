@@ -1,7 +1,8 @@
 import HomeView from "../views/HomeView.vue";
 import {createRouter, createWebHistory} from "vue-router";
-import AlbumContentView from "../views/AlbumContentView.vue";
-import AdminPanelView from "../views/AdminPanelView.vue";
+import AlbumContentView from "../views/Albums/AlbumContentView.vue";
+import AdminPanelView from "../views/AdminPanel/AdminPanelView.vue";
+import ImagePageView from "../views/Images/ImagePageView.vue";
 
 const routes = [
     // Main page
@@ -24,7 +25,15 @@ const routes = [
         path: "/adminPanel",
         name: "adminPanel",
         component: AdminPanelView
-    }
+    },
+
+    // Images contents
+    {
+        path: "/images/:imageId",
+        name: "imagesContent",
+        component: ImagePageView,
+        props: true
+    },
 ]
 
 const router = createRouter({
