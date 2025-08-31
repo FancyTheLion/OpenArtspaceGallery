@@ -191,12 +191,12 @@
 .image-section {
   flex: 1;
   background-color: red;
-  height: 10rem;
+  height: 70vh;
 }
 .info-section {
   background-color: blue;
   width: 33%;
-  height: 33%;
+  height: 70vh;
 }
 .image-content-container {
   display: flex;

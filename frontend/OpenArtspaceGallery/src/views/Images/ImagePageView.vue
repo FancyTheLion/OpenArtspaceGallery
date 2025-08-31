@@ -10,9 +10,10 @@ const props = defineProps({
 </script>
 
 <template>
-  <HeaderComponent />
+    <HeaderComponent />
 
-  <PhotoComponent :imageId="props.imageId" />
+    <PhotoComponent :imageId="props.imageId" />
 
-  <FooterComponent />
+    <FooterComponent />
+
 </template>
