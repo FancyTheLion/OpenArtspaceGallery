@@ -1,23 +1,75 @@
 @import "../shared/common.less";
 @import "../shared/theme";
 
+@height-tool-bar: 2rem;
+@height-image-section: 70vh;
+@height-info-section: 70vh;
+
+@width-info-section: 33%;
+
+@menu-min-width: 7rem;
+
+@button-size: 1rem;
+
 .tool-bar {
   background-color: green;
-  height: 2rem;
+  height: @height-tool-bar;
 }
 
 .image-section {
   flex: 1;
   background-color: red;
-  height: 70vh;
+  height: @height-image-section;
 }
 
 .info-section {
   background-color: blue;
-  width: 33%;
-  height: 70vh;
+  width: @width-info-section;
+  height: @height-info-section;
 }
 
 .image-content-container {
   display: flex;
+}
+
+.menu-container {
+  position: relative;
+  display: inline-block;
+}
+
+.icon-button {
+  font-size: @button-size;
+  cursor: pointer;
+}
+
+.menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  border: 0.2rem solid darkgray;
+  border-radius: 0.3rem;
+  box-shadow: 0 0.2rem 0.2rem darkgray;
+  min-width: @menu-min-width;
+
+  display: none;
+  flex-direction: column;
+  padding: @padding-smaller @padding-smaller;
+  z-index: 1000;
+}
+
+.menu a {
+  padding: 0.5rem 0.5rem;
+  text-decoration: none;
+  color: black;
+}
+
+.menu a:hover {
+  background: white;
+}
+
+.menu.active {
+  display: flex;
+  opacity: 1;
+  transform: translateY(0);
 }

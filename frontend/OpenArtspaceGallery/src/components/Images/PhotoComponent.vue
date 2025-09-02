@@ -1,10 +1,27 @@
 <script setup lang="ts">
 
-const props = defineProps({
-  imageId: String
-})
+  import {ref} from "vue";
 
-alert(props.imageId)
+  const props = defineProps({
+    imageId: String
+  })
+
+  const isMenuOpen = ref(false);
+
+  const toggleMenu = () => {
+    isMenuOpen.value = !isMenuOpen.value;
+  };
+
+  const closeMenu = (e: MouseEvent) => {
+    const target = e.target as HTMLElement;
+
+    if (!target.closest(".menu-container"))
+    {
+      isMenuOpen.value = false;
+    }
+  };
+
+  document.addEventListener("click", closeMenu);
 
 </script>
 
@@ -12,7 +29,28 @@ alert(props.imageId)
 
   <div
     class="tool-bar">
-    Полоса
+
+    <div class="menu-container">
+      <button
+          class="icon-button"
+          @click="toggleMenu">☰</button>
+
+      <div
+          class="menu"
+          :class="{ active: isMenuOpen }">
+
+        <div>Photo sizes:</div>
+
+        <a href="#">Link 1</a>
+        <a href="#">Link 2</a>
+        <a href="#">Link 3</a>
+        <a href="#">Link 4</a>
+        <a href="#">Link 5</a>
+
+      </div>
+
+    </div>
+
   </div>
 
   <div
@@ -20,12 +58,12 @@ alert(props.imageId)
 
     <div
         class="image-section">
-      Фото
+      Photo
     </div>
 
     <div
         class="info-section">
-      информация
+      Info
     </div>
 
   </div>

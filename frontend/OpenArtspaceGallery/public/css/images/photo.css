@@ -201,4 +201,39 @@
 .image-content-container {
   display: flex;
 }
+.menu-container {
+  position: relative;
+  display: inline-block;
+}
+.icon-button {
+  font-size: 1rem;
+  cursor: pointer;
+}
+.menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  border: 0.2rem solid darkgray;
+  border-radius: 0.3rem;
+  box-shadow: 0 0.2rem 0.2rem darkgray;
+  min-width: 7rem;
+  display: none;
+  flex-direction: column;
+  padding: 0.2rem 0.2rem;
+  z-index: 1000;
+}
+.menu a {
+  padding: 0.5rem 0.5rem;
+  text-decoration: none;
+  color: black;
+}
+.menu a:hover {
+  background: white;
+}
+.menu.active {
+  display: flex;
+  opacity: 1;
+  transform: translateY(0);
+}
 /*# sourceMappingURL=photo.css.map */
