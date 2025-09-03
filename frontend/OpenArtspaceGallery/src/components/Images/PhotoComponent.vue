@@ -1,12 +1,16 @@
 <script setup lang="ts">
 
-  import {ref} from "vue";
+import {onMounted, ref} from "vue";
+  import {DecodeImageSizeDto, DecodeImagesSizesResponse, ImageSize} from "../../ts/imagesSizes/libImagesSizes.ts";
+  import {WebClientSendGetRequest} from "../../ts/libWebClient.ts";
 
   const props = defineProps({
     imageId: String
   })
 
   const isMenuOpen = ref(false);
+
+  const sizes = ref<ImageSize[]>([])
 
   const toggleMenu = () => {
     isMenuOpen.value = !isMenuOpen.value;
@@ -22,6 +26,31 @@
   };
 
   document.addEventListener("click", closeMenu);
+
+  onMounted(async () =>
+  {
+    await OnLoad();
+  })
+
+  async function OnLoad()
+  {
+    sizes.value = await GetImagesSizesListAsync();
+  }
+
+  async function GetImagesSizesListAsync(): Promise<ImageSize[]>
+  {
+    return DecodeImagesSizesResponse((await (await WebClientSendGetRequest("/ImagesSizes/GetList")).json()))
+        .imagesSizes
+        .map(DecodeImageSizeDto)
+        .sort((a: ImageSize, b: ImageSize) => a.name.localeCompare(b.name))
+  }
+
+/*  async function test(): Promise<void>
+  {
+    imagesSizes.value =  await GetImagesSizesListAsync();
+
+    alert(imagesSizes.value)
+  }*/
 
 </script>
 
@@ -41,11 +70,11 @@
 
         <div>Photo sizes:</div>
 
-        <a href="#">Link 1</a>
-        <a href="#">Link 2</a>
-        <a href="#">Link 3</a>
-        <a href="#">Link 4</a>
-        <a href="#">Link 5</a>
+        <div v-for="size in sizes" :key="size.id">
+
+          <a href="#">{{size.name}} {{size.width}} {{size.height}}</a>
+
+        </div>
 
       </div>
 

@@ -217,14 +217,14 @@
   border: 0.2rem solid darkgray;
   border-radius: 0.3rem;
   box-shadow: 0 0.2rem 0.2rem darkgray;
-  min-width: 7rem;
+  min-width: 11rem;
   display: none;
   flex-direction: column;
   padding: 0.2rem 0.2rem;
   z-index: 1000;
 }
 .menu a {
-  padding: 0.5rem 0.5rem;
+  padding: 0.2rem 0.2rem;
   text-decoration: none;
   color: black;
 }
