@@ -1,16 +1,22 @@
 <script setup lang="ts">
 
-import {onMounted, ref} from "vue";
+import {onMounted, PropType, ref} from "vue";
   import {DecodeImageSizeDto, DecodeImagesSizesResponse, ImageSize} from "../../ts/imagesSizes/libImagesSizes.ts";
   import {WebClientSendGetRequest} from "../../ts/libWebClient.ts";
+import {DecodeImageResponse, ImageModel} from "../../ts/Images/libImageFiles.ts";
 
-  const props = defineProps({
-    imageId: String
-  })
+const props = defineProps({
+  imageId: {
+    type: String as PropType<string>,
+    required: true
+  }
+})
 
   const isMenuOpen = ref(false);
 
   const sizes = ref<ImageSize[]>([])
+
+  const files = ref<ImageModel>()
 
   const toggleMenu = () => {
     isMenuOpen.value = !isMenuOpen.value;
@@ -35,6 +41,7 @@ import {onMounted, ref} from "vue";
   async function OnLoad()
   {
     sizes.value = await GetImagesSizesListAsync();
+    files.value = await GetImageFilesAsync(props.imageId);
   }
 
   async function GetImagesSizesListAsync(): Promise<ImageSize[]>
@@ -45,12 +52,11 @@ import {onMounted, ref} from "vue";
         .sort((a: ImageSize, b: ImageSize) => a.name.localeCompare(b.name))
   }
 
-/*  async function test(): Promise<void>
+  async function GetImageFilesAsync(imageId: string): Promise<ImageModel>
   {
-    imagesSizes.value =  await GetImagesSizesListAsync();
-
-    alert(imagesSizes.value)
-  }*/
+    return DecodeImageResponse((await (await WebClientSendGetRequest("/Images/" + imageId)).json()))
+        .image
+  }
 
 </script>
 
@@ -92,7 +98,19 @@ import {onMounted, ref} from "vue";
 
     <div
         class="info-section">
-      Info
+
+      <div
+          v-for="imageFile in files?.files"
+          :key="imageFile.id">
+
+        {{ files?.name }}1
+        {{ files?.description }}2
+        {{ imageFile.id }}3
+
+      </div>
+
+
+      Info 1
     </div>
 
   </div>

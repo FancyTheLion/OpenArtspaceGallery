@@ -3,10 +3,15 @@
 import HeaderComponent from "../../components/Shared/Header/HeaderComponent.vue";
 import FooterComponent from "../../components/Shared/Foooter/FooterComponent.vue";
 import PhotoComponent from "../../components/Images/PhotoComponent.vue";
+import {PropType} from "vue";
 
 const props = defineProps({
-  imageId: String
+  imageId: {
+    type: String as PropType<string>,
+    required: true
+  }
 })
+
 </script>
 
 <template>
