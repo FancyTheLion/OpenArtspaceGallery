@@ -157,16 +157,16 @@
   margin: 0.2rem;
 }
 .tool-bar {
-  background-color: green;
+  background-color: darkgray;
   height: 2rem;
 }
 .image-section {
   flex: 1;
-  background-color: red;
+  background-color: antiquewhite;
   height: 70vh;
 }
 .info-section {
-  background-color: blue;
+  background-color: gainsboro;
   width: 33%;
   height: 70vh;
 }
