@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-  import {onMounted, ref} from "vue";
+  import { onMounted, ref} from "vue";
   import {DecodeImageSizeDto, DecodeImagesSizesResponse, ImageSize} from "../../ts/imagesSizes/libImagesSizes.ts";
   import {WebClientSendGetRequest} from "../../ts/libWebClient.ts";
   import {DecodeImageResponse, ImageModel} from "../../ts/Images/libImageFiles.ts";
@@ -12,7 +12,7 @@
 
   const sizes = ref<ImageSize[]>([])
 
-  const originalSize = ref("e5793e78-6362-43ce-9373-b76913e34b8a")
+  const originalSize = ref()
 
   const originalFile = ref<{ id: string; sizeId: string } | null>(null)
 
@@ -44,10 +44,12 @@
   async function OnLoad()
   {
     sizes.value = await GetImagesSizesListAsync();
-    originalSize
-    files.value = await GetImageFilesAsync(imageId);
 
-    originalFile.value = files.value.files.find(f => f.sizeId === originalSize.value) || null
+    const original = sizes.value.find(s => s.name === 'Original')
+    originalSize.value = original?.id || null
+
+    files.value = await GetImageFilesAsync(imageId);
+    originalFile.value = files.value?.files.find(f => f.sizeId === originalSize.value) || null;
   }
 
   async function GetImagesSizesListAsync(): Promise<ImageSize[]>
@@ -101,10 +103,8 @@
         class="image-section">
 
       <img
-          v-if="files"
-          v-for="imageFile in files.files.filter(f => f.sizeId === originalSize)"
-          :key="imageFile.id"
-          :src="apiBaseUrl + '/Files/' + imageFile.id"
+          v-if="originalFile"
+          :src="apiBaseUrl + '/Files/' + originalFile.id"
           alt="Preview"/>
 
 
