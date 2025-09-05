@@ -6,6 +6,7 @@
   import ThumbnailComponent from "./ThumbnailComponent.vue";
   import LoadingSymbolComponent from "../Shared/LoadingSymbol/LoadingSymbolComponent.vue";
   import UploadImageButtonComponent from "../Shared/SelectedMenu/UploadImageButtonComponent.vue";
+  import router from "../../router";
 
   const props = defineProps({
     currentAlbumId: {
@@ -24,7 +25,7 @@
 
   const isShowImageName = true
 
-  const emit = defineEmits(["createAlbum", "uploadImage", "showFullScreenPhoto"]);
+  const emit = defineEmits(["createAlbum", "uploadImage"]);
 
   onMounted(async () =>
   {
@@ -57,11 +58,6 @@
     emit("uploadImage")
   }
 
-  async function ShowFullsrceenPhoto(): Promise<void>
-  {
-    emit("showFullScreenPhoto")
-  }
-
 </script>
 
 <template>
@@ -86,7 +82,7 @@
         <ThumbnailComponent
             :isShowImageName="isShowImageName"
             :image="image"
-            @click="ShowFullsrceenPhoto"/>
+            @click="() => router.push(`/images/${image.id}`)" />
 
       </div>
 

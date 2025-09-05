@@ -31,8 +31,7 @@ const routes = [
     {
         path: "/images/:imageId",
         name: "imagesContent",
-        component: ImagePageView,
-        props: true
+        component: ImagePageView
     },
 ]
 

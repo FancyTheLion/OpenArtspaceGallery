@@ -1,22 +1,27 @@
 <script setup lang="ts">
 
-import {onMounted, PropType, ref} from "vue";
+  import {onMounted, ref} from "vue";
   import {DecodeImageSizeDto, DecodeImagesSizesResponse, ImageSize} from "../../ts/imagesSizes/libImagesSizes.ts";
   import {WebClientSendGetRequest} from "../../ts/libWebClient.ts";
-import {DecodeImageResponse, ImageModel} from "../../ts/Images/libImageFiles.ts";
+  import {DecodeImageResponse, ImageModel} from "../../ts/Images/libImageFiles.ts";
+  import {useRoute} from "vue-router";
 
-const props = defineProps({
-  imageId: {
-    type: String as PropType<string>,
-    required: true
-  }
-})
+  const apiBaseUrl = import.meta.env.VITE_BACKEND_URL
 
   const isMenuOpen = ref(false);
 
   const sizes = ref<ImageSize[]>([])
 
-  const files = ref<ImageModel>()
+/*  const originalSize = ref("e5793e78-6362-43ce-9373-b76913e34b8a")*/
+
+/*  const originalFile = files.value?.files.find(f => f.sizeId === originalSize.value)
+
+  const sizeId = originalFile?.sizeId*/
+
+  const files = ref<ImageModel | null>(null)
+
+  const route = useRoute()
+  const imageId = route.params.imageId as string
 
   const toggleMenu = () => {
     isMenuOpen.value = !isMenuOpen.value;
@@ -41,7 +46,7 @@ const props = defineProps({
   async function OnLoad()
   {
     sizes.value = await GetImagesSizesListAsync();
-    files.value = await GetImageFilesAsync(props.imageId);
+    files.value = await GetImageFilesAsync(imageId);
   }
 
   async function GetImagesSizesListAsync(): Promise<ImageSize[]>
@@ -93,24 +98,30 @@ const props = defineProps({
 
     <div
         class="image-section">
-      Photo
+
+      <img
+          v-if="files"
+          v-for="imageFile in files.files" :key="imageFile.id"
+          :src="apiBaseUrl + '/Files/' + files?.id"
+          alt="Preview"/>
+
+
     </div>
 
     <div
         class="info-section">
 
-      <div
-          v-for="imageFile in files?.files"
-          :key="imageFile.id">
+      Info 1
 
-        {{ files?.name }}1
-        {{ files?.description }}2
-        {{ imageFile.id }}3
-
+      <div v-if="files">
+        <div v-for="imageFile in files.files" :key="imageFile.id">
+          {{ files.name }}
+          {{ files.description }}
+          {{ imageFile.id }}
+        </div>
       </div>
 
 
-      Info 1
     </div>
 
   </div>
