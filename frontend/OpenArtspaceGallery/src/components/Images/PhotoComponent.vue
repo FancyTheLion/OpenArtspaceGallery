@@ -12,11 +12,9 @@
 
   const sizes = ref<ImageSize[]>([])
 
-/*  const originalSize = ref("e5793e78-6362-43ce-9373-b76913e34b8a")*/
+  const originalSize = ref("e5793e78-6362-43ce-9373-b76913e34b8a")
 
-/*  const originalFile = files.value?.files.find(f => f.sizeId === originalSize.value)
-
-  const sizeId = originalFile?.sizeId*/
+  const originalFile = ref<{ id: string; sizeId: string } | null>(null)
 
   const files = ref<ImageModel | null>(null)
 
@@ -46,7 +44,10 @@
   async function OnLoad()
   {
     sizes.value = await GetImagesSizesListAsync();
+    originalSize
     files.value = await GetImageFilesAsync(imageId);
+
+    originalFile.value = files.value.files.find(f => f.sizeId === originalSize.value) || null
   }
 
   async function GetImagesSizesListAsync(): Promise<ImageSize[]>
@@ -101,8 +102,9 @@
 
       <img
           v-if="files"
-          v-for="imageFile in files.files" :key="imageFile.id"
-          :src="apiBaseUrl + '/Files/' + files?.id"
+          v-for="imageFile in files.files.filter(f => f.sizeId === originalSize)"
+          :key="imageFile.id"
+          :src="apiBaseUrl + '/Files/' + imageFile.id"
           alt="Preview"/>
 
 
