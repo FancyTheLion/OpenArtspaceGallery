@@ -37,7 +37,7 @@ import {
       return DecodeImagesSizesResponse((await (await WebClientSendGetRequest("/ImagesSizes/GetList")).json()))
         .imagesSizes
         .map(DecodeImageSizeDto)
-        .sort((a: ImageSize, b: ImageSize) => a.name.localeCompare(b.name))
+        .sort((a: ImageSize, b: ImageSize) => a.width -b.width)
   }
 
   async function DeleteImageSizeAsync(): Promise<void>
