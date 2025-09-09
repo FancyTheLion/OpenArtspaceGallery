@@ -194,7 +194,7 @@
 .image-section {
   flex: 1;
   background-color: antiquewhite;
-  height: 75vh;
+  max-height: 75vh;
   display: flex;
   justify-content: center;
   align-items: center;

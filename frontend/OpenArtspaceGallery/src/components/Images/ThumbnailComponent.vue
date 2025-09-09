@@ -28,19 +28,29 @@ import {Image} from "../../ts/Images/libImages.ts";
 
 <template>
 
-  <div class="thumbnail-container">
 
-    <img
-        :src="apiBaseUrl + '/Files/' + image.thumbnailId"
-        alt="Preview"
-        class="thumbnail-image"
-        @error="OnPreviewImageError"/>
+  <a
+      :href="'/images/' + image.id"
+      title="View image">
 
-    <div
-        v-if="props.isShowImageName"
-        class="thumbnail-name">
-      {{ image.name }}
+    <div class="thumbnail-container">
+
+        <img
+            :src="apiBaseUrl + '/Files/' + image.thumbnailId"
+            alt="Preview"
+            class="thumbnail-image"
+            @error="OnPreviewImageError" />
+
+        <div
+            v-if="props.isShowImageName"
+            class="thumbnail-name">
+
+          {{ image.name }}
+
+        </div>
+
     </div>
 
-  </div>
+  </a>
+
 </template>

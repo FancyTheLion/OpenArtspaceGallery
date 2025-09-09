@@ -7,6 +7,7 @@ type ImageSizeDto =
     name: string;
     width: number;
     height: number;
+    type: number;
 }
 
 /* Public image size type model */
@@ -16,6 +17,7 @@ export type ImageSize =
     name: string;
     width: number;
     height: number;
+    type: number;
 }
 
 /* DTO to model */
@@ -25,7 +27,8 @@ export function DecodeImageSizeDto(dto: ImageSizeDto) : ImageSize
         id: dto.id,
         name: dto.name,
         width: dto.width,
-        height: dto.height
+        height: dto.height,
+        type: dto.type
     };
 }
 

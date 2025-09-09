@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-  import { onMounted, ref} from "vue";
+import {computed, onMounted, ref} from "vue";
   import {DecodeImageSizeDto, DecodeImagesSizesResponse, ImageSize} from "../../ts/imagesSizes/libImagesSizes.ts";
   import {WebClientSendGetRequest} from "../../ts/libWebClient.ts";
   import {DecodeImageResponse, ImageModel} from "../../ts/Images/libImageFiles.ts";
@@ -17,6 +17,8 @@
   const originalFile = ref<{ id: string; sizeId: string } | null>(null)
 
   const files = ref<ImageModel | null>(null)
+
+  const imageName = computed(() => files.value?.name || '');
 
   const route = useRoute()
   const imageId = route.params.imageId as string
@@ -45,11 +47,19 @@
   {
     sizes.value = await GetImagesSizesListAsync();
 
-    const original = sizes.value.find(s => s.name === 'Original')
+    const original = sizes.value.find(s => s.type === 2)
     originalSize.value = original?.id || null
 
     files.value = await GetImageFilesAsync(imageId);
-    originalFile.value = files.value?.files.find(f => f.sizeId === originalSize.value) || null;
+
+    const imageSizeId = files.value?.files.find(f => f.sizeId === originalSize.value);
+
+    if (imageSizeId === undefined)
+    {
+      throw new Error("Unknown image size type: " + originalSize.value);
+    }
+
+    originalFile.value = imageSizeId!;
   }
 
   async function GetImagesSizesListAsync(): Promise<ImageSize[]>
@@ -116,13 +126,18 @@
       Info 1
 
       <div v-if="files">
-        <div v-for="imageFile in files.files" :key="imageFile.id">
-          {{ files.name }}
-          {{ files.description }}
-          {{ imageFile.id }}
-        </div>
-      </div>
 
+        <div
+            v-for="imageFile in files.files"
+            :key="imageFile.id">
+
+          {{ imageName }}
+          {{ files.name }}
+          {{ imageFile.id }}
+
+        </div>
+
+      </div>
 
     </div>
 

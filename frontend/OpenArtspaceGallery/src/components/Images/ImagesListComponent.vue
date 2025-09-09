@@ -6,7 +6,6 @@
   import ThumbnailComponent from "./ThumbnailComponent.vue";
   import LoadingSymbolComponent from "../Shared/LoadingSymbol/LoadingSymbolComponent.vue";
   import UploadImageButtonComponent from "../Shared/SelectedMenu/UploadImageButtonComponent.vue";
-  import router from "../../router";
 
   const props = defineProps({
     currentAlbumId: {
@@ -70,19 +69,13 @@
       <UploadImageButtonComponent
           @uploadImage="async () => await UploadImageAsync()"/>
 
-<!--      <div
-        v-if="images.length === 0">
-        Image is empty
-      </div>-->
-
       <div
         v-for="image in images"
         :key="image.id">
 
         <ThumbnailComponent
             :isShowImageName="isShowImageName"
-            :image="image"
-            @click="() => router.push(`/images/${image.id}`)" />
+            :image="image" />
 
       </div>
 

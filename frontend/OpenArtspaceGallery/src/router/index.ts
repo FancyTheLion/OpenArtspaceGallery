@@ -14,7 +14,7 @@ const routes = [
 
     // Album contents
     {
-        path: "/albums/:currentAlbumId?",
+        path: "/albums/:currentAlbumId",
         name: "albumContent",
         component: AlbumContentView,
         props: true
@@ -30,7 +30,7 @@ const routes = [
     // Images contents
     {
         path: "/images/:imageId",
-        name: "imagesContent",
+        name: "viewImage",
         component: ImagePageView
     },
 ]
