@@ -47,7 +47,7 @@ import {computed, onMounted, ref} from "vue";
   {
     sizes.value = await GetImagesSizesListAsync();
 
-    const original = sizes.value.find(s => s.type === 2)
+    const original = sizes.value.find(s => s.type === 3)
     originalSize.value = original?.id || null
 
     files.value = await GetImageFilesAsync(imageId);
