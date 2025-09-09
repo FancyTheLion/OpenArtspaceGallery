@@ -29,4 +29,15 @@ public static class ImagesSizes
         (int)ImagesSizesTypes.Original
     );
     
+    /// <summary>
+    /// Medium size
+    /// </summary>
+    public static readonly ImageSizeType MediumDefault = new ImageSizeType
+    (
+        new Guid("62a5c2bb-1fb7-4514-ab3a-0bb6fc808d2c"),
+        "MediumDefault",
+        1280,
+        960,
+        (int)ImagesSizesTypes.MediumDefault
+    );
 }
