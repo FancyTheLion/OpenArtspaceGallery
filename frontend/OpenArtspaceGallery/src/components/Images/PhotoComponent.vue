@@ -1,10 +1,16 @@
 <script setup lang="ts">
 
-import {computed, onMounted, ref} from "vue";
+import {computed, onMounted, PropType, ref} from "vue";
   import {DecodeImageSizeDto, DecodeImagesSizesResponse, ImageSize} from "../../ts/imagesSizes/libImagesSizes.ts";
   import {WebClientSendGetRequest} from "../../ts/libWebClient.ts";
   import {DecodeImageResponse, ImageModel} from "../../ts/Images/libImageFiles.ts";
-  import {useRoute} from "vue-router";
+
+  const props = defineProps({
+    imageId: {
+      type: String as PropType<string>,
+      required: true
+    }
+  })
 
   const apiBaseUrl = import.meta.env.VITE_BACKEND_URL
 
@@ -19,9 +25,6 @@ import {computed, onMounted, ref} from "vue";
   const files = ref<ImageModel | null>(null)
 
   const imageName = computed(() => files.value?.name || '');
-
-  const route = useRoute()
-  const imageId = route.params.imageId as string
 
   const toggleMenu = () => {
     isMenuOpen.value = !isMenuOpen.value;
@@ -50,7 +53,7 @@ import {computed, onMounted, ref} from "vue";
     const original = sizes.value.find(s => s.type === 3)
     originalSize.value = original?.id || null
 
-    files.value = await GetImageFilesAsync(imageId);
+    files.value = await GetImageFilesAsync(props.imageId);
 
     const imageSizeId = files.value?.files.find(f => f.sizeId === originalSize.value);
 
