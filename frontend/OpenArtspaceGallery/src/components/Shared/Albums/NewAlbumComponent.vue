@@ -7,8 +7,7 @@ import {WebClientSendPostRequest} from "../../../ts/libWebClient.ts";
 
   const props = defineProps({
     currentAlbumId: {
-      type: String as PropType<string>,
-      required: true
+      type: String as PropType<string>
     }
   })
 

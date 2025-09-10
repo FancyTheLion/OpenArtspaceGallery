@@ -9,8 +9,7 @@
 
   const props = defineProps({
     currentAlbumId: {
-      type: String as PropType<string>,
-      required: true
+      type: String as PropType<string>
     }
   })
 
@@ -47,7 +46,10 @@
   {
     isLoading.value = true
 
-    images.value = await GetImagesListAsync(props.currentAlbumId)
+    if (props.currentAlbumId)
+    {
+      images.value = await GetImagesListAsync(props.currentAlbumId)
+    }
 
     isLoading.value = false
   }
