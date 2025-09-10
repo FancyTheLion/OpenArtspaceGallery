@@ -20,6 +20,12 @@ const routes = [
         props: true
     },
 
+    // Redirect to home when album id is missing
+    {
+        path: '/albums',
+        redirect: '/'
+    },
+
     // Admin panel
     {
         path: "/adminPanel",
@@ -34,6 +40,12 @@ const routes = [
         component: ImagePageView,
         props: true
     },
+
+    // Redirect to home when album id is missing
+    {
+        path: '/images',
+        redirect: '/'
+    }
 ]
 
 const router = createRouter({
