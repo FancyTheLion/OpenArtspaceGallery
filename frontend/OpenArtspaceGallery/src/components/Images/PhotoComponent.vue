@@ -18,9 +18,9 @@ import {computed, onMounted, PropType, ref} from "vue";
 
   const sizes = ref<ImageSize[]>([])
 
-  const originalSize = ref()
+  const defaultSize = ref()
 
-  const originalFile = ref<{ id: string; sizeId: string } | null>(null)
+  const defaultMediumFile = ref<{ id: string; sizeId: string } | null>(null)
 
   const files = ref<ImageModel | null>(null)
 
@@ -50,19 +50,19 @@ import {computed, onMounted, PropType, ref} from "vue";
   {
     sizes.value = await GetImagesSizesListAsync();
 
-    const original = sizes.value.find(s => s.type === 3)
-    originalSize.value = original?.id || null
+    const defaultMediumSize = sizes.value.find(s => s.type === 3)
+    defaultSize.value = defaultMediumSize?.id || null
 
     files.value = await GetImageFilesAsync(props.imageId);
 
-    const imageSizeId = files.value?.files.find(f => f.sizeId === originalSize.value);
+    const imageSizeId = files.value?.files.find(f => f.sizeId === defaultSize.value);
 
     if (imageSizeId === undefined)
     {
-      throw new Error("Unknown image size type: " + originalSize.value);
+      throw new Error("Unknown image size type: " + defaultSize.value);
     }
 
-    originalFile.value = imageSizeId!;
+    defaultMediumFile.value = imageSizeId!;
   }
 
   async function GetImagesSizesListAsync(): Promise<ImageSize[]>
@@ -87,9 +87,13 @@ import {computed, onMounted, PropType, ref} from "vue";
     class="tool-bar">
 
     <div class="menu-container">
-      <button
+
+      <img
           class="icon-button"
-          @click="toggleMenu">☰</button>
+          src="/images/icons/photoMenuSize.webp"
+          alt="Select photo size"
+          title="Select photo size"
+          @click="toggleMenu"/>
 
       <div
           class="menu"
@@ -116,8 +120,8 @@ import {computed, onMounted, PropType, ref} from "vue";
         class="image-section">
 
       <img
-          v-if="originalFile"
-          :src="apiBaseUrl + '/Files/' + originalFile.id"
+          v-if="defaultMediumFile"
+          :src="apiBaseUrl + '/Files/' + defaultMediumFile.id"
           alt="Preview"/>
 
 
