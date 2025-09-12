@@ -4,6 +4,7 @@ import {computed, onMounted, PropType, ref} from "vue";
   import {DecodeImageSizeDto, DecodeImagesSizesResponse, ImageSize} from "../../ts/imagesSizes/libImagesSizes.ts";
   import {WebClientSendGetRequest} from "../../ts/libWebClient.ts";
   import {DecodeImageResponse, ImageModel} from "../../ts/Images/libImageFiles.ts";
+import PhotoSizeMenuComponent from "../Shared/SelectedMenu/PhotoSizeMenuComponent.vue";
 
   const props = defineProps({
     imageId: {
@@ -14,8 +15,6 @@ import {computed, onMounted, PropType, ref} from "vue";
 
   const apiBaseUrl = import.meta.env.VITE_BACKEND_URL
 
-  const isMenuOpen = ref(false);
-
   const sizes = ref<ImageSize[]>([])
 
   const defaultSize = ref()
@@ -25,21 +24,6 @@ import {computed, onMounted, PropType, ref} from "vue";
   const files = ref<ImageModel | null>(null)
 
   const imageName = computed(() => files.value?.name || '');
-
-  const toggleMenu = () => {
-    isMenuOpen.value = !isMenuOpen.value;
-  };
-
-  const closeMenu = (e: MouseEvent) => {
-    const target = e.target as HTMLElement;
-
-    if (!target.closest(".menu-container"))
-    {
-      isMenuOpen.value = false;
-    }
-  };
-
-  document.addEventListener("click", closeMenu);
 
   onMounted(async () =>
   {
@@ -86,28 +70,11 @@ import {computed, onMounted, PropType, ref} from "vue";
   <div
     class="tool-bar">
 
-    <div class="menu-container">
+    <div
+      class="menu-container">
 
-      <img
-          class="icon-button"
-          src="/images/icons/photoMenuSize.webp"
-          alt="Select photo size"
-          title="Select photo size"
-          @click="toggleMenu"/>
-
-      <div
-          class="menu"
-          :class="{ active: isMenuOpen }">
-
-        <div>Photo sizes:</div>
-
-        <div v-for="size in sizes" :key="size.id">
-
-          <a href="#">{{size.name}} {{size.width}} {{size.height}}</a>
-
-        </div>
-
-      </div>
+      <PhotoSizeMenuComponent
+          :photoSizes="sizes"/>
 
     </div>
 
