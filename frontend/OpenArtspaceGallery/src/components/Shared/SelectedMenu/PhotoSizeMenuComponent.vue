@@ -53,7 +53,8 @@ import {onMounted, onUnmounted, PropType, ref} from "vue";
 
       <div v-for="size in props.photoSizes" :key="size.id">
 
-          <div>
+          <div
+              class="menu-item">
             {{size.name}} {{size.width}} {{size.height}}
           </div>
 

@@ -8,6 +8,8 @@
 @margin-xxhuge: ;
 @margin-max: ;*/
 /* End margins */
+/* Shadow */
+/* end shadow */
 /* Paddings */
 /* End paddings */
 /* Gaps */
@@ -184,48 +186,9 @@
 /* End animations */
 /* Z-index */
 /* End z-index */
-.tool-bar {
-  justify-content: left;
-  align-items: center;
-  display: flex;
-  background-color: darkgray;
-  height: 2rem;
-}
-.image-section {
-  flex: 1;
-  background-color: antiquewhite;
-  max-height: 75vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-}
-.info-section {
-  background-color: gainsboro;
-  width: 20%;
-  height: 75vh;
-}
-.image-section img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-  display: block;
-}
-.image-content-container {
-  display: flex;
-}
 .menu-container {
   position: relative;
   display: inline-block;
-}
-.icon-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 2rem;
-  height: 2rem;
-  border-radius: 2rem;
-  cursor: pointer;
 }
 .menu {
   position: absolute;
@@ -241,12 +204,13 @@
   padding: 0.2rem 0.2rem;
   z-index: 1000;
 }
-.menu a {
+.menu-item {
   padding: 0.2rem 0.2rem;
   text-decoration: none;
   color: black;
+  cursor: pointer;
 }
-.menu a:hover {
+.menu-item a:hover {
   background: white;
 }
 .menu.active {
@@ -254,4 +218,4 @@
   opacity: 1;
   transform: translateY(0);
 }
-/*# sourceMappingURL=photo.css.map */
+/*# sourceMappingURL=sizesMenu.css.map */

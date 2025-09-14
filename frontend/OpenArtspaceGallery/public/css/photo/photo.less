@@ -7,8 +7,6 @@
 
 @width-info-section: 20%;
 
-@menu-min-width: 11rem;
-
 @button-size: 1rem;
 
 .tool-bar {
@@ -32,12 +30,6 @@
   overflow: hidden;
 }
 
-.info-section {
-  background-color: gainsboro;
-  width: @width-info-section;
-  height: @height-info-section;
-}
-
 .image-section img {
   max-width: 100%;
   max-height: 100%;
@@ -47,13 +39,14 @@
   display: block;
 }
 
-.image-content-container {
-  display: flex;
+.info-section {
+  background-color: gainsboro;
+  width: @width-info-section;
+  height: @height-info-section;
 }
 
-.menu-container {
-  position: relative;
-  display: inline-block;
+.image-content-container {
+  display: flex;
 }
 
 .icon-button {
@@ -64,36 +57,4 @@
   height: @image-size-medium;
   border-radius: @image-size-medium;
   cursor: pointer;
-}
-
-.menu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background: white;
-  border: 0.2rem solid darkgray;
-  border-radius: 0.3rem;
-  box-shadow: 0 0.2rem 0.2rem darkgray;
-  min-width: @menu-min-width;
-
-  display: none;
-  flex-direction: column;
-  padding: @padding-smaller @padding-smaller;
-  z-index: 1000;
-}
-
-.menu a {
-  padding: 0.2rem 0.2rem;
-  text-decoration: none;
-  color: black;
-}
-
-.menu a:hover {
-  background: white;
-}
-
-.menu.active {
-  display: flex;
-  opacity: 1;
-  transform: translateY(0);
 }

@@ -1,0 +1,42 @@
+@import "../common";
+@import "../theme";
+
+@menu-min-width: 11rem;
+
+.menu-container {
+  position: relative;
+  display: inline-block;
+}
+
+.menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  border: @border-width-small solid darkgray;
+  border-radius: @border-radius-small;
+  box-shadow: 0 @shadow-smaller @shadow-smaller darkgray;
+  min-width: @menu-min-width;
+
+  display: none;
+  flex-direction: column;
+  padding: @padding-smaller @padding-smaller;
+  z-index: 1000;
+}
+
+.menu-item {
+  padding: @padding-smaller @padding-smaller;
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+}
+
+.menu-item a:hover {
+  background: white;
+}
+
+.menu.active {
+  display: flex;
+  opacity: 1;
+  transform: translateY(0);
+}
