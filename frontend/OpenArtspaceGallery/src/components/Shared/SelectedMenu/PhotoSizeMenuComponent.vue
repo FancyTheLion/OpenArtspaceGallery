@@ -12,6 +12,8 @@ import {onMounted, onUnmounted, PropType, ref} from "vue";
 
   const isMenuOpen = ref(false);
 
+  const emit = defineEmits([ "select" ])
+
   const toggleMenu = () => {
     isMenuOpen.value = !isMenuOpen.value;
   };
@@ -34,6 +36,11 @@ import {onMounted, onUnmounted, PropType, ref} from "vue";
     document.removeEventListener("click", closeMenu);
   });
 
+  async function OnSizeSelected(size: ImageSize): Promise<void>
+  {
+    emit("select", size);
+  }
+
 </script>
 
 <template>
@@ -51,12 +58,13 @@ import {onMounted, onUnmounted, PropType, ref} from "vue";
 
       <div>Photo sizes:</div>
 
-      <div v-for="size in props.photoSizes" :key="size.id">
+      <div
+          v-for="size in props.photoSizes"
+          :key="size.id"
+          class="menu-item"
+          @click="OnSizeSelected(size)">
 
-          <div
-              class="menu-item">
-            {{size.name}} {{size.width}} {{size.height}}
-          </div>
+        {{ size.name }} {{ size.width }} {{ size.height }}
 
       </div>
 

@@ -63,6 +63,8 @@ import PhotoSizeMenuComponent from "../Shared/SelectedMenu/PhotoSizeMenuComponen
         .image
   }
 
+
+
 </script>
 
 <template>
@@ -74,7 +76,8 @@ import PhotoSizeMenuComponent from "../Shared/SelectedMenu/PhotoSizeMenuComponen
       class="menu-container">
 
       <PhotoSizeMenuComponent
-          :photoSizes="sizes"/>
+          :photoSizes="sizes"
+      />
 
     </div>
 
