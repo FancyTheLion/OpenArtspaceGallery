@@ -14,7 +14,7 @@ public static class ImagesSizes
         "Thumbnail",
         200,
         150,
-        (int)ImagesSizesTypes.Preview
+        (int)ImagesSizeType.Preview
     );
     
     /// <summary>
@@ -26,7 +26,7 @@ public static class ImagesSizes
         "Original",
         0,
         0,
-        (int)ImagesSizesTypes.Original
+        (int)ImagesSizeType.Original
     );
     
     /// <summary>
@@ -38,6 +38,6 @@ public static class ImagesSizes
         "MediumDefault",
         1280,
         960,
-        (int)ImagesSizesTypes.MediumDefault
+        (int)ImagesSizeType.MediumDefault
     );
 }

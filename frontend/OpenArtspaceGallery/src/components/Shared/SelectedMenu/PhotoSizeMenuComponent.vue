@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import {onMounted, onUnmounted, PropType, ref} from "vue";
+import {PropType, ref} from "vue";
   import {ImageSize} from "../../../ts/imagesSizes/libImagesSizes.ts";
 
   const props = defineProps({
@@ -14,32 +14,38 @@ import {onMounted, onUnmounted, PropType, ref} from "vue";
 
   const emit = defineEmits([ "select" ])
 
-  const toggleMenu = () => {
-    isMenuOpen.value = !isMenuOpen.value;
-  };
-
-  const closeMenu = (e: MouseEvent) => {
+  /*const closeMenu = (e: MouseEvent) => {
     const target = e.target as HTMLElement;
 
     if (!target.closest(".menu-container"))
     {
       isMenuOpen.value = false;
     }
-  };
+  };*/
 
-  onMounted(() => {
+  /*onMounted(() => {
     document.addEventListener("click", closeMenu);
   });
 
-  /* Optimization to eliminate bugs if the handler breaks */
+  /!* Optimization to eliminate bugs if the handler breaks *!/
   onUnmounted(() => {
     document.removeEventListener("click", closeMenu);
-  });
+  });*/
 
   async function OnSizeSelected(size: ImageSize): Promise<void>
   {
     emit("select", size);
   }
+
+  function ToggleMenu(): void
+  {
+    isMenuOpen.value = !isMenuOpen.value;
+  }
+
+  /*function CloseMenu(): void
+  {
+    isMenuOpen.value = false;
+  }*/
 
 </script>
 
@@ -50,7 +56,7 @@ import {onMounted, onUnmounted, PropType, ref} from "vue";
         src="/images/icons/photoMenuSize.webp"
         alt="Select photo size"
         title="Select photo size"
-        @click="toggleMenu"/>
+        @click="ToggleMenu"/>
 
     <div
         class="menu"

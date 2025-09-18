@@ -2,7 +2,7 @@
 
 import HeaderComponent from "../../components/Shared/Header/HeaderComponent.vue";
 import FooterComponent from "../../components/Shared/Foooter/FooterComponent.vue";
-import PhotoComponent from "../../components/Images/PhotoComponent.vue";
+import ImageComponent from "../../components/Images/ImageComponent.vue";
 import {PropType} from "vue";
 
   const props = defineProps({
@@ -17,7 +17,7 @@ import {PropType} from "vue";
 <template>
     <HeaderComponent />
 
-    <PhotoComponent :imageId="props.imageId" />
+    <ImageComponent :imageId="props.imageId" />
 
     <FooterComponent />
 

@@ -1,6 +1,6 @@
 namespace OpenArtspaceGallery.DAO.Enums;
 
-public enum ImagesSizesTypes
+public enum ImagesSizeType
 {
     Normal = 0,
     Preview = 1,

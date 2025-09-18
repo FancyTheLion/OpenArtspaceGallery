@@ -1,6 +1,15 @@
 /* Private image size DTO */
 import {DecodeExistenceDto, ExistenceDto} from "../Shared/Libs/libSharedModels.ts";
 
+// Images size type
+export class ImagesSizeType
+{
+    static Normal = 0
+    static Preview = 1
+    static Original = 2
+    static MediumDefault = 3
+}
+
 type ImageSizeDto =
 {
     id: string;

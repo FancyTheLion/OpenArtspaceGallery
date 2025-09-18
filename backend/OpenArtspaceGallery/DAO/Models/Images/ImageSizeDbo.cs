@@ -31,5 +31,5 @@ public class ImageSizeDbo
     /// <summary>
     /// Images type to add to the database
     /// </summary>
-    public ImagesSizesTypes Type { get; set; }
+    public ImagesSizeType Type { get; set; }
 }

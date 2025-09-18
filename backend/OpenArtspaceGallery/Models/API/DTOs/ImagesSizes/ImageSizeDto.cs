@@ -20,7 +20,7 @@ public class ImageSizeDto : ImageSizeBaseDto
         string name,
         int width,
         int height,
-        ImagesSizesTypes type
+        ImagesSizeType type
     ) : base(name, width, height, type)
     {
         Id = id;
@@ -28,6 +28,6 @@ public class ImageSizeDto : ImageSizeBaseDto
     
     public override ImageSize ToModel()
     {
-        return new ImageSize(Id, Name, Width, Height, ImagesSizesTypes.Normal);
+        return new ImageSize(Id, Name, Width, Height, ImagesSizeType.Normal);
     }
 }
