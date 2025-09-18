@@ -4,7 +4,7 @@ import {PropType, ref} from "vue";
   import {ImageSize} from "../../../ts/imagesSizes/libImagesSizes.ts";
 
   const props = defineProps({
-    photoSizes: {
+    imageSizes: {
       type: Array as PropType<ImageSize[]>,
       required: true
     }
@@ -53,19 +53,19 @@ import {PropType, ref} from "vue";
 
     <img
         class="icon-button"
-        src="/images/icons/photoMenuSize.webp"
-        alt="Select photo size"
-        title="Select photo size"
+        src="/images/icons/imageMenuSize.webp"
+        alt="Select image size"
+        title="Select image size"
         @click="ToggleMenu"/>
 
     <div
         class="menu"
         :class="{ active: isMenuOpen }">
 
-      <div>Photo sizes:</div>
+      <div>Image sizes:</div>
 
       <div
-          v-for="size in props.photoSizes"
+          v-for="size in props.imageSizes"
           :key="size.id"
           class="menu-item"
           @click="OnSizeSelected(size)">
