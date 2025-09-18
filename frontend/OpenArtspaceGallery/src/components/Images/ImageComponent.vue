@@ -81,7 +81,7 @@ import {
 <template>
 
   <div
-    class="tool-bar"> <!-- TODO: Rename to toolbar -->
+    class="toolbar">
 
     <div
       class="menu-container">
