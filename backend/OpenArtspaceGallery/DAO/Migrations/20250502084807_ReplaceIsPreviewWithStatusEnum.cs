@@ -21,7 +21,7 @@ namespace OpenArtspaceGallery.DAO.Migrations
                 table: "ImagesSizes",
                 type: "integer",
                 nullable: false,
-                defaultValue: ImagesSizesTypes.Normal);
+                defaultValue: ImagesSizeType.Normal);
         }
 
         /// <inheritdoc />
