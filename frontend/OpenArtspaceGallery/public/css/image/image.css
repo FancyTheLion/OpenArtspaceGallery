@@ -220,9 +220,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 2rem;
-  height: 2rem;
-  border-radius: 2rem;
+  width: 1.5rem;
+  height: 1.5rem;
   cursor: pointer;
 }
 /*# sourceMappingURL=image.css.map */
