@@ -24,9 +24,15 @@ import {
 
   const defaultImageSizeId = ref<string>()
 
+  const originalImageSizeId = ref<string>()
+
   const currentImageFileId = ref<string | null>(null)
 
+  const originalImageFileId = ref<string | null>(null)
+
   const image = ref<ImageModel | null>(null)
+
+  const isVisible = ref<boolean>(false)
 
   onMounted(async () =>
   {
@@ -35,20 +41,22 @@ import {
 
   async function OnLoad()
   {
+    /* Function call */
     sizes.value = (await GetImagesSizesListAsync())
         .sort((a: ImageSize, b: ImageSize) => a.name.localeCompare(b.name))
 
+    image.value = await GetImageAsync(props.imageId);
+
+    /* Default size */
     defaultImageSizeId.value = sizes
         .value
-        .find(s => s.type === ImagesSizeType.MediumDefault)
+        .find(s => s.type === ImagesSizeType.DefaultMedium)
         ?.id
 
     if (defaultImageSizeId.value === undefined)
     {
       throw new Error("Backend didn't return an image size with default flag!");
     }
-
-    image.value = await GetImageAsync(props.imageId);
 
     const defaultImageFile = image
         .value
@@ -61,6 +69,29 @@ import {
     }
 
     currentImageFileId.value = defaultImageFile!.id;
+
+    /* Original size */
+    originalImageSizeId.value = sizes
+        .value
+        .find(s => s.type === ImagesSizeType.Original)
+        ?.id
+
+    if (originalImageSizeId.value === undefined)
+    {
+      throw new Error("Backend didn't return an image size with original flag!");
+    }
+
+    const origimalImageFile = image
+        .value
+        .files
+        .find(f => f.sizeId === originalImageSizeId.value!)
+
+    if (origimalImageFile === undefined)
+    {
+      throw new Error("Can't find image file with size ID = " + defaultImageSizeId.value!);
+    }
+
+    originalImageFileId.value = origimalImageFile!.id;
   }
 
   async function GetImagesSizesListAsync(): Promise<ImageSize[]>
@@ -74,6 +105,16 @@ import {
   {
     return DecodeImageResponse((await (await WebClientSendGetRequest("/Images/" + id)).json()))
         .image
+  }
+
+  async function ShowFullSizePhoto()
+  {
+    isVisible.value = true
+  }
+
+  async function HideFullSizePhoto()
+  {
+    isVisible.value = false
   }
 
 </script>
@@ -101,10 +142,41 @@ import {
         class="image-section">
 
       <img
+          class="image"
           v-if="currentImageFileId"
           :src="apiBaseUrl + '/Files/' + currentImageFileId"
-          alt="Preview"/>
+          alt="Image"
+          @click="async() => await ShowFullSizePhoto()"/>
 
+      <div v-if="isVisible">
+
+        <!-- Popup lower layer -->
+        <div class="popup-lower-layer">
+
+        </div>
+
+        <!-- Popup upper layer -->
+        <div class="popup-upper-layer"
+             @click="async() => await HideFullSizePhoto()">
+
+          <div class="popup-main-image-section">
+
+            <img
+                class="popup-close-button"
+                src="/images/icons/close.webp"
+                alt="Close full size image"
+                @click="async() => await HideFullSizePhoto()" />
+
+            <img
+                class="popup-image"
+                :src="apiBaseUrl + '/Files/' +  originalImageFileId"
+                alt="Full size image"/>
+
+          </div>
+
+        </div>
+
+      </div>
 
     </div>
 

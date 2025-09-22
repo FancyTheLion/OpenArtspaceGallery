@@ -9,6 +9,13 @@
 
 @button-size: 1rem;
 
+@popup-close-button-image: 2rem;
+@popup-close-button-shift-x: 0.5rem;
+@popup-close-button-shift-y: 0.5rem;
+
+@centering-the-image-vertically: 90vh;
+@centering-the-image-horizontally: 90vw;
+
 .toolbar {
   justify-content: left;
   align-items: center;
@@ -30,7 +37,7 @@
   overflow: hidden;
 }
 
-.image-section img {
+.image {
   max-width: 100%;
   max-height: 100%;
 
@@ -56,4 +63,34 @@
   width: @image-size-normal;
   height: @image-size-normal;
   cursor: pointer;
+}
+
+/* Popup image section */
+.popup-main-image-section {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow-y: auto;
+}
+
+/* Popup close button image */
+.popup-close-button {
+  width: @popup-close-button-image;
+  height: @popup-close-button-image;
+  border-radius: @border-radius-big;
+
+  position: absolute;
+
+  right: @popup-close-button-shift-x;
+  top: @popup-close-button-shift-y;
+
+  cursor: pointer;
+}
+
+/* Popup image */
+.popup-image {
+  border-radius: @border-radius-big;
+  max-width: @centering-the-image-horizontally;
+  max-height: @centering-the-image-vertically;
 }

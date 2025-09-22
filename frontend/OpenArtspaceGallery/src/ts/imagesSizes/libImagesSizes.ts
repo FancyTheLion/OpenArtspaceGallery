@@ -7,7 +7,7 @@ export class ImagesSizeType
     static Normal = 0
     static Preview = 1
     static Original = 2
-    static MediumDefault = 3
+    static DefaultMedium = 3
 }
 
 type ImageSizeDto =
