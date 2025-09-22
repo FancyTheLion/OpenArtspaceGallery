@@ -8,7 +8,7 @@ import {
   ImagesSizeType
 } from "../../ts/imagesSizes/libImagesSizes.ts";
   import {WebClientSendGetRequest} from "../../ts/libWebClient.ts";
-  import {DecodeImageResponse, ImageModel} from "../../ts/Images/libImageFiles.ts";
+import {DecodeImageResponse, ImageFile, ImageModel} from "../../ts/Images/libImageFiles.ts";
   import ImageSizeMenuComponent from "../Shared/SelectedMenu/ImageSizeMenuComponent.vue";
 
   const props = defineProps({
@@ -41,57 +41,14 @@ import {
 
   async function OnLoad()
   {
-    /* Function call */
-    sizes.value = (await GetImagesSizesListAsync())
-        .sort((a: ImageSize, b: ImageSize) => a.name.localeCompare(b.name))
-
+    sizes.value = await LoadSizes();
     image.value = await GetImageAsync(props.imageId);
 
-    /* Default size */
-    defaultImageSizeId.value = sizes
-        .value
-        .find(s => s.type === ImagesSizeType.DefaultMedium)
-        ?.id
+    defaultImageSizeId.value = GetRequiredSizeId(sizes.value, ImagesSizeType.DefaultMedium);
+    originalImageSizeId.value = GetRequiredSizeId(sizes.value, ImagesSizeType.Original);
 
-    if (defaultImageSizeId.value === undefined)
-    {
-      throw new Error("Backend didn't return an image size with default flag!");
-    }
-
-    const defaultImageFile = image
-        .value
-        .files
-        .find(f => f.sizeId === defaultImageSizeId.value!)
-
-    if (defaultImageFile === undefined)
-    {
-      throw new Error("Can't find image file with size ID = " + defaultImageSizeId.value!);
-    }
-
-    currentImageFileId.value = defaultImageFile!.id;
-
-    /* Original size */
-    originalImageSizeId.value = sizes
-        .value
-        .find(s => s.type === ImagesSizeType.Original)
-        ?.id
-
-    if (originalImageSizeId.value === undefined)
-    {
-      throw new Error("Backend didn't return an image size with original flag!");
-    }
-
-    const origimalImageFile = image
-        .value
-        .files
-        .find(f => f.sizeId === originalImageSizeId.value!)
-
-    if (origimalImageFile === undefined)
-    {
-      throw new Error("Can't find image file with size ID = " + defaultImageSizeId.value!);
-    }
-
-    originalImageFileId.value = origimalImageFile!.id;
+    currentImageFileId.value = GetRequiredFileId(image.value.files, defaultImageSizeId.value);
+    originalImageFileId.value = GetRequiredFileId(image.value.files, originalImageSizeId.value);
   }
 
   async function GetImagesSizesListAsync(): Promise<ImageSize[]>
@@ -105,6 +62,35 @@ import {
   {
     return DecodeImageResponse((await (await WebClientSendGetRequest("/Images/" + id)).json()))
         .image
+  }
+
+  async function LoadSizes(): Promise<ImageSize[]>
+  {
+    return (await GetImagesSizesListAsync())
+        .sort((a, b) => a.name.localeCompare(b.name));
+  }
+
+  function GetRequiredSizeId(sizes: ImageSize[], type: ImagesSizeType): string
+  {
+    const size = sizes.find(s => s.type === type);
+
+    if (size === undefined)
+    {
+      throw new Error(`Backend didn't return an image size with type = ${type}`);
+    }
+
+    return size.id;
+  }
+
+  function GetRequiredFileId(files: ImageFile[], sizeId: string): string
+  {
+    const file = files.find(f => f.sizeId === sizeId);
+
+    if (file === undefined) {
+      throw new Error(`Can't find image file with size ID = ${sizeId}`);
+    }
+
+    return file.id;
   }
 
   async function ShowFullSizePhoto()
