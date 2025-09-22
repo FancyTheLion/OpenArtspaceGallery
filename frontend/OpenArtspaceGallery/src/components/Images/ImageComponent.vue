@@ -119,6 +119,17 @@ import {DecodeImageResponse, ImageFile, ImageModel} from "../../ts/Images/libIma
 
     </div>
 
+    <a
+      :href="apiBaseUrl + '/Files/' + currentImageFileId" download>
+
+      <img
+          class="icon-button"
+          src="/images/icons/download.webp"
+          alt="Download image"
+          title="Download file"/>
+
+    </a>
+
   </div>
 
   <div
