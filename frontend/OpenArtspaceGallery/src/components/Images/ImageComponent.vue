@@ -9,7 +9,7 @@ import {
 } from "../../ts/imagesSizes/libImagesSizes.ts";
   import {WebClientSendGetRequest} from "../../ts/libWebClient.ts";
 import {DecodeImageResponse, ImageFile, ImageModel} from "../../ts/Images/libImageFiles.ts";
-  import ImageSizeMenuComponent from "../Shared/SelectedMenu/ImageSizeMenuComponent.vue";
+  import SelectSizeMenuComponent from "../Shared/Controls/SelectSizeMenuComponent.vue";
 
   const props = defineProps({
     imageId: {
@@ -113,7 +113,7 @@ import {DecodeImageResponse, ImageFile, ImageModel} from "../../ts/Images/libIma
     <div
       class="menu-container">
 
-      <ImageSizeMenuComponent
+      <SelectSizeMenuComponent
           :imageSizes="sizes"
       />
 

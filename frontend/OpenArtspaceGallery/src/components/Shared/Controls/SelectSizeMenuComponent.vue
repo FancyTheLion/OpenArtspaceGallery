@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import {PropType, ref} from "vue";
+import {onMounted, onUnmounted, PropType, ref} from "vue";
   import {ImageSize} from "../../../ts/imagesSizes/libImagesSizes.ts";
 
   const props = defineProps({
@@ -11,45 +11,36 @@ import {PropType, ref} from "vue";
   });
 
   const isMenuOpen = ref(false);
-
-  const emit = defineEmits([ "select" ])
-
-  /*const closeMenu = (e: MouseEvent) => {
-    const target = e.target as HTMLElement;
-
-    if (!target.closest(".menu-container"))
-    {
-      isMenuOpen.value = false;
-    }
-  };*/
-
-  /*onMounted(() => {
-    document.addEventListener("click", closeMenu);
-  });
-
-  /!* Optimization to eliminate bugs if the handler breaks *!/
-  onUnmounted(() => {
-    document.removeEventListener("click", closeMenu);
-  });*/
-
-  async function OnSizeSelected(size: ImageSize): Promise<void>
-  {
-    emit("select", size);
-  }
+  const elementToDetectOutsideClick = ref<HTMLElement | null>(null);
 
   function ToggleMenu(): void
   {
     isMenuOpen.value = !isMenuOpen.value;
   }
 
-  /*function CloseMenu(): void
+  function handleClickOutside(event: MouseEvent)
   {
-    isMenuOpen.value = false;
-  }*/
+    const target = event.target as Node;
+
+    if (elementToDetectOutsideClick.value && !elementToDetectOutsideClick.value.contains(target))
+    {
+      isMenuOpen.value = false;
+    }
+  }
+
+  onMounted(() => {
+    document.addEventListener("click", handleClickOutside);
+  });
+
+  onUnmounted(() => {
+    document.removeEventListener("click", handleClickOutside);
+  });
 
 </script>
 
 <template>
+
+  <div ref="elementToDetectOutsideClick">
 
     <img
         class="icon-button"
@@ -67,8 +58,7 @@ import {PropType, ref} from "vue";
       <div
           v-for="size in props.imageSizes"
           :key="size.id"
-          class="menu-item"
-          @click="OnSizeSelected(size)">
+          class="menu-item">
 
         {{ size.name }} {{ size.width }} {{ size.height }}
 
@@ -76,5 +66,6 @@ import {PropType, ref} from "vue";
 
     </div>
 
+  </div>
 
 </template>

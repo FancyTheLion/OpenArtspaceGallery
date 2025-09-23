@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import {onMounted, PropType, reactive} from "vue";
+import {onMounted, PropType, reactive, ref} from "vue";
 import {WebClientPostForm, WebClientSendPostRequest} from "../../ts/libWebClient.ts";
 import useVuelidate from "@vuelidate/core";
 import {maxLength, required} from "@vuelidate/validators";
@@ -30,6 +30,8 @@ import {maxLength, required} from "@vuelidate/validators";
       maxLength: maxLength(200)
     }
   }
+
+  const isLoading = ref<boolean>(false);
 
   const emit = defineEmits(["imageUploaded", "cancelled"])
 
@@ -69,6 +71,23 @@ import {maxLength, required} from "@vuelidate/validators";
     const responseBody = await response.json()
 
     return responseBody.fileInfo.id;
+  }
+
+  async function uploadPhoto() {
+    if (isLoading.value)
+    {
+      return
+    }
+
+    try
+    {
+      isLoading.value = true;
+      await OnAddImageAsync();
+    }
+    finally
+    {
+      isLoading.value = false;
+    }
   }
 
   async function OnAddImageAsync(): Promise<void>
@@ -171,7 +190,8 @@ import {maxLength, required} from "@vuelidate/validators";
             <button
                 class="add-image-form-buttons"
                 type="button"
-                @click="async() => await OnAddImageAsync()">
+                @click="async() => await uploadPhoto()"
+                :disabled="isLoading">
               Add
             </button>
 
