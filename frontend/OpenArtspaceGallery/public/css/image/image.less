@@ -1,7 +1,7 @@
 @import "../shared/common.less";
 @import "../shared/theme";
 
-@height-tool-bar: 2rem;
+@height-tool-bar: 3rem;
 @height-image-section: 75vh;
 @height-info-section: 75vh;
 
@@ -24,8 +24,8 @@
   background-color: darkgray;
   height: @height-tool-bar;
 
-  gap: @gap-normal;
-  padding-left: @padding-normal;
+  gap: @gap-big;
+  padding-left: @padding-normal-plus;
 }
 
 .image-section {
@@ -63,8 +63,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: @image-size-normal;
-  height: @image-size-normal;
+  width: @image-size-medium;
+  height: @image-size-medium;
+  cursor: pointer;
+}
+
+.icon-download-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: @image-size-medium;
+  height: @image-size-medium;
   cursor: pointer;
 }
 
