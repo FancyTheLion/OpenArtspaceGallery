@@ -24,7 +24,7 @@ import {
 
   onMounted(async () =>
   {
-    await OnLoad();
+    await OnLoad()
   })
 
   async function OnLoad()
@@ -101,7 +101,7 @@ import {
 
   function ShowDeleteImageSizeConfirmation(id: string): void
   {
-    imageSizeToDeleteId.value = id;
+    imageSizeToDeleteId.value = id
 
     deleteImageSizePopupRef.value!.Show()
   }
@@ -113,7 +113,7 @@ import {
 
   async function ShowEditImageSizeAsync(id: string, imageData: NewImageSize): Promise<void>
   {
-    imageSizeToEditId.value = id;
+    imageSizeToEditId.value = id
 
     await addEditImageSizePopupRef.value!.ShowAsync(false, imageData.name, imageData.width, imageData.height)
   }

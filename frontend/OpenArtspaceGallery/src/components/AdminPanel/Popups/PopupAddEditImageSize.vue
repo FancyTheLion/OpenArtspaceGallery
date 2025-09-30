@@ -59,8 +59,8 @@ import {
         addEditFormData.width !== originalData.width
         ||
         addEditFormData.height !== originalData.height
-    );
-  });
+    )
+  })
 
   const addEditFormValidator = useVuelidate(addEditRules, addEditFormData)
 
@@ -70,7 +70,7 @@ import {
 
   onMounted(async () =>
   {
-    await OnLoad();
+    await OnLoad()
   })
 
   async function OnLoad()
@@ -79,13 +79,13 @@ import {
 
   function InitForm(name: string, width: number, height: number): void
   {
-    addEditFormData.name = name;
-    addEditFormData.width = width;
-    addEditFormData.height = height;
+    addEditFormData.name = name
+    addEditFormData.width = width
+    addEditFormData.height = height
 
-    originalData.name = name;
-    originalData.width = width;
-    originalData.height = height;
+    originalData.name = name
+    originalData.width = width
+    originalData.height = height
   }
 
   async function OnOkAsync(): Promise<void>

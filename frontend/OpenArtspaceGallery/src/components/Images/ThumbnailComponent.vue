@@ -16,12 +16,12 @@ import {Image} from "../../ts/Images/libImages.ts";
     }
   })
 
-  const brokenThumbnail = '/images/icons/brokenImage.webp';
+  const brokenThumbnail = '/images/icons/brokenImage.webp'
 
   function OnPreviewImageError(event: Event): void
   {
-    const target = event.target as HTMLImageElement;
-    target.src = brokenThumbnail;
+    const target = event.target as HTMLImageElement
+    target.src = brokenThumbnail
   }
 
 </script>

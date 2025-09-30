@@ -16,7 +16,7 @@ import {maxLength, required} from "@vuelidate/validators";
     name: "",
     description: "",
     file: null as File | null
-  });
+  })
 
   const addImageFormRules = {
     name: {
@@ -31,7 +31,7 @@ import {maxLength, required} from "@vuelidate/validators";
     }
   }
 
-  const isLoading = ref<boolean>(false);
+  const isLoading = ref<boolean>(false)
 
   const emit = defineEmits(["imageUploaded", "cancelled"])
 
@@ -39,7 +39,7 @@ import {maxLength, required} from "@vuelidate/validators";
 
   onMounted(async () =>
   {
-    await OnLoad();
+    await OnLoad()
   })
 
   async function OnLoad()
@@ -51,26 +51,26 @@ import {maxLength, required} from "@vuelidate/validators";
   {
     if (!addImageFileForm.file)
     {
-      alert("Need a file!");
-      return null;
+      alert("Need a file!")
+      return null
     }
 
-    const fileToUpload: File = addImageFileForm.file;
+    const fileToUpload: File = addImageFileForm.file
 
-    const uploadFormData = new FormData();
-    uploadFormData.append("file", fileToUpload);
+    const uploadFormData = new FormData()
+    uploadFormData.append("file", fileToUpload)
 
-    const response = await WebClientPostForm("/Files/Upload", uploadFormData);
+    const response = await WebClientPostForm("/Files/Upload", uploadFormData)
 
     if (!response.ok)
     {
-      alert("Failed to upload file!");
-      return null;
+      alert("Failed to upload file!")
+      return null
     }
 
     const responseBody = await response.json()
 
-    return responseBody.fileInfo.id;
+    return responseBody.fileInfo.id
   }
 
   async function uploadPhoto() {
@@ -81,12 +81,12 @@ import {maxLength, required} from "@vuelidate/validators";
 
     try
     {
-      isLoading.value = true;
-      await OnAddImageAsync();
+      isLoading.value = true
+      await OnAddImageAsync()
     }
     finally
     {
-      isLoading.value = false;
+      isLoading.value = false
     }
   }
 
@@ -97,7 +97,7 @@ import {maxLength, required} from "@vuelidate/validators";
     if (!uploadedFileId)
     {
       alert("No uploaded image id.")
-      return;
+      return
     }
 
     const response = await WebClientSendPostRequest(
@@ -112,7 +112,7 @@ import {maxLength, required} from "@vuelidate/validators";
             sourceFileId: uploadedFileId
           }
         }
-    );
+    )
 
     if (!response.ok)
     {
@@ -125,10 +125,10 @@ import {maxLength, required} from "@vuelidate/validators";
 
   function HandleFileChange(event: Event): void
   {
-    const target = event.target as HTMLInputElement;
+    const target = event.target as HTMLInputElement
     if (target.files && target.files.length > 0)
     {
-      addImageFileForm.file = target.files[0];
+      addImageFileForm.file = target.files[0]
     }
   }
 

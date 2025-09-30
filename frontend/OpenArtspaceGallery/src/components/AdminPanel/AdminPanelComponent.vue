@@ -8,7 +8,7 @@
 
   function OnButtonClicked(currentButtonId: string): void
   {
-    activePageId.value = currentButtonId;
+    activePageId.value = currentButtonId
   }
 
 </script>

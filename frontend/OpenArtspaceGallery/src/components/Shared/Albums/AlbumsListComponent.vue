@@ -26,7 +26,7 @@
 
   onMounted(async () =>
   {
-    await OnLoad();
+    await OnLoad()
   })
 
   async function OnLoad()

@@ -36,19 +36,19 @@ import {DecodeImageResponse, ImageFile, ImageModel} from "../../ts/Images/libIma
 
   onMounted(async () =>
   {
-    await OnLoad();
+    await OnLoad()
   })
 
   async function OnLoad()
   {
-    sizes.value = await LoadSizes();
-    image.value = await GetImageAsync(props.imageId);
+    sizes.value = await LoadSizes()
+    image.value = await GetImageAsync(props.imageId)
 
-    defaultImageSizeId.value = GetRequiredSizeId(sizes.value, ImagesSizeType.DefaultMedium);
-    originalImageSizeId.value = GetRequiredSizeId(sizes.value, ImagesSizeType.Original);
+    defaultImageSizeId.value = GetRequiredSizeId(sizes.value, ImagesSizeType.DefaultMedium)
+    originalImageSizeId.value = GetRequiredSizeId(sizes.value, ImagesSizeType.Original)
 
-    currentImageFileId.value = GetRequiredFileId(image.value.files, defaultImageSizeId.value);
-    originalImageFileId.value = GetRequiredFileId(image.value.files, originalImageSizeId.value);
+    currentImageFileId.value = GetRequiredFileId(image.value.files, defaultImageSizeId.value)
+    originalImageFileId.value = GetRequiredFileId(image.value.files, originalImageSizeId.value)
   }
 
   async function GetImagesSizesListAsync(): Promise<ImageSize[]>
@@ -67,30 +67,31 @@ import {DecodeImageResponse, ImageFile, ImageModel} from "../../ts/Images/libIma
   async function LoadSizes(): Promise<ImageSize[]>
   {
     return (await GetImagesSizesListAsync())
-        .sort((a, b) => a.name.localeCompare(b.name));
+        .sort((a, b) => a.name.localeCompare(b.name))
   }
 
   function GetRequiredSizeId(sizes: ImageSize[], type: ImagesSizeType): string
   {
-    const size = sizes.find(s => s.type === type);
+    const size = sizes.find(s => s.type === type)
 
     if (size === undefined)
     {
-      throw new Error(`Backend didn't return an image size with type = ${type}`);
+      throw new Error(`Backend didn't return an image size with type = ${type}`)
     }
 
-    return size.id;
+    return size.id
   }
 
   function GetRequiredFileId(files: ImageFile[], sizeId: string): string
   {
-    const file = files.find(f => f.sizeId === sizeId);
+    const file = files.find(f => f.sizeId === sizeId)
 
-    if (file === undefined) {
-      throw new Error(`Can't find image file with size ID = ${sizeId}`);
+    if (file === undefined)
+    {
+      throw new Error(`Can't find image file with size ID = ${sizeId}`)
     }
 
-    return file.id;
+    return file.id
   }
 
   async function ShowFullSizePhoto()

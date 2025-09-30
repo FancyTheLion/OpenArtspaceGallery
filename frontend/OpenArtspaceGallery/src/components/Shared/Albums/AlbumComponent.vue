@@ -30,11 +30,11 @@ import {DecodeLastImagesResponse, LastImage} from "../../../ts/Images/libLastIma
 
   const lastImagesInAlbum = ref<LastImage[]>([])
 
-  const lastImageCount: number = 4;
+  const lastImageCount: number = 4
 
   onMounted(async () =>
   {
-    await OnLoad();
+    await OnLoad()
   })
 
   async function OnLoad()

@@ -23,11 +23,11 @@
 
   const isShowImageName = true
 
-  const emit = defineEmits(["createAlbum", "uploadImage"]);
+  const emit = defineEmits(["createAlbum", "uploadImage"])
 
   onMounted(async () =>
   {
-    await OnLoad();
+    await OnLoad()
   })
 
   async function OnLoad()

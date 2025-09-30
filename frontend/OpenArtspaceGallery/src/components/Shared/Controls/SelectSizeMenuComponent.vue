@@ -8,33 +8,33 @@ import {onMounted, onUnmounted, PropType, ref} from "vue";
       type: Array as PropType<ImageSize[]>,
       required: true
     }
-  });
+  })
 
-  const isMenuOpen = ref(false);
-  const elementToDetectOutsideClick = ref<HTMLElement | null>(null);
+  const isMenuOpen = ref(false)
+  const elementToDetectOutsideClick = ref<HTMLElement | null>(null)
 
   function ToggleMenu(): void
   {
-    isMenuOpen.value = !isMenuOpen.value;
+    isMenuOpen.value = !isMenuOpen.value
   }
 
   function handleClickOutside(event: MouseEvent)
   {
-    const target = event.target as Node;
+    const target = event.target as Node
 
     if (elementToDetectOutsideClick.value && !elementToDetectOutsideClick.value.contains(target))
     {
-      isMenuOpen.value = false;
+      isMenuOpen.value = false
     }
   }
 
   onMounted(() => {
-    document.addEventListener("click", handleClickOutside);
-  });
+    document.addEventListener("click", handleClickOutside)
+  })
 
   onUnmounted(() => {
-    document.removeEventListener("click", handleClickOutside);
-  });
+    document.removeEventListener("click", handleClickOutside)
+  })
 
 </script>
 
