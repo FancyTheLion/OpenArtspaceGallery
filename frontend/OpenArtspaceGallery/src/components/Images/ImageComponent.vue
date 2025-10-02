@@ -104,9 +104,22 @@ import {DecodeImageResponse, ImageFile, ImageModel} from "../../ts/Images/libIma
     isVisible.value = false
   }
 
-  function DoNothing()
+  function OnSizeSelected(selectedSizeId: string): void
   {
-    alert("alert")
+    if (!image.value)
+    {
+      throw new Error("Image not loaded yet")
+    }
+
+    const newfileId = GetRequiredFileId(image.value.files, selectedSizeId)
+
+    currentImageFileId.value = newfileId
+
+    const downloadLink = document.createElement("a");
+
+    downloadLink.href = apiBaseUrl + "/Files/" + newfileId
+    downloadLink.download = "image.value.name"
+    downloadLink.click();
   }
 
 </script>
@@ -121,7 +134,7 @@ import {DecodeImageResponse, ImageFile, ImageModel} from "../../ts/Images/libIma
 
       <Menu
           :menuItemsExtended="sizes"
-          @stringSelected="DoNothing"/>
+          @stringSelected="OnSizeSelected"/>
 
     </div>
 
