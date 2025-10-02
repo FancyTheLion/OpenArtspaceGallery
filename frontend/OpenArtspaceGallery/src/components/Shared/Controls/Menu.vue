@@ -1,17 +1,20 @@
 <script setup lang="ts">
 
 import {onMounted, onUnmounted, PropType, ref} from "vue";
-  import {ImageSize} from "../../../ts/imagesSizes/libImagesSizes.ts";
+import { MenuItemsExtended } from "../../../ts/Shared/Controls/libMenu.ts";
 
   const props = defineProps({
-    imageSizes: {
-      type: Array as PropType<ImageSize[]>,
+    menuItemsExtended: {
+      type: Array as PropType<MenuItemsExtended[]>,
       required: true
     }
   })
 
   const isMenuOpen = ref(false)
+
   const elementToDetectOutsideClick = ref<HTMLElement | null>(null)
+
+  const emit = defineEmits([ "stringSelected"])
 
   function ToggleMenu(): void
   {
@@ -36,6 +39,11 @@ import {onMounted, onUnmounted, PropType, ref} from "vue";
     document.removeEventListener("click", handleClickOutside)
   })
 
+  function SizeSelected(currentSizeId: string): void
+    {
+      emit("stringSelected", currentSizeId)
+    }
+
 </script>
 
 <template>
@@ -56,9 +64,10 @@ import {onMounted, onUnmounted, PropType, ref} from "vue";
       <div>Image sizes:</div>
 
       <div
-          v-for="size in props.imageSizes"
+          v-for="size in props.menuItemsExtended"
           :key="size.id"
-          class="menu-item">
+          class="menu-item"
+          @click="SizeSelected(size.id)">
 
         {{ size.name }} {{ size.width }} {{ size.height }}
 

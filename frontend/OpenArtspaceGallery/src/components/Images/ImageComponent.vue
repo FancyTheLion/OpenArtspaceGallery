@@ -9,7 +9,7 @@ import {
 } from "../../ts/imagesSizes/libImagesSizes.ts";
   import {WebClientSendGetRequest} from "../../ts/libWebClient.ts";
 import {DecodeImageResponse, ImageFile, ImageModel} from "../../ts/Images/libImageFiles.ts";
-  import SelectSizeMenuComponent from "../Shared/Controls/SelectSizeMenuComponent.vue";
+  import Menu from "../Shared/Controls/Menu.vue";
 
   const props = defineProps({
     imageId: {
@@ -104,6 +104,11 @@ import {DecodeImageResponse, ImageFile, ImageModel} from "../../ts/Images/libIma
     isVisible.value = false
   }
 
+  function DoNothing()
+  {
+    alert("alert")
+  }
+
 </script>
 
 <template>
@@ -114,9 +119,9 @@ import {DecodeImageResponse, ImageFile, ImageModel} from "../../ts/Images/libIma
     <div
       class="menu-container">
 
-      <SelectSizeMenuComponent
-          :imageSizes="sizes"
-      />
+      <Menu
+          :menuItemsExtended="sizes"
+          @stringSelected="DoNothing"/>
 
     </div>
 
