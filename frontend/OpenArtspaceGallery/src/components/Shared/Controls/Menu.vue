@@ -39,7 +39,7 @@ import { MenuItemsExtended } from "../../../ts/Shared/Controls/libMenu.ts";
     document.removeEventListener("click", handleClickOutside)
   })
 
-  function SizeSelected(currentSizeId: string): void
+  function StringSelected(currentSizeId: string): void
     {
       emit("stringSelected", currentSizeId)
     }
@@ -52,24 +52,22 @@ import { MenuItemsExtended } from "../../../ts/Shared/Controls/libMenu.ts";
 
     <img
         class="icon-button"
-        src="/images/icons/imageMenuSize.webp"
-        alt="Select image size"
-        title="Select image size"
+        src="/images/icons/imageMenu.webp"
+        alt="Select string"
+        title="Select string"
         @click="ToggleMenu"/>
 
     <div
         class="menu"
         :class="{ active: isMenuOpen }">
 
-      <div>Image sizes:</div>
-
       <div
-          v-for="size in props.menuItemsExtended"
-          :key="size.id"
+          v-for="string in props.menuItemsExtended"
+          :key="string.id"
           class="menu-item"
-          @click="SizeSelected(size.id)">
+          @click="StringSelected(string.id)">
 
-        {{ size.name }} {{ size.width }} {{ size.height }}
+        {{ string.name }} {{ string.width }} {{ string.height }}
 
       </div>
 
