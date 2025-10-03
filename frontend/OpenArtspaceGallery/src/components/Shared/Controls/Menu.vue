@@ -39,9 +39,9 @@ import { MenuItemsExtended } from "../../../ts/Shared/Controls/libMenu.ts";
     document.removeEventListener("click", handleClickOutside)
   })
 
-  function StringSelected(currentSizeId: string): void
+  function StringSelected(currentId: string): void
     {
-      emit("stringSelected", currentSizeId)
+      emit("stringSelected", currentId)
     }
 
 </script>
