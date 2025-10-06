@@ -9,7 +9,8 @@ import {
 } from "../../ts/imagesSizes/libImagesSizes.ts";
   import {WebClientSendGetRequest} from "../../ts/libWebClient.ts";
 import {DecodeImageResponse, ImageFile, ImageModel} from "../../ts/Images/libImageFiles.ts";
-  import Menu from "../Shared/Controls/Menu.vue";
+  import MenuComponent from "../Shared/Controls/MenuComponent.vue";
+import {MenuItem} from "../../ts/Shared/Controls/libMenu.ts";
 
   const props = defineProps({
     imageId: {
@@ -21,6 +22,8 @@ import {DecodeImageResponse, ImageFile, ImageModel} from "../../ts/Images/libIma
   const apiBaseUrl = import.meta.env.VITE_BACKEND_URL
 
   const sizes = ref<ImageSize[]>([])
+
+  const sizesMenuItems = ref<MenuItem[]>([])
 
   const defaultImageSizeId = ref<string>()
 
@@ -43,6 +46,11 @@ import {DecodeImageResponse, ImageFile, ImageModel} from "../../ts/Images/libIma
   {
     sizes.value = await LoadSizes()
     image.value = await GetImageAsync(props.imageId)
+
+    // Preparing menu items
+    sizesMenuItems.value = sizes
+        .value
+        .map(s => ({ id: s.id, name: `${s.name} ${s.width} x ${s.height}` }));
 
     defaultImageSizeId.value = GetRequiredSizeId(sizes.value, ImagesSizeType.DefaultMedium)
     originalImageSizeId.value = GetRequiredSizeId(sizes.value, ImagesSizeType.Original)
@@ -132,8 +140,8 @@ import {DecodeImageResponse, ImageFile, ImageModel} from "../../ts/Images/libIma
     <div
       class="menu-container">
 
-      <Menu
-          :menuItemsExtended="sizes"
+      <MenuComponent
+          :items="sizesMenuItems"
           @stringSelected="OnSizeSelected"/>
 
     </div>

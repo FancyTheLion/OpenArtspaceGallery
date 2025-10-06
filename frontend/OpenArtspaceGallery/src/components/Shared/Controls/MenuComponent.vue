@@ -1,11 +1,11 @@
 <script setup lang="ts">
 
 import {onMounted, onUnmounted, PropType, ref} from "vue";
-import { MenuItemsExtended } from "../../../ts/Shared/Controls/libMenu.ts";
+import { MenuItem } from "../../../ts/Shared/Controls/libMenu.ts";
 
   const props = defineProps({
-    menuItemsExtended: {
-      type: Array as PropType<MenuItemsExtended[]>,
+    items: {
+      type: Array as PropType<MenuItem[]>,
       required: true
     }
   })
@@ -40,9 +40,9 @@ import { MenuItemsExtended } from "../../../ts/Shared/Controls/libMenu.ts";
   })
 
   function StringSelected(currentId: string): void
-    {
-      emit("stringSelected", currentId)
-    }
+  {
+    emit("stringSelected", currentId)
+  }
 
 </script>
 
@@ -62,12 +62,12 @@ import { MenuItemsExtended } from "../../../ts/Shared/Controls/libMenu.ts";
         :class="{ active: isMenuOpen }">
 
       <div
-          v-for="string in props.menuItemsExtended"
-          :key="string.id"
+          v-for="item in props.items"
+          :key="item.id"
           class="menu-item"
-          @click="StringSelected(string.id)">
+          @click="StringSelected(item.id)">
 
-        {{ string.name }} {{ string.width }} {{ string.height }}
+        {{ item.name }}
 
       </div>
 
