@@ -14,7 +14,7 @@ import { MenuItem } from "../../../ts/Shared/Controls/libMenu.ts";
 
   const elementToDetectOutsideClick = ref<HTMLElement | null>(null)
 
-  const emit = defineEmits([ "stringSelected"])
+  const emit = defineEmits([ "itemSelected"])
 
   function ToggleMenu(): void
   {
@@ -39,9 +39,9 @@ import { MenuItem } from "../../../ts/Shared/Controls/libMenu.ts";
     document.removeEventListener("click", handleClickOutside)
   })
 
-  function StringSelected(currentId: string): void
+  function ItemSelected(currentId: string): void
   {
-    emit("stringSelected", currentId)
+    emit("itemSelected", currentId)
   }
 
 </script>
@@ -53,8 +53,8 @@ import { MenuItem } from "../../../ts/Shared/Controls/libMenu.ts";
     <img
         class="icon-button"
         src="/images/icons/imageMenu.webp"
-        alt="Select string"
-        title="Select string"
+        alt="Select item"
+        title="Select item"
         @click="ToggleMenu"/>
 
     <div
@@ -65,7 +65,7 @@ import { MenuItem } from "../../../ts/Shared/Controls/libMenu.ts";
           v-for="item in props.items"
           :key="item.id"
           class="menu-item"
-          @click="StringSelected(item.id)">
+          @click="ItemSelected(item.id)">
 
         {{ item.name }}
 
