@@ -65,7 +65,8 @@ import { MenuItem } from "../../../ts/Shared/Controls/libMenu.ts";
         class="menu"
         :class="{ active: isMenuOpen }">
 
-      <div>
+      <div
+        class="block">
 
         {{props.title}}
 

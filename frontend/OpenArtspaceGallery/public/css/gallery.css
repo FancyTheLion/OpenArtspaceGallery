@@ -245,6 +245,9 @@
 /* Gaps */
 /* End gaps */
 /* Form size */
+/* End form size */
+/* Line size */
+/* End line size */
 /* Mixins */
 /* Centered flex (vertically and horizontally) */
 .mixin-flex-vertically-and-horizontally-centered {
@@ -402,6 +405,7 @@
 /* Buttons */
 /* Albums */
 /* Images */
+/* Line size */
 /* End colors */
 /* Sizes */
 /* Text size */
@@ -762,6 +766,10 @@
 .menu-item:hover {
   background: #E6E6FA;
   text-decoration: underline;
+}
+.block {
+  padding: 0.2rem;
+  border-bottom: 0.1rem solid #cccccc;
 }
 .selected-menu-button {
   border: 0.3rem solid hsl(219, 67%, 66%);
