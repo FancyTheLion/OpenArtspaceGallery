@@ -2,6 +2,7 @@
 @import "../theme";
 
 @menu-min-width: 11rem;
+@color-background-menu-hover: #E6E6FA;
 
 .menu-container {
   position: relative;
@@ -24,19 +25,20 @@
   z-index: 1000;
 }
 
-.menu-item {
-  padding: @padding-smaller @padding-smaller;
-  text-decoration: none;
-  color: black;
-  cursor: pointer;
-}
-
-.menu-item a:hover {
-  background: white;
-}
-
 .menu.active {
   display: flex;
   opacity: 1;
   transform: translateY(0);
+}
+
+.menu-item {
+  padding: @padding-smaller @padding-smaller;
+  color: black;
+  cursor: pointer;
+  transition: background-color 0.1s, color 0.1s, text-decoration-color 0.1s;
+}
+
+.menu-item:hover {
+  background: @color-background-menu-hover;
+  text-decoration: underline;
 }

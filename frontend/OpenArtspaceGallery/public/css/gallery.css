@@ -748,19 +748,20 @@
   padding: 0.2rem 0.2rem;
   z-index: 1000;
 }
-.menu-item {
-  padding: 0.2rem 0.2rem;
-  text-decoration: none;
-  color: black;
-  cursor: pointer;
-}
-.menu-item a:hover {
-  background: white;
-}
 .menu.active {
   display: flex;
   opacity: 1;
   transform: translateY(0);
+}
+.menu-item {
+  padding: 0.2rem 0.2rem;
+  color: black;
+  cursor: pointer;
+  transition: background-color 0.1s, color 0.1s, text-decoration-color 0.1s;
+}
+.menu-item:hover {
+  background: #E6E6FA;
+  text-decoration: underline;
 }
 .selected-menu-button {
   border: 0.3rem solid hsl(219, 67%, 66%);
