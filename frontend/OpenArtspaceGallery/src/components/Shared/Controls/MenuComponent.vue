@@ -4,6 +4,10 @@ import {onMounted, onUnmounted, PropType, ref} from "vue";
 import { MenuItem } from "../../../ts/Shared/Controls/libMenu.ts";
 
   const props = defineProps({
+    title: {
+      type: String,
+      required: true
+    },
     items: {
       type: Array as PropType<MenuItem[]>,
       required: true
@@ -60,6 +64,12 @@ import { MenuItem } from "../../../ts/Shared/Controls/libMenu.ts";
     <div
         class="menu"
         :class="{ active: isMenuOpen }">
+
+      <div>
+
+        {{props.title}}
+
+      </div>
 
       <div
           v-for="item in props.items"

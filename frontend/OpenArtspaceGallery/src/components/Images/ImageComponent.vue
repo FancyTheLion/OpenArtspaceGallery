@@ -37,6 +37,8 @@ import {MenuItem} from "../../ts/Shared/Controls/libMenu.ts";
 
   const isVisible = ref<boolean>(false)
 
+  const menuTitle = ref<string>("Image sizes:")
+
   onMounted(async () =>
   {
     await OnLoad()
@@ -141,8 +143,9 @@ import {MenuItem} from "../../ts/Shared/Controls/libMenu.ts";
       class="menu-container">
 
       <MenuComponent
+          :title="menuTitle"
           :items="sizesMenuItems"
-          @stringSelected="OnSizeSelected"/>
+          @itemSelected="OnSizeSelected"/>
 
     </div>
 
