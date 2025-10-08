@@ -1,0 +1,50 @@
+@import "../common";
+@import "../theme";
+
+@menu-min-width: 11rem;
+@color-background-menu-hover: #E6E6FA;
+
+.menu-container {
+  position: relative;
+  display: inline-block;
+}
+
+.menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  border: @border-width-small solid darkgray;
+  border-radius: @border-radius-small;
+  box-shadow: 0 @shadow-smaller @shadow-smaller darkgray;
+  min-width: @menu-min-width;
+
+  display: none;
+  flex-direction: column;
+  padding: @padding-smaller @padding-smaller;
+  z-index: 1000;
+}
+
+.menu.active {
+  display: flex;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.menu-item {
+  padding: @padding-smaller @padding-smaller;
+  color: black;
+  cursor: pointer;
+  transition: background-color 0.1s, color 0.1s, text-decoration-color 0.1s;
+  width: max-content;
+}
+
+.menu-item:hover {
+  background: @color-background-menu-hover;
+  text-decoration: underline;
+}
+
+.block {
+  padding: @padding-smaller;
+  border-bottom: @dividing-line-size-small solid @color-dividing-line;
+}

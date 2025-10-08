@@ -8,11 +8,16 @@
 @margin-xxhuge: ;
 @margin-max: ;*/
 /* End margins */
+/* Shadow */
+/* end shadow */
 /* Paddings */
 /* End paddings */
 /* Gaps */
 /* End gaps */
 /* Form size */
+/* End form size */
+/* Line size */
+/* End line size */
 /* Mixins */
 /* Centered flex (vertically and horizontally) */
 .mixin-flex-vertically-and-horizontally-centered {
@@ -170,6 +175,7 @@
 /* Buttons */
 /* Albums */
 /* Images */
+/* Line size */
 /* End colors */
 /* Sizes */
 /* Text size */
@@ -213,5 +219,26 @@
   font-weight: 500;
   text-align: center;
   color: hsl(0, 0%, 20%);
+}
+.popup-fullsize-image {
+  border-radius: 1rem;
+  max-width: 90vw;
+  max-height: 90vh;
+}
+.popup-main-fullsize-image-section {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow-y: auto;
+}
+.popup-close-fullsize-button {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 1rem;
+  position: absolute;
+  right: 0.5rem;
+  top: 0.5rem;
+  cursor: pointer;
 }
 /*# sourceMappingURL=thumbnail.css.map */

@@ -9,7 +9,7 @@
 
   onMounted(async () =>
   {
-    await OnLoad();
+    await OnLoad()
   })
 
   async function OnLoad()
@@ -45,10 +45,6 @@
 
       <div class="footer-version-container">
 
-        <div>
-          <a class="link-not-important" :href="sourcesLink" title="Application sources link">Sources link</a>
-        </div>
-
         <img src="/images/AGPLv3_Logo.webp" alt="AGPLv3 logo" />
 
         <div class="footer-version-info">
@@ -57,6 +53,10 @@
 
         <div class="footer-version-info">
           Frontend version: 0.0.3
+        </div>
+
+        <div>
+          <a class="link-not-important" :href="sourcesLink" title="Application sources link">Sources link</a>
         </div>
 
       </div>

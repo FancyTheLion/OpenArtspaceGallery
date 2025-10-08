@@ -8,11 +8,16 @@
 @margin-xxhuge: ;
 @margin-max: ;*/
 /* End margins */
+/* Shadow */
+/* end shadow */
 /* Paddings */
 /* End paddings */
 /* Gaps */
 /* End gaps */
 /* Form size */
+/* End form size */
+/* Line size */
+/* End line size */
 /* Mixins */
 /* Centered flex (vertically and horizontally) */
 .mixin-flex-vertically-and-horizontally-centered {
@@ -170,6 +175,7 @@
 /* Buttons */
 /* Albums */
 /* Images */
+/* Line size */
 /* End colors */
 /* Sizes */
 /* Text size */
@@ -275,12 +281,16 @@
 /* Container for album thumbnails */
 .album-thumbnails-container {
   display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-content: center;
   flex-wrap: wrap;
-  gap: 0.3rem;
+  justify-content: space-between;
+  width: 100%;
   height: 100%;
+  gap: 0.3rem;
+}
+/* Applies only to direct descendants, inside the container, no deeper */
+.album-thumbnails-container > * {
+  flex: 0 0 50%;
+  max-width: 50%;
 }
 /* Album thumbnail image */
 .album-thumbnail-image {

@@ -7,8 +7,7 @@ import {WebClientSendPostRequest} from "../../../ts/libWebClient.ts";
 
   const props = defineProps({
     currentAlbumId: {
-      type: String as PropType<string>,
-      required: true
+      type: String as PropType<string>
     }
   })
 
@@ -30,7 +29,7 @@ import {WebClientSendPostRequest} from "../../../ts/libWebClient.ts";
 
   onMounted(async () =>
   {
-    await OnLoad();
+    await OnLoad()
   })
 
   async function OnLoad()
@@ -41,12 +40,12 @@ import {WebClientSendPostRequest} from "../../../ts/libWebClient.ts";
   function OnCancel(): void
   {
     ClearInputField()
-    emit("cancelled");
+    emit("cancelled")
   }
 
   function ClearInputField(): void
   {
-    newAlbumFormData.name = "";
+    newAlbumFormData.name = ""
   }
 
   async function OnCreateAsync(): Promise<void>

@@ -10,26 +10,26 @@ import NewAlbumComponent from "../Albums/NewAlbumComponent.vue";
     }
   })
 
-  const albumsListComponent = ref<InstanceType<typeof AlbumsListComponent>>();
+  const albumsListComponent = ref<InstanceType<typeof AlbumsListComponent>>()
 
-  const isNewAlbumPopupVisible = ref(false);
-  const isAddImagePopupVisible = ref(false);
+  const isNewAlbumPopupVisible = ref(false)
+  const isAddImagePopupVisible = ref(false)
 
   function ShowNewAlbumPopup() {
-    isNewAlbumPopupVisible.value = true;
+    isNewAlbumPopupVisible.value = true
   }
 
   function ShowAddImagePopup() {
-    isAddImagePopupVisible.value = true;
+    isAddImagePopupVisible.value = true
   }
 
   function OnNewAlbumCreationCancelled() {
-    isNewAlbumPopupVisible.value = false;
+    isNewAlbumPopupVisible.value = false
   }
 
   async function OnNewAlbumCreatedAsync() {
-    isNewAlbumPopupVisible.value = false;
-    await albumsListComponent.value?.RefreshAsync();
+    isNewAlbumPopupVisible.value = false
+    await albumsListComponent.value?.RefreshAsync()
   }
 
 </script>

@@ -8,11 +8,16 @@
 @margin-xxhuge: ;
 @margin-max: ;*/
 /* End margins */
+/* Shadow */
+/* end shadow */
 /* Paddings */
 /* End paddings */
 /* Gaps */
 /* End gaps */
 /* Form size */
+/* End form size */
+/* Line size */
+/* End line size */
 /* Mixins */
 /* Centered flex (vertically and horizontally) */
 .mixin-flex-vertically-and-horizontally-centered {
@@ -170,6 +175,7 @@
 /* Buttons */
 /* Albums */
 /* Images */
+/* Line size */
 /* End colors */
 /* Sizes */
 /* Text size */

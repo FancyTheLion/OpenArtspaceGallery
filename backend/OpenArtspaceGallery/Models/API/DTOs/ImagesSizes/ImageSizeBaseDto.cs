@@ -30,14 +30,14 @@ public class ImageSizeBaseDto
     /// Is preview?
     /// </summary>
     [JsonPropertyName("type")]
-    public ImagesSizesTypes Type { get; set; }
+    public ImagesSizeType Type { get; set; }
 
     public ImageSizeBaseDto
     (
         string name,
         int width,
         int height,
-        ImagesSizesTypes type
+        ImagesSizeType type
     )
     {
         ImageSizeValidator.Validate(name, width, height, type);

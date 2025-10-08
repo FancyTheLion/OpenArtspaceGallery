@@ -14,8 +14,7 @@
 
   const props = defineProps({
     currentAlbumId: {
-      type: String as PropType<string>,
-      required: false
+      type: String as PropType<string>
     }
   })
 
@@ -27,7 +26,7 @@
 
   onMounted(async () =>
   {
-    await OnLoad();
+    await OnLoad()
   })
 
   async function OnLoad()

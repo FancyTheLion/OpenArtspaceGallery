@@ -14,7 +14,7 @@ public static class ImagesSizes
         "Thumbnail",
         200,
         150,
-        (int)ImagesSizesTypes.Preview
+        (int)ImagesSizeType.Preview
     );
     
     /// <summary>
@@ -26,7 +26,18 @@ public static class ImagesSizes
         "Original",
         0,
         0,
-        (int)ImagesSizesTypes.Original
+        (int)ImagesSizeType.Original
     );
     
+    /// <summary>
+    /// Medium size
+    /// </summary>
+    public static readonly ImageSizeType MediumDefault = new ImageSizeType
+    (
+        new Guid("62a5c2bb-1fb7-4514-ab3a-0bb6fc808d2c"),
+        "MediumDefault",
+        1280,
+        960,
+        (int)ImagesSizeType.MediumDefault
+    );
 }

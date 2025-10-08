@@ -1,12 +1,22 @@
 /* Private image size DTO */
 import {DecodeExistenceDto, ExistenceDto} from "../Shared/Libs/libSharedModels.ts";
 
+// Images size type
+export class ImagesSizeType
+{
+    static Normal = 0
+    static Preview = 1
+    static Original = 2
+    static DefaultMedium = 3
+}
+
 type ImageSizeDto =
 {
     id: string;
     name: string;
     width: number;
     height: number;
+    type: number;
 }
 
 /* Public image size type model */
@@ -16,6 +26,7 @@ export type ImageSize =
     name: string;
     width: number;
     height: number;
+    type: number;
 }
 
 /* DTO to model */
@@ -25,7 +36,8 @@ export function DecodeImageSizeDto(dto: ImageSizeDto) : ImageSize
         id: dto.id,
         name: dto.name,
         width: dto.width,
-        height: dto.height
+        height: dto.height,
+        type: dto.type
     };
 }
 

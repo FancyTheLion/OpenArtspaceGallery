@@ -17,7 +17,7 @@ import {WebClientSendGetRequest} from "../../ts/libWebClient.ts";
 
   onMounted(async () =>
   {
-    await OnLoad();
+    await OnLoad()
   })
 
   async function OnLoad()

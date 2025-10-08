@@ -7,23 +7,22 @@
 
   const props = defineProps({
     currentAlbumId: {
-      type: String as PropType<string>,
-      required: true
+      type: String as PropType<string>
     }
   })
 
-  const albumsListComponent = ref<InstanceType<typeof AlbumsListComponent>>();
-  const imagesListComponent = ref<InstanceType<typeof ImagesListComponent>>();
+  const albumsListComponent = ref<InstanceType<typeof AlbumsListComponent>>()
+  const imagesListComponent = ref<InstanceType<typeof ImagesListComponent>>()
 
-  const isNewAlbumPopupVisible = ref(false);
-  const isAddImagePopupVisible = ref(false);
+  const isNewAlbumPopupVisible = ref(false)
+  const isAddImagePopupVisible = ref(false)
 
   function ShowNewAlbumPopup() : void {
-    isNewAlbumPopupVisible.value = true;
+    isNewAlbumPopupVisible.value = true
   }
 
   function ShowAddImagePopup() : void {
-    isAddImagePopupVisible.value = true;
+    isAddImagePopupVisible.value = true
   }
 
   function OnNewAlbumCreationCancelled() : void
@@ -38,7 +37,7 @@
   }
 
   function HideNewAlbumPopup(): void {
-    isNewAlbumPopupVisible.value = false;
+    isNewAlbumPopupVisible.value = false
   }
 
   function OnNewImageCreationCancelled(): void {
@@ -51,7 +50,7 @@
   }
 
   function HideNewImagePopup(): void {
-    isAddImagePopupVisible.value = false;
+    isAddImagePopupVisible.value = false
   }
 
 </script>

@@ -30,7 +30,7 @@ public class ImageSize
     /// <summary>
     /// Image type
     /// </summary>
-    public ImagesSizesTypes Type { get; set; }
+    public ImagesSizeType Type { get; set; }
 
     public ImageSize
     (
@@ -38,7 +38,7 @@ public class ImageSize
         string name,
         int width,
         int height,
-        ImagesSizesTypes type
+        ImagesSizeType type
     )
     {
         ImageSizeValidator.Validate(name, width, height, type);

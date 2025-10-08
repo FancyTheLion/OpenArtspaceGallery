@@ -59,7 +59,7 @@ public class ImagesService : IImagesService
         }
 
         var imagesSizes = (await _imagesSizesService.GetListAsync())
-            .Where(i => i.Type != ImagesSizesTypes.Original)
+            .Where(i => i.Type != ImagesSizeType.Original)
             .ToList();
 
         var resizedImages = await _resizeService.GenerateImagesSetAsync(sourceFileId, imagesSizes);
