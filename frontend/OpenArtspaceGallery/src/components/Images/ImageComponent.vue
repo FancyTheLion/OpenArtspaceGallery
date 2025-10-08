@@ -114,22 +114,14 @@ import {MenuItem} from "../../ts/Shared/Controls/libMenu.ts";
     isVisible.value = false
   }
 
-  function OnSizeSelected(selectedSizeId: string): void
+  async function OnSizeSelected(selectedSizeId: string)
   {
     if (!image.value)
     {
-      throw new Error("Image not loaded yet")
+      throw new Error(`Image not loaded yet`)
     }
 
-    const newfileId = GetRequiredFileId(image.value.files, selectedSizeId)
-
-    currentImageFileId.value = newfileId
-
-    const downloadLink = document.createElement("a");
-
-    downloadLink.href = apiBaseUrl + "/Files/" + newfileId
-    downloadLink.download = "image.value.name"
-    downloadLink.click();
+    currentImageFileId.value = GetRequiredFileId(image.value.files, selectedSizeId)
   }
 
 </script>
