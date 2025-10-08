@@ -55,8 +55,9 @@ import {MenuItem} from "../../ts/Shared/Controls/libMenu.ts";
         .map(s => ({
           id: s.id,
           name:
-              s.width > 0 && s.height > 0 ? `${s.name} ${s.width} x ${s.height}`
-              :s.name}));
+              s.type === ImagesSizeType.Original ? s.name
+              :`${s.name} ${s.width} x ${s.height}`
+        }));
 
     defaultImageSizeId.value = GetRequiredSizeId(sizes.value, ImagesSizeType.DefaultMedium)
     originalImageSizeId.value = GetRequiredSizeId(sizes.value, ImagesSizeType.Original)

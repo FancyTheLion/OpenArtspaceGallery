@@ -68,7 +68,7 @@ import { MenuItem } from "../../../ts/Shared/Controls/libMenu.ts";
       <div
         class="block">
 
-        {{props.title}}
+        {{ props.title }}
 
       </div>
 
