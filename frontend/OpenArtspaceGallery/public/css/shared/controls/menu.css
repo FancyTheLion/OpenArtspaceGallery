@@ -203,7 +203,7 @@
   border-radius: 0.3rem;
   box-shadow: 0 0.2rem 0.2rem darkgray;
   min-width: 13.3rem;
-  display: flex;
+  display: none;
   flex-direction: column;
   padding: 0.2rem 0.2rem;
   z-index: 1000;
