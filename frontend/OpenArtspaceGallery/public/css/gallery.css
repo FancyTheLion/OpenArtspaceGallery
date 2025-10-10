@@ -746,8 +746,8 @@
   border: 0.2rem solid darkgray;
   border-radius: 0.3rem;
   box-shadow: 0 0.2rem 0.2rem darkgray;
-  min-width: 11rem;
-  display: none;
+  min-width: 13.3rem;
+  display: flex;
   flex-direction: column;
   padding: 0.2rem 0.2rem;
   z-index: 1000;
@@ -762,7 +762,6 @@
   color: black;
   cursor: pointer;
   transition: background-color 0.1s, color 0.1s, text-decoration-color 0.1s;
-  width: max-content;
 }
 .menu-item:hover {
   background: #E6E6FA;

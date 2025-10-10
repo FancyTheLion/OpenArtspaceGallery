@@ -1,7 +1,7 @@
 @import "../common";
 @import "../theme";
 
-@menu-min-width: 11rem;
+@menu-min-width: 13.3rem;
 @color-background-menu-hover: #E6E6FA;
 
 .menu-container {
@@ -19,7 +19,7 @@
   box-shadow: 0 @shadow-smaller @shadow-smaller darkgray;
   min-width: @menu-min-width;
 
-  display: none;
+  display: flex;
   flex-direction: column;
   padding: @padding-smaller @padding-smaller;
   z-index: 1000;
@@ -36,7 +36,6 @@
   color: black;
   cursor: pointer;
   transition: background-color 0.1s, color 0.1s, text-decoration-color 0.1s;
-  width: max-content;
 }
 
 .menu-item:hover {
