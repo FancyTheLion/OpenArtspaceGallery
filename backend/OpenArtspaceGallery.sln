@@ -4,6 +4,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenArtspaceGallery", "Open
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenArtspaceGallery.Tests", "OpenArtspaceGallery.Tests\OpenArtspaceGallery.Tests.csproj", "{57322718-142F-4E1F-9EA2-69B334414F42}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenArtspaceGallery.WebClient", "OpenArtspaceGallery.WebClient\OpenArtspaceGallery.WebClient.csproj", "{55EDEB8A-F28D-4AA5-9146-9A05B8E5FAEB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{40C3536E-CB47-492F-8BFE-D240249D2FE7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenArtspaceGallery.LibClient", "OpenArtspaceGallery.LibClient\OpenArtspaceGallery.LibClient.csproj", "{3E9CDF3F-D00E-4B19-AF42-870AF11BBF67}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenArtspaceGallery.ConsoleClient", "OpenArtspaceGallery.ConsoleClient\OpenArtspaceGallery.ConsoleClient.csproj", "{825E696E-02DE-4E78-AFE0-E44719FC8EBC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +26,22 @@ Global
 		{57322718-142F-4E1F-9EA2-69B334414F42}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57322718-142F-4E1F-9EA2-69B334414F42}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57322718-142F-4E1F-9EA2-69B334414F42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55EDEB8A-F28D-4AA5-9146-9A05B8E5FAEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55EDEB8A-F28D-4AA5-9146-9A05B8E5FAEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55EDEB8A-F28D-4AA5-9146-9A05B8E5FAEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55EDEB8A-F28D-4AA5-9146-9A05B8E5FAEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E9CDF3F-D00E-4B19-AF42-870AF11BBF67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E9CDF3F-D00E-4B19-AF42-870AF11BBF67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E9CDF3F-D00E-4B19-AF42-870AF11BBF67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E9CDF3F-D00E-4B19-AF42-870AF11BBF67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{825E696E-02DE-4E78-AFE0-E44719FC8EBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{825E696E-02DE-4E78-AFE0-E44719FC8EBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{825E696E-02DE-4E78-AFE0-E44719FC8EBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{825E696E-02DE-4E78-AFE0-E44719FC8EBC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{55EDEB8A-F28D-4AA5-9146-9A05B8E5FAEB} = {40C3536E-CB47-492F-8BFE-D240249D2FE7}
+		{3E9CDF3F-D00E-4B19-AF42-870AF11BBF67} = {40C3536E-CB47-492F-8BFE-D240249D2FE7}
+		{825E696E-02DE-4E78-AFE0-E44719FC8EBC} = {40C3536E-CB47-492F-8BFE-D240249D2FE7}
 	EndGlobalSection
 EndGlobal
