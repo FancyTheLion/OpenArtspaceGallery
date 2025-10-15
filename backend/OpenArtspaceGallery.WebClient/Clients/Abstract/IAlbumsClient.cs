@@ -1,0 +1,13 @@
+using OpenArtspaceGallery.Models.Albums;
+using OpenArtspaceGallery.Models.API.Requests.Albums;
+using OpenArtspaceGallery.Models.API.Responses.Albums;
+
+namespace OpenArtspaceGallery.WebClient.Clients.Abstract;
+
+public interface IAlbumsClient
+{
+    /// <summary>
+    /// Create new album
+    /// </summary>
+    Task<NewAlbumResponse> CreateAlbumAsync(NewAlbumRequest request);
+}

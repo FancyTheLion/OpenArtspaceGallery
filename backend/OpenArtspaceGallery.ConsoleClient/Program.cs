@@ -15,6 +15,7 @@ class Program
         #region Typed HTTP clients
 
         serviceCollection.AddHttpClient<SiteInfoClient>();
+        serviceCollection.AddHttpClient<AlbumsClient>();
 
         #endregion
         
@@ -23,6 +24,7 @@ class Program
         serviceCollection.AddSingleton<Application>();
         
         serviceCollection.AddSingleton<ISiteInfoClient, SiteInfoClient>();
+        serviceCollection.AddSingleton<IAlbumsClient, AlbumsClient>();
         
         #endregion
 
