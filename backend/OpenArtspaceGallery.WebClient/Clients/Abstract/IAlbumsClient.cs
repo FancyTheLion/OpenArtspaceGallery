@@ -4,6 +4,9 @@ using OpenArtspaceGallery.Models.API.Responses.Albums;
 
 namespace OpenArtspaceGallery.WebClient.Clients.Abstract;
 
+/// <summary>
+/// Interface to work with albums
+/// </summary>
 public interface IAlbumsClient
 {
     /// <summary>
