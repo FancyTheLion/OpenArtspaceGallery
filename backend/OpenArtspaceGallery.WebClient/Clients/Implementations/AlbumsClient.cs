@@ -23,6 +23,11 @@ public class AlbumsClient : IAlbumsClient
     {
         var response = await _httpClient.PostAsJsonAsync("/api/Albums/New", request);
         
+        if (request == null)
+        {
+            throw new InvalidOperationException("Album request mustn't be null.");
+        }
+        
         if (!response.IsSuccessStatusCode)
         {
             throw new InvalidOperationException();

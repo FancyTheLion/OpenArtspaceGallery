@@ -3,6 +3,7 @@ using OpenArtspaceGallery.DAO.Models.FilesTypes;
 
 namespace OpenArtspaceGallery.DAO.Abstract;
 
+
 public interface IFilesDao
 {
     #region Create
