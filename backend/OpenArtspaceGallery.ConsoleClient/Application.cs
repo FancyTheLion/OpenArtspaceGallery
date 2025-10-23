@@ -38,5 +38,9 @@ public class Application
         var album = response.NewAlbum;
         
         Console.WriteLine($"New album created: {album.Name}");
+        
+        
+        
+        
     }
 }
