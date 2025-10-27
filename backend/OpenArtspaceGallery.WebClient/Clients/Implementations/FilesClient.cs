@@ -38,11 +38,13 @@ public class FilesClient: IFilesClient
 
         if (!response.IsSuccessStatusCode)
         {
-            throw new InvalidOperationException();
+            var error = await response.Content.ReadAsStringAsync();
+            throw new InvalidOperationException($"Upload failed: {response.StatusCode}, {error}");
         }
         
-        var json = response.Content.ReadAsStringAsync();
+        var json = await response.Content.ReadAsStringAsync();
         
-        return JsonSerializer.Deserialize<UploadFileResponse>(await response.Content.ReadAsStringAsync());
+        return JsonSerializer.Deserialize<UploadFileResponse>(json); //await response.Content.ReadAsStringAsync()
     }
+    
 }
