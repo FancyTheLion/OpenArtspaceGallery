@@ -22,28 +22,31 @@ public class FilesClient: IFilesClient
     
     public async Task<UploadFileResponse> UploadAsync(string filename, string mimeType, byte[] content)
     {
-        var streamContent = new StreamContent(new MemoryStream(content));
-        streamContent.Headers.ContentType = new MediaTypeHeaderValue(mimeType);
+        HttpResponseMessage response;
         
-        using var requestContent = new MultipartFormDataContent
+        using (var streamContent = new StreamContent(new MemoryStream(content)))
         {
-            {
-                streamContent,
-                "file",
-                filename
-            }
-        };
-        
-        using var response = await _httpClient.PostAsync("/api/Files/Upload", requestContent);
+            streamContent.Headers.ContentType = new MediaTypeHeaderValue(mimeType);
 
+            using (var requestContent = new MultipartFormDataContent
+                   {
+                       {
+                           streamContent,
+                           "file",
+                           filename
+                       }
+                   })
+            {
+                response = await _httpClient.PostAsync("/api/Files/Upload", requestContent);    
+            }
+        }
+        
         if (!response.IsSuccessStatusCode)
         {
             throw new InvalidOperationException();
         }
         
-        var json = await response.Content.ReadAsStringAsync();
-        
-        return JsonSerializer.Deserialize<UploadFileResponse>(json);
+        return JsonSerializer.Deserialize<UploadFileResponse>(await response.Content.ReadAsStringAsync());
     }
     
 }

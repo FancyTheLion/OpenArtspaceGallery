@@ -1,3 +1,4 @@
+using OpenArtspaceGallery.LibClient.Helpers;
 using OpenArtspaceGallery.Models.API.DTOs.Albums;
 using OpenArtspaceGallery.Models.API.DTOs.Images;
 using OpenArtspaceGallery.Models.API.Requests.Albums;
@@ -58,7 +59,7 @@ public class Application
 
         var fileName = Path.GetFileName(filePath);
         var content = await File.ReadAllBytesAsync(filePath);
-        var mimeType = GetMimeTypeByExtension(filePath);
+        var mimeType = MimeHelper.GetMimeTypeByExtension(filePath);
 
         var uploaded = await _filesClient.UploadAsync(fileName, mimeType, content);
         
@@ -81,23 +82,5 @@ public class Application
         var imageResponse = await _imageClient.AddImageAsync(imageRequest);
         
         Console.WriteLine($"Image added. Name: { imageResponse.Image.Name }");
-    }
-    
-    private string GetMimeTypeByExtension(string filePath)
-    {
-        var ext = Path.GetExtension(filePath).ToLowerInvariant();
-
-        return ext switch
-        {
-            ".gif" => "image/gif",
-            ".jpeg" => "image/jpeg",
-            ".png" => "image/png",
-            ".bmp" => "image/bmp",
-            ".webp" => "image/webp",
-            ".x-icon" => "image/x-icon",
-            ".svg+xml" => "image/svg+xml",
-            ".heic" => "image/heic",
-            _ => "application/octet-stream"
-        };
     }
 }
