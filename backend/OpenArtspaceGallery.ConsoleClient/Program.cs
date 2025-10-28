@@ -26,6 +26,7 @@ class Program
         serviceCollection.AddSingleton<ISiteInfoClient, SiteInfoClient>();
         serviceCollection.AddSingleton<IAlbumsClient, AlbumsClient>();
         serviceCollection.AddSingleton<IFilesClient, FilesClient>();
+        serviceCollection.AddSingleton<IImageClient, ImageClient>();
         
         #endregion
 
