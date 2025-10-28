@@ -42,7 +42,7 @@ public class Application
         
         Console.WriteLine($"New album created: {album.Name}");
 
-        var filePath = "/home/fancy/Desktop/Programmiruem_Na_C_8_0_2021_Griffits.pdf.jpg";
+        var filePath = "/home/fancy/Projects/OpenArtspaceGalleryStorage/0/0/relaxing_sfw.png";
 
         if (!File.Exists(filePath))
         {
@@ -66,9 +66,13 @@ public class Application
         return ext switch
         {
             ".gif" => "image/gif",
-            ".jpg" => "image/jpg",
             ".jpeg" => "image/jpeg",
             ".png" => "image/png",
+            ".bmp" => "image/bmp",
+            ".webp" => "image/webp",
+            ".x-icon" => "image/x-icon",
+            ".svg+xml" => "image/svg+xml",
+            ".heic" => "image/heic",
             _ => "application/octet-stream"
         };
     }
