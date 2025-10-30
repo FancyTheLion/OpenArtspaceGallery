@@ -4,19 +4,10 @@ using OpenArtspaceGallery.WebClient.Clients.Abstract;
 
 namespace OpenArtspaceGallery.WebClient.Clients.Implementations;
 
-public class SiteInfoClient : ISiteInfoClient
+public class SiteInfoClient : ClientBase, ISiteInfoClient
 {
-    private readonly HttpClient _httpClient;
-
-    public SiteInfoClient
-    (
-        HttpClient httpClient
-    )
+    public SiteInfoClient(HttpClient httpClient) : base(httpClient)
     {
-        _httpClient = httpClient;
-        
-        // TODO: Use parameters from outside
-        _httpClient.BaseAddress = new Uri("http://localhost:5271");
     }
     
     public async Task<BackendVersionResponse> GetBackendVersionAsync()

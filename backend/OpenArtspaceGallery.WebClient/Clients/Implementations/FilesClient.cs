@@ -6,20 +6,12 @@ using OpenArtspaceGallery.WebClient.Clients.Abstract;
 
 namespace OpenArtspaceGallery.WebClient.Clients.Implementations;
 
-public class FilesClient: IFilesClient
+public class FilesClient: ClientBase, IFilesClient
 {
-    
-    private readonly HttpClient _httpClient;
-    
-    public FilesClient
-    (
-        HttpClient httpClient
-    )
+    public FilesClient(HttpClient httpClient) : base(httpClient)
     {
-        _httpClient = httpClient;
-        _httpClient.BaseAddress = new Uri("http://localhost:5271");
     }
-    
+
     public async Task<UploadFileResponse> UploadAsync(string filename, string mimeType, byte[] content)
     {
         HttpResponseMessage response;

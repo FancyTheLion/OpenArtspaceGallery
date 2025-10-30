@@ -7,17 +7,10 @@ using OpenArtspaceGallery.WebClient.Clients.Abstract;
 
 namespace OpenArtspaceGallery.WebClient.Clients.Implementations;
 
-public class ImageClient : IImageClient
+public class ImageClient : ClientBase, IImageClient
 {
-    private readonly HttpClient _httpClient;
-    
-    public ImageClient
-    (
-        HttpClient httpClient
-    )
+    public ImageClient(HttpClient httpClient) : base(httpClient)
     {
-        _httpClient = httpClient;
-        _httpClient.BaseAddress = new Uri("http://localhost:5271");
     }
     
     public async Task<AddImageResponse> AddImageAsync(AddImageRequest request)

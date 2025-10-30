@@ -6,17 +6,10 @@ using OpenArtspaceGallery.WebClient.Clients.Abstract;
 
 namespace OpenArtspaceGallery.WebClient.Clients.Implementations;
 
-public class AlbumsClient : IAlbumsClient
+public class AlbumsClient : ClientBase, IAlbumsClient
 {
-    private readonly HttpClient _httpClient;
-    
-    public AlbumsClient
-    (
-        HttpClient httpClient
-    )
+    public AlbumsClient(HttpClient httpClient) : base(httpClient)
     {
-        _httpClient = httpClient;
-        _httpClient.BaseAddress = new Uri("http://localhost:5271");
     }
     
     public async Task<NewAlbumResponse> CreateAlbumAsync(NewAlbumRequest request)
