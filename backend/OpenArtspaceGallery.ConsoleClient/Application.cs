@@ -1,3 +1,4 @@
+using System.CommandLine;
 using OpenArtspaceGallery.LibClient.Helpers;
 using OpenArtspaceGallery.Models.API.DTOs.Albums;
 using OpenArtspaceGallery.Models.API.DTOs.Images;
@@ -28,8 +29,42 @@ public class Application
         _imageClient = imageClient;
     }
     
-    public async Task RunAsync()
+    public async Task<int> RunAsync(string[] args)
     {
+        #region Command line options
+        
+        #region Server address
+        
+        Option<string> serverAddressCommandlineOption = new("--server")
+        {
+            Required = true,
+            Description = "Gallery server to connect to."
+        };
+        
+        #endregion
+        
+        var commandLineRootCommand = new RootCommand("Open Artspace Gallery Console Client");
+        commandLineRootCommand.Options.Add(serverAddressCommandlineOption);
+        
+        #endregion
+        
+        #region Commandline parsing
+        
+        var commandLineParseResult = commandLineRootCommand.Parse(args);
+
+        if (commandLineParseResult.Errors.Any())
+        {
+            Console.WriteLine("Wrong command line arguments!");
+
+            Console.WriteLine(String.Join(Environment.NewLine, commandLineParseResult.Errors.Select(e => e.Message)));
+
+            return 1;
+        }
+
+        var serverAddress = commandLineParseResult.GetRequiredValue(serverAddressCommandlineOption);
+        
+        #endregion
+        
         Console.WriteLine($"Backend version: { (await _siteInfoClient.GetBackendVersionAsync()).BackendVersion.Version }");
         
         // Create an album with random name
@@ -54,7 +89,7 @@ public class Application
         if (!File.Exists(filePath))
         {
             Console.WriteLine("File not found");
-            return;
+            return 2;
         }
 
         var fileName = Path.GetFileName(filePath);
@@ -82,5 +117,7 @@ public class Application
         var imageResponse = await _imageClient.AddImageAsync(imageRequest);
         
         Console.WriteLine($"Image added. Name: { imageResponse.Image.Name }");
+
+        return 0;
     }
 }

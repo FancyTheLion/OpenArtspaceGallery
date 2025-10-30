@@ -23,23 +23,18 @@ public class FilesClient: IFilesClient
     public async Task<UploadFileResponse> UploadAsync(string filename, string mimeType, byte[] content)
     {
         HttpResponseMessage response;
-        
-        using (var streamContent = new StreamContent(new MemoryStream(content)))
-        {
-            streamContent.Headers.ContentType = new MediaTypeHeaderValue(mimeType);
 
-            using (var requestContent = new MultipartFormDataContent
-                   {
-                       {
-                           streamContent,
-                           "file",
-                           filename
-                       }
-                   })
+        using var streamContent = new StreamContent(new MemoryStream(content));
+        streamContent.Headers.ContentType = new MediaTypeHeaderValue(mimeType);
+
+        using var requestContent = new MultipartFormDataContent()
+        {
             {
-                response = await _httpClient.PostAsync("/api/Files/Upload", requestContent);    
+                streamContent, "file", filename
             }
-        }
+        };
+        
+        response = await _httpClient.PostAsync("/api/Files/Upload", requestContent);
         
         if (!response.IsSuccessStatusCode)
         {

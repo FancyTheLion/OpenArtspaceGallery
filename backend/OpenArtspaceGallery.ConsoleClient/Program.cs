@@ -6,7 +6,7 @@ namespace OpenArtspaceGallery.ConsoleClient;
 
 class Program
 {
-    static async Task Main(string[] args)
+    static async Task<int> Main(string[] args)
     {
         #region DI
         
@@ -35,6 +35,6 @@ class Program
         #endregion
         
         var app = serviceProvider.GetService<Application>();
-        await app.RunAsync();
+        return await app.RunAsync(args);
     }
 }
