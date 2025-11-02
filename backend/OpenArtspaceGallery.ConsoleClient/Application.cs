@@ -5,29 +5,16 @@ using OpenArtspaceGallery.Models.API.DTOs.Images;
 using OpenArtspaceGallery.Models.API.Requests.Albums;
 using OpenArtspaceGallery.Models.API.Requests.Images;
 using OpenArtspaceGallery.WebClient.Clients.Abstract;
+using OpenArtspaceGallery.WebClient.Clients.Implementations;
 
 namespace OpenArtspaceGallery.ConsoleClient;
 
 public class Application
 {
-    private readonly ISiteInfoClient _siteInfoClient;
-    private readonly IAlbumsClient _albumsClient;
-    private readonly IFilesClient _filesClient;
-    private readonly IImageClient _imageClient;
-
-    public Application
-    (
-        ISiteInfoClient siteInfoClient,
-        IAlbumsClient albumsClient,
-        IFilesClient filesClient,
-        IImageClient imageClient
-    )
-    {
-        _siteInfoClient = siteInfoClient;
-        _albumsClient = albumsClient;
-        _filesClient = filesClient;
-        _imageClient = imageClient;
-    }
+    private ISiteInfoClient _siteInfoClient;
+    private IAlbumsClient _albumsClient;
+    private IFilesClient _filesClient;
+    private IImageClient _imageClient; // TODO: IImagesClient and so on
     
     public async Task<int> RunAsync(string[] args)
     {
@@ -65,6 +52,17 @@ public class Application
         
         #endregion
         
+        #region Creating clients
+
+        var baseAddressUri = new Uri(serverAddress);
+        
+        _siteInfoClient = new SiteInfoClient(new HttpClient(), baseAddressUri);
+        _albumsClient = new AlbumsClient(new HttpClient(), baseAddressUri);
+        _filesClient = new FilesClient(new HttpClient(), baseAddressUri);
+        _imageClient = new ImageClient(new HttpClient(), baseAddressUri);
+        
+        #endregion
+        
         Console.WriteLine($"Backend version: { (await _siteInfoClient.GetBackendVersionAsync()).BackendVersion.Version }");
         
         // Create an album with random name
@@ -72,7 +70,7 @@ public class Application
         {
             AlbumToAdd = new NewAlbumDto()
             {
-                Name = $"Album { Guid.NewGuid() }",
+                Name = $"Album { Guid.NewGuid() }", // TODO: Remove hardcoded album name, use name from command line
                 ParentId = null
             }
         };
@@ -84,7 +82,7 @@ public class Application
         Console.WriteLine($"New album created: { album.Name }");
 
         // File upload
-        var filePath = "/home/fancy/Projects/OpenArtspaceGalleryStorage/0/0/relaxing_sfw.png";
+        var filePath = "/home/fancy/Projects/OpenArtspaceGalleryStorage/0/0/relaxing_sfw.png"; // TODO: Remove hardcoded path to file, use path from command line
 
         if (!File.Exists(filePath))
         {

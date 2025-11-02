@@ -12,21 +12,9 @@ class Program
         
         var serviceCollection = new ServiceCollection();
         
-        #region Typed HTTP clients
-
-        serviceCollection.AddHttpClient<SiteInfoClient>();
-        serviceCollection.AddHttpClient<AlbumsClient>();
-
-        #endregion
-        
         #region Singletons
 
         serviceCollection.AddSingleton<Application>();
-        
-        serviceCollection.AddSingleton<ISiteInfoClient, SiteInfoClient>();
-        serviceCollection.AddSingleton<IAlbumsClient, AlbumsClient>();
-        serviceCollection.AddSingleton<IFilesClient, FilesClient>();
-        serviceCollection.AddSingleton<IImageClient, ImageClient>();
         
         #endregion
 

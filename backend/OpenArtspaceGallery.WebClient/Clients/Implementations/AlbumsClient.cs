@@ -8,7 +8,11 @@ namespace OpenArtspaceGallery.WebClient.Clients.Implementations;
 
 public class AlbumsClient : ClientBase, IAlbumsClient
 {
-    public AlbumsClient(HttpClient httpClient) : base(httpClient)
+    public AlbumsClient
+    (
+        HttpClient httpClient,
+        Uri baseAddress
+    ) : base(httpClient, baseAddress)
     {
     }
     

@@ -6,7 +6,11 @@ namespace OpenArtspaceGallery.WebClient.Clients.Implementations;
 
 public class SiteInfoClient : ClientBase, ISiteInfoClient
 {
-    public SiteInfoClient(HttpClient httpClient) : base(httpClient)
+    public SiteInfoClient
+    (
+        HttpClient httpClient,
+        Uri baseAddress
+    ) : base(httpClient, baseAddress)
     {
     }
     
