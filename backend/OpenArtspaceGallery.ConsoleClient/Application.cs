@@ -14,7 +14,7 @@ public class Application
     private ISiteInfoClient _siteInfoClient;
     private IAlbumsClient _albumsClient;
     private IFilesClient _filesClient;
-    private IImageClient _imageClient; // TODO: IImagesClient and so on
+    private IImagesClient _imagesClient;
     
     public async Task<int> RunAsync(string[] args)
     {
@@ -59,7 +59,7 @@ public class Application
         _siteInfoClient = new SiteInfoClient(new HttpClient(), baseAddressUri);
         _albumsClient = new AlbumsClient(new HttpClient(), baseAddressUri);
         _filesClient = new FilesClient(new HttpClient(), baseAddressUri);
-        _imageClient = new ImageClient(new HttpClient(), baseAddressUri);
+        _imagesClient = new ImagesClient(new HttpClient(), baseAddressUri);
         
         #endregion
         
@@ -112,7 +112,7 @@ public class Application
             }
         };
         
-        var imageResponse = await _imageClient.AddImageAsync(imageRequest);
+        var imageResponse = await _imagesClient.AddImageAsync(imageRequest);
         
         Console.WriteLine($"Image added. Name: { imageResponse.Image.Name }");
 

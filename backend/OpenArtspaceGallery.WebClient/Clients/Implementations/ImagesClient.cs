@@ -7,9 +7,9 @@ using OpenArtspaceGallery.WebClient.Clients.Abstract;
 
 namespace OpenArtspaceGallery.WebClient.Clients.Implementations;
 
-public class ImageClient : ClientBase, IImageClient
+public class ImagesClient : ClientBase, IImagesClient
 {
-    public ImageClient
+    public ImagesClient
     (
         HttpClient httpClient,
         Uri baseAddress
